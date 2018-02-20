@@ -16,15 +16,29 @@ namespace VanArsdel.Inventory.Data
             _datasource = new LocalDb();
         }
 
-        static private IList<CountryCode> _countryCodes = null;
-
         public async Task<IList<CountryCode>> GetCountryCodesAsync()
         {
-            if (_countryCodes == null)
-            {
-                _countryCodes = await _datasource.CountryCodes.ToListAsync();
-            }
-            return _countryCodes;
+            return await _datasource.CountryCodes.ToListAsync();
+        }
+
+        public async Task<IList<OrderStatus>> GetOrderStatusAsync()
+        {
+            return await _datasource.OrderStatus.ToListAsync();
+        }
+
+        public async Task<IList<PaymentType>> GetPaymentTypesAsync()
+        {
+            return await _datasource.PaymentTypes.ToListAsync();
+        }
+
+        public async Task<IList<Shipper>> GetShippersAsync()
+        {
+            return await _datasource.Shippers.ToListAsync();
+        }
+
+        public async Task<IList<TaxType>> GetTaxTypesAsync()
+        {
+            return await _datasource.TaxTypes.ToListAsync();
         }
 
         public async Task<PageResult<Product>> GetProductsAsync(int pageIndex, int pageSize, string query)

@@ -7,6 +7,10 @@ namespace VanArsdel.Inventory.Data
     public interface IDataProvider : IDisposable
     {
         Task<IList<CountryCode>> GetCountryCodesAsync();
+        Task<IList<OrderStatus>> GetOrderStatusAsync();
+        Task<IList<PaymentType>> GetPaymentTypesAsync();
+        Task<IList<Shipper>> GetShippersAsync();
+        Task<IList<TaxType>> GetTaxTypesAsync();
 
         Task<PageResult<Customer>> GetCustomersAsync(int pageIndex, int pageSize, string query = null);
         Task DeleteCustomer(long id);

@@ -12,7 +12,7 @@ namespace VanArsdel.Inventory.Data
         public async Task<IList<OrderItem>> GetOrderItemsAsync(long orderID)
         {
             var items = _datasource.OrderItems.Where(r => r.OrderID == orderID).OrderBy(r => r.OrderLine);
-            return await items.ToListAsync();
+            return await items.Include(r => r.Product).ToListAsync();
         }
 
         public async Task DeleteOrderItem(long orderID, int orderLine)
