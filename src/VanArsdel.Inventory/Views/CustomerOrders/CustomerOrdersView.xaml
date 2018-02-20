@@ -38,19 +38,18 @@
             </SplitView.Pane>
 
             <!--Content-->
-            <Grid Margin="3,6,6,6">
+            <Grid>
                 <controls:Section Visibility="{x:Bind ViewModel.IsCustomerDataUnavailable}">
                     <TextBlock Text="No customer selected." HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </controls:Section>
                 <Grid Visibility="{x:Bind ViewModel.IsCustomerDataAvailable}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="8*"/>
-                        <RowDefinition Height="6"/>
                         <RowDefinition Height="6*"/>
                     </Grid.RowDefinitions>
 
                     <!--Orders-->
-                    <controls:Section Grid.Row="0" Header="{x:Bind ViewModel.SelectedCustomer.FullName}" HeaderButtonGlyph="&#xE2B4;">
+                    <controls:Section Grid.Row="0" Margin="3,6,6,3" Header="{x:Bind ViewModel.SelectedCustomer.FullName}" HeaderButtonGlyph="&#xE2B4;">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -73,7 +72,7 @@
                     </controls:Section>
 
                     <!--Details-->
-                    <controls:Section Grid.Row="2" Margin="6,3,6,6" Header="{x:Bind ViewModel.SelectedOrder.OrderID}" HeaderTemplate="{StaticResource DetailsHeaderTemplate}" HeaderButtonGlyph="&#xE2B4;" Visibility="{x:Bind ViewModel.IsOrderDataAvailable}">
+                    <controls:Section Grid.Row="1" Margin="3,3,6,6" Header="{x:Bind ViewModel.SelectedOrder.OrderID}" HeaderTemplate="{StaticResource DetailsHeaderTemplate}" HeaderButtonGlyph="&#xE2B4;" Visibility="{x:Bind ViewModel.IsOrderDataAvailable}">
                         <Pivot>
                             <PivotItem Header="Order Details">
                                 <Grid>
