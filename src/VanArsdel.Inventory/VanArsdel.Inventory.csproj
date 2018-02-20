@@ -127,6 +127,7 @@
     <Compile Include="DataProviders\IDataProviderFactory.cs" />
     <Compile Include="DataProviders\LocalProvider\LocalDataProvider.cs" />
     <Compile Include="DataProviders\LocalProvider\LocalDataProvider.Customers.cs" />
+    <Compile Include="DataProviders\LocalProvider\LocalDataProvider.OrderItems.cs" />
     <Compile Include="DataProviders\LocalProvider\LocalDataProvider.Orders.cs" />
     <Compile Include="Data\Category.cs" />
     <Compile Include="Data\CountryCode.cs" />
@@ -213,6 +214,9 @@
     <Compile Include="Views\Dashboard\Parts\ProductsPane.xaml.cs">
       <DependentUpon>ProductsPane.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Orders\Parts\OrderItemList.xaml.cs">
+      <DependentUpon>OrderItemList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Orders\OrdersView.xaml.cs">
       <DependentUpon>OrdersView.xaml</DependentUpon>
     </Compile>
@@ -235,6 +239,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -242,7 +247,6 @@
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -356,6 +360,10 @@
     <Page Include="Views\Dashboard\Parts\ProductsPane.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Orders\Parts\OrderItemList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Orders\OrdersView.xaml">
       <Generator>MSBuild:Compile</Generator>

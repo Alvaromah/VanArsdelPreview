@@ -23,26 +23,48 @@ namespace VanArsdel.Inventory.ViewModels
 
         public string QuotedQuery => String.IsNullOrEmpty(Query) ? " " : $"results for \"{Query}\"";
 
-        private IList<OrderModel> _orders;
+        private IList<OrderModel> _orders = null;
         public IList<OrderModel> Orders
         {
             get => _orders;
             set => Set(ref _orders, value);
         }
 
-        private OrderModel _selectedOrder;
+        private IList<OrderItemModel> _orderItems = null;
+        public IList<OrderItemModel> OrderItems
+        {
+            get => _orderItems;
+            set => Set(ref _orderItems, value);
+        }
+
+        private OrderModel _selectedOrder = null;
         public OrderModel SelectedOrder
         {
             get => _selectedOrder;
-            set => Set(ref _selectedOrder, value);
+            set
+            {
+                if (Set(ref _selectedOrder, value))
+                {
+                    RefreshOrderItems();
+                }
+            }
         }
 
-        private int _ordersCount;
+        private OrderItemModel _selectedOrderItem = null;
+        public OrderItemModel SelectedOrderItem
+        {
+            get => _selectedOrderItem;
+            set => Set(ref _selectedOrderItem, value);
+        }
+
+        private int _ordersCount = 0;
         public int OrdersCount
         {
             get => _ordersCount;
             set => Set(ref _ordersCount, value);
         }
+
+        public int OrderItemsCount => OrderItems?.Count ?? 0;
 
         private int _pageIndex = 0;
         public int PageIndex
@@ -97,6 +119,25 @@ namespace VanArsdel.Inventory.ViewModels
             _ordersCount = page.Count;
             _pageIndex = page.PageIndex;
             RaiseUpdateBindings();
+        }
+
+        private async void RefreshOrderItems()
+        {
+            OrderItems = null;
+            SelectedOrderItem = null;
+            RaiseUpdateBindings();
+
+            if (SelectedOrder != null)
+            {
+                using (var dataProvider = ProviderFactory.CreateDataProvider())
+                {
+                    var items = await dataProvider.GetOrderItemsAsync(SelectedOrder.OrderID);
+                    var models = items.Select(r => new OrderItemModel(r)).ToList();
+                    OrderItems = models;
+                    SelectedOrderItem = OrderItems.FirstOrDefault();
+                    RaiseUpdateBindings();
+                }
+            }
         }
 
         public async Task DeleteCurrentAsync()

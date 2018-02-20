@@ -8,37 +8,37 @@ using VanArsdel.Inventory.Models;
 
 namespace VanArsdel.Inventory.Views
 {
-    public sealed partial class OrderList : UserControl
+    public sealed partial class OrderItemList : UserControl
     {
-        public OrderList()
+        public OrderItemList()
         {
             InitializeComponent();
         }
 
         #region ItemsSource
-        public IList<OrderModel> ItemsSource
+        public IList<OrderItemModel> ItemsSource
         {
-            get { return (IList<OrderModel>)GetValue(ItemsSourceProperty); }
+            get { return (IList<OrderItemModel>)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
         }
 
         private static void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var control = d as OrderList;
+            var control = d as OrderItemList;
             control.Bindings.Update();
         }
 
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IList<OrderModel>), typeof(OrderList), new PropertyMetadata(null, ItemsSourceChanged));
+        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IList<OrderItemModel>), typeof(OrderItemList), new PropertyMetadata(null, ItemsSourceChanged));
         #endregion
 
         #region SelectedItem
-        public OrderModel SelectedItem
+        public OrderItemModel SelectedItem
         {
-            get { return (OrderModel)GetValue(SelectedItemProperty); }
+            get { return (OrderItemModel)GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
         }
 
-        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(OrderModel), typeof(OrderList), new PropertyMetadata(null));
+        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(OrderItemModel), typeof(OrderItemList), new PropertyMetadata(null));
         #endregion
 
         public bool IsDataAvailable => (ItemsSource?.Count ?? 0) > 0;

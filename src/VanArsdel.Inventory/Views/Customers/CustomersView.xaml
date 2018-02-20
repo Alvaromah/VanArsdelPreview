@@ -11,7 +11,7 @@
     <Page.Resources>
         <DataTemplate x:Key="ListHeaderTemplate">
             <StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock Text="Customers " FontSize="18" />
+                <TextBlock Text="Customers" FontSize="18" />
                 <Rectangle Margin="3,0 "/>
                 <TextBlock Text="{Binding}" FontSize="18" Foreground="Gray" />
             </StackPanel>

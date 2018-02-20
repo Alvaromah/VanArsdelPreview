@@ -15,5 +15,10 @@ namespace VanArsdel.Inventory
         {
             return (date?.ToShortDateString()) ?? "";
         }
+
+        public string TotalItems(int count)
+        {
+            return $"Total {count} items";
+        }
     }
 }

@@ -16,5 +16,8 @@ namespace VanArsdel.Inventory.Data
 
         Task<PageResult<Order>> GetOrdersAsync(int pageIndex, int pageSize, string query = null, long customerID = -1);
         Task DeleteOrder(long id);
+
+        Task<IList<OrderItem>> GetOrderItemsAsync(long orderID);
+        Task DeleteOrderItem(long orderID, int orderLine);
     }
 }
