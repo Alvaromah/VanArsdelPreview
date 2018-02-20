@@ -1,0 +1,37 @@
+﻿<UserControl
+    x:Class="VanArsdel.Inventory.Views.OrderDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:VanArsdel.Inventory.Controls"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Margin="12" VerticalAlignment="Top">
+            <PersonPicture Margin="0,12" ProfilePicture="{x:Bind Model.Customer.PictureBitmap, Mode=OneWay}" />
+        </Border>
+
+        <StackPanel Grid.Column="1">
+            <controls:LabelTextBlock Margin="3" Label="Order ID" Text="{x:Bind Model.OrderID, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Customer ID" Text="{x:Bind Model.CustomerID, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Full Name" Text="{x:Bind Model.Customer.FullName, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="EMail Address" Text="{x:Bind Model.Customer.EmailAddress, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Phone" Text="{x:Bind Model.Customer.Phone, Mode=OneWay}" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="2">
+            <controls:LabelTextBlock Margin="3" Label="Ship Address" Text="{x:Bind Model.ShipAddress, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Ship Postal Code" Text="{x:Bind Model.ShipPostalCode, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Ship City" Text="{x:Bind Model.ShipCity, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Ship Region" Text="{x:Bind Model.ShipRegion, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Ship Country" Text="{x:Bind Model.DataHelper.GetCountry(Model.ShipCountryCode), Mode=OneWay}" />
+        </StackPanel>
+    </Grid>
+</UserControl>
