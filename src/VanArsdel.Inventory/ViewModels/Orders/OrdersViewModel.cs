@@ -102,7 +102,7 @@ namespace VanArsdel.Inventory.ViewModels
             SelectedOrder = null;
             RaiseUpdateBindings();
 
-            var page = await dataProvider.GetOrdersAsync(PageIndex, 25, Query);
+            var page = await dataProvider.GetOrdersAsync(PageIndex, 10, Query);
             var models = page.Items.Select(r => new OrderModel(r)).ToList();
             foreach (var model in models)
             {

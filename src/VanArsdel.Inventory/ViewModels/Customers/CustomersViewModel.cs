@@ -80,7 +80,7 @@ namespace VanArsdel.Inventory.ViewModels
             SelectedCustomer = null;
             RaiseUpdateBindings();
 
-            var page = await dataProvider.GetCustomersAsync(PageIndex, 25, Query);
+            var page = await dataProvider.GetCustomersAsync(PageIndex, 10, Query);
             var models = page.Items.Select(r => new CustomerModel(r)).ToList();
             foreach (var model in models)
             {

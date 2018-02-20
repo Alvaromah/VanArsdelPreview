@@ -8,6 +8,15 @@
     xmlns:views="using:VanArsdel.Inventory.Views"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <DataTemplate x:Key="DetailsHeaderTemplate">
+            <StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Order #" FontSize="18" />
+                <TextBlock Text="{Binding}" FontSize="18" />
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
     <Grid Background="WhiteSmoke">
         <SplitView IsPaneOpen="True" DisplayMode="CompactInline" PaneBackground="WhiteSmoke">
 
@@ -23,7 +32,7 @@
                         <views:CustomerListCompact Grid.Row="1" Margin="0,6,0,0" ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedCustomer, Mode=TwoWay}" />
                     </Grid>
                     <controls:Section.Footer>
-                        <controls:PaginationFooter Grid.Row="3" ItemsCount="{x:Bind ViewModel.CustomersCount, Mode=OneWay}" PageIndex="{x:Bind ViewModel.CustomerPageIndex, Mode=TwoWay}" Visibility="{x:Bind ViewModel.IsCustomerDataAvailable}" />
+                        <controls:PaginationFooter Grid.Row="3" ItemsCount="{x:Bind ViewModel.CustomersCount, Mode=OneWay}" PageSizeIndex="1" PageIndex="{x:Bind ViewModel.CustomerPageIndex, Mode=TwoWay}" Visibility="{x:Bind ViewModel.IsCustomerDataAvailable}" />
                     </controls:Section.Footer>
                 </controls:Section>
             </SplitView.Pane>
@@ -64,15 +73,29 @@
                     </controls:Section>
 
                     <!--Details-->
-                    <controls:Section Grid.Row="2" Header="Order Details" HeaderButtonGlyph="&#xE2B4;" Visibility="{x:Bind ViewModel.IsOrderDataAvailable}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <controls:DetailToolbar ButtonClick="OnDetailButtonClick" />
-                            <views:CustomerOrderDetails Grid.Row="1" Model="{x:Bind ViewModel.SelectedOrder, Mode=OneWay}" />
-                        </Grid>
+                    <controls:Section Grid.Row="2" Margin="6,3,6,6" Header="{x:Bind ViewModel.SelectedOrder.OrderID}" HeaderTemplate="{StaticResource DetailsHeaderTemplate}" HeaderButtonGlyph="&#xE2B4;" Visibility="{x:Bind ViewModel.IsOrderDataAvailable}">
+                        <Pivot>
+                            <PivotItem Header="Order Details">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <controls:DetailToolbar ButtonClick="OnDetailButtonClick" />
+                                    <views:CustomerOrderDetails Grid.Row="1" Model="{x:Bind ViewModel.SelectedOrder, Mode=OneWay}" />
+                                </Grid>
+                            </PivotItem>
+                            <PivotItem Header="Order Items">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <views:OrderItemList ItemsSource="{x:Bind ViewModel.OrderItems, Mode=OneWay}" SelectedItem="{x:Bind ViewModel.SelectedOrderItem, Mode=OneWay}" />
+                                    <TextBlock Grid.Row="1" Margin="0,6" Text="{x:Bind ViewModel.UIHelper.TotalItems(ViewModel.OrderItemsCount)}" FontSize="14" Opacity="0.75" />
+                                </Grid>
+                            </PivotItem>
+                        </Pivot>
                     </controls:Section>
                     <!--Empty Details-->
                     <controls:Section Grid.Row="2" Header="No item selected" Visibility="{x:Bind ViewModel.IsOrderDataUnavailable}" />
