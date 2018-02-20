@@ -1,36 +1,19 @@
 ﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using VanArsdel.Inventory.Data;
-using VanArsdel.Inventory.Models;
 
 namespace VanArsdel.Inventory
 {
-    public class DataHelper
+    public class UIHelper
     {
-        static public DataHelper Current { get; }
+        static public UIHelper Current { get; }
 
-        static DataHelper()
+        static UIHelper()
         {
-            Current = new DataHelper();
+            Current = new UIHelper();
         }
 
-        public IList<CountryCodeModel> CountryCodes { get; private set; }
-
-        public async Task InitializeAsync(IDataProviderFactory providerFactory)
+        public string ToShortDate(DateTime? date)
         {
-            using (var dataProvider = providerFactory.CreateDataProvider())
-            {
-                var countryCodes = await dataProvider.GetCountryCodesAsync();
-                CountryCodes = countryCodes.Select(r => new CountryCodeModel(r)).ToList();
-            }
-        }
-
-        public string GetCountry(string id)
-        {
-            return CountryCodes.Where(r => r.CountryCodeID == id).Select(r => r.Name).FirstOrDefault();
+            return (date?.ToShortDateString()) ?? "";
         }
     }
 }
