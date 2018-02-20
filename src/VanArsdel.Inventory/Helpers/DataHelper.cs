@@ -18,7 +18,9 @@ namespace VanArsdel.Inventory
         }
 
         public IList<CountryCodeModel> CountryCodes { get; private set; }
-
+        public IList<OrderStatusModel> OrderStatus { get; private set; }
+        public IList<PaymentType> PaymentTypes { get; private set; }
+        public IList<Shipper> Shippers { get; private set; }
         public IList<TaxTypeModel> TaxTypes { get; private set; }
 
         public async Task InitializeAsync(IDataProviderFactory providerFactory)
@@ -35,6 +37,21 @@ namespace VanArsdel.Inventory
         public string GetCountry(string id)
         {
             return CountryCodes.Where(r => r.CountryCodeID == id).Select(r => r.Name).FirstOrDefault();
+        }
+
+        public string GetOrderStatus(int id)
+        {
+            return OrderStatus.Where(r => r.Status == id).Select(r => r.Name).FirstOrDefault();
+        }
+
+        public string GetPaymentType(int id)
+        {
+            return PaymentTypes.Where(r => r.PaymentTypeID == id).Select(r => r.Name).FirstOrDefault();
+        }
+
+        public string Getshipper(int id)
+        {
+            return Shippers.Where(r => r.ShipperID == id).Select(r => r.Name).FirstOrDefault();
         }
 
         public string GetTaxDesc(int id)

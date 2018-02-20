@@ -11,7 +11,7 @@
         <DataTemplate x:Key="HeaderTemplate" x:DataType="models:ProductModel">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition Width="40"/>
                     <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="15*"/>
                     <ColumnDefinition Width="6*"/>

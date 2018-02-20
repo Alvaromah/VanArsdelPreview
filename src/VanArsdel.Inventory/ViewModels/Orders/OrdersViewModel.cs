@@ -133,6 +133,10 @@ namespace VanArsdel.Inventory.ViewModels
                 {
                     var items = await dataProvider.GetOrderItemsAsync(SelectedOrder.OrderID);
                     var models = items.Select(r => new OrderItemModel(r)).ToList();
+                    foreach (var model in models)
+                    {
+                        await model.LoadAsync();
+                    }
                     OrderItems = models;
                     SelectedOrderItem = OrderItems.FirstOrDefault();
                     RaiseUpdateBindings();

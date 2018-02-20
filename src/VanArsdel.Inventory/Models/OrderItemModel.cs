@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Data;
 
@@ -18,6 +19,8 @@ namespace VanArsdel.Inventory.Models
             UnitPrice = source.UnitPrice;
             Discount = source.Discount;
             TaxType = source.TaxType;
+
+            Product = new ProductModel(source.Product);
         }
 
         public long OrderID { get; set; }
@@ -27,5 +30,15 @@ namespace VanArsdel.Inventory.Models
         public decimal UnitPrice { get; set; }
         public decimal Discount { get; set; }
         public int TaxType { get; set; }
+
+        public decimal Subtotal => Quantity * UnitPrice;
+        public decimal Total => Subtotal * (1 + DataHelper.GetTaxRate(TaxType) / 100m);
+
+        public ProductModel Product { get; private set; }
+
+        public async Task LoadAsync()
+        {
+            await Product.LoadAsync();
+        }
     }
 }

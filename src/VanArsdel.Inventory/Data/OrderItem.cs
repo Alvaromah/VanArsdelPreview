@@ -27,5 +27,7 @@ namespace VanArsdel.Inventory.Data
         public decimal Discount { get; set; }
         [Required]
         public int TaxType { get; set; }
+
+        public virtual Product Product { get; set; }
     }
 }

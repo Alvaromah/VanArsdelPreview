@@ -16,6 +16,13 @@
                 <TextBlock Text="{Binding}" FontSize="18" Foreground="Gray" />
             </StackPanel>
         </DataTemplate>
+
+        <DataTemplate x:Key="DetailsHeaderTemplate">
+            <StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Order #" FontSize="18" />
+                <TextBlock Text="{Binding}" FontSize="18" />
+            </StackPanel>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Background="WhiteSmoke">
@@ -40,7 +47,7 @@
         </controls:Section>
 
         <!--Details-->
-        <controls:Section Grid.Row="1" Margin="6,3,6,6" Header="Order Details" HeaderButtonGlyph="&#xE2B4;" Visibility="{x:Bind ViewModel.IsDataAvailable}">
+        <controls:Section Grid.Row="1" Margin="6,3,6,6" Header="{x:Bind ViewModel.SelectedOrder.OrderID}" HeaderTemplate="{StaticResource DetailsHeaderTemplate}" HeaderButtonGlyph="&#xE2B4;" Visibility="{x:Bind ViewModel.IsDataAvailable}">
             <Pivot>
                 <PivotItem Header="Order Details">
                     <Grid>

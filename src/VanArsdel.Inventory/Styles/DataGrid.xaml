@@ -10,10 +10,18 @@
         <Setter Property="FontSize" Value="14" />
     </Style>
 
+    <Style x:Key="ColumnHeaderRightStyle" TargetType="TextBlock" BasedOn="{StaticResource ColumnHeaderStyle}">
+        <Setter Property="TextAlignment" Value="Right" />
+    </Style>
+
     <Style x:Key="ColumnValueStyle" TargetType="TextBlock">
         <Setter Property="Padding" Value="6" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style x:Key="ColumnValueRightStyle" TargetType="TextBlock" BasedOn="{StaticResource ColumnValueStyle}">
+        <Setter Property="TextAlignment" Value="Right" />
     </Style>
 
     <Style x:Key="RowItemStyle" TargetType="ListViewItem">
