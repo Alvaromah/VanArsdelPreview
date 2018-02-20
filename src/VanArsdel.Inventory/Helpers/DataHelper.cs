@@ -19,8 +19,8 @@ namespace VanArsdel.Inventory
 
         public IList<CountryCodeModel> CountryCodes { get; private set; }
         public IList<OrderStatusModel> OrderStatus { get; private set; }
-        public IList<PaymentType> PaymentTypes { get; private set; }
-        public IList<Shipper> Shippers { get; private set; }
+        public IList<PaymentTypeModel> PaymentTypes { get; private set; }
+        public IList<ShipperModel> Shippers { get; private set; }
         public IList<TaxTypeModel> TaxTypes { get; private set; }
 
         public async Task InitializeAsync(IDataProviderFactory providerFactory)
@@ -29,6 +29,12 @@ namespace VanArsdel.Inventory
             {
                 var countryCodes = await dataProvider.GetCountryCodesAsync();
                 CountryCodes = countryCodes.Select(r => new CountryCodeModel(r)).ToList();
+                var orderStatus = await dataProvider.GetOrderStatusAsync();
+                OrderStatus = orderStatus.Select(r => new OrderStatusModel(r)).ToList();
+                var paymentTypes = await dataProvider.GetPaymentTypesAsync();
+                PaymentTypes = paymentTypes.Select(r => new PaymentTypeModel(r)).ToList();
+                var shippers = await dataProvider.GetShippersAsync();
+                Shippers = shippers.Select(r => new ShipperModel(r)).ToList();
                 var taxtTypes = await dataProvider.GetTaxTypesAsync();
                 TaxTypes = taxtTypes.Select(r => new TaxTypeModel(r)).ToList();
             }

@@ -9,7 +9,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="24"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -20,10 +20,9 @@
 
         <StackPanel Grid.Column="1">
             <controls:LabelTextBlock Margin="3" Label="Order ID" Text="{x:Bind Model.OrderID, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="Customer ID" Text="{x:Bind Model.CustomerID, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="Full Name" Text="{x:Bind Model.Customer.FullName, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="EMail Address" Text="{x:Bind Model.Customer.EmailAddress, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="Phone" Text="{x:Bind Model.Customer.Phone, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Order Status" Text="{x:Bind Model.DataHelper.GetOrderStatus(Model.Status), Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Tracking Number" Text="{x:Bind Model.TrackingNumber, Mode=OneWay}" />
+            <controls:LabelTextBlock Margin="3" Label="Payment Type" Text="{x:Bind Model.DataHelper.GetPaymentType(Model.PaymentType), Mode=OneWay}" />
         </StackPanel>
 
         <StackPanel Grid.Column="2">
@@ -31,7 +30,6 @@
             <controls:LabelTextBlock Margin="3" Label="Ship Postal Code" Text="{x:Bind Model.ShipPostalCode, Mode=OneWay}" />
             <controls:LabelTextBlock Margin="3" Label="Ship City" Text="{x:Bind Model.ShipCity, Mode=OneWay}" />
             <controls:LabelTextBlock Margin="3" Label="Ship Region" Text="{x:Bind Model.ShipRegion, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="Ship Country" Text="{x:Bind Model.DataHelper.GetCountry(Model.ShipCountryCode), Mode=OneWay}" />
         </StackPanel>
     </Grid>
 </UserControl>
