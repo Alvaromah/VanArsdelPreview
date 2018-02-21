@@ -28,6 +28,8 @@ namespace VanArsdel.Inventory.Views
             base.OnNavigatedTo(e);
 
             Text = (e.Parameter ?? "").ToString();
+
+            GC.Collect();
         }
     }
 }

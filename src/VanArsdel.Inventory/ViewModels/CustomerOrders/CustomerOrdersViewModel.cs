@@ -24,6 +24,16 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
+        public void Unload()
+        {
+            Customers = null;
+            SelectedCustomer = null;
+            Orders = null;
+            SelectedOrder = null;
+            OrderItems = null;
+            SelectedOrderItem = null;
+        }
+
         private void RaiseUpdateBindings() => UpdateBindings?.Invoke(this, EventArgs.Empty);
     }
 }

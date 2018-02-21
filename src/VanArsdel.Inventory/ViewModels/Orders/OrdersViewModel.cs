@@ -81,6 +81,14 @@ namespace VanArsdel.Inventory.ViewModels
             await RefreshAsync();
         }
 
+        public void Unload()
+        {
+            Orders = null;
+            SelectedOrder = null;
+            OrderItems = null;
+            SelectedOrderItem = null;
+        }
+
         public async void Refresh(bool resetPageIndex = false)
         {
             if (resetPageIndex)

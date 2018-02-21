@@ -32,6 +32,11 @@ namespace VanArsdel.Inventory.Views
             await ViewModel.LoadAsync();
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            ViewModel.Unload();
+        }
+
         private void OnItemClick(object sender, ItemClickEventArgs e)
         {
             if (e.ClickedItem is Control control)

@@ -63,6 +63,13 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
+        public void Unload()
+        {
+            Customers = null;
+            Products = null;
+            Orders = null;
+        }
+
         private async Task LoadCustomersAsync(IDataProvider dataProvider)
         {
             var page = await dataProvider.GetCustomersAsync(0, 5);
