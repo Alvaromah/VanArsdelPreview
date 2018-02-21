@@ -37,6 +37,16 @@ namespace VanArsdel.Inventory.Views
             Bindings.Update();
         }
 
+        private void OnListButtonClick(object sender, ToolbarButtonClickEventArgs e)
+        {
+            switch (e.ClickedButton)
+            {
+                case ToolbarButton.Refresh:
+                    ViewModel.Refresh();
+                    break;
+            }
+        }
+
         private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             ViewModel.Refresh(resetPageIndex: true);
