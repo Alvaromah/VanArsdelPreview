@@ -7,9 +7,9 @@
     xmlns:controls="using:VanArsdel.Inventory.Controls"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400">
 
-    <Grid>
+    <Grid ColumnSpacing="12">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="180"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -20,17 +20,17 @@
 
         <StackPanel Grid.Column="1">
             <controls:LabelTextBlock Margin="3" Label="CustomerID" Text="{x:Bind Model.CustomerID, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="First Name" Text="{x:Bind Model.FirstName, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="Last Name" Text="{x:Bind Model.LastName, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="EMail Address" Text="{x:Bind Model.EmailAddress, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="Phone" Text="{x:Bind Model.Phone, Mode=OneWay}" />
+            <controls:LabelTextBox Margin="3" Label="First Name" Text="{x:Bind Model.FirstName, Mode=TwoWay}" />
+            <controls:LabelTextBox Margin="3" Label="Last Name" Text="{x:Bind Model.LastName, Mode=TwoWay}" />
+            <controls:LabelTextBox Margin="3" Label="EMail Address" Text="{x:Bind Model.EmailAddress, Mode=TwoWay}" />
+            <controls:LabelTextBox Margin="3" Label="Phone" Text="{x:Bind Model.Phone, Mode=TwoWay}" />
         </StackPanel>
 
         <StackPanel Grid.Column="2">
-            <controls:LabelTextBlock Margin="3" Label="Address" Text="{x:Bind Model.AddressLine1, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="Postal Code" Text="{x:Bind Model.PostalCode, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="City" Text="{x:Bind Model.City, Mode=OneWay}" />
-            <controls:LabelTextBlock Margin="3" Label="Region" Text="{x:Bind Model.Region, Mode=OneWay}" />
+            <controls:LabelTextBox Margin="3" Label="Address" Text="{x:Bind Model.AddressLine1, Mode=TwoWay}" />
+            <controls:LabelTextBox Margin="3" Label="Postal Code" Text="{x:Bind Model.PostalCode, Mode=TwoWay}" />
+            <controls:LabelTextBox Margin="3" Label="City" Text="{x:Bind Model.City, Mode=TwoWay}" />
+            <controls:LabelTextBox Margin="3" Label="Region" Text="{x:Bind Model.Region, Mode=TwoWay}" />
             <controls:LabelTextBlock Margin="3" Label="Country" Text="{x:Bind Model.DataHelper.GetCountry(Model.CountryCode), Mode=OneWay}" />
         </StackPanel>
     </Grid>

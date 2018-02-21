@@ -2,6 +2,7 @@
     x:Class="VanArsdel.Inventory.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:VanArsdel.Inventory.Converters"
     RequestedTheme="Light">
 
     <Application.Resources>
@@ -11,6 +12,13 @@
                 <ResourceDictionary Source="/Styles/DataGrid.xaml" />
                 <ResourceDictionary Source="/Styles/ToolBar.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <converters:Int16Converter x:Key="Int16Converter" />
+            <converters:Int32Converter x:Key="Int32Converter" />
+            <converters:Int64Converter x:Key="Int64Converter" />
+            <converters:DecimalConverter x:Key="DecimalConverter" />
+            <converters:DoubleConverter x:Key="DoubleConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 

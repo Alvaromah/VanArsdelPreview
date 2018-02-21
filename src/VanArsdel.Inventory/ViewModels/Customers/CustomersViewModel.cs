@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Data;
 using VanArsdel.Inventory.Models;
+using VanArsdel.Inventory.Controls;
 
 namespace VanArsdel.Inventory.ViewModels
 {
@@ -34,7 +35,11 @@ namespace VanArsdel.Inventory.ViewModels
         public CustomerModel SelectedCustomer
         {
             get => _selectedCustomer;
-            set => Set(ref _selectedCustomer, value);
+            set
+            {
+                Set(ref _selectedCustomer, value);
+                IsEditMode = false;
+            }
         }
 
         private int _customersCount;
@@ -53,6 +58,26 @@ namespace VanArsdel.Inventory.ViewModels
 
         public bool IsDataAvailable => (_customers?.Count ?? 0) > 0;
         public bool IsDataUnavailable => !IsDataAvailable;
+
+        private DetailToolbarMode _toolbarMode = DetailToolbarMode.Default;
+        public DetailToolbarMode ToolbarMode
+        {
+            get => _toolbarMode;
+            set => Set(ref _toolbarMode, value);
+        }
+
+        private bool _isEditMode = false;
+        public bool IsEditMode
+        {
+            get => _isEditMode;
+            set
+            {
+                if (Set(ref _isEditMode, value))
+                {
+                    ToolbarMode = _isEditMode ? DetailToolbarMode.CancelSave : DetailToolbarMode.Default;
+                }
+            }
+        }
 
         public async Task LoadAsync()
         {

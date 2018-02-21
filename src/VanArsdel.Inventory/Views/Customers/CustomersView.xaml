@@ -46,8 +46,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <controls:DetailToolbar ButtonClick="OnDetailButtonClick" />
-                <views:CustomerDetails Grid.Row="1" Model="{x:Bind ViewModel.SelectedCustomer, Mode=OneWay}" />
+                <controls:DetailToolbar ToolbarMode="{x:Bind ViewModel.ToolbarMode, Mode=TwoWay}" ButtonClick="OnDetailButtonClick" />
+                <views:CustomerDetails Grid.Row="1" Model="{x:Bind ViewModel.SelectedCustomer, Mode=OneWay}" IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=TwoWay}" />
             </Grid>
         </controls:Section>
         <!--Empty Details-->

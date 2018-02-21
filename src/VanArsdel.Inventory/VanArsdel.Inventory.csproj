@@ -120,6 +120,11 @@
       <DependentUpon>ListToolbar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Toolbars\ToolbarCommon.cs" />
+    <Compile Include="Converters\DecimalConverter.cs" />
+    <Compile Include="Converters\DoubleConverter.cs" />
+    <Compile Include="Converters\Int16Converter.cs" />
+    <Compile Include="Converters\Int32Converter.cs" />
+    <Compile Include="Converters\Int64Converter.cs" />
     <Compile Include="DataContext\LocalDb.cs" />
     <Compile Include="DataProviders\Common\PageResult.cs" />
     <Compile Include="DataProviders\DataProviderFactory.cs" />
@@ -140,6 +145,7 @@
     <Compile Include="Data\Shipper.cs" />
     <Compile Include="Data\SubCategory.cs" />
     <Compile Include="Data\TaxType.cs" />
+    <Compile Include="Extensions\AnimationExtensions.cs" />
     <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Models\CategoryModel.cs" />
@@ -398,6 +404,9 @@
     </PackageReference>
     <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
       <Version>1.0.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.21.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

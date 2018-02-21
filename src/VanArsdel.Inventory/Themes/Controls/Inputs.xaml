@@ -19,7 +19,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Margin="6,2,6,1" Text="{TemplateBinding Label}" FontSize="12" Foreground="Gray" />
                         <TextBlock Grid.Row="1" Margin="6,0,6,2" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}" TextWrapping="{TemplateBinding TextWrapping}"
-                                   FontSize="{TemplateBinding FontSize}" TextAlignment="{TemplateBinding TextAlignment}" VerticalAlignment="Bottom" TextTrimming="WordEllipsis" IsTextSelectionEnabled="True" />
+                                   FontSize="{TemplateBinding FontSize}" Foreground="Gray" TextAlignment="{TemplateBinding TextAlignment}" VerticalAlignment="Bottom" TextTrimming="WordEllipsis" IsTextSelectionEnabled="True" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -27,16 +27,18 @@
     </Style>
 
     <Style TargetType="controls:LabelTextBox" >
-        <Setter Property="Foreground" Value="Gray" />
         <Setter Property="BorderBrush" Value="LightGray" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LabelTextBox">
-                    <Grid>
-                        <TextBox Padding="6,16,6,2" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}" AcceptsReturn="{TemplateBinding AcceptsReturn}" TextWrapping="{TemplateBinding TextWrapping}"
-                                 FontSize="14" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" TextAlignment="{TemplateBinding TextAlignment}" />
-                        <TextBlock Padding="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="Gray" IsHitTestVisible="False" />
+                    <Grid x:Name="container" Background="Transparent">
+                        <TextBox x:Name="inputText" Padding="6,16,6,4" MaxLength="{TemplateBinding MaxLength}" FontSize="14" BorderThickness="0" Opacity="0.0"
+                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock x:Name="displayText" Padding="6,16,6,4" Text="{TemplateBinding FormattedText}" FontSize="14" IsHitTestVisible="False" />
+                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="Gray" IsHitTestVisible="False" />
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" IsHitTestVisible="False" Opacity="0.0" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
