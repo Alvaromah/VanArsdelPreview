@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -18,6 +19,7 @@ namespace VanArsdel.Inventory.Views
             Current = this;
             ViewModel = new ShellViewModel();
             InitializeComponent();
+            Loaded += OnLoaded;
             NavigationService.Shell.RegisterFrame(frame);
             NavigationService.Shell.Navigated += OnNavigated;
         }
@@ -34,10 +36,10 @@ namespace VanArsdel.Inventory.Views
 
         public ShellViewModel ViewModel { get; private set; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            base.OnNavigatedTo(e);
-            ViewModel.NavigateTo(KnownNavigationItems.Dashboard);
+            await Task.Delay(250);
+            ViewModel.SelectedItem = KnownNavigationItems.Dashboard;
         }
 
         private void OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
