@@ -7,19 +7,13 @@
     
     <Style TargetType="controls:LabelTextBlock" >
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="BorderBrush" Value="LightGray" />
-        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LabelTextBlock">
-                    <Grid BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Margin="6,2,6,1" Text="{TemplateBinding Label}" FontSize="12" Foreground="Gray" />
-                        <TextBlock Grid.Row="1" Margin="6,0,6,2" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay}" TextWrapping="{TemplateBinding TextWrapping}"
-                                   FontSize="{TemplateBinding FontSize}" Foreground="Gray" TextAlignment="{TemplateBinding TextAlignment}" VerticalAlignment="Bottom" TextTrimming="WordEllipsis" IsTextSelectionEnabled="True" />
+                    <Grid>
+                        <TextBlock Padding="6,16,6,4" FontSize="{TemplateBinding FontSize}" Text="{TemplateBinding Text}" TextWrapping="{TemplateBinding TextWrapping}"
+                                   TextAlignment="{TemplateBinding TextAlignment}" TextTrimming="WordEllipsis" IsTextSelectionEnabled="True" Opacity="0.75" />
+                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="Gray" IsHitTestVisible="False" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
