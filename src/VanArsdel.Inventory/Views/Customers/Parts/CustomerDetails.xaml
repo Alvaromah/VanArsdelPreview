@@ -31,7 +31,8 @@
             <controls:LabelTextBox Margin="3" Label="Postal Code" Text="{x:Bind Model.PostalCode, Mode=TwoWay}" />
             <controls:LabelTextBox Margin="3" Label="City" Text="{x:Bind Model.City, Mode=TwoWay}" />
             <controls:LabelTextBox Margin="3" Label="Region" Text="{x:Bind Model.Region, Mode=TwoWay}" />
-            <controls:LabelTextBlock Margin="3" Label="Country" Text="{x:Bind Model.DataHelper.GetCountry(Model.CountryCode), Mode=OneWay}" />
+            <controls:LabelComboBox Margin="3" Label="Country" ItemsSource="{x:Bind Model.DataHelper.CountryCodes}"
+                                    SelectedValue="{x:Bind Model.CountryCode, Mode=TwoWay}" SelectedValuePath="CountryCodeID" DisplayMemberPath="Name" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -45,6 +45,7 @@ namespace VanArsdel.Inventory.Views
         private void InitializeInputs()
         {
             ElementSet.Children<LabelTextBox>(this).GotFocus += OnInputGotFocus;
+            ElementSet.Children<LabelComboBox>(this).GotFocus += OnInputGotFocus;
         }
 
         private void OnInputGotFocus(object sender, RoutedEventArgs e)
@@ -55,6 +56,7 @@ namespace VanArsdel.Inventory.Views
         private void UpdateEditMode()
         {
             ElementSet.Children<LabelTextBox>(this).ForEach(c => c.Mode = IsEditMode ? TextEditMode.ReadWrite : TextEditMode.Auto);
+            ElementSet.Children<LabelComboBox>(this).ForEach(c => c.Mode = IsEditMode ? TextEditMode.ReadWrite : TextEditMode.Auto);
         }
     }
 }

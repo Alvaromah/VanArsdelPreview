@@ -52,10 +52,12 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LabelComboBox">
-                    <Grid>
-                        <ComboBox Padding="6,24,6,7" ItemsSource="{TemplateBinding ItemsSource}" SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedValue, Mode=TwoWay}"
-                                  FontSize="14" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch" />
-                        <TextBlock Padding="6,4" Text="{TemplateBinding Label}" FontSize="13" Foreground="{TemplateBinding Foreground}" IsHitTestVisible="False" />
+                    <Grid x:Name="container" Background="Transparent">
+                        <ComboBox x:Name="combo" Padding="6,16,6,4" ItemsSource="{TemplateBinding ItemsSource}" FontSize="14" BorderThickness="0" HorizontalAlignment="Stretch"
+                                  SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedValue, Mode=TwoWay}"
+                                  SelectedValuePath="{TemplateBinding SelectedValuePath}" DisplayMemberPath="{TemplateBinding DisplayMemberPath}" />
+                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="Gray" IsHitTestVisible="False" />
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" IsHitTestVisible="False" Opacity="0.0" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
