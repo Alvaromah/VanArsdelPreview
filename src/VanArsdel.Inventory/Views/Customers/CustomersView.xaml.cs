@@ -54,8 +54,9 @@ namespace VanArsdel.Inventory.Views
                     ViewModel.IsEditMode = true;
                     break;
                 case ToolbarButton.Save:
+                    this.Focus(Windows.UI.Xaml.FocusState.Programmatic);
                     ViewModel.IsEditMode = false;
-                    Bindings.Update();
+                    await ViewModel.SaveCurrentAsync();
                     break;
                 case ToolbarButton.Delete:
                     if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete current customer?", "Ok", "Cancel"))

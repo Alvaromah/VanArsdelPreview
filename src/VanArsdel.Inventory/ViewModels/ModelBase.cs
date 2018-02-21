@@ -29,5 +29,11 @@ namespace VanArsdel.Inventory
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void NotifyChanges()
+        {
+            // Notify all properties changes
+            NotifyPropertyChanged("");
+        }
     }
 }

@@ -124,6 +124,13 @@ namespace VanArsdel.Inventory.ViewModels
             RaiseUpdateBindings();
         }
 
+        public async Task SaveCurrentAsync()
+        {
+            // TODO: Save changes
+            await Task.Delay(100);
+            ViewModel.SelectedCustomer.NotifyChanges();
+        }
+
         public async Task DeleteCurrentAsync()
         {
             var customer = SelectedCustomer;

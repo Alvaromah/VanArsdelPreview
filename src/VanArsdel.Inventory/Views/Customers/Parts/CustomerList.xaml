@@ -43,11 +43,11 @@
                     <PersonPicture ProfilePicture="{x:Bind ThumbnailBitmap, Mode=OneWay}" Width="28" Height="28" />
                 </Border>
                 <TextBlock Grid.Column="1" Text="{x:Bind CustomerID}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="2" Text="{x:Bind FullName}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="3" Text="{x:Bind EmailAddress}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="4" Text="{x:Bind Phone}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="5" Text="{x:Bind AddressLine1}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="6" Text="{x:Bind DataHelper.GetCountry(CountryCode)}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="2" Text="{x:Bind FullName, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="3" Text="{x:Bind EmailAddress, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="4" Text="{x:Bind Phone, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="5" Text="{x:Bind AddressLine1, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="6" Text="{x:Bind DataHelper.GetCountry(CountryCode), Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
