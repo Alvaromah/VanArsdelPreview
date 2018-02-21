@@ -13,6 +13,7 @@ namespace VanArsdel.Inventory.Data
         Task<IList<TaxType>> GetTaxTypesAsync();
 
         Task<PageResult<Customer>> GetCustomersAsync(int pageIndex, int pageSize, string query = null);
+        Task UpdateCustomer(Customer customer);
         Task DeleteCustomer(long id);
 
         Task<PageResult<Product>> GetProductsAsync(int pageIndex, int pageSize, string query = null);

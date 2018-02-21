@@ -14,35 +14,11 @@ namespace VanArsdel.Inventory.Models
         }
         public CustomerModel(Customer source)
         {
-            CustomerID = source.CustomerID;
-            Title = source.Title;
-            FirstName = source.FirstName;
-            MiddleName = source.MiddleName;
-            LastName = source.LastName;
-            Suffix = source.Suffix;
-            Gender = source.Gender;
-            EmailAddress = source.EmailAddress;
-            AddressLine1 = source.AddressLine1;
-            AddressLine2 = source.AddressLine2;
-            City = source.City;
-            Region = source.Region;
-            CountryCode = source.CountryCode;
-            PostalCode = source.PostalCode;
-            Phone = source.Phone;
-            BirthDate = source.BirthDate;
-            Education = source.Education;
-            Occupation = source.Occupation;
-            YearlyIncome = source.YearlyIncome;
-            MaritalStatus = source.MaritalStatus;
-            TotalChildren = source.TotalChildren;
-            ChildrenAtHome = source.ChildrenAtHome;
-            IsHouseOwner = source.IsHouseOwner;
-            NumberCarsOwned = source.NumberCarsOwned;
-            CreatedOn = source.CreatedOn;
-            LastModifiedOn = source.LastModifiedOn;
-            Picture = source.Picture;
-            Thumbnail = source.Thumbnail;
+            Source = source;
+            CopyValues(Source);
         }
+
+        public Customer Source { get; private set; }
 
         public long CustomerID { get; set; }
         public string Title { get; set; }
@@ -93,6 +69,73 @@ namespace VanArsdel.Inventory.Models
         {
             PictureBitmap = await BitmapTools.LoadBitmapAsync(Picture);
             ThumbnailBitmap = await BitmapTools.LoadBitmapAsync(Thumbnail);
+        }
+
+        private void CopyValues(Customer source)
+        {
+            CustomerID = source.CustomerID;
+            Title = source.Title;
+            FirstName = source.FirstName;
+            MiddleName = source.MiddleName;
+            LastName = source.LastName;
+            Suffix = source.Suffix;
+            Gender = source.Gender;
+            EmailAddress = source.EmailAddress;
+            AddressLine1 = source.AddressLine1;
+            AddressLine2 = source.AddressLine2;
+            City = source.City;
+            Region = source.Region;
+            CountryCode = source.CountryCode;
+            PostalCode = source.PostalCode;
+            Phone = source.Phone;
+            BirthDate = source.BirthDate;
+            Education = source.Education;
+            Occupation = source.Occupation;
+            YearlyIncome = source.YearlyIncome;
+            MaritalStatus = source.MaritalStatus;
+            TotalChildren = source.TotalChildren;
+            ChildrenAtHome = source.ChildrenAtHome;
+            IsHouseOwner = source.IsHouseOwner;
+            NumberCarsOwned = source.NumberCarsOwned;
+            CreatedOn = source.CreatedOn;
+            LastModifiedOn = source.LastModifiedOn;
+            Picture = source.Picture;
+            Thumbnail = source.Thumbnail;
+        }
+
+        public void CommitChanges()
+        {
+            Source.Title = Title;
+            Source.FirstName = FirstName;
+            Source.MiddleName = MiddleName;
+            Source.LastName = LastName;
+            Source.Suffix = Suffix;
+            Source.Gender = Gender;
+            Source.EmailAddress = EmailAddress;
+            Source.AddressLine1 = AddressLine1;
+            Source.AddressLine2 = AddressLine2;
+            Source.City = City;
+            Source.Region = Region;
+            Source.CountryCode = CountryCode;
+            Source.PostalCode = PostalCode;
+            Source.Phone = Phone;
+            Source.BirthDate = BirthDate;
+            Source.Education = Education;
+            Source.Occupation = Occupation;
+            Source.YearlyIncome = YearlyIncome;
+            Source.MaritalStatus = MaritalStatus;
+            Source.TotalChildren = TotalChildren;
+            Source.ChildrenAtHome = ChildrenAtHome;
+            Source.IsHouseOwner = IsHouseOwner;
+            Source.NumberCarsOwned = NumberCarsOwned;
+            Source.LastModifiedOn = DateTime.UtcNow;
+            Source.Picture = Picture;
+            Source.Thumbnail = Thumbnail;
+        }
+
+        public void UndoChanges()
+        {
+            CopyValues(Source);
         }
     }
 }

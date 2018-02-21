@@ -124,11 +124,31 @@ namespace VanArsdel.Inventory.ViewModels
             RaiseUpdateBindings();
         }
 
+        public void BeginEdit()
+        {
+            IsEditMode = true;
+        }
+
+        public void CancelEdit()
+        {
+            IsEditMode = false;
+            SelectedCustomer?.UndoChanges();
+            SelectedCustomer?.NotifyChanges();
+        }
+
         public async Task SaveCurrentAsync()
         {
-            // TODO: Save changes
-            await Task.Delay(100);
-            ViewModel.SelectedCustomer.NotifyChanges();
+            IsEditMode = false;
+            var customer = SelectedCustomer;
+            if (customer != null)
+            {
+                customer.CommitChanges();
+                using (var dataProvider = ProviderFactory.CreateDataProvider())
+                {
+                    await dataProvider.UpdateCustomer(customer.Source);
+                    customer.NotifyChanges();
+                }
+            }
         }
 
         public async Task DeleteCurrentAsync()

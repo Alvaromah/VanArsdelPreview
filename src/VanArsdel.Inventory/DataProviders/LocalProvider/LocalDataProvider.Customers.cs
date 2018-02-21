@@ -22,6 +22,12 @@ namespace VanArsdel.Inventory.Data
             return new PageResult<Customer>(index, pageSize, count, records);
         }
 
+        public async Task UpdateCustomer(Customer customer)
+        {
+            _datasource.Entry(customer).State = EntityState.Modified;
+            await _datasource.SaveChangesAsync();
+        }
+
         public async Task DeleteCustomer(long id)
         {
             var item = _datasource.Customers.Where(r => r.CustomerID == id).FirstOrDefault();

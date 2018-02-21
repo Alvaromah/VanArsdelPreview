@@ -46,16 +46,15 @@ namespace VanArsdel.Inventory.Views
         {
             switch (e.ClickedButton)
             {
+                case ToolbarButton.Edit:
+                    ViewModel.BeginEdit();
+                    break;
                 case ToolbarButton.Cancel:
                     this.Focus(Windows.UI.Xaml.FocusState.Programmatic);
-                    ViewModel.IsEditMode = false;
-                    break;
-                case ToolbarButton.Edit:
-                    ViewModel.IsEditMode = true;
+                    ViewModel.CancelEdit();
                     break;
                 case ToolbarButton.Save:
                     this.Focus(Windows.UI.Xaml.FocusState.Programmatic);
-                    ViewModel.IsEditMode = false;
                     await ViewModel.SaveCurrentAsync();
                     break;
                 case ToolbarButton.Delete:
