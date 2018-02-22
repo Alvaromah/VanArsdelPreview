@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Common\GridLengths.cs" />
     <Compile Include="Common\Result.cs" />
+    <Compile Include="Common\ThreadSafeSingleton.cs" />
     <Compile Include="Controls\Buttons\IconButton.cs" />
     <Compile Include="Controls\Buttons\IconLabel.cs" />
     <Compile Include="Controls\Buttons\IconLabelButton.cs" />
@@ -220,6 +221,9 @@
     <Compile Include="Views\Dashboard\Parts\ProductsPane.xaml.cs">
       <DependentUpon>ProductsPane.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Orders\Parts\OrderItemList.xaml.cs">
       <DependentUpon>OrderItemList.xaml</DependentUpon>
     </Compile>
@@ -238,6 +242,7 @@
     <Compile Include="Views\Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -366,6 +371,10 @@
     <Page Include="Views\Dashboard\Parts\ProductsPane.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Orders\Parts\OrderItemList.xaml">
       <SubType>Designer</SubType>
