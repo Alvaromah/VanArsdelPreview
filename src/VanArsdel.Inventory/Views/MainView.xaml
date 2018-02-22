@@ -29,7 +29,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Margin="6,4" Text="Ready" Foreground="WhiteSmoke" FontSize="12" />
+            <TextBlock Margin="6,4" Text="{x:Bind StatusMessage, Mode=OneWay}" Foreground="WhiteSmoke" FontSize="12" />
             <ProgressBar Grid.Column="1" Margin="6" IsIndeterminate="True" Visibility="Collapsed" />
         </Grid>
     </Grid>

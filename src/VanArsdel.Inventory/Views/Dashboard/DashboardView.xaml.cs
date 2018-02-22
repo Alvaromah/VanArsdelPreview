@@ -44,5 +44,11 @@ namespace VanArsdel.Inventory.Views
                 ViewModel.ItemSelected(control.Tag as String);
             }
         }
+
+        private void OnOpenNewView(object sender, RoutedEventArgs e)
+        {
+            // TODO: Fix threading issues
+            //await ViewManager.Current.CreateNewView(typeof(ShellView));
+        }
     }
 }

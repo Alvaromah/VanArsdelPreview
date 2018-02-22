@@ -25,7 +25,7 @@ namespace VanArsdel.Inventory
 
         public Type EntryPage => typeof(ShellView);
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             var frame = Window.Current.Content as Frame;
 
@@ -39,8 +39,12 @@ namespace VanArsdel.Inventory
             {
                 if (frame.Content == null)
                 {
-                    await DataHelper.Current.InitializeAsync(new DataProviderFactory());
-                    frame.Navigate(EntryPage, e.Arguments);
+                    var state = new MainViewState
+                    {
+                        PageType = EntryPage,
+                        Parameter = e.Arguments
+                    };
+                    frame.Navigate(typeof(MainView), state);
                 }
                 Window.Current.Activate();
             }

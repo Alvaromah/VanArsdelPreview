@@ -26,9 +26,20 @@ namespace VanArsdel.Inventory.Views
         public static readonly DependencyProperty IsBusyProperty = DependencyProperty.Register("IsBusy", typeof(bool), typeof(MainView), new PropertyMetadata(false));
         #endregion
 
+        #region StatusMessage
+        public string StatusMessage
+        {
+            get { return (string)GetValue(StatusMessageProperty); }
+            set { SetValue(StatusMessageProperty, value); }
+        }
+
+        public static readonly DependencyProperty StatusMessageProperty = DependencyProperty.Register("StatusMessage", typeof(string), typeof(MainView), new PropertyMetadata(null));
+        #endregion
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             IsBusy = true;
+            StatusMessage = "Loading...";
             await Task.Delay(100);
             await DataHelper.Current.InitializeAsync(new DataProviderFactory());
             if (e.Parameter is MainViewState state)
@@ -36,6 +47,7 @@ namespace VanArsdel.Inventory.Views
                 frame.Navigate(state.PageType, state.Parameter);
             }
             IsBusy = false;
+            StatusMessage = "Ready";
         }
     }
 

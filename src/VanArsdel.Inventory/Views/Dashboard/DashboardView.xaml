@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:VanArsdel.Inventory.Views"
+    xmlns:controls="using:VanArsdel.Inventory.Controls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -27,7 +28,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Margin="12,12,12,12" Text="VanArsdel Inventory" FontSize="36" Foreground="#444" />
+        <Grid Grid.Row="0">
+            <TextBlock Margin="12" Text="VanArsdel Inventory" FontSize="36" Foreground="#444" />
+            <controls:IconButton Margin="12" Grid.RowSpan="2" Glyph="&#xE2B4;" HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnOpenNewView" />
+        </Grid>
 
         <TextBlock Grid.Row="1" Margin="12,12,12,0" Text="Dashboard" FontSize="22" Foreground="#666" />
 

@@ -21,11 +21,6 @@
     </Page.Resources>
 
     <Grid Background="WhiteSmoke">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
         <NavigationView x:Name="navigationView" MenuItemsSource="{x:Bind ViewModel.Items}" MenuItemTemplate="{StaticResource NavigationViewItem}"
                         SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}" SelectionChanged="OnSelectionChanged"
                         IsPaneOpen="{x:Bind IsPaneOpen, Mode=TwoWay}" AlwaysShowHeader="False">
@@ -38,15 +33,5 @@
                 </Frame.ContentTransitions>
             </Frame>
         </NavigationView>
-
-        <Grid Grid.Row="1" Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Margin="6,4" Text="Ready" Foreground="WhiteSmoke" FontSize="12" />
-            <ProgressBar Grid.Column="1" Margin="6" IsIndeterminate="True" Visibility="Collapsed" />
-        </Grid>
     </Grid>
 </Page>
