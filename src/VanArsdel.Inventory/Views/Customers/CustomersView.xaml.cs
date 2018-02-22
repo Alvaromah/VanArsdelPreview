@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -79,6 +80,11 @@ namespace VanArsdel.Inventory.Views
                     }
                     break;
             }
+        }
+
+        private async void OnOpenNewViewList(object sender, RoutedEventArgs e)
+        {
+            await ViewManager.Current.CreateNewView(typeof(CustomersView));
         }
     }
 }

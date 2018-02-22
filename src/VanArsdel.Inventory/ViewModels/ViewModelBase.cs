@@ -8,5 +8,13 @@ namespace VanArsdel.Inventory
         {
             NavigationService.Shell.Navigate(item.Page, item.Label);
         }
+
+        public void GoBack()
+        {
+            if (NavigationService.Shell.CanGoBack)
+            {
+                NavigationService.Shell.GoBack();
+            }
+        }
     }
 }
