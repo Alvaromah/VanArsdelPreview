@@ -10,12 +10,7 @@ namespace VanArsdel.Inventory
 {
     public class DataHelper
     {
-        static public DataHelper Current { get; }
-
-        static DataHelper()
-        {
-            Current = new DataHelper();
-        }
+        static public DataHelper Current => ThreadSafeSingleton<DataHelper>.Instance;
 
         public IList<CountryCodeModel> CountryCodes { get; private set; }
         public IList<OrderStatusModel> OrderStatus { get; private set; }
