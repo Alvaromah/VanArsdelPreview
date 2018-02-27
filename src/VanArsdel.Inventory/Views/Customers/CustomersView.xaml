@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <!--Customers-->
-        <controls:Section Margin="6,6,6,3" Header="{x:Bind ViewModel.QuotedQuery}" HeaderTemplate="{StaticResource ListHeaderTemplate}" HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OnOpenNewViewList">
+        <controls:Section Margin="6,6,6,3" Header="{x:Bind ViewModel.QuotedQuery}" HeaderTemplate="{StaticResource ListHeaderTemplate}" HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenInNewView">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

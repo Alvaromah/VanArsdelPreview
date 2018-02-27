@@ -49,7 +49,7 @@
                     </Grid.RowDefinitions>
 
                     <!--Orders-->
-                    <controls:Section Grid.Row="0" Margin="3,6,6,3" Header="{x:Bind ViewModel.SelectedCustomer.FullName}" HeaderButtonGlyph="&#xE2B4;">
+                    <controls:Section Grid.Row="0" Margin="3,6,6,3" Header="{x:Bind ViewModel.SelectedCustomer.FullName}" HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenInNewView">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>

@@ -38,7 +38,7 @@ namespace VanArsdel.Inventory.Views
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            await Task.Delay(250);
+            await Task.Delay(100);
             ViewModel.SelectedItem = KnownNavigationItems.Dashboard;
         }
 

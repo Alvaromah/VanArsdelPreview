@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -28,7 +29,8 @@ namespace VanArsdel.Inventory.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ShellView.Current.IsPaneOpen = false;
+            // TODO: Only in main thread
+            //ShellView.Current.IsPaneOpen = false;
             await Task.Delay(100);
             await ViewModel.LoadAsync();
         }
@@ -64,6 +66,11 @@ namespace VanArsdel.Inventory.Views
                     }
                     break;
             }
+        }
+
+        private async void OpenInNewView(object sender, RoutedEventArgs e)
+        {
+            await ViewManager.Current.CreateNewView(typeof(CustomerOrdersView));
         }
     }
 }

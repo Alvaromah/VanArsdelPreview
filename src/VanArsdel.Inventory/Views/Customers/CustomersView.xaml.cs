@@ -82,7 +82,7 @@ namespace VanArsdel.Inventory.Views
             }
         }
 
-        private async void OnOpenNewViewList(object sender, RoutedEventArgs e)
+        private async void OpenInNewView(object sender, RoutedEventArgs e)
         {
             await ViewManager.Current.CreateNewView(typeof(CustomersView));
         }
