@@ -11,9 +11,15 @@ namespace VanArsdel.Inventory
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // TODO: 
-        //public DataHelper DataHelper => DataHelper.Current;
+        public DataHelper DataHelper => DataHelper.Current;
         public UIHelper UIHelper => UIHelper.Current;
+
+        public ModelBase Clone()
+        {
+            return MemberwiseClone() as ModelBase;
+        }
+
+        virtual public void Merge(ModelBase source) { }
 
         protected bool Set<T>(ref T field, T newValue = default(T), [CallerMemberName] string propertyName = null)
         {
@@ -33,7 +39,7 @@ namespace VanArsdel.Inventory
 
         public void NotifyChanges()
         {
-            // Notify all properties changes
+            // Notify all properties
             NotifyPropertyChanged("");
         }
     }

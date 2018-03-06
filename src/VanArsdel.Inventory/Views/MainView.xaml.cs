@@ -5,7 +5,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-//using VanArsdel.Inventory.Data;
+using VanArsdel.Inventory.Providers;
+using VanArsdel.Inventory.ViewModels;
 
 namespace VanArsdel.Inventory.Views
 {
@@ -38,23 +39,29 @@ namespace VanArsdel.Inventory.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            NavigationService.Main.RegisterFrame(frame);
+
             IsBusy = true;
             StatusMessage = "Loading...";
             await Task.Delay(100);
-            // TODO: 
-            //await DataHelper.Current.InitializeAsync(new DataProviderFactory());
+
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            await DataHelper.Current.InitializeAsync(new DataProviderFactory());
             if (e.Parameter is MainViewState state)
             {
                 frame.Navigate(state.PageType, state.Parameter);
             }
+            stopwatch.Stop();
+
             IsBusy = false;
-            StatusMessage = "Ready";
+            StatusMessage = $"Ready ({stopwatch.Elapsed.TotalMilliseconds.ToString("#,## 'ms'")})";
         }
     }
 
-    public class MainViewState
+    public class MainViewState : ViewState
     {
         public Type PageType { get; set; }
         public object Parameter { get; set; }
+        public int ViewId { get; set; }
     }
 }

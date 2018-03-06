@@ -3,8 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using VanArsdel.Inventory.Data;
 using VanArsdel.Inventory.Models;
+using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory
 {
@@ -22,16 +22,11 @@ namespace VanArsdel.Inventory
         {
             using (var dataProvider = providerFactory.CreateDataProvider())
             {
-                var countryCodes = await dataProvider.GetCountryCodesAsync();
-                CountryCodes = countryCodes.Select(r => new CountryCodeModel(r)).ToList();
-                var orderStatus = await dataProvider.GetOrderStatusAsync();
-                OrderStatus = orderStatus.Select(r => new OrderStatusModel(r)).ToList();
-                var paymentTypes = await dataProvider.GetPaymentTypesAsync();
-                PaymentTypes = paymentTypes.Select(r => new PaymentTypeModel(r)).ToList();
-                var shippers = await dataProvider.GetShippersAsync();
-                Shippers = shippers.Select(r => new ShipperModel(r)).ToList();
-                var taxtTypes = await dataProvider.GetTaxTypesAsync();
-                TaxTypes = taxtTypes.Select(r => new TaxTypeModel(r)).ToList();
+                CountryCodes = await dataProvider.GetCountryCodesAsync();
+                OrderStatus = await dataProvider.GetOrderStatusAsync();
+                PaymentTypes = await dataProvider.GetPaymentTypesAsync();
+                Shippers = await dataProvider.GetShippersAsync();
+                TaxTypes = await dataProvider.GetTaxTypesAsync();
             }
         }
 

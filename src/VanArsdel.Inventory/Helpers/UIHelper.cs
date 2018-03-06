@@ -11,9 +11,19 @@ namespace VanArsdel.Inventory
             Current = new UIHelper();
         }
 
+        public bool NOT(bool value)
+        {
+            return !value;
+        }
+
         public string ToShortDate(DateTime? date)
         {
-            return (date?.ToShortDateString()) ?? "";
+            return (date?.ToLocalTime().ToShortDateString()) ?? "";
+        }
+
+        public string ToLongDate(DateTime? date)
+        {
+            return (date?.ToLocalTime().ToLongDateString()) ?? "";
         }
 
         public string TotalItems(int count)

@@ -34,6 +34,22 @@ namespace VanArsdel.Inventory
             return Enumerable.GetEnumerator();
         }
 
+        public T FirstOrDefault()
+        {
+            return Enumerable.FirstOrDefault();
+        }
+        public S FirstOrDefault<S>() where S : FrameworkElement
+        {
+            foreach (var item in Enumerable)
+            {
+                if (item is S)
+                {
+                    return item as S;
+                }
+            }
+            return default(S);
+        }
+
         public ElementSet<T> ForEach(Action<T> action)
         {
             foreach (var item in Enumerable)

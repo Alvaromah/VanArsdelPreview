@@ -4,6 +4,7 @@ namespace VanArsdel.Inventory.Controls
 {
     public enum ToolbarButton
     {
+        Back,
         New,
         Edit,
         Delete,
@@ -23,6 +24,7 @@ namespace VanArsdel.Inventory.Controls
     public enum DetailToolbarMode
     {
         Default,
+        BackEditdDelete,
         CancelSave
     }
 

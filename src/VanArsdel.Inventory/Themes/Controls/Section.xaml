@@ -18,17 +18,19 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:Section">
-                    <Grid x:Name="grid" Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <ContentControl Grid.Row="0" Margin="0,0,0,8" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalContentAlignment="Stretch" />
-                        <ContentPresenter Grid.Row="1" />
-                        <ContentControl Grid.Row="2" Margin="0,8,0,0" Content="{TemplateBinding Footer}" ContentTemplate="{TemplateBinding FooterTemplate}" HorizontalContentAlignment="Stretch" />
-                        <controls:IconLabelButton x:Name="button" Grid.Row="0" Grid.RowSpan="2" Glyph="{TemplateBinding HeaderButtonGlyph}" Label="{TemplateBinding HeaderButtonLabel}" HorizontalAlignment="Right" VerticalAlignment="Top" />
-                    </Grid>
+                    <Border x:Name="container" Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                        <Grid x:Name="content">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ContentControl Grid.Row="0" Margin="0,0,0,8" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" HorizontalContentAlignment="Stretch" />
+                            <ContentPresenter Grid.Row="1" />
+                            <ContentControl Grid.Row="2" Margin="0,8,0,0" Content="{TemplateBinding Footer}" ContentTemplate="{TemplateBinding FooterTemplate}" HorizontalContentAlignment="Stretch" />
+                            <controls:IconLabelButton x:Name="button" Grid.Row="0" Grid.RowSpan="2" Glyph="{TemplateBinding HeaderButtonGlyph}" Label="{TemplateBinding HeaderButtonLabel}" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

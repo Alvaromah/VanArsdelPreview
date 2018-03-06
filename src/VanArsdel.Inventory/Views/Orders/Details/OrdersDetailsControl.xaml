@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="VanArsdel.Inventory.Views.OrdersDetailsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:VanArsdel.Inventory.Controls"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400">
+
+    <Grid ColumnSpacing="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="1" Spacing="6">
+            <controls:LabelTextBlock Label="Order ID" Text="{x:Bind Model.OrderID, Mode=OneWay}" />
+            <controls:LabelTextBlock Label="Customer ID" Text="{x:Bind Model.CustomerID, Mode=OneWay}" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Spacing="6">
+            <controls:LabelTextBox Label="Ship Address" Text="{x:Bind Model.ShipAddress, Mode=TwoWay}" />
+            <controls:LabelTextBox Label="Ship Postal Code" Text="{x:Bind Model.ShipPostalCode, Mode=TwoWay}" />
+            <controls:LabelTextBox Label="Ship City" Text="{x:Bind Model.ShipCity, Mode=TwoWay}" />
+            <controls:LabelTextBox Label="Ship Region" Text="{x:Bind Model.ShipRegion, Mode=TwoWay}" />
+            <!--<controls:LabelTextBox Label="Ship Country" Text="{x:Bind Model.DataHelper.GetCountry(Model.ShipCountryCode), Mode=TwoWay}" />-->
+        </StackPanel>
+    </Grid>
+</UserControl>

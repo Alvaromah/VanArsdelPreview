@@ -4,7 +4,7 @@
     xmlns:controls="using:VanArsdel.Inventory.Controls">
 
     <!--TODO: Enable Copy text from labels -->
-    
+
     <Style TargetType="controls:LabelTextBlock" >
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Template">
@@ -12,8 +12,8 @@
                 <ControlTemplate TargetType="controls:LabelTextBlock">
                     <Grid>
                         <TextBlock Padding="6,16,6,4" FontSize="{TemplateBinding FontSize}" Text="{TemplateBinding Text}" TextWrapping="{TemplateBinding TextWrapping}"
-                                   TextAlignment="{TemplateBinding TextAlignment}" TextTrimming="WordEllipsis" IsTextSelectionEnabled="True" Opacity="0.75" />
-                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="Gray" IsHitTestVisible="False" />
+                                   TextAlignment="{TemplateBinding TextAlignment}" TextTrimming="WordEllipsis" IsTextSelectionEnabled="True" Foreground="Gray" />
+                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsHitTestVisible="False" TextAlignment="{TemplateBinding TextAlignment}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -21,7 +21,7 @@
     </Style>
 
     <Style TargetType="controls:LabelTextBox" >
-        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="Gainsboro" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
@@ -31,7 +31,7 @@
                         <TextBox x:Name="inputText" Padding="6,16,6,4" MaxLength="{TemplateBinding MaxLength}" FontSize="14" BorderThickness="0" Opacity="0.0"
                                  Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock x:Name="displayText" Padding="6,16,6,4" Text="{TemplateBinding FormattedText}" FontSize="14" IsHitTestVisible="False" />
-                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="Gray" IsHitTestVisible="False" />
+                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsHitTestVisible="False" />
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" IsHitTestVisible="False" Opacity="0.0" />
                     </Grid>
                 </ControlTemplate>
@@ -41,7 +41,7 @@
 
     <Style TargetType="controls:LabelComboBox" >
         <Setter Property="Foreground" Value="Gray" />
-        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="Gainsboro" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
@@ -50,7 +50,7 @@
                         <ComboBox x:Name="combo" Padding="6,16,6,4" ItemsSource="{TemplateBinding ItemsSource}" FontSize="14" BorderThickness="0" HorizontalAlignment="Stretch"
                                   SelectedValue="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedValue, Mode=TwoWay}"
                                   SelectedValuePath="{TemplateBinding SelectedValuePath}" DisplayMemberPath="{TemplateBinding DisplayMemberPath}" />
-                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="Gray" IsHitTestVisible="False" />
+                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsHitTestVisible="False" />
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" IsHitTestVisible="False" Opacity="0.0" />
                     </Grid>
                 </ControlTemplate>

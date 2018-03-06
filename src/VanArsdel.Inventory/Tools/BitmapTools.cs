@@ -11,14 +11,18 @@ namespace VanArsdel.Inventory
     {
         static public async Task<BitmapImage> LoadBitmapAsync(byte[] bytes)
         {
-            var bitmap = new BitmapImage();
-            using (var stream = new InMemoryRandomAccessStream())
+            if (bytes != null && bytes.Length > 0)
             {
-                await stream.WriteAsync(bytes.AsBuffer());
-                stream.Seek(0);
-                await bitmap.SetSourceAsync(stream);
+                using (var stream = new InMemoryRandomAccessStream())
+                {
+                    var bitmap = new BitmapImage();
+                    await stream.WriteAsync(bytes.AsBuffer());
+                    stream.Seek(0);
+                    await bitmap.SetSourceAsync(stream);
+                    return bitmap;
+                }
             }
-            return bitmap;
+            return null;
         }
     }
 }

@@ -3,13 +3,16 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+using VanArsdel.Inventory.Animations;
+
 namespace VanArsdel.Inventory.Controls
 {
     public sealed class Section : ContentControl
     {
         public event RoutedEventHandler HeaderButtonClick;
 
-        private Grid _grid = null;
+        private Border _container = null;
+        private Grid _content = null;
         private IconLabelButton _button = null;
 
         public Section()
@@ -75,6 +78,22 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty HeaderButtonLabelProperty = DependencyProperty.Register("HeaderButtonLabel", typeof(string), typeof(Section), new PropertyMetadata(null, HeaderButtonLabelChanged));
         #endregion
 
+        #region IsButtonVisible
+        public bool IsButtonVisible
+        {
+            get { return (bool)GetValue(IsButtonVisibleProperty); }
+            set { SetValue(IsButtonVisibleProperty, value); }
+        }
+
+        private static void IsButtonVisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as Section;
+            control.UpdateControl();
+        }
+
+        public static readonly DependencyProperty IsButtonVisibleProperty = DependencyProperty.Register("IsButtonVisible", typeof(bool), typeof(Section), new PropertyMetadata(true, IsButtonVisibleChanged));
+        #endregion
+
         #region Footer
         public object Footer
         {
@@ -97,11 +116,17 @@ namespace VanArsdel.Inventory.Controls
 
         private void UpdateControl()
         {
-            if (_grid != null)
+            if (_content != null)
             {
-                _grid.RowDefinitions[0].Height = Header == null ? GridLengths.Zero : GridLengths.Auto;
-                _grid.RowDefinitions[2].Height = Footer == null ? GridLengths.Zero : GridLengths.Auto;
-                _button.Visibility = String.IsNullOrEmpty($"{HeaderButtonGlyph}{HeaderButtonLabel}") ? Visibility.Collapsed : Visibility.Visible;
+                _content.RowDefinitions[0].Height = Header == null ? GridLengths.Zero : GridLengths.Auto;
+                _content.RowDefinitions[2].Height = Footer == null ? GridLengths.Zero : GridLengths.Auto;
+                _button.Visibility = IsButtonVisible && !String.IsNullOrEmpty($"{HeaderButtonGlyph}{HeaderButtonLabel}") ? Visibility.Visible : Visibility.Collapsed;
+
+                if (!IsEnabled)
+                {
+                    _container.Grayscale();
+                    _content.Opacity = 0.25;
+                }
             }
         }
 
@@ -109,10 +134,13 @@ namespace VanArsdel.Inventory.Controls
         {
             base.OnApplyTemplate();
 
-            _grid = base.GetTemplateChild("grid") as Grid;
+            _container = base.GetTemplateChild("container") as Border;
+            _content = base.GetTemplateChild("content") as Grid;
 
             _button = base.GetTemplateChild("button") as IconLabelButton;
             _button.Click += OnClick;
+
+            IsEnabledChanged += OnIsEnabledChanged;
 
             UpdateControl();
         }
@@ -120,6 +148,20 @@ namespace VanArsdel.Inventory.Controls
         private void OnClick(object sender, RoutedEventArgs e)
         {
             HeaderButtonClick?.Invoke(this, e);
+        }
+
+        private void OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (IsEnabled)
+            {
+                _container.ClearEffects();
+                _content.Fade(250, 0.25, 1.0);
+            }
+            else
+            {
+                _container.Grayscale();
+                _content.Fade(250, 1.0, 0.25);
+            }
         }
     }
 }

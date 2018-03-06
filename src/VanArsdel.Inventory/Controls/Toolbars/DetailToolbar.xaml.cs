@@ -41,6 +41,9 @@ namespace VanArsdel.Inventory.Controls
                 case DetailToolbarMode.Default:
                     ShowCategory("default");
                     break;
+                case DetailToolbarMode.BackEditdDelete:
+                    ShowCategory("back", "edit", "delete");
+                    break;
                 case DetailToolbarMode.CancelSave:
                     ShowCategory("cancel", "save");
                     break;
@@ -69,6 +72,9 @@ namespace VanArsdel.Inventory.Controls
             {
                 switch (button.Name)
                 {
+                    case "buttonBack":
+                        RaiseButtonClick(ToolbarButton.Back);
+                        break;
                     case "buttonEdit":
                         RaiseButtonClick(ToolbarButton.Edit);
                         break;

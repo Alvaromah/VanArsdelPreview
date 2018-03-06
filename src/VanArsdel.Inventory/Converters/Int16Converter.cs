@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Data;
 
 namespace VanArsdel.Inventory.Converters
 {
-    public class Int16Converter : IValueConverter
+    public sealed class Int16Converter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

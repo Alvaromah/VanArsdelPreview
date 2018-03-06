@@ -20,7 +20,10 @@ namespace VanArsdel.Inventory.Views
 
         private ViewManager()
         {
+            MainViewId = ApplicationView.GetForCurrentView().Id;
         }
+
+        public int MainViewId { get; }
 
         public async Task<int> CreateNewView(Type pageType, object parameter = null)
         {
@@ -29,10 +32,13 @@ namespace VanArsdel.Inventory.Views
             CoreApplicationView newView = CoreApplication.CreateNewView();
             await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
+                viewId = ApplicationView.GetForCurrentView().Id;
+
                 var state = new MainViewState
                 {
                     PageType = pageType,
-                    Parameter = parameter
+                    Parameter = parameter,
+                    ViewId = viewId
                 };
 
                 var frame = new Frame();
@@ -40,8 +46,6 @@ namespace VanArsdel.Inventory.Views
 
                 Window.Current.Content = frame;
                 Window.Current.Activate();
-
-                viewId = ApplicationView.GetForCurrentView().Id;
             });
 
             if (await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId))
@@ -50,6 +54,11 @@ namespace VanArsdel.Inventory.Views
             }
 
             return 0;
+        }
+
+        public async Task Close()
+        {
+            await ApplicationViewSwitcher.SwitchAsync(MainViewId, ApplicationView.GetForCurrentView().Id, ApplicationViewSwitchingOptions.ConsolidateViews);
         }
     }
 }

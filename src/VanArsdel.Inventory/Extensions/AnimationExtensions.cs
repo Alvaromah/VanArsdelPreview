@@ -35,6 +35,11 @@ namespace VanArsdel.Inventory.Animations
             element.StartAnimation(nameof(Visual.Scale), CreateVector3Animation(milliseconds, vectorStart, vectorEnd, easingFunction));
         }
 
+        static public void Blur(this UIElement element, double amount)
+        {
+            var brush = CreateBlurEffectBrush(amount);
+            element.SetBrush(brush);
+        }
         static public void Blur(this UIElement element, double milliseconds, double start, double end, CompositionEasingFunction easingFunction = null)
         {
             var brush = CreateBlurEffectBrush();
@@ -42,11 +47,22 @@ namespace VanArsdel.Inventory.Animations
             brush.StartAnimation("Blur.BlurAmount", CreateScalarAnimation(milliseconds, start, end, easingFunction));
         }
 
+        static public void Grayscale(this UIElement element)
+        {
+            var brush = CreateGrayscaleEffectBrush();
+            element.SetBrush(brush);
+        }
+
         static public void SetBrush(this UIElement element, CompositionBrush brush)
         {
             var spriteVisual = CreateSpriteVisual(element);
             spriteVisual.Brush = brush;
             ElementCompositionPreview.SetElementChildVisual(element, spriteVisual);
+        }
+
+        static public void ClearEffects(this UIElement element)
+        {
+            ElementCompositionPreview.SetElementChildVisual(element, null);
         }
 
         static public SpriteVisual CreateSpriteVisual(UIElement element)
@@ -105,6 +121,21 @@ namespace VanArsdel.Inventory.Animations
 
             var compositor = Window.Current.Compositor;
             var factory = compositor.CreateEffectFactory(effect, new[] { "Blur.BlurAmount" });
+            var brush = factory.CreateBrush();
+            brush.SetSourceParameter("source", compositor.CreateBackdropBrush());
+            return brush;
+        }
+
+        static public CompositionEffectBrush CreateGrayscaleEffectBrush()
+        {
+            var effect = new GrayscaleEffect
+            {
+                Name = "Grayscale",
+                Source = new CompositionEffectSourceParameter("source")
+            };
+
+            var compositor = Window.Current.Compositor;
+            var factory = compositor.CreateEffectFactory(effect);
             var brush = factory.CreateBrush();
             brush.SetSourceParameter("source", compositor.CreateBackdropBrush());
             return brush;

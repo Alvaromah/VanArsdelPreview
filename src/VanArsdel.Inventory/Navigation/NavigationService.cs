@@ -14,12 +14,11 @@ namespace VanArsdel.Inventory
         public event NavigationStoppedEventHandler NavigationStopped;
         public event NavigationFailedEventHandler NavigationFailed;
 
-        static public NavigationService Main { get; private set; }
+        static public NavigationService Main => ThreadSafeSingleton<NavigationService>.Instance;
         static public NavigationService Shell { get; private set; }
 
         static NavigationService()
         {
-            Main = new NavigationService();
             Shell = new NavigationService();
         }
 
@@ -54,6 +53,11 @@ namespace VanArsdel.Inventory
             {
                 CurrentView.BackRequested += OnBackRequested;
             }
+        }
+
+        public void HideBackButton()
+        {
+            CurrentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
 
         public bool Navigate(Type pageType, object parameter = null, NavigationTransitionInfo infoOverride = null)

@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="VanArsdel.Inventory.Views.OrdersView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:VanArsdel.Inventory.Controls"
+    xmlns:views="using:VanArsdel.Inventory.Views"
+    mc:Ignorable="d">
+
+    <Grid Background="WhiteSmoke">
+        <Grid Margin="6" RowSpacing="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Orders-->
+            <views:OrdersList ViewModel="{x:Bind ViewModel.OrderList}" />
+
+            <!--Details-->
+            <Grid Grid.Row="1">
+                <controls:Section IsEnabled="{x:Bind ViewModel.OrderDetails.IsEnabled, Mode=OneWay}"
+                          HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenInNewView"
+                          Visibility="{x:Bind ViewModel.OrderDetails.IsDataAvailable}">
+
+                    <Pivot>
+                        <PivotItem Header="Order Details">
+                            <views:OrdersDetails Grid.Row="1" ViewModel="{x:Bind ViewModel.OrderDetails}" ItemDeleted="OnItemDeleted" />
+                        </PivotItem>
+                        <PivotItem Header="Order Items">
+                            <!--<views:OrdersItems Grid.Row="1" ViewModel="{x:Bind ViewModel.OrderOrders}" />-->
+                        </PivotItem>
+                    </Pivot>
+                </controls:Section>
+
+                <!--Empty Details-->
+                <controls:Section Header="No item selected" Visibility="{x:Bind ViewModel.OrderDetails.IsDataUnavailable}" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

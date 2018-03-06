@@ -109,6 +109,11 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty MaxLengthProperty = DependencyProperty.Register("MaxLength", typeof(int), typeof(LabelTextBox), new PropertyMetadata(0));
         #endregion
 
+        public void SetFocus()
+        {
+            _inputText?.Focus(FocusState.Programmatic);
+        }
+
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -152,6 +157,7 @@ namespace VanArsdel.Inventory.Controls
 
         private void OnGotFocus(object sender, RoutedEventArgs e)
         {
+            _inputText.SelectionStart = _inputText.Text.Length;
             _inputText.Opacity = 1.0;
             _border.Opacity = 1.0;
             _displayText.Visibility = Visibility.Collapsed;
@@ -211,19 +217,20 @@ namespace VanArsdel.Inventory.Controls
                 switch (Mode)
                 {
                     case TextEditMode.ReadOnly:
-                        _inputText.IsTabStop = false;
-                        _border.IsHitTestVisible = true;
-                        _border.Opacity = 0.0;
+                        _inputText.Visibility = Visibility.Collapsed;
+                        _border.Visibility = Visibility.Collapsed;
                         break;
                     case TextEditMode.Auto:
-                        _inputText.IsTabStop = true;
-                        _border.IsHitTestVisible = false;
+                        _inputText.Visibility = Visibility.Visible;
                         _border.Opacity = 0.0;
+                        _border.IsHitTestVisible = false;
+                        _border.Visibility = Visibility.Visible;
                         break;
                     case TextEditMode.ReadWrite:
-                        _inputText.IsTabStop = true;
-                        _border.IsHitTestVisible = false;
+                        _inputText.Visibility = Visibility.Visible;
                         _border.Opacity = 1.0;
+                        _border.IsHitTestVisible = false;
+                        _border.Visibility = Visibility.Visible;
                         break;
                 }
             }

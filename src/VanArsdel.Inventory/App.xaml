@@ -13,6 +13,9 @@
                 <ResourceDictionary Source="/Styles/ToolBar.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" FalseValue="Collapsed" TrueValue="Visible" />
+            <converters:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" FalseValue="Visible" TrueValue="Collapsed" />
+
             <converters:Int16Converter x:Key="Int16Converter" />
             <converters:Int32Converter x:Key="Int32Converter" />
             <converters:Int64Converter x:Key="Int64Converter" />
