@@ -173,12 +173,6 @@
     <Compile Include="Tools\ElementSet\ElementSet.Properties.cs" />
     <Compile Include="ViewModels\ModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="ViewModels\CustomerOrders\CustomerOrdersViewModel.cs" />
-    <Compile Include="ViewModels\CustomerOrders\CustomerOrdersViewModel.Customers.cs" />
-    <Compile Include="ViewModels\CustomerOrders\CustomerOrdersViewModel.Orders.cs" />
-    <Compile Include="ViewModels\Customers\CustomersViewModel.cs" />
-    <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
-    <Compile Include="ViewModels\Orders\OrdersViewModel.cs" />
     <Compile Include="ViewModels\Shell\ShellViewModel.cs" />
     <Compile Include="Views\Common\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>
