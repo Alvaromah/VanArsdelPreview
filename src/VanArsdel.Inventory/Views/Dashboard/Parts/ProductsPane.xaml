@@ -48,6 +48,6 @@
         <TextBlock Margin="6,0" Text="Top Sale Products" FontSize="18" />
         <ContentControl Grid.Row="1" ContentTemplate="{StaticResource HeaderTemplate}" HorizontalContentAlignment="Stretch" />
         <ListView Grid.Row="2" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" ItemTemplate="{StaticResource ItemTemplate}"
-                  ItemContainerStyle="{StaticResource RowItemStyle}" />
+                  ItemContainerStyle="{StaticResource RowItemStyle}" IsHitTestVisible="False" />
     </Grid>
 </UserControl>
