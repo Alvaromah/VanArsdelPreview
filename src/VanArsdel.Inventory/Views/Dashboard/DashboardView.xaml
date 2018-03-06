@@ -30,7 +30,6 @@
 
         <Grid Grid.Row="0">
             <TextBlock Margin="12" Text="VanArsdel Inventory" FontSize="36" Foreground="#444" />
-            <controls:IconButton Margin="12" Grid.RowSpan="2" Glyph="&#xE2B4;" HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnOpenNewView" />
         </Grid>
 
         <TextBlock Grid.Row="1" Margin="12,12,12,0" Text="Dashboard" FontSize="22" Foreground="#666" />

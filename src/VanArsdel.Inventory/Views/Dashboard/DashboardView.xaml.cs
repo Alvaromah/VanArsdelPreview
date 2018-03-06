@@ -6,8 +6,8 @@ using Windows.UI.Xaml.Controls;
 
 using Windows.UI.Xaml.Navigation;
 
-using VanArsdel.Inventory.Data;
 using VanArsdel.Inventory.ViewModels;
+using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.Views
 {
@@ -43,12 +43,6 @@ namespace VanArsdel.Inventory.Views
             {
                 ViewModel.ItemSelected(control.Tag as String);
             }
-        }
-
-        private void OnOpenNewView(object sender, RoutedEventArgs e)
-        {
-            // TODO: Fix threading issues
-            //await ViewManager.Current.CreateNewView(typeof(ShellView));
         }
     }
 }

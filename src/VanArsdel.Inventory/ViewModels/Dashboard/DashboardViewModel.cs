@@ -3,8 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using VanArsdel.Inventory.Data;
+using VanArsdel.Data;
 using VanArsdel.Inventory.Models;
+using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.ViewModels
 {
@@ -73,34 +74,32 @@ namespace VanArsdel.Inventory.ViewModels
         private async Task LoadCustomersAsync(IDataProvider dataProvider)
         {
             var page = await dataProvider.GetCustomersAsync(0, 5);
-            var models = page.Items.Select(r => new CustomerModel(r)).ToList();
-            foreach (var model in models)
-            {
-                await model.LoadAsync();
-            }
-            Customers = models;
+            Customers = page.Items;
         }
 
         private async Task LoadProductsAsync(IDataProvider dataProvider)
         {
-            var page = await dataProvider.GetProductsAsync(0, 5);
-            var models = page.Items.Select(r => new ProductModel(r)).ToList();
-            foreach (var model in models)
-            {
-                await model.LoadAsync();
-            }
-            Products = models;
+            Products = new List<ProductModel>();
+            await Task.FromResult(true);
+            //var page = await dataProvider.GetProductsAsync(0, 5);
+            //var models = page.Items.Select(r => new ProductModel(r)).ToList();
+            //foreach (var model in models)
+            //{
+            //    await model.LoadAsync();
+            //}
+            //Products = models;
         }
 
         private async Task LoadOrdersAsync(IDataProvider dataProvider)
         {
-            var page = await dataProvider.GetOrdersAsync(0, 5);
-            var models = page.Items.Select(r => new OrderModel(r)).ToList();
-            foreach (var model in models)
+            var request = new PageRequest<Order>
             {
-                await model.LoadAsync();
-            }
-            Orders = models;
+                PageSize = 5,
+                OrderBy = (r) => r.OrderDate,
+                Descending = true
+            };
+            var page = await dataProvider.GetOrdersAsync(request);
+            Orders = page.Items;
         }
     }
 }

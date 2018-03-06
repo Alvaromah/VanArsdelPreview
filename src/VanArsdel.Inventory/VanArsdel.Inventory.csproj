@@ -144,12 +144,16 @@
     <Compile Include="Extensions\PageExtensions.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Helpers\UIHelper.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CountryCodeModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\OrderItemModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\OrderStatusModel.cs" />
     <Compile Include="Models\PaymentTypeModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ShipperModel.cs" />
+    <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Models\TaxTypeModel.cs" />
     <Compile Include="Navigation\NavigationItem.cs" />
     <Compile Include="Navigation\KnownNavigationItems.cs" />
@@ -170,6 +174,7 @@
     <Compile Include="ViewModels\Customers\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomersViewModel.cs" />
     <Compile Include="ViewModels\Customers\ViewState\CustomerViewState.cs" />
+    <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderListViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrdersViewModel.cs" />
@@ -206,6 +211,21 @@
     </Compile>
     <Compile Include="Views\Customer\Details\CustomerDetails.xaml.cs">
       <DependentUpon>CustomerDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\DashboardView.xaml.cs">
+      <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Parts\ChartPane.xaml.cs">
+      <DependentUpon>ChartPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Parts\CustomersPane.xaml.cs">
+      <DependentUpon>CustomersPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Parts\OrdersPane.xaml.cs">
+      <DependentUpon>OrdersPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Parts\ProductsPane.xaml.cs">
+      <DependentUpon>ProductsPane.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -342,6 +362,26 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Customer\Details\CustomerDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\DashboardView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\Parts\ChartPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\Parts\CustomersPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\Parts\OrdersPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\Parts\ProductsPane.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
