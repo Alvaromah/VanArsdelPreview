@@ -19,8 +19,6 @@ namespace VanArsdel.Inventory.ViewModels
             yield return KnownNavigationItems.Dashboard;
             yield return KnownNavigationItems.Customers;
             yield return KnownNavigationItems.Orders;
-            yield return KnownNavigationItems.CustomerOrders;
-            yield return KnownNavigationItems.Categories;
             yield return KnownNavigationItems.Products;
         }
     }

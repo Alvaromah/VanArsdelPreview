@@ -162,7 +162,7 @@
     <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Models\TaxTypeModel.cs" />
     <Compile Include="Navigation\NavigationItem.cs" />
-    <Compile Include="Navigation\NavigationItems.cs" />
+    <Compile Include="Navigation\KnownNavigationItems.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\BitmapTools.cs" />
@@ -183,59 +183,8 @@
     <Compile Include="Views\Common\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CustomerOrders\CustomerOrdersView.xaml.cs">
-      <DependentUpon>CustomerOrdersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CustomerOrders\Parts\CustomerHeader.xaml.cs">
-      <DependentUpon>CustomerHeader.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CustomerOrders\Parts\CustomerListCompact.xaml.cs">
-      <DependentUpon>CustomerListCompact.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CustomerOrders\Parts\CustomerOrderDetails.xaml.cs">
-      <DependentUpon>CustomerOrderDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CustomerOrders\Parts\CustomerOrderList.xaml.cs">
-      <DependentUpon>CustomerOrderList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customers\CustomersView.xaml.cs">
-      <DependentUpon>CustomersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customers\Parts\CustomerDetails.xaml.cs">
-      <DependentUpon>CustomerDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customers\Parts\CustomerList.xaml.cs">
-      <DependentUpon>CustomerList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\DashboardView.xaml.cs">
-      <DependentUpon>DashboardView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\Parts\ChartPane.xaml.cs">
-      <DependentUpon>ChartPane.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\Parts\CustomersPane.xaml.cs">
-      <DependentUpon>CustomersPane.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\Parts\OrdersPane.xaml.cs">
-      <DependentUpon>OrdersPane.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\Parts\ProductsPane.xaml.cs">
-      <DependentUpon>ProductsPane.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\Parts\OrderItemList.xaml.cs">
-      <DependentUpon>OrderItemList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\OrdersView.xaml.cs">
-      <DependentUpon>OrdersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\Parts\OrderDetails.xaml.cs">
-      <DependentUpon>OrderDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\Parts\OrderList.xaml.cs">
-      <DependentUpon>OrderList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -321,77 +270,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CustomerOrders\CustomerOrdersView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\CustomerOrders\Parts\CustomerHeader.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\CustomerOrders\Parts\CustomerListCompact.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\CustomerOrders\Parts\CustomerOrderDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\CustomerOrders\Parts\CustomerOrderList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Customers\CustomersView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Customers\Parts\CustomerDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Customers\Parts\CustomerList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\DashboardView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\Parts\ChartPane.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\Parts\CustomersPane.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\Parts\OrdersPane.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\Parts\ProductsPane.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Orders\Parts\OrderItemList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Orders\OrdersView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Orders\Parts\OrderDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Orders\Parts\OrderList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Settings\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
