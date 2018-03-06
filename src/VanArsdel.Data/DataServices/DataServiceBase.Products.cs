@@ -28,7 +28,7 @@ namespace VanArsdel.Data.Services
             int pageSize = Math.Min(count, request.PageSize);
             int index = Math.Min(Math.Max(0, count - 1) / pageSize, request.PageIndex);
 
-            // Product By
+            // Order By
             if (request.OrderBy != null)
             {
                 items = request.Descending ? items.OrderByDescending(request.OrderBy) : items.OrderBy(request.OrderBy);

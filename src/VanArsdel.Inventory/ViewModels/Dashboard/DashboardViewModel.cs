@@ -73,7 +73,13 @@ namespace VanArsdel.Inventory.ViewModels
 
         private async Task LoadCustomersAsync(IDataProvider dataProvider)
         {
-            var page = await dataProvider.GetCustomersAsync(0, 5);
+            var request = new PageRequest<Customer>
+            {
+                PageSize = 5,
+                OrderBy = (r) => r.CreatedOn,
+                Descending = true
+            };
+            var page = await dataProvider.GetCustomersAsync(request);
             Customers = page.Items;
         }
 

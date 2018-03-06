@@ -16,7 +16,7 @@ namespace VanArsdel.Inventory.Providers
         Task<IList<ShipperModel>> GetShippersAsync();
         Task<IList<TaxTypeModel>> GetTaxTypesAsync();
 
-        Task<PageResult<CustomerModel>> GetCustomersAsync(int pageIndex, int pageSize, string query = null, Expression<Func<Customer, object>> orderBy = null, bool descending = false);
+        Task<PageResult<CustomerModel>> GetCustomersAsync(PageRequest<Customer> request);
         Task<CustomerModel> GetCustomerAsync(long id);
         Task<int> UpdateCustomerAsync(CustomerModel model);
         Task<int> DeleteCustomerAsync(CustomerModel model);

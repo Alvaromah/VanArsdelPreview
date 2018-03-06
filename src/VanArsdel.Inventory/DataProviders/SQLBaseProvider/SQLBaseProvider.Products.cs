@@ -15,7 +15,7 @@ namespace VanArsdel.Inventory.Providers
             var page = await DataService.GetProductsAsync(request);
             foreach (var item in page.Items)
             {
-                models.Add(await CreateProductModel(item, includeAllFields: false));
+                models.Add(await CreateProductModelAsync(item, includeAllFields: false));
             }
             return new PageResult<ProductModel>(page.PageIndex, page.PageSize, page.Count, models);
         }
@@ -23,7 +23,7 @@ namespace VanArsdel.Inventory.Providers
         public async Task<ProductModel> GetProductAsync(string id)
         {
             var item = await DataService.GetProductAsync(id);
-            return await CreateProductModel(item, includeAllFields: true);
+            return await CreateProductModelAsync(item, includeAllFields: true);
         }
 
         public async Task<int> DeleteProductAsync(ProductModel model)
@@ -44,7 +44,7 @@ namespace VanArsdel.Inventory.Providers
             return 0;
         }
 
-        private async Task<ProductModel> CreateProductModel(Product source, bool includeAllFields)
+        private async Task<ProductModel> CreateProductModelAsync(Product source, bool includeAllFields)
         {
             var model = new ProductModel()
             {

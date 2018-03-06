@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
@@ -9,21 +8,30 @@ namespace VanArsdel.Data.Services
 {
     partial class DataServiceBase
     {
-        public async Task<PageResult<Customer>> GetCustomersAsync(int pageIndex, int pageSize, string query = null, Expression<Func<Customer, object>> orderBy = null, bool descending = false)
+        public async Task<PageResult<Customer>> GetCustomersAsync(PageRequest<Customer> request)
         {
-            // Query
+            // Where
             IQueryable<Customer> items = _dataSource.Customers;
-            if (!String.IsNullOrEmpty(query))
+            if (request.Where != null)
             {
-                items = items.Where(r => r.SearchTerms.Contains(query));
+                items = items.Where(request.Where);
             }
+
+            // Query
+            if (!String.IsNullOrEmpty(request.Query))
+            {
+                items = items.Where(r => r.SearchTerms.Contains(request.Query));
+            }
+
+            // Count
             int count = items.Count();
-            int index = Math.Min(Math.Max(0, count - 1) / pageSize, pageIndex);
+            int pageSize = Math.Min(count, request.PageSize);
+            int index = Math.Min(Math.Max(0, count - 1) / pageSize, request.PageIndex);
 
             // Order By
-            if (orderBy != null)
+            if (request.OrderBy != null)
             {
-                items = descending ? items.OrderByDescending(orderBy) : items.OrderBy(orderBy);
+                items = request.Descending ? items.OrderByDescending(request.OrderBy) : items.OrderBy(request.OrderBy);
             }
 
             // Execute

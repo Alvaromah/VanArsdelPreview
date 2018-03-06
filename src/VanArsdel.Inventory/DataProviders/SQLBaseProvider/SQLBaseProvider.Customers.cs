@@ -10,10 +10,10 @@ namespace VanArsdel.Inventory.Providers
 {
     partial class SQLBaseProvider
     {
-        public async Task<PageResult<CustomerModel>> GetCustomersAsync(int pageIndex, int pageSize, string query = null, Expression<Func<Customer, object>> orderBy = null, bool descending = false)
+        public async Task<PageResult<CustomerModel>> GetCustomersAsync(PageRequest<Customer> request)
         {
             var models = new List<CustomerModel>();
-            var page = await DataService.GetCustomersAsync(pageIndex, pageSize, query, orderBy, descending);
+            var page = await DataService.GetCustomersAsync(request);
             foreach (var item in page.Items)
             {
                 models.Add(await CreateCustomerModelAsync(item, includeAllFields: false));

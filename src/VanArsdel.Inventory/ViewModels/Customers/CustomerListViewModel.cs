@@ -20,7 +20,12 @@ namespace VanArsdel.Inventory.ViewModels
 
         override public async Task<PageResult<CustomerModel>> GetItemsAsync(IDataProvider dataProvider)
         {
-            return await dataProvider.GetCustomersAsync(PageIndex, PageSize, Query, r => r.FirstName);
+            var request = new PageRequest<Customer>(PageIndex, PageSize)
+            {
+                Query = Query,
+                OrderBy = r => r.FirstName
+            };
+            return await dataProvider.GetCustomersAsync(request);
         }
     }
 }
