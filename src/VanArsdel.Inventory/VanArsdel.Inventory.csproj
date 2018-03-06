@@ -137,6 +137,7 @@
     <Compile Include="DataProviders\IDataProviderFactory.cs" />
     <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.cs" />
     <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.Customers.cs" />
+    <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.Products.cs" />
     <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.Orders.cs" />
     <Compile Include="DataProviders\SQLiteProvider\SQLiteDataProvider.cs" />
     <Compile Include="DataProviders\SQLServerProvider\SQLServerProvider.cs" />

@@ -8,10 +8,10 @@ namespace VanArsdel.Data.Services
 {
     partial class DataServiceBase
     {
-        public async Task<PageResult<Order>> GetOrdersAsync(PageRequest<Order> request)
+        public async Task<PageResult<Product>> GetProductsAsync(PageRequest<Product> request)
         {
             // Where
-            IQueryable<Order> items = _dataSource.Orders;
+            IQueryable<Product> items = _dataSource.Products;
             if (request.Where != null)
             {
                 items = items.Where(request.Where);
@@ -28,7 +28,7 @@ namespace VanArsdel.Data.Services
             int pageSize = Math.Min(count, request.PageSize);
             int index = Math.Min(Math.Max(0, count - 1) / pageSize, request.PageIndex);
 
-            // Order By
+            // Product By
             if (request.OrderBy != null)
             {
                 items = request.Descending ? items.OrderByDescending(request.OrderBy) : items.OrderBy(request.OrderBy);
@@ -37,39 +37,39 @@ namespace VanArsdel.Data.Services
             // Execute
             var records = await items.Skip(index * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
 
-            return new PageResult<Order>(index, pageSize, count, records);
+            return new PageResult<Product>(index, pageSize, count, records);
         }
 
-        public async Task<Order> GetOrderAsync(long id)
+        public async Task<Product> GetProductAsync(string id)
         {
-            return await _dataSource.Orders.Where(r => r.OrderID == id).FirstOrDefaultAsync();
+            return await _dataSource.Products.Where(r => r.ProductID == id).FirstOrDefaultAsync();
         }
 
-        public async Task<int> UpdateOrderAsync(Order order)
+        public async Task<int> UpdateProductAsync(Product product)
         {
-            if (order.OrderID > 0)
+            if (!String.IsNullOrEmpty(product.ProductID))
             {
-                _dataSource.Entry(order).State = EntityState.Modified;
+                _dataSource.Entry(product).State = EntityState.Modified;
             }
             else
             {
-                order.OrderID = UIDGenerator.Next();
-                order.OrderDate = DateTime.UtcNow;
-                _dataSource.Entry(order).State = EntityState.Added;
+                // TODO: Generate friendly ID
+                product.ProductID = Guid.NewGuid().ToString();
+                product.CreatedOn = DateTime.UtcNow;
+                _dataSource.Entry(product).State = EntityState.Added;
             }
-            // TODO: 
-            //order.LastModifiedOn = DateTime.UtcNow;
-            order.SearchTerms = order.BuildSearchTerms();
+            product.LastModifiedOn = DateTime.UtcNow;
+            product.SearchTerms = product.BuildSearchTerms();
             return await _dataSource.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteOrderAsync(long id)
+        public async Task<int> DeleteProductAsync(string id)
         {
             // TODO: Delete children
-            var item = _dataSource.Orders.Where(r => r.OrderID == id).Select(r => new Order { OrderID = r.OrderID }).FirstOrDefault();
+            var item = _dataSource.Products.Where(r => r.ProductID == id).Select(r => new Product { ProductID = r.ProductID }).FirstOrDefault();
             if (item != null)
             {
-                _dataSource.Orders.Remove(item);
+                _dataSource.Products.Remove(item);
                 return await _dataSource.SaveChangesAsync();
             }
             return 0;

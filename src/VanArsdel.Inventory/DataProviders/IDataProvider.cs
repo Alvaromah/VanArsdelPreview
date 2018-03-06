@@ -25,5 +25,10 @@ namespace VanArsdel.Inventory.Providers
         Task<OrderModel> GetOrderAsync(long id);
         Task<int> UpdateOrderAsync(OrderModel model);
         Task<int> DeleteOrderAsync(OrderModel model);
+
+        Task<PageResult<ProductModel>> GetProductsAsync(PageRequest<Product> request);
+        Task<ProductModel> GetProductAsync(string id);
+        Task<int> UpdateProductAsync(ProductModel model);
+        Task<int> DeleteProductAsync(ProductModel model);
     }
 }

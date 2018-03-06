@@ -79,15 +79,14 @@ namespace VanArsdel.Inventory.ViewModels
 
         private async Task LoadProductsAsync(IDataProvider dataProvider)
         {
-            Products = new List<ProductModel>();
-            await Task.FromResult(true);
-            //var page = await dataProvider.GetProductsAsync(0, 5);
-            //var models = page.Items.Select(r => new ProductModel(r)).ToList();
-            //foreach (var model in models)
-            //{
-            //    await model.LoadAsync();
-            //}
-            //Products = models;
+            var request = new PageRequest<Product>
+            {
+                PageSize = 5,
+                OrderBy = (r) => r.CreatedOn,
+                Descending = true
+            };
+            var page = await dataProvider.GetProductsAsync(request);
+            Products = page.Items;
         }
 
         private async Task LoadOrdersAsync(IDataProvider dataProvider)
