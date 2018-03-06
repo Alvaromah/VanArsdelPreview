@@ -175,6 +175,7 @@
     <Compile Include="ViewModels\Orders\OrdersViewModel.cs" />
     <Compile Include="ViewModels\Orders\ViewState\OrdersViewState.cs" />
     <Compile Include="ViewModels\Orders\ViewState\OrderViewState.cs" />
+    <Compile Include="ViewModels\Shell\ViewState\ShellViewState.cs" />
     <Compile Include="ViewModels\Shell\ShellViewModel.cs" />
     <Compile Include="Views\Common\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>

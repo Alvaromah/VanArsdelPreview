@@ -36,10 +36,32 @@ namespace VanArsdel.Inventory.Views
 
         public ShellViewModel ViewModel { get; private set; }
 
+        private ShellViewState _state = null;
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _state = e.Parameter as ShellViewState;
+            _state = _state ?? new ShellViewState();
+            if (_state.NavigationState != null)
+            {
+                frame.SetNavigationState(_state.NavigationState);
+                _state.Current = null;
+            }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            _state.NavigationState = frame.GetNavigationState();
+            _state.Current = null;
+        }
+
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
             await Task.Delay(100);
-            ViewModel.SelectedItem = KnownNavigationItems.Dashboard;
+            if (_state.Current != null)
+            {
+                ViewModel.SelectedItem = _state.Current;
+            }
         }
 
         private void OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

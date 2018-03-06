@@ -8,6 +8,7 @@ using Windows.Foundation;
 using Windows.Storage;
 
 using VanArsdel.Inventory.Views;
+using VanArsdel.Inventory.ViewModels;
 
 namespace VanArsdel.Inventory
 {
@@ -41,7 +42,7 @@ namespace VanArsdel.Inventory
                     var state = new MainViewState
                     {
                         PageType = EntryPage,
-                        Parameter = e.Arguments
+                        Parameter = new ShellViewState { Current = KnownNavigationItems.Dashboard }
                     };
                     frame.Navigate(typeof(MainView), state);
                 }
