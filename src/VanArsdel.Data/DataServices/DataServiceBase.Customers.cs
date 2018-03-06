@@ -25,42 +25,46 @@ namespace VanArsdel.Data.Services
 
             // Count
             int count = items.Count();
-            int pageSize = Math.Min(count, request.PageSize);
-            int index = Math.Min(Math.Max(0, count - 1) / pageSize, request.PageIndex);
-
-            // Order By
-            if (request.OrderBy != null)
+            if (count > 0)
             {
-                items = request.Descending ? items.OrderByDescending(request.OrderBy) : items.OrderBy(request.OrderBy);
-            }
+                int pageSize = Math.Min(count, request.PageSize);
+                int index = Math.Min(Math.Max(0, count - 1) / pageSize, request.PageIndex);
 
-            // Execute
-            var records = await items.Skip(index * pageSize).Take(pageSize)
-                .Select(r => new Customer
+                // Order By
+                if (request.OrderBy != null)
                 {
-                    CustomerID = r.CustomerID,
-                    Title = r.Title,
-                    FirstName = r.FirstName,
-                    MiddleName = r.MiddleName,
-                    LastName = r.LastName,
-                    Suffix = r.Suffix,
-                    Gender = r.Gender,
-                    EmailAddress = r.EmailAddress,
-                    AddressLine1 = r.AddressLine1,
-                    AddressLine2 = r.AddressLine2,
-                    City = r.City,
-                    Region = r.Region,
-                    CountryCode = r.CountryCode,
-                    PostalCode = r.PostalCode,
-                    Phone = r.Phone,
-                    CreatedOn = r.CreatedOn,
-                    LastModifiedOn = r.LastModifiedOn,
-                    Thumbnail = r.Thumbnail
-                })
-                .AsNoTracking()
-                .ToListAsync();
+                    items = request.Descending ? items.OrderByDescending(request.OrderBy) : items.OrderBy(request.OrderBy);
+                }
 
-            return new PageResult<Customer>(index, pageSize, count, records);
+                // Execute
+                var records = await items.Skip(index * pageSize).Take(pageSize)
+                    .Select(r => new Customer
+                    {
+                        CustomerID = r.CustomerID,
+                        Title = r.Title,
+                        FirstName = r.FirstName,
+                        MiddleName = r.MiddleName,
+                        LastName = r.LastName,
+                        Suffix = r.Suffix,
+                        Gender = r.Gender,
+                        EmailAddress = r.EmailAddress,
+                        AddressLine1 = r.AddressLine1,
+                        AddressLine2 = r.AddressLine2,
+                        City = r.City,
+                        Region = r.Region,
+                        CountryCode = r.CountryCode,
+                        PostalCode = r.PostalCode,
+                        Phone = r.Phone,
+                        CreatedOn = r.CreatedOn,
+                        LastModifiedOn = r.LastModifiedOn,
+                        Thumbnail = r.Thumbnail
+                    })
+                    .AsNoTracking()
+                    .ToListAsync();
+
+                return new PageResult<Customer>(index, pageSize, count, records);
+            }
+            return PageResult<Customer>.Empty();
         }
 
         public async Task<Customer> GetCustomerAsync(long id)

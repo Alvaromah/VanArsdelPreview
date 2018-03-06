@@ -20,5 +20,10 @@ namespace VanArsdel.Data
         public int Count { get; }
 
         public IList<T> Items { get; }
+
+        static public PageResult<T> Empty()
+        {
+            return new PageResult<T>(0, 0, 0, new List<T>());
+        }
     }
 }

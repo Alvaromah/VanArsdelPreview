@@ -25,19 +25,23 @@ namespace VanArsdel.Data.Services
 
             // Count
             int count = items.Count();
-            int pageSize = Math.Min(count, request.PageSize);
-            int index = Math.Min(Math.Max(0, count - 1) / pageSize, request.PageIndex);
-
-            // Order By
-            if (request.OrderBy != null)
+            if (count > 0)
             {
-                items = request.Descending ? items.OrderByDescending(request.OrderBy) : items.OrderBy(request.OrderBy);
+                int pageSize = Math.Min(count, request.PageSize);
+                int index = Math.Min(Math.Max(0, count - 1) / pageSize, request.PageIndex);
+
+                // Order By
+                if (request.OrderBy != null)
+                {
+                    items = request.Descending ? items.OrderByDescending(request.OrderBy) : items.OrderBy(request.OrderBy);
+                }
+
+                // Execute
+                var records = await items.Skip(index * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
+
+                return new PageResult<Order>(index, pageSize, count, records);
             }
-
-            // Execute
-            var records = await items.Skip(index * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
-
-            return new PageResult<Order>(index, pageSize, count, records);
+            return PageResult<Order>.Empty();
         }
 
         public async Task<Order> GetOrderAsync(long id)
