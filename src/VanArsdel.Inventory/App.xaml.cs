@@ -7,7 +7,6 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Storage;
 
-using VanArsdel.Inventory.Data;
 using VanArsdel.Inventory.Views;
 
 namespace VanArsdel.Inventory

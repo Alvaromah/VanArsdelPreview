@@ -11,7 +11,8 @@ namespace VanArsdel.Inventory
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public DataHelper DataHelper => DataHelper.Current;
+        // TODO: 
+        //public DataHelper DataHelper => DataHelper.Current;
         public UIHelper UIHelper => UIHelper.Current;
 
         protected bool Set<T>(ref T field, T newValue = default(T), [CallerMemberName] string propertyName = null)

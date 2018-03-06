@@ -127,40 +127,8 @@
     <Compile Include="Converters\Int16Converter.cs" />
     <Compile Include="Converters\Int32Converter.cs" />
     <Compile Include="Converters\Int64Converter.cs" />
-    <Compile Include="DataContext\LocalDb.cs" />
-    <Compile Include="DataProviders\Common\PageResult.cs" />
-    <Compile Include="DataProviders\DataProviderFactory.cs" />
-    <Compile Include="DataProviders\IDataProvider.cs" />
-    <Compile Include="DataProviders\IDataProviderFactory.cs" />
-    <Compile Include="DataProviders\LocalProvider\LocalDataProvider.cs" />
-    <Compile Include="DataProviders\LocalProvider\LocalDataProvider.Customers.cs" />
-    <Compile Include="DataProviders\LocalProvider\LocalDataProvider.OrderItems.cs" />
-    <Compile Include="DataProviders\LocalProvider\LocalDataProvider.Orders.cs" />
-    <Compile Include="Data\Category.cs" />
-    <Compile Include="Data\CountryCode.cs" />
-    <Compile Include="Data\Customer.cs" />
-    <Compile Include="Data\Order.cs" />
-    <Compile Include="Data\OrderItem.cs" />
-    <Compile Include="Data\OrderStatus.cs" />
-    <Compile Include="Data\PaymentType.cs" />
-    <Compile Include="Data\Product.cs" />
-    <Compile Include="Data\Shipper.cs" />
-    <Compile Include="Data\SubCategory.cs" />
-    <Compile Include="Data\TaxType.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
     <Compile Include="Helpers\UIHelper.cs" />
-    <Compile Include="Helpers\DataHelper.cs" />
-    <Compile Include="Models\CategoryModel.cs" />
-    <Compile Include="Models\CountryCodeModel.cs" />
-    <Compile Include="Models\CustomerModel.cs" />
-    <Compile Include="Models\OrderItemModel.cs" />
-    <Compile Include="Models\OrderModel.cs" />
-    <Compile Include="Models\OrderStatusModel.cs" />
-    <Compile Include="Models\PaymentTypeModel.cs" />
-    <Compile Include="Models\ProductModel.cs" />
-    <Compile Include="Models\ShipperModel.cs" />
-    <Compile Include="Models\SubCategoryModel.cs" />
-    <Compile Include="Models\TaxTypeModel.cs" />
     <Compile Include="Navigation\NavigationItem.cs" />
     <Compile Include="Navigation\KnownNavigationItems.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
@@ -297,10 +265,7 @@
   <ItemGroup>
     <Content Include="Assets\Database\VanArsdel.db" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataProviders\RESTProvider\" />
-    <Folder Include="DataProviders\SqlProvider\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="VanArsdel.Inventory_TemporaryKey.pfx" />
   </ItemGroup>

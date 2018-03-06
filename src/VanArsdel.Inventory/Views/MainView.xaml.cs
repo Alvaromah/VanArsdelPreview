@@ -5,7 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-using VanArsdel.Inventory.Data;
+//using VanArsdel.Inventory.Data;
 
 namespace VanArsdel.Inventory.Views
 {
@@ -41,7 +41,8 @@ namespace VanArsdel.Inventory.Views
             IsBusy = true;
             StatusMessage = "Loading...";
             await Task.Delay(100);
-            await DataHelper.Current.InitializeAsync(new DataProviderFactory());
+            // TODO: 
+            //await DataHelper.Current.InitializeAsync(new DataProviderFactory());
             if (e.Parameter is MainViewState state)
             {
                 frame.Navigate(state.PageType, state.Parameter);
