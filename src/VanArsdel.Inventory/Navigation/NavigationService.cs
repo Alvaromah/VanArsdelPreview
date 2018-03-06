@@ -55,6 +55,17 @@ namespace VanArsdel.Inventory
             }
         }
 
+        public string GetNavigationState()
+        {
+            return Frame.GetNavigationState();
+        }
+
+        public void SetNavigationState(string navigationState)
+        {
+            Frame.SetNavigationState(navigationState);
+            CurrentView.AppViewBackButtonVisibility = CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
         public void HideBackButton()
         {
             CurrentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
