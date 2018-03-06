@@ -86,12 +86,6 @@ namespace VanArsdel.Inventory.Views
             }
         }
 
-        //private async void OpenInNewView(object sender, RoutedEventArgs e)
-        //{
-        //    ViewModel.IsEditMode = false;
-        //    await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState { CustomerID = ViewModel.Item.CustomerID });
-        //}
-
         private void OnUpdateView(object sender, EventArgs e)
         {
             Bindings.Update();

@@ -33,7 +33,7 @@ namespace VanArsdel.Inventory.Views
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            ViewModel.BeginEdit();
+            ViewModel.CancelEdit();
         }
 
         private async void OnItemDeleted(object sender, EventArgs e)
@@ -43,8 +43,8 @@ namespace VanArsdel.Inventory.Views
 
         private async void OpenInNewView(object sender, RoutedEventArgs e)
         {
-            //ViewModel.IsEditMode = false;
-            //await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState { CustomerID = ViewModel.Item.CustomerID });
+            ViewModel.CustomerDetails.IsEditMode = false;
+            await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState { CustomerID = ViewModel.CustomerDetails.Item.CustomerID });
         }
 
         private void OnUpdateView(object sender, EventArgs e)
