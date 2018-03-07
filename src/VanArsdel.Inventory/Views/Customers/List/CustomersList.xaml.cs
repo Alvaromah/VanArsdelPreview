@@ -52,8 +52,16 @@ namespace VanArsdel.Inventory.Views
                 case ToolbarButton.New:
                     NavigationService.Main.Navigate(typeof(CustomerView), new CustomerViewState());
                     break;
+                case ToolbarButton.Select:
+                    ViewModel.IsMultipleSelection = true;
+                    ViewModel.ToolbarMode = ListToolbarMode.Cancel;
+                    break;
                 case ToolbarButton.Refresh:
                     await ViewModel.RefreshAsync();
+                    break;
+                case ToolbarButton.Cancel:
+                    ViewModel.IsMultipleSelection = false;
+                    ViewModel.ToolbarMode = ListToolbarMode.Default;
                     break;
             }
         }

@@ -16,10 +16,10 @@
             </Grid.RowDefinitions>
 
             <!--Customers-->
-            <views:CustomersList ViewModel="{x:Bind ViewModel.CustomerList}" />
+            <views:CustomersList Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.CustomerList.IsMultipleSelection), Mode=OneWay}" ViewModel="{x:Bind ViewModel.CustomerList}" />
 
             <!--Details-->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.CustomerList.IsMultipleSelection, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                 <controls:Section IsEnabled="{x:Bind ViewModel.CustomerDetails.IsEnabled, Mode=OneWay}"
                           HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenDetailsInNewView"
                           Visibility="{x:Bind ViewModel.CustomerDetails.IsDataAvailable}">

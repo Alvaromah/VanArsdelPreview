@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 
 using VanArsdel.Data;
+using VanArsdel.Inventory.Controls;
 using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.ViewModels
@@ -13,6 +16,8 @@ namespace VanArsdel.Inventory.ViewModels
         public ListViewModel(IDataProviderFactory providerFactory)
         {
             ProviderFactory = providerFactory;
+            SelectedItems = new ObservableCollection<TModel>();
+            SelectedItems.CollectionChanged += OnSelectedItemsChanged;
         }
 
         public IDataProviderFactory ProviderFactory { get; }
@@ -26,11 +31,27 @@ namespace VanArsdel.Inventory.ViewModels
         public bool IsDataAvailable => (_items?.Count ?? 0) > 0;
         public bool IsDataUnavailable => !IsDataAvailable;
 
+        public ObservableCollection<TModel> SelectedItems { get; private set; }
+
+        private ListToolbarMode _toolbarMode = ListToolbarMode.Default;
+        public ListToolbarMode ToolbarMode
+        {
+            get => _toolbarMode;
+            set => Set(ref _toolbarMode, value);
+        }
+
         private IList<TModel> _items;
         public IList<TModel> Items
         {
             get => _items;
             set => Set(ref _items, value);
+        }
+
+        private bool _isMultipleSelection = false;
+        public bool IsMultipleSelection
+        {
+            get => _isMultipleSelection;
+            set => Set(ref _isMultipleSelection, value);
         }
 
         private TModel _selectedItem;
@@ -54,7 +75,7 @@ namespace VanArsdel.Inventory.ViewModels
             set { if (Set(ref _pageIndex, value)) Refresh(); }
         }
 
-        private int _pageSize = 10;
+        private int _pageSize = 20;
         public int PageSize
         {
             get => _pageSize;
@@ -97,6 +118,14 @@ namespace VanArsdel.Inventory.ViewModels
             _pageIndex = page.PageIndex;
 
             RaiseUpdateView();
+        }
+
+        private void OnSelectedItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (IsMultipleSelection)
+            {
+                ToolbarMode = SelectedItems.Count > 0 ? ListToolbarMode.CancelDelete : ListToolbarMode.Cancel;
+            }
         }
 
         abstract public Task<PageResult<TModel>> GetItemsAsync(IDataProvider dataProvider);

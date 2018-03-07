@@ -46,8 +46,11 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 case nameof(CustomerListViewModel.SelectedItem):
                     CustomerDetails.CancelEdit();
-                    await UpdateDetails(CustomerList.SelectedItem);
-                    await UpdateOrders(CustomerList.SelectedItem);
+                    if (!CustomerList.IsMultipleSelection)
+                    {
+                        await UpdateDetails(CustomerList.SelectedItem);
+                        await UpdateOrders(CustomerList.SelectedItem);
+                    }
                     break;
                 default:
                     break;

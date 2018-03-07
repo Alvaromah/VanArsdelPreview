@@ -63,7 +63,8 @@
         <Grid Grid.Row="1">
             <ListView ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" ItemTemplate="{StaticResource ItemTemplate}"
                       SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}" ItemContainerStyle="{StaticResource RowItemStyle}"
-                      Visibility="{x:Bind IsDataAvailable}"/>
+                      SelectionMode="{x:Bind SelectionMode}" SelectionChanged="OnSelectionChanged"
+                      Visibility="{x:Bind IsDataAvailable}" />
             <TextBlock Margin="6" Text="{x:Bind DataUnavailableMessage}" Visibility="{x:Bind IsDataUnavailable}"/>
         </Grid>
     </Grid>

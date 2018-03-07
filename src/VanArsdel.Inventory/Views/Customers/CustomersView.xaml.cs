@@ -54,6 +54,11 @@ namespace VanArsdel.Inventory.Views
             }
         }
 
+        public int GetRowSpan(bool isMultipleSelection)
+        {
+            return isMultipleSelection ? 2 : 1;
+        }
+
         private void OnUpdateView(object sender, EventArgs e)
         {
             Bindings.Update();
