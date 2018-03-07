@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Models;
 using VanArsdel.Inventory.Controls;
 using VanArsdel.Inventory.Providers;
-using System.Collections.Generic;
 
 namespace VanArsdel.Inventory.ViewModels
 {

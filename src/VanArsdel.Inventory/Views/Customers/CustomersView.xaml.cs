@@ -41,10 +41,17 @@ namespace VanArsdel.Inventory.Views
             await ViewModel.RefreshAsync();
         }
 
-        private async void OpenInNewView(object sender, RoutedEventArgs e)
+        private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)
         {
             ViewModel.CustomerDetails.IsEditMode = false;
-            await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState { CustomerID = ViewModel.CustomerDetails.Item.CustomerID });
+            if (pivot.SelectedIndex == 0)
+            {
+                await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState { CustomerID = ViewModel.CustomerDetails.Item.CustomerID });
+            }
+            else
+            {
+                await ViewManager.Current.CreateNewView(typeof(OrdersView), ViewModel.CustomerOrders.ViewState.Clone());
+            }
         }
 
         private void OnUpdateView(object sender, EventArgs e)

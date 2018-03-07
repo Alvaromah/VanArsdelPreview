@@ -13,11 +13,11 @@ namespace VanArsdel.Inventory.ViewModels
         {
         }
 
-        private OrdersViewState _state = null;
+        public OrdersViewState ViewState { get; private set; }
 
         public async Task LoadAsync(OrdersViewState state)
         {
-            _state = state ?? OrdersViewState.CreateDefault();
+            ViewState = state ?? OrdersViewState.CreateDefault();
             await base.RefreshAsync();
         }
 
@@ -28,9 +28,9 @@ namespace VanArsdel.Inventory.ViewModels
                 Query = Query,
                 OrderBy = r => r.OrderID
             };
-            if (_state.CustomerID > 0)
+            if (ViewState.CustomerID > 0)
             {
-                request.Where = (r) => r.CustomerID == _state.CustomerID;
+                request.Where = (r) => r.CustomerID == ViewState.CustomerID;
             }
             return await dataProvider.GetOrdersAsync(request);
         }

@@ -21,10 +21,10 @@
             <!--Details-->
             <Grid Grid.Row="1">
                 <controls:Section IsEnabled="{x:Bind ViewModel.CustomerDetails.IsEnabled, Mode=OneWay}"
-                          HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenInNewView"
+                          HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenDetailsInNewView"
                           Visibility="{x:Bind ViewModel.CustomerDetails.IsDataAvailable}">
 
-                    <Pivot>
+                    <Pivot x:Name="pivot">
                         <PivotItem Header="Customer">
                             <views:CustomersDetails Grid.Row="1" ViewModel="{x:Bind ViewModel.CustomerDetails}" ItemDeleted="OnItemDeleted" />
                         </PivotItem>

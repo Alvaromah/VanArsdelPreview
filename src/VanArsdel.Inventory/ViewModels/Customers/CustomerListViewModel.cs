@@ -13,8 +13,11 @@ namespace VanArsdel.Inventory.ViewModels
         {
         }
 
-        public async Task LoadAsync()
+        public CustomersViewState ViewState { get; private set; }
+
+        public async Task LoadAsync(CustomersViewState state = null)
         {
+            ViewState = state ?? CustomersViewState.CreateDefault();
             await base.RefreshAsync();
         }
 

@@ -168,13 +168,14 @@
     <Compile Include="Tools\ElementSet\ElementSet.Properties.cs" />
     <Compile Include="ViewModels\Base\ModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
-    <Compile Include="ViewModels\Base\ViewState.cs" />
+    <Compile Include="ViewModels\Base\ViewStateBase.cs" />
     <Compile Include="ViewModels\Common\DetailsViewModel.cs" />
     <Compile Include="ViewModels\Common\ListViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerDetailsViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomersViewModel.cs" />
     <Compile Include="ViewModels\Customers\ViewState\CustomerViewState.cs" />
+    <Compile Include="ViewModels\Customers\ViewState\CustomersViewState.cs" />
     <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderListViewModel.cs" />

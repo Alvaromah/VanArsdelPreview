@@ -58,7 +58,7 @@ namespace VanArsdel.Inventory.Views
         }
     }
 
-    public class MainViewState : ViewState
+    public class MainViewState : ViewStateBase
     {
         public Type PageType { get; set; }
         public object Parameter { get; set; }

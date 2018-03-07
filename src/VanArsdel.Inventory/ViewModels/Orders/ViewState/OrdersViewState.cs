@@ -2,7 +2,7 @@
 
 namespace VanArsdel.Inventory.ViewModels
 {
-    public class OrdersViewState
+    public class OrdersViewState : ViewStateBase
     {
         static public OrdersViewState CreateDefault() => new OrdersViewState();
 

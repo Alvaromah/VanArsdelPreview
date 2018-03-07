@@ -4,6 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using VanArsdel.Inventory.ViewModels;
+using VanArsdel.Inventory.Controls;
 
 namespace VanArsdel.Inventory.Views
 {
@@ -41,6 +42,25 @@ namespace VanArsdel.Inventory.Views
 
         public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(OrderListViewModel), typeof(CustomersOrders), new PropertyMetadata(null, ViewModelChanged));
         #endregion
+
+        private async void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            await ViewModel.RefreshAsync(resetPageIndex: true);
+        }
+
+        private async void OnToolbarClick(object sender, ToolbarButtonClickEventArgs e)
+        {
+            switch (e.ClickedButton)
+            {
+                case ToolbarButton.New:
+                    // TODO: Open Order instead
+                    //NavigationService.Main.Navigate(typeof(CustomerView), new CustomerViewState());
+                    break;
+                case ToolbarButton.Refresh:
+                    await ViewModel.RefreshAsync();
+                    break;
+            }
+        }
 
         private void OnUpdateView(object sender, EventArgs e)
         {
