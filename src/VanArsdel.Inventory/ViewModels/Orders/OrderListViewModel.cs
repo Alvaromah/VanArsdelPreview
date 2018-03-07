@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using VanArsdel.Data;
@@ -33,6 +34,14 @@ namespace VanArsdel.Inventory.ViewModels
                 request.Where = (r) => r.CustomerID == ViewState.CustomerID;
             }
             return await dataProvider.GetOrdersAsync(request);
+        }
+
+        protected override async Task DeleteItemsAsync(IDataProvider dataProvider, IEnumerable<OrderModel> models)
+        {
+            foreach (var model in models)
+            {
+                await dataProvider.DeleteOrderAsync(model);
+            }
         }
     }
 }

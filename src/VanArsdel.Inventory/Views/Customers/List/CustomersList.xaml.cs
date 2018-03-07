@@ -59,6 +59,14 @@ namespace VanArsdel.Inventory.Views
                 case ToolbarButton.Refresh:
                     await ViewModel.RefreshAsync();
                     break;
+                case ToolbarButton.Delete:
+                    if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete selected customers?", "Ok", "Cancel"))
+                    {
+                        await ViewModel.DeletetSelectionAsync();
+                        ViewModel.IsMultipleSelection = false;
+                        ViewModel.ToolbarMode = ListToolbarMode.Default;
+                    }
+                    break;
                 case ToolbarButton.Cancel:
                     ViewModel.IsMultipleSelection = false;
                     ViewModel.ToolbarMode = ListToolbarMode.Default;

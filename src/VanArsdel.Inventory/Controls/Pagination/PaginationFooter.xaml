@@ -36,7 +36,7 @@
             <ComboBox x:Name="combo" Margin="0" Padding="2,1,0,1" SelectedIndex="{x:Bind PageSizeIndex, Mode=TwoWay}" Background="Transparent" BorderThickness="0" Visibility="{x:Bind ComboVisibility}">
                 <ComboBox.Items>
                     <ComboBoxItem Content="10 items" ContentTemplate="{StaticResource ComboBoxItemStyle}" />
-                    <ComboBoxItem Content="25 items" ContentTemplate="{StaticResource ComboBoxItemStyle}" />
+                    <ComboBoxItem Content="20 items" ContentTemplate="{StaticResource ComboBoxItemStyle}" />
                     <ComboBoxItem Content="50 items" ContentTemplate="{StaticResource ComboBoxItemStyle}" />
                 </ComboBox.Items>
             </ComboBox>

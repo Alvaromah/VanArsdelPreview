@@ -127,6 +127,15 @@ namespace VanArsdel.Inventory.ViewModels
             RaiseUpdateView();
         }
 
+        public async Task DeletetSelectionAsync()
+        {
+            using (var dataProvider = ProviderFactory.CreateDataProvider())
+            {
+                await DeleteItemsAsync(dataProvider, SelectedItems);
+                await RefreshAsync(dataProvider);
+            }
+        }
+
         private void OnSelectedItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsMultipleSelection)
@@ -137,5 +146,6 @@ namespace VanArsdel.Inventory.ViewModels
         }
 
         abstract public Task<PageResult<TModel>> GetItemsAsync(IDataProvider dataProvider);
+        abstract protected Task DeleteItemsAsync(IDataProvider dataProvider, IEnumerable<TModel> models);
     }
 }

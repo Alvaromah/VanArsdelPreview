@@ -70,7 +70,7 @@ namespace VanArsdel.Inventory.Controls
             control.UpdatePageSizeIndex((int)e.OldValue);
         }
 
-        public static readonly DependencyProperty PageSizeIndexProperty = DependencyProperty.Register("PageSizeIndex", typeof(int), typeof(PaginationFooter), new PropertyMetadata(0, PageSizeIndexChanged));
+        public static readonly DependencyProperty PageSizeIndexProperty = DependencyProperty.Register("PageSizeIndex", typeof(int), typeof(PaginationFooter), new PropertyMetadata(1, PageSizeIndexChanged));
         #endregion
 
         #region ButtonsCount
@@ -161,7 +161,7 @@ namespace VanArsdel.Inventory.Controls
                 default:
                     return 10;
                 case 1:
-                    return 25;
+                    return 20;
                 case 2:
                     return 50;
             }
