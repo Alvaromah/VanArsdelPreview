@@ -106,6 +106,9 @@
     <Compile Include="Controls\Buttons\IconButton.cs" />
     <Compile Include="Controls\Buttons\IconLabel.cs" />
     <Compile Include="Controls\Buttons\IconLabelButton.cs" />
+    <Compile Include="Controls\DataList\DataList.xaml.cs">
+      <DependentUpon>DataList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DialogBox\DialogBox.xaml.cs">
       <DependentUpon>DialogBox.xaml</DependentUpon>
     </Compile>
@@ -277,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\DataList\DataList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\DialogBox\DialogBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
