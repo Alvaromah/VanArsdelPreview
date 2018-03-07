@@ -136,6 +136,20 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
+        virtual public void ApplyViewState(ListViewState state)
+        {
+            _pageIndex = state.PageIndex;
+            _pageSize = state.PageSize;
+            Query = state.Query;
+        }
+
+        virtual public void UpdateViewState(ListViewState state)
+        {
+            state.PageIndex = PageIndex;
+            state.PageSize = PageSize;
+            state.Query = Query;
+        }
+
         private void OnSelectedItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (IsMultipleSelection)

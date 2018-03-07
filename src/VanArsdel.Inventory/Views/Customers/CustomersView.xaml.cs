@@ -28,12 +28,13 @@ namespace VanArsdel.Inventory.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             this.SetTitle("Customers");
-            await ViewModel.LoadAsync();
+            await ViewModel.LoadAsync(e.Parameter as CustomersViewState);
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             ViewModel.CancelEdit();
+            ViewModel.SaveState();
         }
 
         private async void OnItemDeleted(object sender, EventArgs e)
@@ -43,7 +44,7 @@ namespace VanArsdel.Inventory.Views
 
         private async void OpenInNewView(object sender, RoutedEventArgs e)
         {
-            await ViewManager.Current.CreateNewView(typeof(CustomersView));
+            await ViewManager.Current.CreateNewView(typeof(CustomersView), ViewModel.CustomerList.GetCurrentState());
         }
 
         private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)

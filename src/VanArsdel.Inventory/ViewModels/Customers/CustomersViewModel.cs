@@ -30,9 +30,14 @@ namespace VanArsdel.Inventory.ViewModels
         public CustomerDetailsViewModel CustomerDetails { get; set; }
         public OrderListViewModel CustomerOrders { get; set; }
 
-        public async Task LoadAsync()
+        public async Task LoadAsync(CustomersViewState state)
         {
-            await CustomerList.LoadAsync();
+            await CustomerList.LoadAsync(state);
+        }
+
+        public void SaveState()
+        {
+            CustomerList.SaveState();
         }
 
         public async Task RefreshAsync(bool resetPageIndex = false)

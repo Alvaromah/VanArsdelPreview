@@ -16,10 +16,16 @@ namespace VanArsdel.Inventory.ViewModels
 
         public CustomersViewState ViewState { get; private set; }
 
-        public async Task LoadAsync(CustomersViewState state = null)
+        public async Task LoadAsync(CustomersViewState state)
         {
             ViewState = state ?? CustomersViewState.CreateDefault();
-            await base.RefreshAsync();
+            ApplyViewState(ViewState);
+            await RefreshAsync();
+        }
+
+        public void SaveState()
+        {
+            UpdateViewState(ViewState);
         }
 
         override public async Task<PageResult<CustomerModel>> GetItemsAsync(IDataProvider dataProvider)
@@ -38,6 +44,13 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await dataProvider.DeleteCustomerAsync(model);
             }
+        }
+
+        public CustomersViewState GetCurrentState()
+        {
+            var state = CustomersViewState.CreateDefault();
+            UpdateViewState(state);
+            return state;
         }
     }
 }

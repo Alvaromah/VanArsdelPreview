@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 using Windows.ApplicationModel.Core;
 
+using VanArsdel.Inventory.Views;
+using VanArsdel.Inventory.ViewModels;
+
 namespace VanArsdel.Inventory
 {
     public class ViewModelBase : ModelBase
@@ -14,9 +17,21 @@ namespace VanArsdel.Inventory
 
         virtual public string Title => String.Empty;
 
+        // TODO: Move to Navigation
         public void NavigateTo(NavigationItem item)
         {
-            NavigationService.Shell.Navigate(item.Page, item.Label);
+            switch (item.Page.Name)
+            {
+                case nameof(CustomersView):
+                    NavigationService.Shell.Navigate(item.Page, CustomersViewState.CreateDefault());
+                    break;
+                case nameof(OrdersView):
+                    NavigationService.Shell.Navigate(item.Page, new OrdersViewState());
+                    break;
+                default:
+                    NavigationService.Shell.Navigate(item.Page, item.Label);
+                    break;
+            }
         }
 
         public void GoBack()

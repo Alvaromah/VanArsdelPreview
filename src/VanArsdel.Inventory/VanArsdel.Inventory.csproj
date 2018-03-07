@@ -170,7 +170,9 @@
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewStateBase.cs" />
     <Compile Include="ViewModels\Common\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\Common\DetailsViewState.cs" />
     <Compile Include="ViewModels\Common\ListViewModel.cs" />
+    <Compile Include="ViewModels\Common\ListViewState.cs" />
     <Compile Include="ViewModels\Customers\CustomerDetailsViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomersViewModel.cs" />
