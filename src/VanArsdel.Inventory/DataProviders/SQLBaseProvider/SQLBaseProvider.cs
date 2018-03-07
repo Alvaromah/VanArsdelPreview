@@ -20,7 +20,7 @@ namespace VanArsdel.Inventory.Providers
         public async Task<IList<CountryCodeModel>> GetCountryCodesAsync()
         {
             var items = await DataService.GetCountryCodesAsync();
-            return items.Select(r => new CountryCodeModel
+            return items.OrderBy(r => r.Name).Select(r => new CountryCodeModel
             {
                 CountryCodeID = r.CountryCodeID,
                 Name = r.Name
