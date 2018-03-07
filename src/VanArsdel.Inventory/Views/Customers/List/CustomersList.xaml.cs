@@ -66,11 +66,6 @@ namespace VanArsdel.Inventory.Views
             }
         }
 
-        private async void OpenInNewView(object sender, RoutedEventArgs e)
-        {
-            await ViewManager.Current.CreateNewView(typeof(CustomersView));
-        }
-
         private void OnUpdateView(object sender, EventArgs e)
         {
             Bindings.Update();

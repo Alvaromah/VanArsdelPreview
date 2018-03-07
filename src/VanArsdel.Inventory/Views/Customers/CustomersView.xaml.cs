@@ -41,6 +41,11 @@ namespace VanArsdel.Inventory.Views
             await ViewModel.RefreshAsync();
         }
 
+        private async void OpenInNewView(object sender, RoutedEventArgs e)
+        {
+            await ViewManager.Current.CreateNewView(typeof(CustomersView));
+        }
+
         private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)
         {
             ViewModel.CustomerDetails.IsEditMode = false;
@@ -57,6 +62,11 @@ namespace VanArsdel.Inventory.Views
         public int GetRowSpan(bool isMultipleSelection)
         {
             return isMultipleSelection ? 2 : 1;
+        }
+
+        public string GetSelectionText(int count)
+        {
+            return $"{count} items selected.";
         }
 
         private void OnUpdateView(object sender, EventArgs e)

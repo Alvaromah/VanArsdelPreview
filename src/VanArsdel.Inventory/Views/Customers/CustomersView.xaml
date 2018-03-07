@@ -8,6 +8,16 @@
     xmlns:views="using:VanArsdel.Inventory.Views"
     mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <DataTemplate x:Key="ListHeaderTemplate">
+            <StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Customers" FontSize="18" />
+                <Rectangle Margin="3,0 "/>
+                <TextBlock Text="{Binding}" FontSize="18" Foreground="Gray" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
     <Grid Background="WhiteSmoke">
         <Grid Margin="6" RowSpacing="6">
             <Grid.RowDefinitions>
@@ -16,7 +26,26 @@
             </Grid.RowDefinitions>
 
             <!--Customers-->
-            <views:CustomersList Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.CustomerList.IsMultipleSelection), Mode=OneWay}" ViewModel="{x:Bind ViewModel.CustomerList}" />
+            <Grid Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.CustomerList.IsMultipleSelection), Mode=OneWay}">
+                <controls:Section Header="{x:Bind ViewModel.CustomerList.Title}" HeaderTemplate="{StaticResource ListHeaderTemplate}"
+                          HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenInNewView" IsButtonVisible="{x:Bind ViewModel.IsMainView}">
+
+                    <views:CustomersList ViewModel="{x:Bind ViewModel.CustomerList}" />
+
+                    <controls:Section.Footer>
+                        <Grid>
+                            <Grid Visibility="{x:Bind ViewModel.CustomerList.IsMultipleSelection, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <TextBlock Margin="6,0,6,2" Text="{x:Bind GetSelectionText(ViewModel.CustomerList.SelectedItemsCount), Mode=OneWay}" FontSize="14" Opacity="0.75" />
+                            </Grid>
+                            <Grid Visibility="{x:Bind ViewModel.CustomerList.IsMultipleSelection, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                                <controls:PaginationFooter ItemsCount="{x:Bind ViewModel.CustomerList.ItemsCount, Mode=OneWay}"
+                                                       PageIndex="{x:Bind ViewModel.CustomerList.PageIndex, Mode=TwoWay}"
+                                                       Visibility="{x:Bind ViewModel.CustomerList.IsDataAvailable}" />
+                            </Grid>
+                        </Grid>
+                    </controls:Section.Footer>
+                </controls:Section>
+            </Grid>
 
             <!--Details-->
             <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.CustomerList.IsMultipleSelection, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">

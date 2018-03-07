@@ -61,6 +61,13 @@ namespace VanArsdel.Inventory.ViewModels
             set => Set(ref _selectedItem, value);
         }
 
+        private int _selectedItemsCount;
+        public int SelectedItemsCount
+        {
+            get => _selectedItemsCount;
+            set => Set(ref _selectedItemsCount, value);
+        }
+
         private int _itemsCount = 0;
         public int ItemsCount
         {
@@ -124,6 +131,7 @@ namespace VanArsdel.Inventory.ViewModels
         {
             if (IsMultipleSelection)
             {
+                SelectedItemsCount = SelectedItems.Count;
                 ToolbarMode = SelectedItems.Count > 0 ? ListToolbarMode.CancelDelete : ListToolbarMode.Cancel;
             }
         }
