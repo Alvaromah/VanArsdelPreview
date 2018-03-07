@@ -25,9 +25,8 @@ namespace VanArsdel.Inventory.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
-
             Text = (e.Parameter ?? "").ToString();
+            this.SetTitle(Text);
 
             GC.Collect();
         }
