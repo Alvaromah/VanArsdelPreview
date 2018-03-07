@@ -24,7 +24,11 @@ namespace VanArsdel.Inventory.Providers
         public async Task<CustomerModel> GetCustomerAsync(long id)
         {
             var item = await DataService.GetCustomerAsync(id);
-            return await CreateCustomerModelAsync(item, includeAllFields: true);
+            if (item != null)
+            {
+                return await CreateCustomerModelAsync(item, includeAllFields: true);
+            }
+            return null;
         }
 
         public async Task<int> DeleteCustomerAsync(CustomerModel model)
