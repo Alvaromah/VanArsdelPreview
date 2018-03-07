@@ -44,14 +44,16 @@ namespace VanArsdel.Inventory.Views
             _state = _state ?? new ShellViewState();
             if (_state.NavigationState != null)
             {
-                NavigationService.Shell.SetNavigationState(_state.NavigationState);
+                // TODO: Not supported when using parameters
+                //NavigationService.Shell.SetNavigationState(_state.NavigationState);
                 _state.Current = null;
             }
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            _state.NavigationState = NavigationService.Shell.GetNavigationState();
+            // TODO: Not supported when using parameters
+            //_state.NavigationState = NavigationService.Shell.GetNavigationState();
             _state.Current = null;
         }
 
