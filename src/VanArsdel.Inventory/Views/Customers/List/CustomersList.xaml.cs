@@ -50,7 +50,9 @@ namespace VanArsdel.Inventory.Views
             switch (e.ClickedButton)
             {
                 case ToolbarButton.New:
-                    NavigationService.Main.Navigate(typeof(CustomerView), new CustomerViewState());
+                    // TODO: NavigationService.GetNavigationState() Not supported when using parameters
+                    //NavigationService.Main.Navigate(typeof(CustomerView), new CustomerViewState());
+                    await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState());
                     break;
                 case ToolbarButton.Select:
                     ViewModel.IsMultipleSelection = true;
