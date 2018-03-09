@@ -22,6 +22,8 @@ namespace VanArsdel.Inventory.Controls
             Unloaded += OnUnloaded;
         }
 
+        static private readonly DependencyExpressions DependencyExpressions = new DependencyExpressions();
+
         private void OnLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             DependencyExpressions.Initialize(this);
@@ -32,8 +34,6 @@ namespace VanArsdel.Inventory.Controls
             DependencyExpressions.Uninitialize(this);
         }
 
-        static private readonly DependencyExpressions DependencyExpressions = new DependencyExpressions();
-
         #region ItemsSource
         public IEnumerable ItemsSource
         {
@@ -43,7 +43,8 @@ namespace VanArsdel.Inventory.Controls
 
         private static void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DependencyExpressions.UpdateDependencies(d as INotifyExpressionChanged, nameof(ItemsSource));
+            var control = d as DataList;
+            DependencyExpressions.UpdateDependencies(control, nameof(ItemsSource));
         }
 
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(DataList), new PropertyMetadata(null, ItemsSourceChanged));
@@ -89,30 +90,11 @@ namespace VanArsdel.Inventory.Controls
 
         private static void IsMultipleSelectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DependencyExpressions.UpdateDependencies(d as INotifyExpressionChanged, nameof(IsMultipleSelection));
+            var control = d as DataList;
+            DependencyExpressions.UpdateDependencies(control, nameof(IsMultipleSelection));
         }
 
         public static readonly DependencyProperty IsMultipleSelectionProperty = DependencyProperty.Register(nameof(IsMultipleSelection), typeof(bool), typeof(DataList), new PropertyMetadata(null, IsMultipleSelectionChanged));
-        #endregion
-
-        #region AddedSelectedItemsCommand
-        public ICommand AddedSelectedItemsCommand
-        {
-            get { return (ICommand)GetValue(AddedSelectedItemsCommandProperty); }
-            set { SetValue(AddedSelectedItemsCommandProperty, value); }
-        }
-
-        public static readonly DependencyProperty AddedSelectedItemsCommandProperty = DependencyProperty.Register(nameof(AddedSelectedItemsCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
-        #endregion
-
-        #region RemovedSelectedItemsCommand
-        public ICommand RemovedSelectedItemsCommand
-        {
-            get { return (ICommand)GetValue(RemovedSelectedItemsCommandProperty); }
-            set { SetValue(RemovedSelectedItemsCommandProperty, value); }
-        }
-
-        public static readonly DependencyProperty RemovedSelectedItemsCommandProperty = DependencyProperty.Register(nameof(RemovedSelectedItemsCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
         #endregion
 
         #region SelectedItemsCount
@@ -124,7 +106,8 @@ namespace VanArsdel.Inventory.Controls
 
         private static void SelectedItemsCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DependencyExpressions.UpdateDependencies(d as INotifyExpressionChanged, nameof(SelectedItemsCount));
+            var control = d as DataList;
+            DependencyExpressions.UpdateDependencies(control, nameof(SelectedItemsCount));
         }
 
         public static readonly DependencyProperty SelectedItemsCountProperty = DependencyProperty.Register(nameof(SelectedItemsCount), typeof(int), typeof(DataList), new PropertyMetadata(null, SelectedItemsCountChanged));
@@ -149,16 +132,6 @@ namespace VanArsdel.Inventory.Controls
         }
 
         public static readonly DependencyProperty QueryProperty = DependencyProperty.Register(nameof(Query), typeof(string), typeof(DataList), new PropertyMetadata(null));
-        #endregion
-
-        #region IsDisabled
-        public bool IsDisabled
-        {
-            get { return (bool)GetValue(IsDisabledProperty); }
-            set { SetValue(IsDisabledProperty, value); }
-        }
-
-        public static readonly DependencyProperty IsDisabledProperty = DependencyProperty.Register(nameof(IsDisabled), typeof(bool), typeof(DataList), new PropertyMetadata(false));
         #endregion
 
         #region SelectionMode
@@ -242,6 +215,7 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty RefreshCommandProperty = DependencyProperty.Register(nameof(RefreshCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
         #endregion
 
+
         #region StartSelectionCommand
         public ICommand StartSelectionCommand
         {
@@ -261,6 +235,27 @@ namespace VanArsdel.Inventory.Controls
 
         public static readonly DependencyProperty CancelSelectionCommandProperty = DependencyProperty.Register(nameof(CancelSelectionCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
         #endregion
+
+        #region SelectItemsCommand
+        public ICommand SelectItemsCommand
+        {
+            get { return (ICommand)GetValue(SelectItemsCommandProperty); }
+            set { SetValue(SelectItemsCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectItemsCommandProperty = DependencyProperty.Register(nameof(SelectItemsCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
+        #endregion
+
+        #region DeselectItemsCommand
+        public ICommand DeselectItemsCommand
+        {
+            get { return (ICommand)GetValue(DeselectItemsCommandProperty); }
+            set { SetValue(DeselectItemsCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty DeselectItemsCommandProperty = DependencyProperty.Register(nameof(DeselectItemsCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
+        #endregion
+
 
         public bool IsSingleSelection => !IsMultipleSelection;
         static DependencyExpression IsSingleSelectionExpression = DependencyExpressions.Register(nameof(IsSingleSelection), nameof(IsMultipleSelection));
@@ -289,13 +284,14 @@ namespace VanArsdel.Inventory.Controls
                 SelectedItemsCount = listview.SelectedItems.Count;
                 ToolbarMode = SelectedItemsCount > 0 ? ListToolbarMode.CancelDelete : ListToolbarMode.Cancel;
             }
-            if (AddedSelectedItemsCommand?.CanExecute(e.AddedItems) ?? false)
+
+            if (SelectItemsCommand?.CanExecute(e.AddedItems) ?? false)
             {
-                AddedSelectedItemsCommand.Execute(e.AddedItems);
+                SelectItemsCommand.Execute(e.AddedItems);
             }
-            if (RemovedSelectedItemsCommand?.CanExecute(e.RemovedItems) ?? false)
+            if (DeselectItemsCommand?.CanExecute(e.RemovedItems) ?? false)
             {
-                RemovedSelectedItemsCommand.Execute(e.RemovedItems);
+                DeselectItemsCommand.Execute(e.RemovedItems);
             }
         }
 

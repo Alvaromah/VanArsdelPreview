@@ -127,7 +127,7 @@ namespace VanArsdel.Inventory.ViewModels
             RaiseUpdateView();
         }
 
-        public async Task DeletetSelectionAsync()
+        public async Task DeleteSelectionAsync()
         {
             using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
