@@ -33,7 +33,8 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Orientation="Horizontal" Opacity="0.75">
             <TextBlock Text="{x:Bind CountLabel}" FontSize="14" VerticalAlignment="Center" Tapped="LabelTapped" />
-            <ComboBox x:Name="combo" Margin="0" Padding="2,1,0,1" SelectedIndex="{x:Bind PageSizeIndex, Mode=TwoWay}" Background="Transparent" BorderThickness="0" Visibility="{x:Bind ComboVisibility}">
+            <ComboBox x:Name="combo" Margin="0" Padding="2,1,0,1" SelectedIndex="{x:Bind PageSizeIndex, Mode=TwoWay}" VerticalAlignment="Center"
+                      Background="Transparent" BorderThickness="0" Visibility="{x:Bind ComboVisibility}">
                 <ComboBox.Items>
                     <ComboBoxItem Content="10 items" ContentTemplate="{StaticResource ComboBoxItemStyle}" />
                     <ComboBoxItem Content="20 items" ContentTemplate="{StaticResource ComboBoxItemStyle}" />

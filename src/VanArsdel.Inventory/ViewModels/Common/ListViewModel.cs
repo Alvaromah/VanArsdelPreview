@@ -121,7 +121,7 @@ namespace VanArsdel.Inventory.ViewModels
             SelectedItem = Items.FirstOrDefault();
 
             // Finally update other properties, preventing firing Refresh() again
-            _itemsCount = page.Count;
+            ItemsCount = page.Count;
             _pageIndex = page.PageIndex;
 
             RaiseUpdateView();

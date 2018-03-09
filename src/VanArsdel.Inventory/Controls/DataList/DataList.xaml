@@ -10,15 +10,25 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="38"/>
         </Grid.RowDefinitions>
 
         <controls:ListToolbar Query="{x:Bind Query, Mode=TwoWay}" QuerySubmitted="OnQuerySubmitted" ToolbarMode="{x:Bind ToolbarMode, Mode=OneWay}" ButtonClick="OnToolbarClick" />
 
-        <ListView x:Name="listview" Grid.Row="1" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
+        <ContentControl Grid.Row="1" ContentTemplate="{x:Bind HeaderTemplate}" HorizontalContentAlignment="Stretch" Background="Red" />
+
+        <ListView x:Name="listview" Grid.Row="2" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
                   ItemTemplate="{x:Bind ItemTemplate}" ItemContainerStyle="{StaticResource RowItemStyle}"
-                  SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}" SelectionMode="{x:Bind SelectionMode}" SelectionChanged="OnSelectionChanged"
-                  Visibility="{x:Bind IsDataAvailable}" />
+                  SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}" SelectionMode="{x:Bind SelectionMode, Mode=OneWay}" SelectionChanged="OnSelectionChanged"
+                  Visibility="{x:Bind IsDataAvailable, Mode=OneWay}" />
+
+        <Grid Grid.Row="3">
+            <TextBlock Text="{x:Bind ItemsSelectedText, Mode=OneWay}" FontSize="14" VerticalAlignment="Center" Opacity="0.75" Visibility="{x:Bind IsMultipleSelection, Mode=OneWay}" />
+            <Grid Visibility="{x:Bind IsMultipleSelection, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                <controls:PaginationFooter ItemsCount="{x:Bind ItemsCount, Mode=OneWay}" PageIndex="{x:Bind PageIndex, Mode=TwoWay}" Visibility="{x:Bind IsDataAvailable, Mode=OneWay}" />
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

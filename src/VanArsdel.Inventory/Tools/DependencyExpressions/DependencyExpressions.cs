@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Concurrent;
 using System.ComponentModel;
-
-using Windows.UI.Xaml;
 
 namespace VanArsdel.Inventory
 {
@@ -13,55 +12,54 @@ namespace VanArsdel.Inventory
         public void Initialize(INotifyExpressionChanged source)
         {
             source.PropertyChanged += OnPropertyChanged;
-            foreach (var de in _dependencyMap.Values)
+        }
+
+        public void Uninitialize(INotifyExpressionChanged source)
+        {
+            source.PropertyChanged -= OnPropertyChanged;
+        }
+
+        public DependencyExpression Register(string name, params string[] dependencies)
+        {
+            var dexp = new DependencyExpression(name, dependencies);
+            if (_dependencyMap.TryAdd(name, dexp))
             {
-                if (de.DependencyProperties != null)
-                {
-                    foreach (var dp in de.DependencyProperties)
-                    {
-                        source.RegisterPropertyChangedCallback(dp, (s, d) => { source.RaisePropertyChanged(de.Name); });
-                    }
-                }
+                return dexp;
             }
+            throw new ArgumentException($"DependencyExpression already registered for property '{name}'.", name);
+        }
+
+        public DependencyExpression Register(string name, params DependencyExpression[] dependencies)
+        {
+            var dexp = new DependencyExpression(name, dependencies.Select(r => r.Name).ToArray());
+            if (_dependencyMap.TryAdd(name, dexp))
+            {
+                return dexp;
+            }
+            throw new ArgumentException($"DependencyExpression already registered for property '{name}'.", name);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var source = sender as INotifyExpressionChanged;
-
-            foreach (var de in _dependencyMap.Values)
+            if (sender is INotifyExpressionChanged source)
             {
-                if (de.DependencyExpressions != null)
+                UpdateDependencies(source, e.PropertyName);
+            }
+        }
+
+        public void UpdateDependencies(INotifyExpressionChanged source, string propertyName)
+        {
+            System.Diagnostics.Debug.WriteLine(propertyName);
+            foreach (var dexp in _dependencyMap.Values)
+            {
+                foreach (var d in dexp.Dependencies)
                 {
-                    foreach (var exp in de.DependencyExpressions)
+                    if (d == propertyName)
                     {
-                        if (exp.Name == e.PropertyName)
-                        {
-                            source.RaisePropertyChanged(de.Name);
-                        }
+                        source.NotifyPropertyChanged(dexp.Name);
                     }
                 }
             }
-        }
-
-        public DependencyExpression Register(string propertyName, params DependencyProperty[] dps)
-        {
-            var de = new DependencyExpression(propertyName, dps);
-            if (_dependencyMap.TryAdd(propertyName, de))
-            {
-                return de;
-            }
-            throw new ArgumentException($"DependencyExpression already registered for property '{propertyName}'.", propertyName);
-        }
-
-        public DependencyExpression Register(string propertyName, params DependencyExpression[] dps)
-        {
-            var de = new DependencyExpression(propertyName, dps);
-            if (_dependencyMap.TryAdd(propertyName, de))
-            {
-                return de;
-            }
-            throw new ArgumentException($"DependencyExpression already registered for property '{propertyName}'.", propertyName);
         }
     }
 }

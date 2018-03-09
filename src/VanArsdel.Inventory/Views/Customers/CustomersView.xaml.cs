@@ -1,11 +1,11 @@
 ﻿using System;
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using VanArsdel.Inventory.ViewModels;
 using VanArsdel.Inventory.Providers;
-using Windows.UI.Xaml;
 
 namespace VanArsdel.Inventory.Views
 {

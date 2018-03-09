@@ -164,6 +164,9 @@
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\BitmapTools.cs" />
+    <Compile Include="Tools\DependencyExpressions\DependencyExpressions.cs" />
+    <Compile Include="Tools\DependencyExpressions\DependencyExpression.cs" />
+    <Compile Include="Tools\DependencyExpressions\INotifyExpressionChanged.cs" />
     <Compile Include="Tools\ElementSet\ElementExtensions.cs" />
     <Compile Include="Tools\ElementSet\ElementSet.cs" />
     <Compile Include="Tools\ElementSet\ElementSet.Events.cs" />
