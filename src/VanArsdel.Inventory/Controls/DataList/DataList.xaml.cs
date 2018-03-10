@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -270,22 +268,13 @@ namespace VanArsdel.Inventory.Controls
                 SelectedItemsCount = listview.SelectedItems.Count;
             }
 
-            if (SelectItemsCommand?.CanExecute(e.AddedItems) ?? false)
-            {
-                SelectItemsCommand.Execute(e.AddedItems);
-            }
-            if (DeselectItemsCommand?.CanExecute(e.RemovedItems) ?? false)
-            {
-                DeselectItemsCommand.Execute(e.RemovedItems);
-            }
+            SelectItemsCommand?.TryExecute(e.AddedItems);
+            DeselectItemsCommand?.TryExecute(e.RemovedItems);
         }
 
         private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (QuerySubmittedCommand?.CanExecute(args.QueryText) ?? false)
-            {
-                QuerySubmittedCommand.Execute(args.QueryText);
-            }
+            QuerySubmittedCommand?.TryExecute(args.QueryText);
         }
 
         private void OnToolbarClick(object sender, ToolbarButtonClickEventArgs e)
@@ -311,17 +300,6 @@ namespace VanArsdel.Inventory.Controls
         }
 
         #region NotifyPropertyChanged
-        private bool Set<T>(ref T field, T newValue = default(T), [CallerMemberName] string propertyName = null)
-        {
-            if (!EqualityComparer<T>.Default.Equals(field, newValue))
-            {
-                field = newValue;
-                NotifyPropertyChanged(propertyName);
-                return true;
-            }
-            return false;
-        }
-
         public void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -44,17 +44,17 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Opacity="0.75">
-            <Button Padding="4" MinWidth="24" Style="{StaticResource PageButtonStyle}" Visibility="{x:Bind IsVisibleButtonLT}" Click="OnPageButtonClick" Tag="LT">
+            <Button Padding="4" MinWidth="24" Style="{StaticResource PageButtonStyle}" Visibility="{x:Bind IsVisibleButtonLT}" Click="OnPageIndexClick" Tag="LT">
                 <FontIcon Glyph="&#xE09A;" FontSize="12" />
             </Button>
 
-            <Button x:Name="pageButton1" Content="1" Style="{StaticResource PageButtonStyle}" Click="OnPageButtonClick" Tag="1" />
-            <Button x:Name="pageButton2" Content="2" Style="{StaticResource PageButtonStyle}" Click="OnPageButtonClick" Tag="2" />
-            <Button x:Name="pageButton3" Content="3" Style="{StaticResource PageButtonStyle}" Click="OnPageButtonClick" Tag="3" />
-            <Button x:Name="pageButton4" Content="4" Style="{StaticResource PageButtonStyle}" Click="OnPageButtonClick" Tag="4" />
-            <Button x:Name="pageButton5" Content="5" Style="{StaticResource PageButtonStyle}" Click="OnPageButtonClick" Tag="5" />
+            <Button x:Name="pageButton1" Content="1" Style="{StaticResource PageButtonStyle}" Click="OnPageIndexClick" Tag="1" />
+            <Button x:Name="pageButton2" Content="2" Style="{StaticResource PageButtonStyle}" Click="OnPageIndexClick" Tag="2" />
+            <Button x:Name="pageButton3" Content="3" Style="{StaticResource PageButtonStyle}" Click="OnPageIndexClick" Tag="3" />
+            <Button x:Name="pageButton4" Content="4" Style="{StaticResource PageButtonStyle}" Click="OnPageIndexClick" Tag="4" />
+            <Button x:Name="pageButton5" Content="5" Style="{StaticResource PageButtonStyle}" Click="OnPageIndexClick" Tag="5" />
 
-            <Button Padding="4" MinWidth="24" Style="{StaticResource PageButtonStyle}" Opacity="{x:Bind ButtonGTOpacity}" Click="OnPageButtonClick" Tag="GT">
+            <Button Padding="4" MinWidth="24" Style="{StaticResource PageButtonStyle}" Opacity="{x:Bind ButtonGTOpacity}" Click="OnPageIndexClick" Tag="GT">
                 <FontIcon Glyph="&#xE09B;" FontSize="12" />
             </Button>
         </StackPanel>

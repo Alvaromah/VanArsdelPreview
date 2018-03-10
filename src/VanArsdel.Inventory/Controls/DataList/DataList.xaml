@@ -15,15 +15,19 @@
             <RowDefinition Height="38"/>
         </Grid.RowDefinitions>
 
+        <!--Toolbar-->
         <controls:ListToolbar
             Query="{x:Bind Query, Mode=TwoWay}"
             QuerySubmitted="OnQuerySubmitted"
             ToolbarMode="{x:Bind ToolbarMode, Mode=OneWay}"
             ButtonClick="OnToolbarClick" />
 
+        <!--Header-->
         <ContentControl Grid.Row="1" ContentTemplate="{x:Bind HeaderTemplate}" HorizontalContentAlignment="Stretch" />
 
-        <ListView x:Name="listview" Grid.Row="2"
+        <!--List Content-->
+        <Grid Grid.Row="2">
+            <ListView x:Name="listview"
                   ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
                   ItemTemplate="{x:Bind ItemTemplate}"
                   ItemContainerStyle="{StaticResource RowItemStyle}"
@@ -31,12 +35,15 @@
                   SelectionMode="{x:Bind SelectionMode, Mode=OneWay}"
                   SelectionChanged="OnSelectionChanged"
                   Visibility="{x:Bind IsDataAvailable, Mode=OneWay}" />
+            <TextBlock Margin="6" Text="{x:Bind DataUnavailableMessage, Mode=OneWay}" Visibility="{x:Bind IsDataUnavailable, Mode=OneWay}"/>
+        </Grid>
 
+        <!--Pagination Footer-->
         <Grid Grid.Row="3">
             <TextBlock FontSize="14" VerticalAlignment="Center" Opacity="0.75"
                        Text="{x:Bind ItemsSelectedText, Mode=OneWay}"
                        Visibility="{x:Bind IsMultipleSelection, Mode=OneWay}" />
-            
+
             <Grid Visibility="{x:Bind IsSingleSelection, Mode=OneWay}">
                 <controls:PaginationFooter
                     ItemsCount="{x:Bind ItemsCount, Mode=OneWay}"

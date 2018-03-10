@@ -13,7 +13,7 @@ namespace VanArsdel.Inventory.Controls
         public PaginationFooter()
         {
             InitializeComponent();
-            this.SizeChanged += OnSizeChanged;
+            SizeChanged += OnSizeChanged;
         }
 
         #region PageButtons
@@ -29,7 +29,6 @@ namespace VanArsdel.Inventory.Controls
             yield return pageButton5;
         }
         #endregion
-
 
         #region ItemsCount
         public int ItemsCount
@@ -175,7 +174,7 @@ namespace VanArsdel.Inventory.Controls
             }
         }
 
-        private void OnPageButtonClick(object sender, RoutedEventArgs e)
+        private void OnPageIndexClick(object sender, RoutedEventArgs e)
         {
             if (sender is FrameworkElement elem)
             {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 using VanArsdel.Inventory.Controls;
 
@@ -59,11 +58,8 @@ namespace VanArsdel.Inventory.ViewModels
             set => Set(ref _pageSize, value);
         }
 
-        public override string Title => String.IsNullOrEmpty(Query) ? " " : $"results for \"{Query}\"";
-
-        public string DataUnavailableMessage => Items == null ? "Loading..." : "No items found";
+        public override string Title => String.IsNullOrEmpty(Query) ? "" : $"results for \"{Query}\"";
 
         public bool IsDataAvailable => (_items?.Count ?? 0) > 0;
-        public bool IsDataUnavailable => !IsDataAvailable;
     }
 }

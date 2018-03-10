@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Threading.Tasks;
 
 using VanArsdel.Data;
-using VanArsdel.Inventory.Controls;
 using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.ViewModels
@@ -43,20 +40,13 @@ namespace VanArsdel.Inventory.ViewModels
             Items = null;
             SelectedItem = null;
 
-            //var page = await dataProvider.GetCustomersAsync(PageIndex, 10, Query, r => r.FirstName);
             var page = await GetItemsAsync(dataProvider);
-
-            // First, update Customer list
             Items = page.Items;
-
-            // Then, update selected Customer
             SelectedItem = Items.FirstOrDefault();
-
-            // Finally update other properties, preventing firing Refresh() again
             ItemsCount = page.Count;
-            _pageIndex = page.PageIndex;
 
-            RaiseUpdateView();
+            // Update PageIndex preventing firing Refresh() again
+            Set(ref _pageIndex, page.PageIndex, nameof(PageIndex));
         }
 
         public async Task DeleteSelectionAsync()
