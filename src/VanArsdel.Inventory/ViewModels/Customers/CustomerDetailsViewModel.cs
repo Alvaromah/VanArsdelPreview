@@ -16,20 +16,9 @@ namespace VanArsdel.Inventory.ViewModels
 
         override public string Title => ((Item?.IsNew) ?? false) ? "New Customer" : Item?.FullName ?? String.Empty;
 
-        protected override async Task SaveItemAsync(CustomerModel model)
+        protected override void ItemUpdated()
         {
-            using (var dataProvider = ProviderFactory.CreateDataProvider())
-            {
-                await dataProvider.UpdateCustomerAsync(model);
-            }
-        }
-
-        protected override async Task DeleteItemAsync(CustomerModel model)
-        {
-            using (var dataProvider = ProviderFactory.CreateDataProvider())
-            {
-                await dataProvider.DeleteCustomerAsync(model);
-            }
+            NotifyPropertyChanged(nameof(Title));
         }
 
         public async Task LoadAsync(CustomerViewState state)
@@ -48,7 +37,22 @@ namespace VanArsdel.Inventory.ViewModels
                 IsEditMode = true;
                 ToolbarMode = DetailToolbarMode.CancelSave;
             }
-            RaiseUpdateView();
+        }
+
+        protected override async Task SaveItemAsync(CustomerModel model)
+        {
+            using (var dataProvider = ProviderFactory.CreateDataProvider())
+            {
+                await dataProvider.UpdateCustomerAsync(model);
+            }
+        }
+
+        protected override async Task DeleteItemAsync(CustomerModel model)
+        {
+            using (var dataProvider = ProviderFactory.CreateDataProvider())
+            {
+                await dataProvider.DeleteCustomerAsync(model);
+            }
         }
 
         override protected IEnumerable<IValidationConstraint<CustomerModel>> ValidationConstraints

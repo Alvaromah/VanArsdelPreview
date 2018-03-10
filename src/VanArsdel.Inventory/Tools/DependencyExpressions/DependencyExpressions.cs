@@ -49,7 +49,6 @@ namespace VanArsdel.Inventory
 
         public void UpdateDependencies(INotifyExpressionChanged source, string propertyName)
         {
-            System.Diagnostics.Debug.WriteLine(propertyName);
             foreach (var dexp in _dependencyMap.Values)
             {
                 foreach (var d in dexp.Dependencies)

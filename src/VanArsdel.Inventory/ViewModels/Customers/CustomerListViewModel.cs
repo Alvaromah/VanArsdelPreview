@@ -23,7 +23,7 @@ namespace VanArsdel.Inventory.ViewModels
             await RefreshAsync();
         }
 
-        public void SaveState()
+        public void Unload()
         {
             UpdateViewState(ViewState);
         }

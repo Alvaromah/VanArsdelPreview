@@ -32,7 +32,7 @@ namespace VanArsdel.Inventory
             return false;
         }
 
-        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        public void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

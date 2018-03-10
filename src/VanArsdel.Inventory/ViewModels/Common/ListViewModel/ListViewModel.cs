@@ -17,7 +17,6 @@ namespace VanArsdel.Inventory.ViewModels
 
         public IDataProviderFactory ProviderFactory { get; }
 
-
         private async void Refresh(bool resetPageIndex)
         {
             await RefreshAsync(resetPageIndex);
@@ -44,6 +43,10 @@ namespace VanArsdel.Inventory.ViewModels
             Items = page.Items;
             SelectedItem = Items.FirstOrDefault();
             ItemsCount = page.Count;
+
+            // Update dependent properties
+            NotifyPropertyChanged(nameof(Title));
+            NotifyPropertyChanged(nameof(IsDataAvailable));
 
             // Update PageIndex preventing firing Refresh() again
             Set(ref _pageIndex, page.PageIndex, nameof(PageIndex));

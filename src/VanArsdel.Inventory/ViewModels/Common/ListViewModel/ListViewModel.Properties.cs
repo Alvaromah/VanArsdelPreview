@@ -7,6 +7,10 @@ namespace VanArsdel.Inventory.ViewModels
 {
     partial class ListViewModel<TModel>
     {
+        public override string Title => String.IsNullOrEmpty(Query) ? " " : $"results for \"{Query}\"";
+
+        public bool IsDataAvailable => (Items?.Count ?? 0) > 0;
+
         public string Query { get; set; }
 
         private ListToolbarMode _toolbarMode = ListToolbarMode.Default;
@@ -57,9 +61,5 @@ namespace VanArsdel.Inventory.ViewModels
             get => _pageSize;
             set => Set(ref _pageSize, value);
         }
-
-        public override string Title => String.IsNullOrEmpty(Query) ? "" : $"results for \"{Query}\"";
-
-        public bool IsDataAvailable => (_items?.Count ?? 0) > 0;
     }
 }

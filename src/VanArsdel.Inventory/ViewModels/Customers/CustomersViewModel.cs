@@ -37,7 +37,7 @@ namespace VanArsdel.Inventory.ViewModels
 
         public void SaveState()
         {
-            CustomerList.SaveState();
+            CustomerList.Unload();
         }
 
         public async Task RefreshAsync(bool resetPageIndex = false)

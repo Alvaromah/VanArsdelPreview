@@ -28,6 +28,9 @@ namespace VanArsdel.Inventory.ViewModels
                 {
                     IsEnabled = true;
                     IsDeleted = false;
+                    NotifyPropertyChanged(nameof(IsDataAvailable));
+                    NotifyPropertyChanged(nameof(IsDataUnavailable));
+                    ItemUpdated();
                 }
             }
         }
@@ -67,7 +70,6 @@ namespace VanArsdel.Inventory.ViewModels
             IsEditMode = true;
             ToolbarMode = DetailToolbarMode.CancelSave;
             _modelBackup = Item.Clone() as TModel;
-            RaiseUpdateView();
         }
 
         public void CancelEdit()
@@ -83,7 +85,7 @@ namespace VanArsdel.Inventory.ViewModels
                     selected.NotifyChanges();
                 }
                 _modelBackup = null;
-                RaiseUpdateView();
+                ItemUpdated();
             }
         }
 
@@ -101,7 +103,7 @@ namespace VanArsdel.Inventory.ViewModels
                 IsEnabled = true;
             }
             _modelBackup = null;
-            RaiseUpdateView();
+            ItemUpdated();
         }
 
         public async Task DeletetAsync()
@@ -115,12 +117,15 @@ namespace VanArsdel.Inventory.ViewModels
                 IsDeleted = true;
                 IsEnabled = true;
             }
+            ItemUpdated();
         }
 
         public Result Validate()
         {
             return base.Validate(Item);
         }
+
+        virtual protected void ItemUpdated() { }
 
         abstract protected Task SaveItemAsync(TModel model);
         abstract protected Task DeleteItemAsync(TModel model);

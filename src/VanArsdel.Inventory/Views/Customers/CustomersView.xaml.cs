@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,28 +14,37 @@ namespace VanArsdel.Inventory.Views
     {
         public CustomersView()
         {
-            InitializeViewModel();
+            ViewModel = new CustomersViewModel(new DataProviderFactory());
             InitializeComponent();
         }
 
         public CustomersViewModel ViewModel { get; private set; }
 
-        private void InitializeViewModel()
-        {
-            ViewModel = new CustomersViewModel(new DataProviderFactory());
-            ViewModel.UpdateView += OnUpdateView;
-        }
-
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.SetTitle("Customers");
+            ViewModel.CustomerList.PropertyChanged += OnViewModelPropertyChanged;
             await ViewModel.LoadAsync(e.Parameter as CustomersViewState);
+            UpdateTitle();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             ViewModel.CancelEdit();
             ViewModel.SaveState();
+            ViewModel.CustomerList.PropertyChanged -= OnViewModelPropertyChanged;
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.CustomerList.Title))
+            {
+                UpdateTitle();
+            }
+        }
+
+        private void UpdateTitle()
+        {
+            this.SetTitle($"Customers {ViewModel.CustomerList.Title}".Trim());
         }
 
         private async void OnItemDeleted(object sender, EventArgs e)
@@ -63,16 +73,6 @@ namespace VanArsdel.Inventory.Views
         public int GetRowSpan(bool isMultipleSelection)
         {
             return isMultipleSelection ? 2 : 1;
-        }
-
-        public string GetSelectionText(int count)
-        {
-            return $"{count} items selected.";
-        }
-
-        private void OnUpdateView(object sender, EventArgs e)
-        {
-            Bindings.Update();
         }
     }
 }
