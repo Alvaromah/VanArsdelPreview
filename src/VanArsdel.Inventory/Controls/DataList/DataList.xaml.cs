@@ -114,16 +114,6 @@ namespace VanArsdel.Inventory.Controls
         #endregion
 
 
-        #region ToolbarMode
-        public ListToolbarMode ToolbarMode
-        {
-            get { return (ListToolbarMode)GetValue(ToolbarModeProperty); }
-            set { SetValue(ToolbarModeProperty, value); }
-        }
-
-        public static readonly DependencyProperty ToolbarModeProperty = DependencyProperty.Register(nameof(ToolbarMode), typeof(ListToolbarMode), typeof(DataList), new PropertyMetadata(ListToolbarMode.Default));
-        #endregion
-
         #region Query
         public string Query
         {
@@ -132,16 +122,6 @@ namespace VanArsdel.Inventory.Controls
         }
 
         public static readonly DependencyProperty QueryProperty = DependencyProperty.Register(nameof(Query), typeof(string), typeof(DataList), new PropertyMetadata(null));
-        #endregion
-
-        #region SelectionMode
-        public ListViewSelectionMode SelectionMode
-        {
-            get { return (ListViewSelectionMode)GetValue(SelectionModeProperty); }
-            set { SetValue(SelectionModeProperty, value); }
-        }
-
-        public static readonly DependencyProperty SelectionModeProperty = DependencyProperty.Register(nameof(SelectionMode), typeof(ListViewSelectionMode), typeof(DataList), new PropertyMetadata(ListViewSelectionMode.Single));
         #endregion
 
         #region ItemsCount
@@ -175,6 +155,16 @@ namespace VanArsdel.Inventory.Controls
         #endregion
 
 
+        #region RefreshCommand
+        public ICommand RefreshCommand
+        {
+            get { return (ICommand)GetValue(RefreshCommandProperty); }
+            set { SetValue(RefreshCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty RefreshCommandProperty = DependencyProperty.Register(nameof(RefreshCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
+        #endregion
+
         #region QuerySubmittedCommand
         public ICommand QuerySubmittedCommand
         {
@@ -203,16 +193,6 @@ namespace VanArsdel.Inventory.Controls
         }
 
         public static readonly DependencyProperty DeleteCommandProperty = DependencyProperty.Register(nameof(DeleteCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
-        #endregion
-
-        #region RefreshCommand
-        public ICommand RefreshCommand
-        {
-            get { return (ICommand)GetValue(RefreshCommandProperty); }
-            set { SetValue(RefreshCommandProperty, value); }
-        }
-
-        public static readonly DependencyProperty RefreshCommandProperty = DependencyProperty.Register(nameof(RefreshCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
         #endregion
 
 
@@ -257,6 +237,12 @@ namespace VanArsdel.Inventory.Controls
         #endregion
 
 
+        public ListToolbarMode ToolbarMode => IsMultipleSelection ? (SelectedItemsCount > 0 ? ListToolbarMode.CancelDelete : ListToolbarMode.Cancel) : ListToolbarMode.Default;
+        static DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(nameof(ToolbarMode), nameof(IsMultipleSelection), nameof(SelectedItemsCount));
+
+        public ListViewSelectionMode SelectionMode => IsMultipleSelection ? ListViewSelectionMode.Multiple : ListViewSelectionMode.Single;
+        static DependencyExpression SelectionModeExpression = DependencyExpressions.Register(nameof(SelectionMode), nameof(IsMultipleSelection));
+
         public bool IsSingleSelection => !IsMultipleSelection;
         static DependencyExpression IsSingleSelectionExpression = DependencyExpressions.Register(nameof(IsSingleSelection), nameof(IsMultipleSelection));
 
@@ -282,7 +268,6 @@ namespace VanArsdel.Inventory.Controls
             if (IsMultipleSelection)
             {
                 SelectedItemsCount = listview.SelectedItems.Count;
-                ToolbarMode = SelectedItemsCount > 0 ? ListToolbarMode.CancelDelete : ListToolbarMode.Cancel;
             }
 
             if (SelectItemsCommand?.CanExecute(e.AddedItems) ?? false)
@@ -308,33 +293,19 @@ namespace VanArsdel.Inventory.Controls
             switch (e.ClickedButton)
             {
                 case ToolbarButton.New:
-                    if (NewCommand?.CanExecute(null) ?? false)
-                    {
-                        NewCommand.Execute(null);
-                    }
+                    NewCommand?.TryExecute();
                     break;
                 case ToolbarButton.Delete:
-                    if (DeleteCommand?.CanExecute(null) ?? false)
-                    {
-                        DeleteCommand.Execute(null);
-                    }
+                    DeleteCommand?.TryExecute();
                     break;
                 case ToolbarButton.Select:
-                    IsMultipleSelection = true;
-                    ToolbarMode = ListToolbarMode.Cancel;
-                    SelectionMode = ListViewSelectionMode.Multiple;
+                    StartSelectionCommand?.TryExecute();
                     break;
                 case ToolbarButton.Refresh:
-                    if (RefreshCommand?.CanExecute(null) ?? false)
-                    {
-                        RefreshCommand.Execute(null);
-                    }
+                    RefreshCommand?.TryExecute();
                     break;
                 case ToolbarButton.Cancel:
-                    IsMultipleSelection = false;
-                    ToolbarMode = ListToolbarMode.Default;
-                    SelectionMode = ListViewSelectionMode.Single;
-                    SelectedItem = ItemsSource?.Cast<object>().FirstOrDefault();
+                    CancelSelectionCommand?.TryExecute();
                     break;
             }
         }

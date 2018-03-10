@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 using VanArsdel.Inventory.ViewModels;
-using VanArsdel.Inventory.Controls;
+using System.Windows.Input;
 
 namespace VanArsdel.Inventory.Views
 {
@@ -40,40 +40,10 @@ namespace VanArsdel.Inventory.Views
         public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(CustomerListViewModel), typeof(CustomersList), new PropertyMetadata(null, ViewModelChanged));
         #endregion
 
-        private async void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        public ICommand NewCustomerCommand => new RelayCommand(NewCustomer);
+        private async void NewCustomer()
         {
-            await ViewModel.RefreshAsync(resetPageIndex: true);
-        }
-
-        private async void OnToolbarClick(object sender, ToolbarButtonClickEventArgs e)
-        {
-            switch (e.ClickedButton)
-            {
-                case ToolbarButton.New:
-                    // TODO: NavigationService.GetNavigationState() Not supported when using parameters
-                    //NavigationService.Main.Navigate(typeof(CustomerView), new CustomerViewState());
-                    await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState());
-                    break;
-                case ToolbarButton.Select:
-                    ViewModel.IsMultipleSelection = true;
-                    ViewModel.ToolbarMode = ListToolbarMode.Cancel;
-                    break;
-                case ToolbarButton.Refresh:
-                    await ViewModel.RefreshAsync();
-                    break;
-                case ToolbarButton.Delete:
-                    if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete selected customers?", "Ok", "Cancel"))
-                    {
-                        await ViewModel.DeleteSelectionAsync();
-                        ViewModel.IsMultipleSelection = false;
-                        ViewModel.ToolbarMode = ListToolbarMode.Default;
-                    }
-                    break;
-                case ToolbarButton.Cancel:
-                    ViewModel.IsMultipleSelection = false;
-                    ViewModel.ToolbarMode = ListToolbarMode.Default;
-                    break;
-            }
+            await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState());
         }
 
         private void OnUpdateView(object sender, EventArgs e)

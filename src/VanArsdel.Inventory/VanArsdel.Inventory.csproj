@@ -100,6 +100,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\GridLengths.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\Result.cs" />
     <Compile Include="Common\ThreadSafeSingleton.cs" />
     <Compile Include="Common\ValidationConstraint.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="DataProviders\SQLiteProvider\SQLiteDataProvider.cs" />
     <Compile Include="DataProviders\SQLServerProvider\SQLServerProvider.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
+    <Compile Include="Extensions\ICommandExtensions.cs" />
     <Compile Include="Extensions\PageExtensions.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Helpers\UIHelper.cs" />
@@ -175,10 +177,12 @@
     <Compile Include="ViewModels\Base\ModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewStateBase.cs" />
-    <Compile Include="ViewModels\Common\DetailsViewModel.cs" />
-    <Compile Include="ViewModels\Common\DetailsViewState.cs" />
-    <Compile Include="ViewModels\Common\ListViewModel.cs" />
-    <Compile Include="ViewModels\Common\ListViewState.cs" />
+    <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewState.cs" />
+    <Compile Include="ViewModels\Common\ListViewModel\ListViewModel.ICommands.cs" />
+    <Compile Include="ViewModels\Common\ListViewModel\ListViewModel.Properties.cs" />
+    <Compile Include="ViewModels\Common\ListViewModel\ListViewModel.cs" />
+    <Compile Include="ViewModels\Common\ListViewModel\ListViewState.cs" />
     <Compile Include="ViewModels\Customers\CustomerDetailsViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomerListViewModel.cs" />
     <Compile Include="ViewModels\Customers\CustomersViewModel.cs" />
