@@ -28,7 +28,7 @@ namespace VanArsdel.Inventory.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.SetTitle("Dashboard");
+            this.SetTitle("");
             await Task.Delay(100);
             await ViewModel.LoadAsync();
         }
