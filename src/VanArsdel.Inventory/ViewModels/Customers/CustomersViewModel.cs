@@ -15,13 +15,8 @@ namespace VanArsdel.Inventory.ViewModels
 
             CustomerList = new CustomerListViewModel(ProviderFactory);
             CustomerList.PropertyChanged += OnListPropertyChanged;
-            CustomerList.UpdateView += OnUpdateView;
-
             CustomerDetails = new CustomerDetailsViewModel(ProviderFactory);
-            CustomerDetails.UpdateView += OnUpdateView;
-
             CustomerOrders = new OrderListViewModel(ProviderFactory);
-            CustomerOrders.UpdateView += OnUpdateView;
         }
 
         public IDataProviderFactory ProviderFactory { get; }
@@ -73,7 +68,6 @@ namespace VanArsdel.Inventory.ViewModels
                 }
             }
             CustomerDetails.Item = selected;
-            CustomerDetails.RaiseUpdateView();
         }
 
         private async Task UpdateOrders(CustomerModel selectedItem)
@@ -92,11 +86,6 @@ namespace VanArsdel.Inventory.ViewModels
         public void CancelEdit()
         {
             CustomerDetails.CancelEdit();
-        }
-
-        private void OnUpdateView(object sender, EventArgs e)
-        {
-            RaiseUpdateView();
         }
     }
 }

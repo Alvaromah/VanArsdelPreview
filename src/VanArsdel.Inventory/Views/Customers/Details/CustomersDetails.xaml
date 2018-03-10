@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <controls:DetailToolbar ToolbarMode="{x:Bind ViewModel.ToolbarMode, Mode=TwoWay}" ButtonClick="OnToolbarClick" />
-        <views:CustomersDetailsControl Grid.Row="1" Model="{x:Bind ViewModel.Item}" IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}" InputGotFocus="OnInputGotFocus" />
+        <views:CustomersDetailsControl Grid.Row="1" Model="{x:Bind ViewModel.Item, Mode=OneWay}" IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}" InputGotFocus="OnInputGotFocus" />
     </Grid>
     
 </UserControl>
