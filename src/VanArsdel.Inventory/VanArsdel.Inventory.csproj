@@ -208,9 +208,6 @@
     <Compile Include="Views\Customers\Details\CustomersDetails.xaml.cs">
       <DependentUpon>CustomersDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Customers\Details\CustomersDetailsControl.xaml.cs">
-      <DependentUpon>CustomersDetailsControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Customers\List\CustomersList.xaml.cs">
       <DependentUpon>CustomersList.xaml</DependentUpon>
     </Compile>
@@ -338,10 +335,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Customers\Details\CustomersDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Customers\Details\CustomersDetailsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -15,6 +15,7 @@ namespace VanArsdel.Inventory.Views
         public CustomersDetails()
         {
             InitializeComponent();
+            InitializeInputs();
         }
 
         #region ViewModel
@@ -24,26 +25,30 @@ namespace VanArsdel.Inventory.Views
             set { SetValue(ViewModelProperty, value); }
         }
 
-        private static void ViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(CustomerDetailsViewModel), typeof(CustomersDetails), new PropertyMetadata(null));
+        #endregion
+
+        #region IsEditMode
+        public bool IsEditMode
+        {
+            get { return (bool)GetValue(IsEditModeProperty); }
+            set { SetValue(IsEditModeProperty, value); }
+        }
+
+        private static void IsEditModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as CustomersDetails;
-            control.UpdateViewModel(e.OldValue as CustomerDetailsViewModel, e.NewValue as CustomerDetailsViewModel);
+            control.UpdateEditMode();
         }
 
-        private void UpdateViewModel(CustomerDetailsViewModel oldViewModel, CustomerDetailsViewModel newViewModel)
-        {
-            if (oldViewModel != null)
-            {
-                oldViewModel.UpdateView -= OnUpdateView;
-            }
-            if (newViewModel != null)
-            {
-                newViewModel.UpdateView += OnUpdateView;
-            }
-        }
-
-        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(CustomerDetailsViewModel), typeof(CustomersDetails), new PropertyMetadata(null, ViewModelChanged));
+        public static readonly DependencyProperty IsEditModeProperty = DependencyProperty.Register(nameof(IsEditMode), typeof(bool), typeof(CustomersDetails), new PropertyMetadata(null, IsEditModeChanged));
         #endregion
+
+        private void InitializeInputs()
+        {
+            ElementSet.Children<LabelTextBox>(this).GotFocus += OnInputGotFocus;
+            ElementSet.Children<LabelComboBox>(this).GotFocus += OnInputGotFocus;
+        }
 
         private async void OnToolbarClick(object sender, ToolbarButtonClickEventArgs e)
         {
@@ -86,9 +91,10 @@ namespace VanArsdel.Inventory.Views
             }
         }
 
-        private void OnUpdateView(object sender, EventArgs e)
+        private void UpdateEditMode()
         {
-            Bindings.Update();
+            ElementSet.Children<LabelTextBox>(this).ForEach(c => c.Mode = IsEditMode ? TextEditMode.ReadWrite : TextEditMode.Auto);
+            ElementSet.Children<LabelComboBox>(this).ForEach(c => c.Mode = IsEditMode ? TextEditMode.ReadWrite : TextEditMode.Auto);
         }
     }
 }

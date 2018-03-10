@@ -38,7 +38,7 @@
 
                     <Pivot x:Name="pivot">
                         <PivotItem Header="Customer">
-                            <views:CustomersDetails Grid.Row="1" ViewModel="{x:Bind ViewModel.CustomerDetails}" ItemDeleted="OnItemDeleted" />
+                            <views:CustomersDetails Grid.Row="1" ViewModel="{x:Bind ViewModel.CustomerDetails}" IsEditMode="{x:Bind ViewModel.CustomerDetails.IsEditMode, Mode=OneWay}" ItemDeleted="OnItemDeleted" />
                         </PivotItem>
                         <PivotItem Header="Orders">
                             <views:CustomersOrders Grid.Row="1" ViewModel="{x:Bind ViewModel.CustomerOrders}" />
