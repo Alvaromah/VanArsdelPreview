@@ -24,7 +24,7 @@ namespace VanArsdel.Inventory.ViewModels
 
         override public async Task<PageResult<OrderModel>> GetItemsAsync(IDataProvider dataProvider)
         {
-            var request = new PageRequest<Order>(PageIndex, PageSize)
+            var request = new PageRequest<Order>(PageIndex, 10)
             {
                 Query = Query,
                 OrderBy = r => r.OrderID
