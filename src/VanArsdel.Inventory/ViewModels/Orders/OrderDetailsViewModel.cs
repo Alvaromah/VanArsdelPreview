@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Models;
-using VanArsdel.Inventory.Controls;
 using VanArsdel.Inventory.Providers;
-using System.Collections.Generic;
 
 namespace VanArsdel.Inventory.ViewModels
 {
@@ -16,20 +15,9 @@ namespace VanArsdel.Inventory.ViewModels
 
         override public string Title => ((Item?.IsNew) ?? false) ? "New Order" : $"Order #{Item?.OrderID}" ?? String.Empty;
 
-        protected override async Task SaveItemAsync(OrderModel model)
+        protected override void ItemUpdated()
         {
-            using (var dataProvider = ProviderFactory.CreateDataProvider())
-            {
-                await dataProvider.UpdateOrderAsync(model);
-            }
-        }
-
-        protected override async Task DeleteItemAsync(OrderModel model)
-        {
-            using (var dataProvider = ProviderFactory.CreateDataProvider())
-            {
-                await dataProvider.DeleteOrderAsync(model);
-            }
+            NotifyPropertyChanged(nameof(Title));
         }
 
         public async Task LoadAsync(OrderViewState state)
@@ -46,7 +34,22 @@ namespace VanArsdel.Inventory.ViewModels
                 Item = new OrderModel();
                 IsEditMode = true;
             }
-            RaiseUpdateView();
+        }
+
+        protected override async Task SaveItemAsync(OrderModel model)
+        {
+            using (var dataProvider = ProviderFactory.CreateDataProvider())
+            {
+                await dataProvider.UpdateOrderAsync(model);
+            }
+        }
+
+        protected override async Task DeleteItemAsync(OrderModel model)
+        {
+            using (var dataProvider = ProviderFactory.CreateDataProvider())
+            {
+                await dataProvider.DeleteOrderAsync(model);
+            }
         }
 
         override protected IEnumerable<IValidationConstraint<OrderModel>> ValidationConstraints

@@ -15,10 +15,9 @@ namespace VanArsdel.Inventory.ViewModels
 
             OrderList = new OrderListViewModel(ProviderFactory);
             OrderList.PropertyChanged += OnListPropertyChanged;
-            OrderList.UpdateView += OnUpdateView;
 
             OrderDetails = new OrderDetailsViewModel(ProviderFactory);
-            OrderDetails.UpdateView += OnUpdateView;
+            OrderDetails.ItemDeleted += OnItemDeleted;
         }
 
         public IDataProviderFactory ProviderFactory { get; }
@@ -29,6 +28,11 @@ namespace VanArsdel.Inventory.ViewModels
         public async Task LoadAsync(OrdersViewState state)
         {
             await OrderList.LoadAsync(state);
+        }
+
+        public void SaveState()
+        {
+            OrderList.Unload();
         }
 
         public async Task RefreshAsync(bool resetPageIndex = false)
@@ -49,6 +53,11 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
+        private async void OnItemDeleted(object sender, EventArgs e)
+        {
+            await OrderList.RefreshAsync();
+        }
+
         private async Task UpdateDetails(OrderModel selected)
         {
             if (selected != null)
@@ -60,22 +69,11 @@ namespace VanArsdel.Inventory.ViewModels
                 }
             }
             OrderDetails.Item = selected;
-            OrderDetails.RaiseUpdateView();
-        }
-
-        public void BeginEdit()
-        {
-            OrderDetails.BeginEdit();
         }
 
         public void CancelEdit()
         {
             OrderDetails.CancelEdit();
-        }
-
-        private void OnUpdateView(object sender, EventArgs e)
-        {
-            RaiseUpdateView();
         }
     }
 }

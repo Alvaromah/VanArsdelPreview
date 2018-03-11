@@ -15,6 +15,7 @@ namespace VanArsdel.Inventory.ViewModels
 
             CustomerList = new CustomerListViewModel(ProviderFactory);
             CustomerList.PropertyChanged += OnListPropertyChanged;
+
             CustomerDetails = new CustomerDetailsViewModel(ProviderFactory);
             CustomerDetails.ItemDeleted += OnItemDeleted;
             CustomerOrders = new OrderListViewModel(ProviderFactory);
@@ -82,11 +83,6 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await CustomerOrders.LoadAsync(new OrdersViewState { CustomerID = selectedItem.CustomerID });
             }
-        }
-
-        public void BeginEdit()
-        {
-            CustomerDetails.BeginEdit();
         }
 
         public void CancelEdit()
