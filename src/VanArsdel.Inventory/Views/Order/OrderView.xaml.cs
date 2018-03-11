@@ -10,22 +10,22 @@ using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.Views
 {
-    public sealed partial class CustomerView : Page
+    public sealed partial class OrderView : Page
     {
-        public CustomerView()
+        public OrderView()
         {
-            ViewModel = new CustomerDetailsViewModel(new DataProviderFactory());
+            ViewModel = new OrderDetailsViewModel(new DataProviderFactory());
             InitializeComponent();
         }
 
-        public CustomerDetailsViewModel ViewModel { get; private set; }
+        public OrderDetailsViewModel ViewModel { get; private set; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             NavigationService.Main.HideBackButton();
 
-            var state = e.Parameter as CustomerViewState;
-            state = state ?? CustomerViewState.CreateDefault();
+            var state = e.Parameter as OrderViewState;
+            state = state ?? OrderViewState.CreateDefault();
             await ViewModel.LoadAsync(state);
             this.SetTitle(ViewModel.Title);
 
@@ -41,7 +41,7 @@ namespace VanArsdel.Inventory.Views
         private async void OpenInNewView(object sender, RoutedEventArgs e)
         {
             ViewModel.IsEditMode = false;
-            await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState { CustomerID = ViewModel.Item.CustomerID });
+            await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState { OrderID = ViewModel.Item.OrderID });
             NavigationService.Main.GoBack();
         }
     }

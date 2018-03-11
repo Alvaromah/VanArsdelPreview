@@ -62,8 +62,7 @@ namespace VanArsdel.Inventory.Views
             ViewModel.OrderDetails.IsEditMode = false;
             if (pivot.SelectedIndex == 0)
             {
-                // TODO: 
-                //await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState { OrderID = ViewModel.OrderDetails.Item.OrderID });
+                await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState { OrderID = ViewModel.OrderDetails.Item.OrderID });
             }
             else
             {
