@@ -107,6 +107,11 @@ namespace VanArsdel.Inventory.Controls
         public DetailToolbarMode ToolbarMode => IsEditMode ? DetailToolbarMode.CancelSave : DetailToolbarMode.Default;
         static DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(nameof(ToolbarMode), nameof(IsEditMode));
 
+        public void SetFocus()
+        {
+            ElementSet.Children<LabelTextBox>(this).FirstOrDefault()?.SetFocus();
+        }
+
         private void OnToolbarClick(object sender, ToolbarButtonClickEventArgs e)
         {
             switch (e.ClickedButton)

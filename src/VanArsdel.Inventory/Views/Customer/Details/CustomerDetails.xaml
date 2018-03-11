@@ -5,95 +5,109 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:VanArsdel.Inventory.Controls"
+    xmlns:viewmodels="using:VanArsdel.Inventory.ViewModels"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
 
-    <Grid RowSpacing="8" ColumnSpacing="8">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-
-        <StackPanel Margin="12" Spacing="8">
-            <PersonPicture Margin="0,12" ProfilePicture="{x:Bind ViewModel.Item.PictureBitmap, Mode=OneWay}" Initials="{x:Bind ViewModel.Item.Initials, Mode=OneWay}" Width="180" Height="180" />
-            <controls:LabelTextBlock Label="Customer ID" Text="{x:Bind ViewModel.Item.CustomerID, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.IsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
-            <controls:LabelTextBlock Label="Created On" Text="{x:Bind ViewModel.Item.CreatedOnString, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.IsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
-            <controls:LabelTextBlock Label="Last Modified On" Text="{x:Bind ViewModel.Item.LastModifiedOnString, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Center" Visibility="{x:Bind ViewModel.Item.IsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
-        </StackPanel>
-
-        <StackPanel Grid.Column="1">
-            <Border Margin="3,6" Padding="3" BorderThickness="0,0,0,0" BorderBrush="LightGray">
-                <TextBlock Text="Personal Information" FontSize="16" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" />
-            </Border>
+    <UserControl.Resources>
+        <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:CustomerDetailsViewModel">
             <Grid RowSpacing="8" ColumnSpacing="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <controls:LabelTextBox Grid.Row="0" Grid.Column="0" Label="First Name" Text="{x:Bind ViewModel.Item.FirstName, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="1" Grid.Column="0" Label="Middle Name" Text="{x:Bind ViewModel.Item.MiddleName, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="2" Grid.Column="0" Label="Last Name" Text="{x:Bind ViewModel.Item.LastName, Mode=TwoWay}" />
-                
-                <controls:LabelTextBox Grid.Row="0" Grid.Column="1" Label="Title" Text="{x:Bind ViewModel.Item.Title, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="1" Grid.Column="1" Label="Email Address" Text="{x:Bind ViewModel.Item.EmailAddress, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="2" Grid.Column="1" Label="Phone" Text="{x:Bind ViewModel.Item.Phone, Mode=TwoWay}" />
+
+                <StackPanel Margin="12" Spacing="8">
+                    <PersonPicture Margin="0,12" ProfilePicture="{x:Bind Item.PictureBitmap, Mode=OneWay}" Initials="{x:Bind Item.Initials, Mode=OneWay}" Width="180" Height="180" />
+                    <controls:LabelTextBlock Label="Customer ID" Text="{x:Bind Item.CustomerID, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Center" Visibility="{x:Bind Item.IsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+                    <controls:LabelTextBlock Label="Created On" Text="{x:Bind Item.CreatedOnString, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Center" Visibility="{x:Bind Item.IsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+                    <controls:LabelTextBlock Label="Last Modified On" Text="{x:Bind Item.LastModifiedOnString, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Center" Visibility="{x:Bind Item.IsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <Border Margin="3,6" Padding="3" BorderThickness="0,0,0,0" BorderBrush="LightGray">
+                        <TextBlock Text="Personal Information" FontSize="16" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" />
+                    </Border>
+                    <Grid RowSpacing="8" ColumnSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <controls:LabelTextBox Grid.Row="0" Grid.Column="0" Label="First Name" Text="{x:Bind Item.FirstName, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="1" Grid.Column="0" Label="Middle Name" Text="{x:Bind Item.MiddleName, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="2" Grid.Column="0" Label="Last Name" Text="{x:Bind Item.LastName, Mode=TwoWay}" />
+
+                        <controls:LabelTextBox Grid.Row="0" Grid.Column="1" Label="Title" Text="{x:Bind Item.Title, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="1" Grid.Column="1" Label="Email Address" Text="{x:Bind Item.EmailAddress, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="2" Grid.Column="1" Label="Phone" Text="{x:Bind Item.Phone, Mode=TwoWay}" />
+                    </Grid>
+
+                    <Rectangle Margin="6" />
+                    <Border Margin="3,6" Padding="3" BorderThickness="0,0,0,0" BorderBrush="LightGray">
+                        <TextBlock Text="Customer Address" FontSize="16" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" />
+                    </Border>
+
+                    <Grid RowSpacing="8" ColumnSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <controls:LabelTextBox Grid.Row="0" Grid.Column="0" Label="Address Line 1" Text="{x:Bind Item.AddressLine1, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="0" Grid.Column="1" Label="Address Line 2" Text="{x:Bind Item.AddressLine2, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="1" Grid.Column="0" Label="City" Text="{x:Bind Item.City, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="1" Grid.Column="1" Label="Postal Code" Text="{x:Bind Item.PostalCode, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="2" Grid.Column="0" Label="Region" Text="{x:Bind Item.Region, Mode=TwoWay}" />
+                        <controls:LabelComboBox Grid.Row="2" Grid.Column="1" Label="Country" ItemsSource="{x:Bind DataHelper.CountryCodes}"
+                                        SelectedValue="{x:Bind Item.CountryCode, Mode=TwoWay}" SelectedValuePath="CountryCodeID" DisplayMemberPath="Name" />
+                    </Grid>
+
+                    <Rectangle Margin="6" />
+                    <Border Margin="3,6" Padding="3" BorderThickness="0,0,0,0" BorderBrush="LightGray">
+                        <TextBlock Text="Customer Demographic" FontSize="16" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" />
+                    </Border>
+
+                    <Grid RowSpacing="8" ColumnSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--<controls:LabelTextBox Grid.Row="0" Grid.Column="0" Label="BirthDate" Text="{x:Bind Item.BirthDate, Mode=TwoWay}" />-->
+                        <controls:LabelTextBox Grid.Row="1" Grid.Column="0" Label="Education" Text="{x:Bind Item.Education, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="1" Grid.Column="1" Label="Occupation" Text="{x:Bind Item.Occupation, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="2" Grid.Column="0" Label="YearlyIncome" Text="{x:Bind Item.YearlyIncome, Mode=TwoWay, Converter={StaticResource DecimalConverter}}" ValueType="Decimal" />
+                        <controls:LabelTextBox Grid.Row="2" Grid.Column="1" Label="MaritalStatus" Text="{x:Bind Item.MaritalStatus, Mode=TwoWay}" />
+                        <controls:LabelTextBox Grid.Row="3" Grid.Column="0" Label="TotalChildren" Text="{x:Bind Item.TotalChildren, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
+                        <controls:LabelTextBox Grid.Row="3" Grid.Column="1" Label="ChildrenAtHome" Text="{x:Bind Item.ChildrenAtHome, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
+                        <controls:LabelTextBox Grid.Row="4" Grid.Column="0" Label="NumberCarsOwned" Text="{x:Bind Item.NumberCarsOwned, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
+                        <!--<controls:LabelTextBox Grid.Row="4" Grid.Column="1" Label="IsHouseOwner" Text="{x:Bind Item.IsHouseOwner, Mode=TwoWay}" />-->
+                    </Grid>
+                </StackPanel>
             </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
 
-            <Rectangle Margin="6" />
-            <Border Margin="3,6" Padding="3" BorderThickness="0,0,0,0" BorderBrush="LightGray">
-                <TextBlock Text="Customer Address" FontSize="16" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" />
-            </Border>
-
-            <Grid RowSpacing="8" ColumnSpacing="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <controls:LabelTextBox Grid.Row="0" Grid.Column="0" Label="Address Line 1" Text="{x:Bind ViewModel.Item.AddressLine1, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="0" Grid.Column="1" Label="Address Line 2" Text="{x:Bind ViewModel.Item.AddressLine2, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="1" Grid.Column="0" Label="City" Text="{x:Bind ViewModel.Item.City, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="1" Grid.Column="1" Label="Postal Code" Text="{x:Bind ViewModel.Item.PostalCode, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="2" Grid.Column="0" Label="Region" Text="{x:Bind ViewModel.Item.Region, Mode=TwoWay}" />
-                <controls:LabelComboBox Grid.Row="2" Grid.Column="1" Label="Country" ItemsSource="{x:Bind ViewModel.DataHelper.CountryCodes}"
-                                        SelectedValue="{x:Bind ViewModel.Item.CountryCode, Mode=TwoWay}" SelectedValuePath="CountryCodeID" DisplayMemberPath="Name" />
-            </Grid>
-
-            <Rectangle Margin="6" />
-            <Border Margin="3,6" Padding="3" BorderThickness="0,0,0,0" BorderBrush="LightGray">
-                <TextBlock Text="Customer Demographic" FontSize="16" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" />
-            </Border>
-
-            <Grid RowSpacing="8" ColumnSpacing="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <!--<controls:LabelTextBox Grid.Row="0" Grid.Column="0" Label="BirthDate" Text="{x:Bind ViewModel.Item.BirthDate, Mode=TwoWay}" />-->
-                <controls:LabelTextBox Grid.Row="1" Grid.Column="0" Label="Education" Text="{x:Bind ViewModel.Item.Education, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="1" Grid.Column="1" Label="Occupation" Text="{x:Bind ViewModel.Item.Occupation, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="2" Grid.Column="0" Label="YearlyIncome" Text="{x:Bind ViewModel.Item.YearlyIncome, Mode=TwoWay, Converter={StaticResource DecimalConverter}}" ValueType="Decimal" />
-                <controls:LabelTextBox Grid.Row="2" Grid.Column="1" Label="MaritalStatus" Text="{x:Bind ViewModel.Item.MaritalStatus, Mode=TwoWay}" />
-                <controls:LabelTextBox Grid.Row="3" Grid.Column="0" Label="TotalChildren" Text="{x:Bind ViewModel.Item.TotalChildren, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
-                <controls:LabelTextBox Grid.Row="3" Grid.Column="1" Label="ChildrenAtHome" Text="{x:Bind ViewModel.Item.ChildrenAtHome, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
-                <controls:LabelTextBox Grid.Row="4" Grid.Column="0" Label="NumberCarsOwned" Text="{x:Bind ViewModel.Item.NumberCarsOwned, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
-                <!--<controls:LabelTextBox Grid.Row="4" Grid.Column="1" Label="IsHouseOwner" Text="{x:Bind ViewModel.Item.IsHouseOwner, Mode=TwoWay}" />-->
-            </Grid>
-        </StackPanel>
-    </Grid>
+    <controls:Details x:Name="details"
+            DetailsContent="{x:Bind ViewModel}"
+            DetailsTemplate="{StaticResource DetailsTemplate}"
+            IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
+            EditCommand="{x:Bind ViewModel.EditCommand}"
+            DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
+            SaveCommand="{x:Bind ViewModel.SaveCommand}"
+            CancelCommand="{x:Bind ViewModel.CancelCommand}" />
 </UserControl>

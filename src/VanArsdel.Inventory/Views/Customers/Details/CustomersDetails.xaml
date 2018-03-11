@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmodels="using:VanArsdel.Inventory.ViewModels"
     xmlns:controls="using:VanArsdel.Inventory.Controls"
+    xmlns:viewmodels="using:VanArsdel.Inventory.ViewModels"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400">
 
     <UserControl.Resources>
@@ -45,8 +45,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid>
-        <controls:Details
+    <controls:Details
             DetailsContent="{x:Bind ViewModel}"
             DetailsTemplate="{StaticResource DetailsTemplate}"
             IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
@@ -54,5 +53,4 @@
             DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
             SaveCommand="{x:Bind ViewModel.SaveCommand}"
             CancelCommand="{x:Bind ViewModel.CancelCommand}" />
-    </Grid>
 </UserControl>

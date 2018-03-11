@@ -11,14 +11,7 @@
     <Grid Background="WhiteSmoke">
         <controls:Section Margin="6" Header="{x:Bind ViewModel.Title, Mode=OneWay}" IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}"
                           HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenInNewView" IsButtonVisible="{x:Bind ViewModel.IsMainView}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <controls:DetailToolbar ButtonClick="OnDetailToolbarClick" />
-                <views:CustomerDetails x:Name="details" Grid.Row="1" ViewModel="{x:Bind ViewModel, Mode=OneWay}" InputGotFocus="OnInputGotFocus" />
-            </Grid>
+            <views:CustomerDetails x:Name="details" ViewModel="{x:Bind ViewModel, Mode=OneWay}" />
         </controls:Section>
     </Grid>
 </Page>
