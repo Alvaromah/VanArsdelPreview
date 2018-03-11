@@ -9,8 +9,6 @@ namespace VanArsdel.Inventory.Views
 {
     public sealed partial class CustomerDetails : UserControl
     {
-        public event RoutedEventHandler InputGotFocus;
-
         public CustomerDetails()
         {
             InitializeComponent();

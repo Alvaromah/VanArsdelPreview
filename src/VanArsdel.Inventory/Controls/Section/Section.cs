@@ -125,7 +125,7 @@ namespace VanArsdel.Inventory.Controls
                 if (!IsEnabled)
                 {
                     _container.Grayscale();
-                    _content.Opacity = 0.25;
+                    _content.Opacity = 0.5;
                 }
             }
         }
@@ -155,12 +155,12 @@ namespace VanArsdel.Inventory.Controls
             if (IsEnabled)
             {
                 _container.ClearEffects();
-                _content.Fade(250, 0.25, 1.0);
+                _content.Fade(250, 0.5, 1.0);
             }
             else
             {
                 _container.Grayscale();
-                _content.Fade(250, 1.0, 0.25);
+                _content.Fade(250, 1.0, 0.5);
             }
         }
     }
