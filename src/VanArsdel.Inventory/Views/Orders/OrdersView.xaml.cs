@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using VanArsdel.Inventory.ViewModels;
 using VanArsdel.Inventory.Providers;
-using Windows.UI.Xaml;
 
 namespace VanArsdel.Inventory.Views
 {
@@ -13,27 +14,37 @@ namespace VanArsdel.Inventory.Views
     {
         public OrdersView()
         {
-            InitializeViewModel();
+            ViewModel = new OrdersViewModel(new DataProviderFactory());
             InitializeComponent();
         }
 
         public OrdersViewModel ViewModel { get; private set; }
 
-        private void InitializeViewModel()
-        {
-            ViewModel = new OrdersViewModel(new DataProviderFactory());
-            ViewModel.UpdateView += OnUpdateView;
-        }
-
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.SetTitle("Orders");
+            ViewModel.OrderList.PropertyChanged += OnViewModelPropertyChanged;
             await ViewModel.LoadAsync(e.Parameter as OrdersViewState);
+            UpdateTitle();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             ViewModel.CancelEdit();
+            ViewModel.SaveState();
+            ViewModel.OrderList.PropertyChanged -= OnViewModelPropertyChanged;
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.OrderList.Title))
+            {
+                UpdateTitle();
+            }
+        }
+
+        private void UpdateTitle()
+        {
+            this.SetTitle($"Orders {ViewModel.OrderList.Title}".Trim());
         }
 
         private async void OnItemDeleted(object sender, EventArgs e)
@@ -41,15 +52,29 @@ namespace VanArsdel.Inventory.Views
             await ViewModel.RefreshAsync();
         }
 
-        private void OpenInNewView(object sender, RoutedEventArgs e)
+        private async void OpenInNewView(object sender, RoutedEventArgs e)
         {
-            //ViewModel.OrderDetails.IsEditMode = false;
-            //await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState { OrderID = ViewModel.OrderDetails.Item.OrderID });
+            await ViewManager.Current.CreateNewView(typeof(OrdersView), ViewModel.OrderList.GetCurrentState());
         }
 
-        private void OnUpdateView(object sender, EventArgs e)
+        private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)
         {
-            Bindings.Update();
+            ViewModel.OrderDetails.IsEditMode = false;
+            if (pivot.SelectedIndex == 0)
+            {
+                // TODO: 
+                //await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState { OrderID = ViewModel.OrderDetails.Item.OrderID });
+            }
+            else
+            {
+                // TODO: 
+                //await ViewManager.Current.CreateNewView(typeof(OrdersView), ViewModel.OrderOrders.ViewState.Clone());
+            }
+        }
+
+        public int GetRowSpan(bool isMultipleSelection)
+        {
+            return isMultipleSelection ? 2 : 1;
         }
     }
 }

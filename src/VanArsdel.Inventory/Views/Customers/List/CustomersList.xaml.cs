@@ -24,8 +24,8 @@ namespace VanArsdel.Inventory.Views
         public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(CustomerListViewModel), typeof(CustomersList), new PropertyMetadata(null));
         #endregion
 
-        public ICommand NewCustomerCommand => new RelayCommand(NewCustomer);
-        private async void NewCustomer()
+        public ICommand NewCommand => new RelayCommand(New);
+        private async void New()
         {
             await ViewManager.Current.CreateNewView(typeof(CustomerView), new CustomerViewState());
         }

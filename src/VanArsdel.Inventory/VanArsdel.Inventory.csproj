@@ -240,7 +240,13 @@
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OrdersView.xaml.cs">
+    <Compile Include="Views\Orders\Details\OrdersDetails.xaml.cs">
+      <DependentUpon>OrdersDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Orders\List\OrdersList.xaml.cs">
+      <DependentUpon>OrdersList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Orders\OrdersView.xaml.cs">
       <DependentUpon>OrdersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsView.xaml.cs">
@@ -383,9 +389,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OrdersView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\Orders\Details\OrdersDetails.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Orders\List\OrdersList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Orders\OrdersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Settings\SettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>

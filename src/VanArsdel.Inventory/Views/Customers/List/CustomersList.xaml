@@ -53,8 +53,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid>
-        <controls:DataList ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+    <controls:DataList ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                            SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
                            HeaderTemplate="{StaticResource HeaderTemplate}"
                            ItemTemplate="{StaticResource ItemTemplate}"
@@ -62,7 +61,7 @@
                            ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
                            PageIndex="{x:Bind ViewModel.PageIndex, Mode=TwoWay}"
                            PageSize="{x:Bind ViewModel.PageSize, Mode=OneWay}"
-                           NewCommand="{x:Bind NewCustomerCommand}"
+                           NewCommand="{x:Bind NewCommand}"
                            RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
                            Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
                            QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"
@@ -71,6 +70,4 @@
                            SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
                            DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
                            DeleteCommand="{x:Bind ViewModel.DeleteDelectionCommand}" />
-    </Grid>
-
 </UserControl>

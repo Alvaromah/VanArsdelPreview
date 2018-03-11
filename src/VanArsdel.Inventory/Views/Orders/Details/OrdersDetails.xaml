@@ -5,17 +5,40 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:VanArsdel.Inventory.Controls"
-    xmlns:views="using:VanArsdel.Inventory.Views"
-    IsTabStop="True"
+    xmlns:viewmodels="using:VanArsdel.Inventory.ViewModels"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <controls:DetailToolbar ToolbarMode="{x:Bind ViewModel.ToolbarMode, Mode=TwoWay}" ButtonClick="OnToolbarClick" />
-        <views:OrdersDetailsControl Grid.Row="1" Model="{x:Bind ViewModel.Item}" IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}" InputGotFocus="OnInputGotFocus" />
-    </Grid>
-    
+    <UserControl.Resources>
+        <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:OrderDetailsViewModel">
+            <Grid ColumnSpacing="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="1" Spacing="6">
+                    <controls:LabelTextBlock Label="Order ID" Text="{x:Bind Item.OrderID, Mode=OneWay}" />
+                    <controls:LabelTextBlock Label="Customer ID" Text="{x:Bind Item.CustomerID, Mode=OneWay}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Spacing="6">
+                    <controls:LabelTextBox Label="Ship Address" Text="{x:Bind Item.ShipAddress, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="Ship Postal Code" Text="{x:Bind Item.ShipPostalCode, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="Ship City" Text="{x:Bind Item.ShipCity, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="Ship Region" Text="{x:Bind Item.ShipRegion, Mode=TwoWay}" />
+                    <!--<controls:LabelTextBox Label="Ship Country" Text="{x:Bind Item.DataHelper.GetCountry(Item.ShipCountryCode), Mode=TwoWay}" />-->
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <controls:Details
+            DetailsContent="{x:Bind ViewModel}"
+            DetailsTemplate="{StaticResource DetailsTemplate}"
+            IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
+            EditCommand="{x:Bind ViewModel.EditCommand}"
+            DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
+            SaveCommand="{x:Bind ViewModel.SaveCommand}"
+            CancelCommand="{x:Bind ViewModel.CancelCommand}" />
 </UserControl>
