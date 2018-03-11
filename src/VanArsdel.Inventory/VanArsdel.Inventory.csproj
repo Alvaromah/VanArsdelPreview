@@ -110,6 +110,9 @@
     <Compile Include="Controls\DataList\DataList.xaml.cs">
       <DependentUpon>DataList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Details\Details.xaml.cs">
+      <DependentUpon>Details.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DialogBox\DialogBox.xaml.cs">
       <DependentUpon>DialogBox.xaml</DependentUpon>
     </Compile>
@@ -177,6 +180,8 @@
     <Compile Include="ViewModels\Base\ModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewStateBase.cs" />
+    <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewModel.ICommands.cs" />
+    <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewModel.Properties.cs" />
     <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewModel.cs" />
     <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewState.cs" />
     <Compile Include="ViewModels\Common\ListViewModel\ListViewModel.ICommands.cs" />
@@ -199,14 +204,14 @@
     <Compile Include="Views\Common\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Customers\Details\CustomersDetails.xaml.cs">
+      <DependentUpon>CustomersDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customers\Details\CustomersOrders.xaml.cs">
       <DependentUpon>CustomersOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customers\CustomersView.xaml.cs">
       <DependentUpon>CustomersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customers\Details\CustomersDetails.xaml.cs">
-      <DependentUpon>CustomersDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customers\List\CustomersList.xaml.cs">
       <DependentUpon>CustomersList.xaml</DependentUpon>
@@ -270,6 +275,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Details\Details.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\DialogBox\DialogBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -326,15 +335,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Customers\Details\CustomersDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Customers\Details\CustomersOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customers\CustomersView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Customers\Details\CustomersDetails.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

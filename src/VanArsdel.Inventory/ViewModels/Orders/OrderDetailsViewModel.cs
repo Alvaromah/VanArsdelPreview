@@ -45,7 +45,6 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 Item = new OrderModel();
                 IsEditMode = true;
-                ToolbarMode = DetailToolbarMode.CancelSave;
             }
             RaiseUpdateView();
         }

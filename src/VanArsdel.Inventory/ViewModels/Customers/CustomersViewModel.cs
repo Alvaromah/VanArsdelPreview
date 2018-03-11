@@ -16,6 +16,7 @@ namespace VanArsdel.Inventory.ViewModels
             CustomerList = new CustomerListViewModel(ProviderFactory);
             CustomerList.PropertyChanged += OnListPropertyChanged;
             CustomerDetails = new CustomerDetailsViewModel(ProviderFactory);
+            CustomerDetails.ItemDeleted += OnItemDeleted;
             CustomerOrders = new OrderListViewModel(ProviderFactory);
         }
 
@@ -55,6 +56,11 @@ namespace VanArsdel.Inventory.ViewModels
                 default:
                     break;
             }
+        }
+
+        private async void OnItemDeleted(object sender, EventArgs e)
+        {
+            await CustomerList.RefreshAsync();
         }
 
         private async Task UpdateDetails(CustomerModel selected)

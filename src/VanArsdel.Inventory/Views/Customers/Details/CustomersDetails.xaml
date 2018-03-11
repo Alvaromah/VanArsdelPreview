@@ -4,49 +4,55 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:VanArsdel.Inventory.ViewModels"
     xmlns:controls="using:VanArsdel.Inventory.Controls"
-    IsTabStop="True"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400">
 
+    <UserControl.Resources>
+        <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:CustomerDetailsViewModel">
+            <Grid ColumnSpacing="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" MinWidth="180"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Margin="6" Spacing="4">
+                    <PersonPicture Margin="3" ProfilePicture="{x:Bind Item.PictureBitmap, Mode=OneWay}" Initials="{x:Bind Item.Initials, Mode=OneWay}" Width="128" Height="128" />
+                    <TextBlock Text="{x:Bind Item.FullName, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="20" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsTextSelectionEnabled="True" />
+                    <TextBlock Text="{x:Bind Item.CustomerID, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" IsTextSelectionEnabled="True" />
+                    <TextBlock Text="{x:Bind Item.CreatedOnString, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Spacing="6">
+                    <controls:LabelTextBox Label="First Name" Text="{x:Bind Item.FirstName, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="Middle Name" Text="{x:Bind Item.MiddleName, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="Last Name" Text="{x:Bind Item.LastName, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="EMail Address" Text="{x:Bind Item.EmailAddress, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="Phone" Text="{x:Bind Item.Phone, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Spacing="6">
+                    <controls:LabelTextBox Label="Address" Text="{x:Bind Item.AddressLine1, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="Postal Code" Text="{x:Bind Item.PostalCode, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="City" Text="{x:Bind Item.City, Mode=TwoWay}" />
+                    <controls:LabelTextBox Label="Region" Text="{x:Bind Item.Region, Mode=TwoWay}" />
+                    <controls:LabelComboBox Label="Country" ItemsSource="{x:Bind DataHelper.CountryCodes}"
+                                            SelectedValue="{x:Bind Item.CountryCode, Mode=TwoWay}"
+                                            SelectedValuePath="CountryCodeID" DisplayMemberPath="Name" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <controls:DetailToolbar ToolbarMode="{x:Bind ViewModel.ToolbarMode, Mode=TwoWay}" ButtonClick="OnToolbarClick" />
-
-        <Grid Grid.Row="1" ColumnSpacing="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" MinWidth="180"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Margin="6" Spacing="4">
-                <PersonPicture Margin="3" ProfilePicture="{x:Bind ViewModel.Item.PictureBitmap, Mode=OneWay}" Initials="{x:Bind ViewModel.Item.Initials, Mode=OneWay}" Width="128" Height="128" />
-                <TextBlock Text="{x:Bind ViewModel.Item.FullName, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="20" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsTextSelectionEnabled="True" />
-                <TextBlock Text="{x:Bind ViewModel.Item.CustomerID, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" IsTextSelectionEnabled="True" />
-                <TextBlock Text="{x:Bind ViewModel.Item.CreatedOnString, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
-            </StackPanel>
-
-            <StackPanel Grid.Column="1" Spacing="6">
-                <controls:LabelTextBox Label="First Name" Text="{x:Bind ViewModel.Item.FirstName, Mode=TwoWay}" />
-                <controls:LabelTextBox Label="Middle Name" Text="{x:Bind ViewModel.Item.MiddleName, Mode=TwoWay}" />
-                <controls:LabelTextBox Label="Last Name" Text="{x:Bind ViewModel.Item.LastName, Mode=TwoWay}" />
-                <controls:LabelTextBox Label="EMail Address" Text="{x:Bind ViewModel.Item.EmailAddress, Mode=TwoWay}" />
-                <controls:LabelTextBox Label="Phone" Text="{x:Bind ViewModel.Item.Phone, Mode=TwoWay}" />
-            </StackPanel>
-
-            <StackPanel Grid.Column="2" Spacing="6">
-                <controls:LabelTextBox Label="Address" Text="{x:Bind ViewModel.Item.AddressLine1, Mode=TwoWay}" />
-                <controls:LabelTextBox Label="Postal Code" Text="{x:Bind ViewModel.Item.PostalCode, Mode=TwoWay}" />
-                <controls:LabelTextBox Label="City" Text="{x:Bind ViewModel.Item.City, Mode=TwoWay}" />
-                <controls:LabelTextBox Label="Region" Text="{x:Bind ViewModel.Item.Region, Mode=TwoWay}" />
-                <controls:LabelComboBox Label="Country" ItemsSource="{x:Bind ViewModel.DataHelper.CountryCodes}"
-                                    SelectedValue="{x:Bind ViewModel.Item.CountryCode, Mode=TwoWay}"
-                                    SelectedValuePath="CountryCodeID" DisplayMemberPath="Name" />
-            </StackPanel>
-        </Grid>
+        <controls:Details
+            DetailsContent="{x:Bind ViewModel}"
+            DetailsTemplate="{StaticResource DetailsTemplate}"
+            IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
+            EditCommand="{x:Bind ViewModel.EditCommand}"
+            DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
+            SaveCommand="{x:Bind ViewModel.SaveCommand}"
+            CancelCommand="{x:Bind ViewModel.CancelCommand}" />
     </Grid>
-
 </UserControl>

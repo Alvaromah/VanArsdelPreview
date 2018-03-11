@@ -16,23 +16,12 @@ namespace VanArsdel.Inventory.Controls
         public DataList()
         {
             InitializeComponent();
-            Loaded += OnLoaded;
-            Unloaded += OnUnloaded;
+            DependencyExpressions.Initialize(this);
         }
 
         static private readonly DependencyExpressions DependencyExpressions = new DependencyExpressions();
 
-        private void OnLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            DependencyExpressions.Initialize(this);
-        }
-
-        private void OnUnloaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            DependencyExpressions.Uninitialize(this);
-        }
-
-        #region ItemsSource
+        #region ItemsSource*
         public IEnumerable ItemsSource
         {
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }
@@ -79,7 +68,7 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(DataList), new PropertyMetadata(null));
         #endregion
 
-        #region IsMultipleSelection
+        #region IsMultipleSelection*
         public bool IsMultipleSelection
         {
             get { return (bool)GetValue(IsMultipleSelectionProperty); }
@@ -95,7 +84,7 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty IsMultipleSelectionProperty = DependencyProperty.Register(nameof(IsMultipleSelection), typeof(bool), typeof(DataList), new PropertyMetadata(null, IsMultipleSelectionChanged));
         #endregion
 
-        #region SelectedItemsCount
+        #region SelectedItemsCount*
         public int SelectedItemsCount
         {
             get { return (int)GetValue(SelectedItemsCountProperty); }

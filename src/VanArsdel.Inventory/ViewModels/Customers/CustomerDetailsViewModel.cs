@@ -28,14 +28,12 @@ namespace VanArsdel.Inventory.ViewModels
                 using (var dp = ProviderFactory.CreateDataProvider())
                 {
                     Item = await dp.GetCustomerAsync(state.CustomerID);
-                    IsDeleted = Item == null;
                 }
             }
             else
             {
                 Item = new CustomerModel();
                 IsEditMode = true;
-                ToolbarMode = DetailToolbarMode.CancelSave;
             }
         }
 
