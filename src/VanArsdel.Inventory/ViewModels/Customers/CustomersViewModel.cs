@@ -51,7 +51,7 @@ namespace VanArsdel.Inventory.ViewModels
                     if (!CustomerList.IsMultipleSelection)
                     {
                         await PopulateDetails(CustomerList.SelectedItem);
-                        await UpdateOrders(CustomerList.SelectedItem);
+                        await PopulateOrders(CustomerList.SelectedItem);
                     }
                     break;
                 default:
@@ -77,7 +77,7 @@ namespace VanArsdel.Inventory.ViewModels
             CustomerDetails.Item = selected;
         }
 
-        private async Task UpdateOrders(CustomerModel selectedItem)
+        private async Task PopulateOrders(CustomerModel selectedItem)
         {
             if (selectedItem != null)
             {

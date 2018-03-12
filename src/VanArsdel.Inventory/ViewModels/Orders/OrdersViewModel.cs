@@ -18,12 +18,15 @@ namespace VanArsdel.Inventory.ViewModels
 
             OrderDetails = new OrderDetailsViewModel(ProviderFactory);
             OrderDetails.ItemDeleted += OnItemDeleted;
+
+            OrderItemList = new OrderItemListViewModel(ProviderFactory);
         }
 
         public IDataProviderFactory ProviderFactory { get; }
 
         public OrderListViewModel OrderList { get; set; }
         public OrderDetailsViewModel OrderDetails { get; set; }
+        public OrderItemListViewModel OrderItemList { get; set; }
 
         public async Task LoadAsync(OrdersViewState state)
         {
@@ -47,6 +50,7 @@ namespace VanArsdel.Inventory.ViewModels
                 case nameof(OrderListViewModel.SelectedItem):
                     OrderDetails.CancelEdit();
                     await PopulateDetails(OrderList.SelectedItem);
+                    await PopulateOrderItems(OrderList.SelectedItem);
                     break;
                 default:
                     break;
@@ -69,6 +73,14 @@ namespace VanArsdel.Inventory.ViewModels
                 }
             }
             OrderDetails.Item = selected;
+        }
+
+        private async Task PopulateOrderItems(OrderModel selected)
+        {
+            if (selected != null)
+            {
+                await OrderItemList.LoadAsync(new OrderItemsViewState { OrderID = selected.OrderID });
+            }
         }
 
         public void CancelEdit()

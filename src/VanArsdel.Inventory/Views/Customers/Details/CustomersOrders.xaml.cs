@@ -21,11 +21,12 @@ namespace VanArsdel.Inventory.Views
             get { return (OrderListViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
+
         public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(OrderListViewModel), typeof(CustomersOrders), new PropertyMetadata(null));
         #endregion
 
-        public ICommand NewOrderCommand => new RelayCommand(NewOrder);
-        private void NewOrder()
+        public ICommand NewCommand => new RelayCommand(New);
+        private void New()
         {
             // TODO: 
             //await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState());

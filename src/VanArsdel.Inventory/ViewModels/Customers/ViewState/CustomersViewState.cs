@@ -4,11 +4,7 @@ namespace VanArsdel.Inventory.ViewModels
 {
     public class CustomersViewState : ListViewState
     {
-        static public CustomersViewState CreateDefault() => new CustomersViewState
-        {
-            PageIndex = 0,
-            PageSize = 20
-        };
+        static public CustomersViewState CreateDefault() => new CustomersViewState();
 
         private CustomersViewState()
         {
