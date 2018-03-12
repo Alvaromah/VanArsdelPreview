@@ -46,7 +46,7 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 case nameof(OrderListViewModel.SelectedItem):
                     OrderDetails.CancelEdit();
-                    await UpdateDetails(OrderList.SelectedItem);
+                    await PopulateDetails(OrderList.SelectedItem);
                     break;
                 default:
                     break;
@@ -58,7 +58,7 @@ namespace VanArsdel.Inventory.ViewModels
             await OrderList.RefreshAsync();
         }
 
-        private async Task UpdateDetails(OrderModel selected)
+        private async Task PopulateDetails(OrderModel selected)
         {
             if (selected != null)
             {

@@ -195,6 +195,11 @@
     <Compile Include="ViewModels\Customers\ViewState\CustomerViewState.cs" />
     <Compile Include="ViewModels\Customers\ViewState\CustomersViewState.cs" />
     <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\OrderItems\OrderItemDetailsViewModel.cs" />
+    <Compile Include="ViewModels\OrderItems\OrderItemListViewModel.cs" />
+    <Compile Include="ViewModels\OrderItems\OrderItemsViewModel.cs" />
+    <Compile Include="ViewModels\OrderItems\ViewState\OrderItemsViewState.cs" />
+    <Compile Include="ViewModels\OrderItems\ViewState\OrderItemViewState.cs" />
     <Compile Include="ViewModels\Orders\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderListViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrdersViewModel.cs" />

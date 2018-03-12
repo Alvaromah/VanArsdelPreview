@@ -50,7 +50,7 @@ namespace VanArsdel.Inventory.ViewModels
                     CustomerDetails.CancelEdit();
                     if (!CustomerList.IsMultipleSelection)
                     {
-                        await UpdateDetails(CustomerList.SelectedItem);
+                        await PopulateDetails(CustomerList.SelectedItem);
                         await UpdateOrders(CustomerList.SelectedItem);
                     }
                     break;
@@ -64,7 +64,7 @@ namespace VanArsdel.Inventory.ViewModels
             await CustomerList.RefreshAsync();
         }
 
-        private async Task UpdateDetails(CustomerModel selected)
+        private async Task PopulateDetails(CustomerModel selected)
         {
             if (selected != null)
             {
