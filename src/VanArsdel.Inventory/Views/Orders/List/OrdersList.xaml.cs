@@ -28,8 +28,7 @@ namespace VanArsdel.Inventory.Views
         public ICommand NewCommand => new RelayCommand(New);
         private async void New()
         {
-            // TODO: 
-            //await ViewManager.Current.CreateNewView(typeof(OrderView), new CustomerViewState());
+            await ViewManager.Current.CreateNewView(typeof(OrderView), new CustomerViewState());
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 using VanArsdel.Data;
@@ -25,6 +24,11 @@ namespace VanArsdel.Inventory.Providers
         Task<OrderModel> GetOrderAsync(long id);
         Task<int> UpdateOrderAsync(OrderModel model);
         Task<int> DeleteOrderAsync(OrderModel model);
+
+        Task<PageResult<OrderItemModel>> GetOrderItemsAsync(PageRequest<OrderItem> request);
+        Task<OrderItemModel> GetOrderItemAsync(long customerID, int orderLine);
+        Task<int> UpdateOrderItemAsync(OrderItemModel model);
+        Task<int> DeleteOrderItemAsync(OrderItemModel model);
 
         Task<PageResult<ProductModel>> GetProductsAsync(PageRequest<Product> request);
         Task<ProductModel> GetProductAsync(string id);
