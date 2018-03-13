@@ -8,7 +8,7 @@ namespace VanArsdel.Inventory.ViewModels
     partial class ListViewModel<TModel>
     {
         public ICommand RefreshCommand => new RelayCommand(Refresh);
-        private void Refresh()
+        virtual protected void Refresh()
         {
             Refresh(false);
         }
@@ -16,14 +16,14 @@ namespace VanArsdel.Inventory.ViewModels
         public List<TModel> _selectedItems = null;
 
         public ICommand StartSelectionCommand => new RelayCommand(StartSelection);
-        private void StartSelection()
+        virtual protected void StartSelection()
         {
             _selectedItems = new List<TModel>();
             IsMultipleSelection = true;
         }
 
         public ICommand CancelSelectionCommand => new RelayCommand(CancelSelection);
-        private void CancelSelection()
+        virtual protected void CancelSelection()
         {
             _selectedItems?.Clear();
             _selectedItems = null;
@@ -32,7 +32,7 @@ namespace VanArsdel.Inventory.ViewModels
         }
 
         public ICommand SelectItemsCommand => new RelayCommand<IList<object>>(SelectItems);
-        private void SelectItems(IList<object> items)
+        virtual protected void SelectItems(IList<object> items)
         {
             if (IsMultipleSelection)
             {
@@ -44,7 +44,7 @@ namespace VanArsdel.Inventory.ViewModels
         }
 
         public ICommand DeselectItemsCommand => new RelayCommand<IList<object>>(DeselectItems);
-        private void DeselectItems(IList<object> items)
+        virtual protected void DeselectItems(IList<object> items)
         {
             if (IsMultipleSelection)
             {
@@ -56,7 +56,7 @@ namespace VanArsdel.Inventory.ViewModels
         }
 
         public ICommand DeleteDelectionCommand => new RelayCommand(DeleteDelection);
-        private async void DeleteDelection()
+        virtual protected async void DeleteDelection()
         {
             if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete selected customers?", "Ok", "Cancel"))
             {
