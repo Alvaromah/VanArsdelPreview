@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace VanArsdel.Inventory.ViewModels
@@ -58,10 +59,10 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
-        public ICommand DeleteDelectionCommand => new RelayCommand(DeleteDelection);
-        virtual protected async void DeleteDelection()
+        public ICommand DeleteSelectionCommand => new RelayCommand(DeleteSelection);
+        virtual protected async void DeleteSelection()
         {
-            if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete selected customers?", "Ok", "Cancel"))
+            if (await ConfirmDeleteSelectionAsync())
             {
                 await DeleteSelectionAsync();
                 _selectedItems?.Clear();
@@ -70,5 +71,7 @@ namespace VanArsdel.Inventory.ViewModels
                 SelectedItem = Items?.FirstOrDefault();
             }
         }
+
+        abstract protected Task<bool> ConfirmDeleteSelectionAsync();
     }
 }

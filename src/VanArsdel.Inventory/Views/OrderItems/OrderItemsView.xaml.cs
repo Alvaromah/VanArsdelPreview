@@ -10,20 +10,20 @@ using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.Views
 {
-    public sealed partial class OrdersView : Page
+    public sealed partial class OrderItemsView : Page
     {
-        public OrdersView()
+        public OrderItemsView()
         {
-            ViewModel = new OrdersViewModel(new DataProviderFactory());
+            ViewModel = new OrderItemsViewModel(new DataProviderFactory());
             InitializeComponent();
         }
 
-        public OrdersViewModel ViewModel { get; private set; }
+        public OrderItemsViewModel ViewModel { get; private set; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.OrderList.PropertyChanged += OnViewModelPropertyChanged;
-            await ViewModel.LoadAsync(e.Parameter as OrdersViewState);
+            ViewModel.OrderItemList.PropertyChanged += OnViewModelPropertyChanged;
+            await ViewModel.LoadAsync(e.Parameter as OrderItemsViewState);
             UpdateTitle();
         }
 
@@ -31,12 +31,12 @@ namespace VanArsdel.Inventory.Views
         {
             ViewModel.CancelEdit();
             ViewModel.SaveState();
-            ViewModel.OrderList.PropertyChanged -= OnViewModelPropertyChanged;
+            ViewModel.OrderItemList.PropertyChanged -= OnViewModelPropertyChanged;
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ViewModel.OrderList.Title))
+            if (e.PropertyName == nameof(ViewModel.OrderItemList.Title))
             {
                 UpdateTitle();
             }
@@ -44,7 +44,7 @@ namespace VanArsdel.Inventory.Views
 
         private void UpdateTitle()
         {
-            this.SetTitle($"Orders {ViewModel.OrderList.Title}".Trim());
+            this.SetTitle($"OrderItems {ViewModel.OrderItemList.Title}".Trim());
         }
 
         private async void OnItemDeleted(object sender, EventArgs e)
@@ -54,19 +54,21 @@ namespace VanArsdel.Inventory.Views
 
         private async void OpenInNewView(object sender, RoutedEventArgs e)
         {
-            await ViewManager.Current.CreateNewView(typeof(OrdersView), ViewModel.OrderList.GetCurrentState());
+            await ViewManager.Current.CreateNewView(typeof(OrderItemsView), ViewModel.OrderItemList.GetCurrentState());
         }
 
         private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)
         {
-            ViewModel.OrderDetails.IsEditMode = false;
+            ViewModel.OrderItemDetails.IsEditMode = false;
             if (pivot.SelectedIndex == 0)
             {
-                await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState { OrderID = ViewModel.OrderDetails.Item.OrderID });
+                // TODO: 
+                //await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState { OrderItemID = ViewModel.OrderItemDetails.Item.OrderItemID });
             }
             else
             {
-                await ViewManager.Current.CreateNewView(typeof(OrderItemsView), ViewModel.OrderItemList.ViewState.Clone());
+                // TODO: 
+                //await ViewManager.Current.CreateNewView(typeof(OrderItemsView), ViewModel.OrderItemOrderItems.ViewState.Clone());
             }
         }
 

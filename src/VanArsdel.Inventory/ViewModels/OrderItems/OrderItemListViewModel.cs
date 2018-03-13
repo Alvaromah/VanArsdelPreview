@@ -64,6 +64,11 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
+        protected override async Task<bool> ConfirmDeleteSelectionAsync()
+        {
+            return await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete selected order items?", "Ok", "Cancel");
+        }
+
         public CustomersViewState GetCurrentState()
         {
             var state = CustomersViewState.CreateDefault();

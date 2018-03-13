@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace VanArsdel.Inventory.ViewModels
@@ -38,10 +39,12 @@ namespace VanArsdel.Inventory.ViewModels
         public ICommand DeleteCommand => new RelayCommand(Delete);
         virtual protected async void Delete()
         {
-            if (await DialogBox.ShowAsync("Confirm Delete", "Are you sure you want to delete current customer?", "Ok", "Cancel"))
+            if (await ConfirmDeleteAsync())
             {
                 await DeletetAsync();
             }
         }
+
+        abstract protected Task<bool> ConfirmDeleteAsync();
     }
 }

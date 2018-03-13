@@ -52,14 +52,10 @@ namespace VanArsdel.Inventory
 
         public string GetTaxDesc(int id)
         {
-            // TODO: Update Database with correct values
-            id = id * 10;
             return TaxTypes.Where(r => r.TaxTypeID == id).Select(r => $"{r.Rate} %").FirstOrDefault();
         }
         public decimal GetTaxRate(int id)
         {
-            // TODO: Update Database with correct values
-            id = id * 10;
             return TaxTypes.Where(r => r.TaxTypeID == id).Select(r => r.Rate).FirstOrDefault();
         }
     }

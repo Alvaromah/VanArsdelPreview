@@ -10,9 +10,17 @@ namespace VanArsdel.Inventory.Converters
         {
             if (value is Int16 n16)
             {
-                return n16 == 0 ? "" : n16.ToString();
+                if (targetType == typeof(String))
+                {
+                    return n16 == 0 ? "" : n16.ToString();
+                }
+                return n16;
             }
-            return "";
+            if (targetType == typeof(String))
+            {
+                return "";
+            }
+            return 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -24,7 +32,7 @@ namespace VanArsdel.Inventory.Converters
                     return n16;
                 }
             }
-            return (Int16)0;
+            return 0;
         }
     }
 }

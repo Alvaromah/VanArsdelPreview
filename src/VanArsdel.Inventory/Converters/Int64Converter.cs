@@ -10,9 +10,17 @@ namespace VanArsdel.Inventory.Converters
         {
             if (value is Int64 n64)
             {
-                return n64 == 0 ? "" : n64.ToString();
+                if (targetType == typeof(String))
+                {
+                    return n64 == 0 ? "" : n64.ToString();
+                }
+                return n64;
             }
-            return "";
+            if (targetType == typeof(String))
+            {
+                return "";
+            }
+            return 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -24,7 +32,7 @@ namespace VanArsdel.Inventory.Converters
                     return n64;
                 }
             }
-            return (Int64)0;
+            return 0;
         }
     }
 }

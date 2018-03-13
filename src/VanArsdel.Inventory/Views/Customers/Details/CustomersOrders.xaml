@@ -69,6 +69,6 @@
                            CancelSelectionCommand="{x:Bind ViewModel.CancelSelectionCommand}"
                            SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
                            DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
-                           DeleteCommand="{x:Bind ViewModel.DeleteDelectionCommand}" />
+                           DeleteCommand="{x:Bind ViewModel.DeleteSelectionCommand}" />
     </Grid>
 </UserControl>
