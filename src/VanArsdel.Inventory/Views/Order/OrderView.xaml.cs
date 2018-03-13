@@ -15,6 +15,7 @@ namespace VanArsdel.Inventory.Views
         public OrderView()
         {
             ViewModel = new OrderDetailsViewModel(new DataProviderFactory());
+            ViewModel.ItemDeleted += OnItemDeleted;
             InitializeComponent();
         }
 
@@ -36,6 +37,11 @@ namespace VanArsdel.Inventory.Views
             }
 
             Bindings.Update();
+        }
+
+        private async void OnItemDeleted(object sender, EventArgs e)
+        {
+            await ViewManager.Current.Close();
         }
 
         private async void OpenInNewView(object sender, RoutedEventArgs e)

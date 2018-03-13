@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using VanArsdel.Data;
 using VanArsdel.Inventory.Models;
 using VanArsdel.Inventory.Providers;
+using VanArsdel.Inventory.Views;
 
 namespace VanArsdel.Inventory.ViewModels
 {
@@ -26,6 +27,19 @@ namespace VanArsdel.Inventory.ViewModels
         public void Unload()
         {
             UpdateViewState(ViewState);
+        }
+
+        public override void New()
+        {
+            // TODO: 
+            //if (IsMainView)
+            //{
+            //    await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState());
+            //}
+            //else
+            //{
+            //    NavigationService.Main.Navigate(typeof(OrderView), new OrderItemViewState());
+            //}
         }
 
         override public async Task<PageResult<OrderItemModel>> GetItemsAsync(IDataProvider dataProvider)

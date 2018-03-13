@@ -12,9 +12,13 @@ namespace VanArsdel.Inventory.ViewModels
         }
 
         public ICommand CancelCommand => new RelayCommand(Cancel);
-        virtual protected void Cancel()
+        virtual protected async void Cancel()
         {
             CancelEdit();
+            if (IsNewItem)
+            {
+                await GoBack();
+            }
         }
 
         public ICommand SaveCommand => new RelayCommand(Save);

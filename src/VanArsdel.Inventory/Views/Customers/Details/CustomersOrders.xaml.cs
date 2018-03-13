@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Input;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,11 +23,5 @@ namespace VanArsdel.Inventory.Views
 
         public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(OrderListViewModel), typeof(CustomersOrders), new PropertyMetadata(null));
         #endregion
-
-        public ICommand NewCommand => new RelayCommand(New);
-        private async void New()
-        {
-            await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState());
-        }
     }
 }

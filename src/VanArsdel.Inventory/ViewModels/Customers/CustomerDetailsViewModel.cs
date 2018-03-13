@@ -15,6 +15,8 @@ namespace VanArsdel.Inventory.ViewModels
 
         override public string Title => ((Item?.IsNew) ?? false) ? "New Customer" : Item?.FullName ?? String.Empty;
 
+        public override bool IsNewItem => Item?.IsNew ?? false;
+
         protected override void ItemUpdated()
         {
             NotifyPropertyChanged(nameof(Title));

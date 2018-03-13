@@ -9,8 +9,6 @@ namespace VanArsdel.Inventory.Views
 {
     public sealed partial class OrdersDetails : UserControl
     {
-        public event EventHandler ItemDeleted;
-
         public OrdersDetails()
         {
             InitializeComponent();

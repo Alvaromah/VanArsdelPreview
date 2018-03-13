@@ -58,7 +58,7 @@
                            ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
                            PageIndex="{x:Bind ViewModel.PageIndex, Mode=TwoWay}"
                            PageSize="{x:Bind ViewModel.PageSize, Mode=OneWay}"
-                           NewCommand="{x:Bind NewCommand}"
+                           NewCommand="{x:Bind ViewModel.NewCommand}"
                            RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
                            Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
                            QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"

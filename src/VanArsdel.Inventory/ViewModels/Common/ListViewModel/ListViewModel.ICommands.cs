@@ -7,6 +7,9 @@ namespace VanArsdel.Inventory.ViewModels
 {
     partial class ListViewModel<TModel>
     {
+        public ICommand NewCommand => new RelayCommand(New);
+        abstract public void New();
+
         public ICommand RefreshCommand => new RelayCommand(Refresh);
         virtual protected void Refresh()
         {

@@ -11,8 +11,6 @@ namespace VanArsdel.Inventory
 {
     public class ViewModelBase : ModelBase
     {
-        public event EventHandler UpdateView;
-
         public bool IsMainView => CoreApplication.GetCurrentView().IsMain;
 
         virtual public string Title => String.Empty;
@@ -33,16 +31,6 @@ namespace VanArsdel.Inventory
                     break;
             }
         }
-
-        public void GoBack()
-        {
-            if (NavigationService.Shell.CanGoBack)
-            {
-                NavigationService.Shell.GoBack();
-            }
-        }
-
-        public void RaiseUpdateView() => UpdateView?.Invoke(this, EventArgs.Empty);
     }
 
     public class ViewModelBase<T> : ViewModelBase where T : ModelBase

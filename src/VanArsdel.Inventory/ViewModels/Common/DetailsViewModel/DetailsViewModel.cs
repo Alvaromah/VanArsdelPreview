@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Providers;
+using VanArsdel.Inventory.Views;
 
 namespace VanArsdel.Inventory.ViewModels
 {
@@ -69,6 +70,21 @@ namespace VanArsdel.Inventory.ViewModels
             ItemUpdated();
         }
 
+        private async Task GoBack()
+        {
+            if (!IsMainView)
+            {
+                if (NavigationService.Main.CanGoBack)
+                {
+                    NavigationService.Main.GoBack();
+                }
+                else
+                {
+                    await ViewManager.Current.Close();
+                }
+            }
+        }
+
         public Result Validate()
         {
             return base.Validate(Item);
@@ -76,6 +92,7 @@ namespace VanArsdel.Inventory.ViewModels
 
         virtual protected void ItemUpdated() { }
 
+        abstract public bool IsNewItem { get; }
         abstract protected Task SaveItemAsync(TModel model);
         abstract protected Task DeleteItemAsync(TModel model);
     }
