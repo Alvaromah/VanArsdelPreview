@@ -7,9 +7,9 @@ using VanArsdel.Inventory.ViewModels;
 
 namespace VanArsdel.Inventory.Views
 {
-    public sealed partial class OrderOrderItems : UserControl
+    public sealed partial class OrdersOrderItems : UserControl
     {
-        public OrderOrderItems()
+        public OrdersOrderItems()
         {
             InitializeComponent();
         }
@@ -21,7 +21,7 @@ namespace VanArsdel.Inventory.Views
             set { SetValue(ViewModelProperty, value); }
         }
 
-        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(nameof(ViewModel), typeof(OrderItemListViewModel), typeof(OrderOrderItems), new PropertyMetadata(null));
+        public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(nameof(ViewModel), typeof(OrderItemListViewModel), typeof(OrdersOrderItems), new PropertyMetadata(null));
         #endregion
     }
 }

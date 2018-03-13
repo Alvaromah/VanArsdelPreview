@@ -41,7 +41,7 @@
                             <views:OrdersDetails Grid.Row="1" ViewModel="{x:Bind ViewModel.OrderDetails}" />
                         </PivotItem>
                         <PivotItem Header="Order Items">
-                            <views:OrderOrderItems Grid.Row="1" ViewModel="{x:Bind ViewModel.OrderItemList}" />
+                            <views:OrdersOrderItems Grid.Row="1" ViewModel="{x:Bind ViewModel.OrderItemList}" />
                         </PivotItem>
                     </Pivot>
                 </controls:Section>
