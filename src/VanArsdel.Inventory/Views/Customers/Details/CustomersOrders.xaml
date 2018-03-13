@@ -13,7 +13,6 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="8*"/>
@@ -21,19 +20,17 @@
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Order ID" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="1" Text="Customer ID" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="2" Text="Order Date" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="3" Text="Shipped Date" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="4" Text="Delivered Date" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="5" Text="Region" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="6" Text="Country" Style="{StaticResource ColumnHeaderStyle}" />
+                <TextBlock Grid.Column="1" Text="Order Date" Style="{StaticResource ColumnHeaderStyle}" />
+                <TextBlock Grid.Column="2" Text="Shipped Date" Style="{StaticResource ColumnHeaderStyle}" />
+                <TextBlock Grid.Column="3" Text="Delivered Date" Style="{StaticResource ColumnHeaderStyle}" />
+                <TextBlock Grid.Column="4" Text="Region" Style="{StaticResource ColumnHeaderStyle}" />
+                <TextBlock Grid.Column="5" Text="Country" Style="{StaticResource ColumnHeaderStyle}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="ItemTemplate" x:DataType="models:OrderModel">
             <Grid BorderThickness="0,0,0,1" BorderBrush="LightGray">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="8*"/>
                     <ColumnDefinition Width="8*"/>
@@ -42,12 +39,11 @@
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="{x:Bind OrderID}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="1" Text="{x:Bind CustomerID}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="2" Text="{x:Bind UIHelper.ToShortDate(OrderDate)}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="3" Text="{x:Bind UIHelper.ToShortDate(ShippedDate)}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="4" Text="{x:Bind UIHelper.ToShortDate(DeliveredDate)}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="5" Text="{x:Bind ShipRegion}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="6" Text="{x:Bind DataHelper.GetCountry(ShipCountryCode)}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="1" Text="{x:Bind UIHelper.ToShortDate(OrderDate)}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="2" Text="{x:Bind UIHelper.ToShortDate(ShippedDate)}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="3" Text="{x:Bind UIHelper.ToShortDate(DeliveredDate)}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="4" Text="{x:Bind ShipRegion}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="5" Text="{x:Bind DataHelper.GetCountry(ShipCountryCode)}" Style="{StaticResource ColumnValueStyle}" />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
