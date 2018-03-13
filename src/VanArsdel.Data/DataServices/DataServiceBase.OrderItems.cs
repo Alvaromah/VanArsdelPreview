@@ -38,7 +38,9 @@ namespace VanArsdel.Data.Services
                 }
 
                 // Execute
-                var records = await items.Skip(index * pageSize).Take(pageSize).AsNoTracking().ToListAsync();
+                var records = await items.Skip(index * pageSize).Take(pageSize)
+                    .Include(r => r.Product)
+                    .AsNoTracking().ToListAsync();
 
                 return new PageResult<OrderItem>(index, pageSize, count, records);
             }
@@ -47,7 +49,10 @@ namespace VanArsdel.Data.Services
 
         public async Task<OrderItem> GetOrderItemAsync(long orderID, int orderLine)
         {
-            return await _dataSource.OrderItems.Where(r => r.OrderID == orderID && r.OrderLine == orderLine).FirstOrDefaultAsync();
+            return await _dataSource.OrderItems
+                .Where(r => r.OrderID == orderID && r.OrderLine == orderLine)
+                .Include(r => r.Product)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<int> UpdateOrderItemAsync(OrderItem orderItem)

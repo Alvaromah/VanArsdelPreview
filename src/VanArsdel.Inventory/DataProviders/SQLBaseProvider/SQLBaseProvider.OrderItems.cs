@@ -15,7 +15,7 @@ namespace VanArsdel.Inventory.Providers
             var page = await DataService.GetOrderItemsAsync(request);
             foreach (var item in page.Items)
             {
-                models.Add(CreateOrderItemModel(item, includeAllFields: false));
+                models.Add(await CreateOrderItemModelAsync(item, includeAllFields: false));
             }
             return new PageResult<OrderItemModel>(page.PageIndex, page.PageSize, page.Count, models);
         }
@@ -23,7 +23,7 @@ namespace VanArsdel.Inventory.Providers
         public async Task<OrderItemModel> GetOrderItemAsync(long orderID, int lineID)
         {
             var item = await DataService.GetOrderItemAsync(orderID, lineID);
-            return CreateOrderItemModel(item, includeAllFields: true);
+            return await CreateOrderItemModelAsync(item, includeAllFields: true);
         }
 
         public async Task<int> DeleteOrderItemAsync(OrderItemModel model)
@@ -44,7 +44,7 @@ namespace VanArsdel.Inventory.Providers
             return 0;
         }
 
-        private OrderItemModel CreateOrderItemModel(OrderItem source, bool includeAllFields)
+        private async Task<OrderItemModel> CreateOrderItemModelAsync(OrderItem source, bool includeAllFields)
         {
             var model = new OrderItemModel()
             {
@@ -55,12 +55,8 @@ namespace VanArsdel.Inventory.Providers
                 UnitPrice = source.UnitPrice,
                 Discount = source.Discount,
                 TaxType = FixTaxType(source.TaxType),
+                Product = await CreateProductModelAsync(source.Product, includeAllFields)
             };
-
-            if (includeAllFields)
-            {
-                // TODO: Include Picture?
-            }
             return model;
         }
 

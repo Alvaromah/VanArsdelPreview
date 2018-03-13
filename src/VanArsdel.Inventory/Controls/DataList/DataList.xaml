@@ -48,7 +48,7 @@
                 <controls:PaginationFooter
                     ItemsCount="{x:Bind ItemsCount, Mode=OneWay}"
                     PageIndex="{x:Bind PageIndex, Mode=TwoWay}"
-                    PageSizeIndex="0"
+                    PageSizeIndex="1"
                     Visibility="{x:Bind IsDataAvailable, Mode=OneWay}" />
             </Grid>
         </Grid>

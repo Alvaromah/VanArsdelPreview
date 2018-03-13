@@ -13,17 +13,23 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="12*"/>
-                    <ColumnDefinition Width="12*"/>
-                    <ColumnDefinition Width="12*"/>
-                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="8*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="Order Line" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="2" Text="Product ID" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="3" Text="Unit Price" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="4" Text="Quantity" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="5" Text="Discount" Style="{StaticResource ColumnHeaderStyle}" />
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="Product ID" Style="{StaticResource ColumnHeaderStyle}" />
+                <TextBlock Grid.Column="2" Text="Product Name" Style="{StaticResource ColumnHeaderStyle}" />
+                <TextBlock Grid.Column="3" Text="Order Line" Style="{StaticResource ColumnHeaderRightStyle}" />
+                <TextBlock Grid.Column="4" Text="Unit Price" Style="{StaticResource ColumnHeaderRightStyle}" />
+                <TextBlock Grid.Column="5" Text="Quantity" Style="{StaticResource ColumnHeaderRightStyle}" />
+                <TextBlock Grid.Column="6" Text="Discount" Style="{StaticResource ColumnHeaderRightStyle}" />
+                <TextBlock Grid.Column="7" Text="Subtotal" Style="{StaticResource ColumnHeaderRightStyle}" />
+                <TextBlock Grid.Column="8" Text="Total" Style="{StaticResource ColumnHeaderRightStyle}" />
             </Grid>
         </DataTemplate>
 
@@ -31,20 +37,26 @@
             <Grid BorderThickness="0,0,0,1" BorderBrush="LightGray">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="12*"/>
-                    <ColumnDefinition Width="12*"/>
-                    <ColumnDefinition Width="12*"/>
-                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="8*"/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" Margin="0" Padding="0,1">
-                    <!--<Image Source="{x:Bind PictureUri}" Width="34" Height="30" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                <Border Grid.Column="0" Padding="1">
+                    <Image Source="{x:Bind Product.ThumbnailBitmap}" Width="34" Height="30" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
-                <TextBlock Grid.Column="1" Text="{x:Bind OrderLine}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="2" Text="{x:Bind ProductID}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="3" Text="{x:Bind UnitPrice}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="4" Text="{x:Bind Quantity}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="5" Text="{x:Bind Discount}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="1" Text="{x:Bind ProductID}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="2" Text="{x:Bind Product.Name}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="3" Text="{x:Bind OrderLine}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="4" Text="{x:Bind UnitPrice}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="5" Text="{x:Bind Quantity}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="6" Text="{x:Bind Discount}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="7" Text="{x:Bind Subtotal}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="8" Text="{x:Bind Total}" Style="{StaticResource ColumnValueRightStyle}" />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
