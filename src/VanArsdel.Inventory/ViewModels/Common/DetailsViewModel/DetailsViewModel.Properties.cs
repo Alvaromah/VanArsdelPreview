@@ -36,5 +36,7 @@ namespace VanArsdel.Inventory.ViewModels
             get => _isEnabled;
             set => Set(ref _isEnabled, value);
         }
+
+        public bool CanGoBack => !IsMainView && NavigationService.Main.CanGoBack;
     }
 }

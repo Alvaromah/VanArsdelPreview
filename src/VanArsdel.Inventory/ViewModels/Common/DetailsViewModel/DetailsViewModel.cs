@@ -70,7 +70,7 @@ namespace VanArsdel.Inventory.ViewModels
             ItemUpdated();
         }
 
-        private async Task GoBack()
+        private async Task TryExit()
         {
             if (!IsMainView)
             {

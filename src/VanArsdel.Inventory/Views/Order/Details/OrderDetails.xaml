@@ -34,11 +34,13 @@
     </UserControl.Resources>
 
     <controls:Details x:Name="details"
-            DetailsContent="{x:Bind ViewModel}"
-            DetailsTemplate="{StaticResource DetailsTemplate}"
-            IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
-            EditCommand="{x:Bind ViewModel.EditCommand}"
-            DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
-            SaveCommand="{x:Bind ViewModel.SaveCommand}"
-            CancelCommand="{x:Bind ViewModel.CancelCommand}" />
+                      DetailsContent="{x:Bind ViewModel}"
+                      DetailsTemplate="{StaticResource DetailsTemplate}"
+                      CanGoBack="{x:Bind ViewModel.CanGoBack}"
+                      IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
+                      BackCommand="{x:Bind ViewModel.BackCommand}"
+                      EditCommand="{x:Bind ViewModel.EditCommand}"
+                      DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
+                      SaveCommand="{x:Bind ViewModel.SaveCommand}"
+                      CancelCommand="{x:Bind ViewModel.CancelCommand}" />
 </UserControl>

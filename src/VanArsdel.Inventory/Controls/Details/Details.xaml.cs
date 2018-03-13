@@ -26,6 +26,22 @@ namespace VanArsdel.Inventory.Controls
             ElementSet.Children<LabelComboBox>(container).GotFocus += OnInputGotFocus;
         }
 
+        #region CanGoBack*
+        public bool CanGoBack
+        {
+            get { return (bool)GetValue(CanGoBackProperty); }
+            set { SetValue(CanGoBackProperty, value); }
+        }
+
+        private static void CanGoBackChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as Details;
+            DependencyExpressions.UpdateDependencies(control, nameof(CanGoBack));
+        }
+
+        public static readonly DependencyProperty CanGoBackProperty = DependencyProperty.Register(nameof(CanGoBack), typeof(bool), typeof(Details), new PropertyMetadata(false, CanGoBackChanged));
+        #endregion
+
         #region IsEditMode*
         public bool IsEditMode
         {
@@ -63,6 +79,16 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty DetailsTemplateProperty = DependencyProperty.Register(nameof(DetailsTemplate), typeof(DataTemplate), typeof(Details), new PropertyMetadata(null));
         #endregion
 
+
+        #region BackCommand
+        public ICommand BackCommand
+        {
+            get { return (ICommand)GetValue(BackCommandProperty); }
+            set { SetValue(BackCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty BackCommandProperty = DependencyProperty.Register(nameof(BackCommand), typeof(ICommand), typeof(Details), new PropertyMetadata(null));
+        #endregion
 
         #region EditCommand
         public ICommand EditCommand
@@ -104,8 +130,18 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(nameof(CancelCommand), typeof(ICommand), typeof(Details), new PropertyMetadata(null));
         #endregion
 
-        public DetailToolbarMode ToolbarMode => IsEditMode ? DetailToolbarMode.CancelSave : DetailToolbarMode.Default;
-        static DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(nameof(ToolbarMode), nameof(IsEditMode));
+        public DetailToolbarMode ToolbarMode
+        {
+            get
+            {
+                if (IsEditMode)
+                {
+                    return DetailToolbarMode.CancelSave;
+                }
+                return CanGoBack ? DetailToolbarMode.BackEditdDelete : DetailToolbarMode.Default;
+            }
+        }
+        static DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(nameof(ToolbarMode), nameof(IsEditMode), nameof(CanGoBack));
 
         public void SetFocus()
         {
@@ -116,6 +152,9 @@ namespace VanArsdel.Inventory.Controls
         {
             switch (e.ClickedButton)
             {
+                case ToolbarButton.Back:
+                    BackCommand?.TryExecute();
+                    break;
                 case ToolbarButton.Edit:
                     EditCommand?.TryExecute();
                     break;

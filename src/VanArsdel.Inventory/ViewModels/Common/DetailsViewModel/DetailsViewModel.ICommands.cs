@@ -6,6 +6,15 @@ namespace VanArsdel.Inventory.ViewModels
 {
     partial class DetailsViewModel<TModel>
     {
+        public ICommand BackCommand => new RelayCommand(Back);
+        private void Back()
+        {
+            if (NavigationService.Main.CanGoBack)
+            {
+                NavigationService.Main.GoBack();
+            }
+        }
+
         public ICommand EditCommand => new RelayCommand(Edit);
         virtual protected void Edit()
         {
@@ -18,7 +27,7 @@ namespace VanArsdel.Inventory.ViewModels
             CancelEdit();
             if (IsNewItem)
             {
-                await GoBack();
+                await TryExit();
             }
         }
 
