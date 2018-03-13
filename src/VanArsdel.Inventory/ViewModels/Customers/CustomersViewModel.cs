@@ -48,6 +48,7 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 case nameof(CustomerListViewModel.SelectedItem):
                     CustomerDetails.CancelEdit();
+                    CustomerOrders.IsMultipleSelection = false;
                     if (!CustomerList.IsMultipleSelection)
                     {
                         await PopulateDetails(CustomerList.SelectedItem);

@@ -49,6 +49,7 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 case nameof(OrderListViewModel.SelectedItem):
                     OrderDetails.CancelEdit();
+                    OrderItemList.IsMultipleSelection = false;
                     await PopulateDetails(OrderList.SelectedItem);
                     await PopulateOrderItems(OrderList.SelectedItem);
                     break;
