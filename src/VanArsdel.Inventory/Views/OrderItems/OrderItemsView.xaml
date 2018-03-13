@@ -37,7 +37,7 @@
                 <controls:Section IsEnabled="{x:Bind ViewModel.OrderItemDetails.IsEnabled, Mode=OneWay}" HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenDetailsInNewView" Visibility="{x:Bind ViewModel.OrderItemDetails.IsDataAvailable, Mode=OneWay}">
 
                     <Pivot x:Name="pivot">
-                        <PivotItem Header="Order Item">
+                        <PivotItem Header="{x:Bind ViewModel.OrderItemDetails.Title, Mode=OneWay}">
                             <views:OrderItemsDetails Grid.Row="1" ViewModel="{x:Bind ViewModel.OrderItemDetails}" />
                         </PivotItem>
                     </Pivot>

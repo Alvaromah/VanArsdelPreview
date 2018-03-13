@@ -12,10 +12,18 @@
         <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:OrderItemDetailsViewModel">
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*" MinWidth="240"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
+
+                <StackPanel Margin="6" Spacing="4">
+                    <Image Margin="3" Source="{x:Bind Item.Product.PictureBitmap, Mode=OneWay}" MinWidth="240" />
+                    <TextBlock Text="{x:Bind Item.Product.Name, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="16" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsTextSelectionEnabled="True" />
+                    <TextBlock Text="{x:Bind Item.Product.ProductID, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" IsTextSelectionEnabled="True" />
+                </StackPanel>
 
                 <StackPanel Grid.Column="1" Spacing="6">
                     <controls:LabelTextBlock Label="Order ID" Text="{x:Bind Item.OrderID, Mode=OneWay}" />
@@ -24,11 +32,19 @@
 
                 <StackPanel Grid.Column="2" Spacing="6">
                     <controls:LabelTextBox Label="Quantity" Text="{x:Bind Item.Quantity, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
-                    <controls:LabelTextBox Label="Unit Price" Text="{x:Bind Item.UnitPrice, Mode=TwoWay, Converter={StaticResource DecimalConverter}}" ValueType="Decimal" />
+                    <controls:LabelTextBlock Label="Unit Price" Text="{x:Bind Item.UnitPrice, Mode=OneWay, Converter={StaticResource DecimalConverter}}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" Spacing="6">
                     <controls:LabelTextBox Label="Discount" Text="{x:Bind Item.Discount, Mode=TwoWay, Converter={StaticResource DecimalConverter}}" ValueType="Decimal" />
+                    <controls:LabelTextBlock Label="Subtotal" Text="{x:Bind Item.Subtotal, Mode=OneWay, Converter={StaticResource DecimalConverter}}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="4" Spacing="6">
                     <controls:LabelComboBox Label="Tax Type" ItemsSource="{x:Bind DataHelper.TaxTypes}"
                                             SelectedValue="{x:Bind Item.TaxType, Mode=TwoWay, Converter={StaticResource Int32Converter}}"
                                             SelectedValuePath="TaxTypeID" DisplayMemberPath="Name" />
+                    <controls:LabelTextBlock Label="Total" Text="{x:Bind Item.Total, Mode=OneWay, Converter={StaticResource DecimalConverter}}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
