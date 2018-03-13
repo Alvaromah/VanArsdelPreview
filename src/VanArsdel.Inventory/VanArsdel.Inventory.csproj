@@ -255,6 +255,12 @@
     <Compile Include="Views\OrderItems\OrderItemsView.xaml.cs">
       <DependentUpon>OrderItemsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrderItem\Details\OrderItemDetails.xaml.cs">
+      <DependentUpon>OrderItemDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderItem\OrderItemView.xaml.cs">
+      <DependentUpon>OrderItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Orders\Details\OrdersOrderItems.xaml.cs">
       <DependentUpon>OrdersOrderItems.xaml</DependentUpon>
     </Compile>
@@ -422,6 +428,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\OrderItems\OrderItemsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrderItem\Details\OrderItemDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrderItem\OrderItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

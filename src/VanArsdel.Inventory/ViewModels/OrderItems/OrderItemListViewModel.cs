@@ -29,17 +29,16 @@ namespace VanArsdel.Inventory.ViewModels
             UpdateViewState(ViewState);
         }
 
-        public override void New()
+        public override async void New()
         {
-            // TODO: 
-            //if (IsMainView)
-            //{
-            //    await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState());
-            //}
-            //else
-            //{
-            //    NavigationService.Main.Navigate(typeof(OrderView), new OrderItemViewState());
-            //}
+            if (IsMainView)
+            {
+                await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState());
+            }
+            else
+            {
+                NavigationService.Main.Navigate(typeof(OrderView), new OrderItemViewState());
+            }
         }
 
         override public async Task<PageResult<OrderItemModel>> GetItemsAsync(IDataProvider dataProvider)

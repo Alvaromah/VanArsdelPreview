@@ -13,7 +13,7 @@ namespace VanArsdel.Inventory.ViewModels
         {
         }
 
-        override public string Title => ((Item?.IsNew) ?? false) ? "New OrderItem" : $"Order #{Item?.OrderID}, {Item?.OrderLine}" ?? String.Empty;
+        override public string Title => ((Item?.IsNew) ?? false) ? "New OrderItem" : $"Order Item #{Item?.OrderID} - {Item?.OrderLine}" ?? String.Empty;
 
         public override bool IsNewItem => Item?.IsNew ?? false;
 
