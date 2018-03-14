@@ -26,9 +26,22 @@ namespace VanArsdel.Inventory.Providers
             return CreateOrderModel(item, includeAllFields: true);
         }
 
-        public async Task<int> DeleteOrderAsync(OrderModel model)
+        public async Task<OrderModel> CreateNewOrderAsync(long customerID)
         {
-            return await DataService.DeleteOrderAsync(model.OrderID);
+            var parent = await DataService.GetCustomerAsync(customerID);
+            if (parent != null)
+            {
+                return new OrderModel
+                {
+                    CustomerID = customerID,
+                    ShipAddress = parent.AddressLine1,
+                    ShipCity = parent.City,
+                    ShipRegion = parent.Region,
+                    ShipCountryCode = parent.CountryCode,
+                    ShipPostalCode = parent.PostalCode,
+                };
+            }
+            return new OrderModel();
         }
 
         public async Task<int> UpdateOrderAsync(OrderModel model)
@@ -42,6 +55,11 @@ namespace VanArsdel.Inventory.Providers
                 model.Merge(await GetOrderAsync(order.OrderID));
             }
             return 0;
+        }
+
+        public async Task<int> DeleteOrderAsync(OrderModel model)
+        {
+            return await DataService.DeleteOrderAsync(model.OrderID);
         }
 
         private OrderModel CreateOrderModel(Order source, bool includeAllFields)
@@ -74,6 +92,7 @@ namespace VanArsdel.Inventory.Providers
 
         private void UpdateOrderFromModel(Order target, OrderModel source)
         {
+            target.CustomerID = source.CustomerID;
             target.OrderDate = source.OrderDate;
             target.ShippedDate = source.ShippedDate;
             target.DeliveredDate = source.DeliveredDate;

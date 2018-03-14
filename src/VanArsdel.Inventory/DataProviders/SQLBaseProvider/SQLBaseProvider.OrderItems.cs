@@ -26,11 +26,6 @@ namespace VanArsdel.Inventory.Providers
             return await CreateOrderItemModelAsync(item, includeAllFields: true);
         }
 
-        public async Task<int> DeleteOrderItemAsync(OrderItemModel model)
-        {
-            return await DataService.DeleteOrderItemAsync(model.OrderID, model.OrderLine);
-        }
-
         public async Task<int> UpdateOrderItemAsync(OrderItemModel model)
         {
             long orderID = model.OrderID;
@@ -42,6 +37,11 @@ namespace VanArsdel.Inventory.Providers
                 model.Merge(await GetOrderItemAsync(orderItem.OrderID, orderItem.OrderLine));
             }
             return 0;
+        }
+
+        public async Task<int> DeleteOrderItemAsync(OrderItemModel model)
+        {
+            return await DataService.DeleteOrderItemAsync(model.OrderID, model.OrderLine);
         }
 
         private async Task<OrderItemModel> CreateOrderItemModelAsync(OrderItem source, bool includeAllFields)

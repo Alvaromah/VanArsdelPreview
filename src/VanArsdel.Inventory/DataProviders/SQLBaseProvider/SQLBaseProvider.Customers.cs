@@ -31,11 +31,6 @@ namespace VanArsdel.Inventory.Providers
             return null;
         }
 
-        public async Task<int> DeleteCustomerAsync(CustomerModel model)
-        {
-            return await DataService.DeleteCustomerAsync(model.CustomerID);
-        }
-
         public async Task<int> UpdateCustomerAsync(CustomerModel model)
         {
             long id = model.CustomerID;
@@ -47,6 +42,11 @@ namespace VanArsdel.Inventory.Providers
                 model.Merge(await GetCustomerAsync(customer.CustomerID));
             }
             return 0;
+        }
+
+        public async Task<int> DeleteCustomerAsync(CustomerModel model)
+        {
+            return await DataService.DeleteCustomerAsync(model.CustomerID);
         }
 
         private async Task<CustomerModel> CreateCustomerModelAsync(Customer source, bool includeAllFields)
