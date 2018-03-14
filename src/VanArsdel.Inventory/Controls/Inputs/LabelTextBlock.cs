@@ -65,6 +65,26 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty DisplayTextProperty = DependencyProperty.Register(nameof(DisplayText), typeof(string), typeof(LabelTextBlock), new PropertyMetadata(null));
         #endregion
 
+        #region TextAlignment
+        public TextAlignment TextAlignment
+        {
+            get { return (TextAlignment)GetValue(TextAlignmentProperty); }
+            set { SetValue(TextAlignmentProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextAlignmentProperty = DependencyProperty.Register("TextAlignment", typeof(TextAlignment), typeof(LabelTextBlock), new PropertyMetadata(TextAlignment.Left));
+        #endregion
+
+        #region TextWrapping
+        public TextWrapping TextWrapping
+        {
+            get { return (TextWrapping)GetValue(TextWrappingProperty); }
+            set { SetValue(TextWrappingProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextWrappingProperty = DependencyProperty.Register("TextWrapping", typeof(TextWrapping), typeof(LabelTextBlock), new PropertyMetadata(TextWrapping.NoWrap));
+        #endregion
+
         private void UpdateControl()
         {
             string str = Text;
@@ -95,25 +115,5 @@ namespace VanArsdel.Inventory.Controls
             DisplayText = null;
             DisplayText = str;
         }
-
-        #region TextAlignment
-        public TextAlignment TextAlignment
-        {
-            get { return (TextAlignment)GetValue(TextAlignmentProperty); }
-            set { SetValue(TextAlignmentProperty, value); }
-        }
-
-        public static readonly DependencyProperty TextAlignmentProperty = DependencyProperty.Register("TextAlignment", typeof(TextAlignment), typeof(LabelTextBlock), new PropertyMetadata(TextAlignment.Left));
-        #endregion
-
-        #region TextWrapping
-        public TextWrapping TextWrapping
-        {
-            get { return (TextWrapping)GetValue(TextWrappingProperty); }
-            set { SetValue(TextWrappingProperty, value); }
-        }
-
-        public static readonly DependencyProperty TextWrappingProperty = DependencyProperty.Register("TextWrapping", typeof(TextWrapping), typeof(LabelTextBlock), new PropertyMetadata(TextWrapping.NoWrap));
-        #endregion
     }
 }

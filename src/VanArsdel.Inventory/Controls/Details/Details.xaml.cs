@@ -24,6 +24,7 @@ namespace VanArsdel.Inventory.Controls
         {
             ElementSet.Children<LabelTextBox>(container).GotFocus += OnInputGotFocus;
             ElementSet.Children<LabelComboBox>(container).GotFocus += OnInputGotFocus;
+            UpdateEditMode();
         }
 
         #region CanGoBack*
@@ -56,7 +57,7 @@ namespace VanArsdel.Inventory.Controls
             control.UpdateEditMode();
         }
 
-        public static readonly DependencyProperty IsEditModeProperty = DependencyProperty.Register(nameof(IsEditMode), typeof(bool), typeof(Details), new PropertyMetadata(null, IsEditModeChanged));
+        public static readonly DependencyProperty IsEditModeProperty = DependencyProperty.Register(nameof(IsEditMode), typeof(bool), typeof(Details), new PropertyMetadata(false, IsEditModeChanged));
         #endregion
 
         #region DetailsContent
