@@ -42,7 +42,7 @@ namespace VanArsdel.Inventory
                     var state = new MainViewState
                     {
                         PageType = EntryPage,
-                        Parameter = new ShellViewState { Current = KnownNavigationItems.Orders }
+                        Parameter = new ShellViewState { Current = KnownNavigationItems.Dashboard }
                     };
                     frame.Navigate(typeof(MainView), state);
                 }

@@ -210,6 +210,9 @@
     <Compile Include="Views\Common\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Common\CustomersDialog.xaml.cs">
+      <DependentUpon>CustomersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customers\Details\CustomersDetails.xaml.cs">
       <DependentUpon>CustomersDetails.xaml</DependentUpon>
     </Compile>
@@ -370,6 +373,10 @@
     <Page Include="Views\Common\CommonView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Common\CustomersDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customers\Details\CustomersDetails.xaml">
       <SubType>Designer</SubType>

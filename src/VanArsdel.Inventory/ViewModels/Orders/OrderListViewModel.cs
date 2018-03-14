@@ -6,6 +6,7 @@ using VanArsdel.Data;
 using VanArsdel.Inventory.Models;
 using VanArsdel.Inventory.Providers;
 using VanArsdel.Inventory.Views;
+using Windows.UI.Xaml.Controls;
 
 namespace VanArsdel.Inventory.ViewModels
 {
@@ -31,14 +32,34 @@ namespace VanArsdel.Inventory.ViewModels
 
         public override async void New()
         {
-            if (IsMainView)
+            long customerID = await GetCustomerID();
+            if (customerID > 0)
             {
-                await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState(ViewState.CustomerID));
+                if (IsMainView)
+                {
+                    await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState(customerID));
+                }
+                else
+                {
+                    NavigationService.Main.Navigate(typeof(OrderView), new OrderViewState(customerID));
+                }
             }
-            else
+        }
+
+        private async Task<long> GetCustomerID()
+        {
+            long id = ViewState.CustomerID;
+            if (id <= 0)
             {
-                NavigationService.Main.Navigate(typeof(OrderView), new OrderViewState(ViewState.CustomerID));
+                var dialog = new CustomersDialog();
+                await dialog.LoadAsync();
+                var res = await dialog.ShowAsync();
+                if (ContentDialogResult.Primary == res)
+                {
+                    return dialog.CustomerID;
+                }
             }
+            return id;
         }
 
         override public async Task<PageResult<OrderModel>> GetItemsAsync(IDataProvider dataProvider)
