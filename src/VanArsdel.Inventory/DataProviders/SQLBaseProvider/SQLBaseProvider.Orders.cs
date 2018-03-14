@@ -15,7 +15,7 @@ namespace VanArsdel.Inventory.Providers
             var page = await DataService.GetOrdersAsync(request);
             foreach (var item in page.Items)
             {
-                models.Add(CreateOrderModel(item, includeAllFields: false));
+                models.Add(await CreateOrderModelAsync(item, includeAllFields: false));
             }
             return new PageResult<OrderModel>(page.PageIndex, page.PageSize, page.Count, models);
         }
@@ -23,7 +23,7 @@ namespace VanArsdel.Inventory.Providers
         public async Task<OrderModel> GetOrderAsync(long id)
         {
             var item = await DataService.GetOrderAsync(id);
-            return CreateOrderModel(item, includeAllFields: true);
+            return await CreateOrderModelAsync(item, includeAllFields: true);
         }
 
         public async Task<OrderModel> CreateNewOrderAsync(long customerID)
@@ -39,6 +39,7 @@ namespace VanArsdel.Inventory.Providers
                     ShipRegion = parent.Region,
                     ShipCountryCode = parent.CountryCode,
                     ShipPostalCode = parent.PostalCode,
+                    Customer = await CreateCustomerModelAsync(parent, includeAllFields: true)
                 };
             }
             return new OrderModel();
@@ -62,7 +63,7 @@ namespace VanArsdel.Inventory.Providers
             return await DataService.DeleteOrderAsync(model.OrderID);
         }
 
-        private OrderModel CreateOrderModel(Order source, bool includeAllFields)
+        private async Task<OrderModel> CreateOrderModelAsync(Order source, bool includeAllFields)
         {
             var model = new OrderModel()
             {
@@ -82,10 +83,9 @@ namespace VanArsdel.Inventory.Providers
                 ShipPostalCode = source.ShipPostalCode,
                 ShipPhone = source.ShipPhone,
             };
-
-            if (includeAllFields)
+            if (source.Customer != null)
             {
-                // TODO: Include OrderItems?
+                model.Customer = await CreateCustomerModelAsync(source.Customer, includeAllFields);
             }
             return model;
         }

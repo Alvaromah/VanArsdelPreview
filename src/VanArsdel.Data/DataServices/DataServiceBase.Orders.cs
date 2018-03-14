@@ -46,7 +46,9 @@ namespace VanArsdel.Data.Services
 
         public async Task<Order> GetOrderAsync(long id)
         {
-            return await _dataSource.Orders.Where(r => r.OrderID == id).FirstOrDefaultAsync();
+            return await _dataSource.Orders.Where(r => r.OrderID == id)
+                .Include(r => r.Customer)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<int> UpdateOrderAsync(Order order)

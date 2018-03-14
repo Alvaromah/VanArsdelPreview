@@ -13,7 +13,9 @@ namespace VanArsdel.Inventory.ViewModels
         {
         }
 
-        override public string Title => ((Item?.IsNew) ?? false) ? "New Order" : $"Order #{Item?.OrderID}" ?? String.Empty;
+        override public string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
+        public string TitleNew => Item?.Customer == null ? "New Order" : $"New Order, {Item?.Customer?.FullName}";
+        public string TitleEdit => Item == null ? "Order" : $"Order #{Item?.OrderID}";
 
         public override bool IsNewItem => Item?.IsNew ?? false;
 
@@ -43,6 +45,7 @@ namespace VanArsdel.Inventory.ViewModels
             using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
                 await dataProvider.UpdateOrderAsync(model);
+                NotifyPropertyChanged(nameof(Title));
             }
         }
 

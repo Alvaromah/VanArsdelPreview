@@ -25,6 +25,8 @@ namespace VanArsdel.Inventory.Models
         public string ShipPostalCode { get; set; }
         public string ShipPhone { get; set; }
 
+        public CustomerModel Customer { get; set; }
+
         public bool IsNew => OrderID <= 0;
 
         public override void Merge(ModelBase source)
