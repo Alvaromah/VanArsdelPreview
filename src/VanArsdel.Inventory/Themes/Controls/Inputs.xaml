@@ -11,7 +11,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LabelTextBlock">
                     <Grid>
-                        <TextBlock Padding="6,16,6,4" FontSize="{TemplateBinding FontSize}" Text="{TemplateBinding Text}" TextWrapping="{TemplateBinding TextWrapping}"
+                        <TextBlock Padding="6,16,6,4" FontSize="{TemplateBinding FontSize}" Text="{TemplateBinding DisplayText}" TextWrapping="{TemplateBinding TextWrapping}"
                                    TextAlignment="{TemplateBinding TextAlignment}" TextTrimming="WordEllipsis" IsTextSelectionEnabled="True" Foreground="Gray" />
                         <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsHitTestVisible="False" TextAlignment="{TemplateBinding TextAlignment}" />
                     </Grid>
