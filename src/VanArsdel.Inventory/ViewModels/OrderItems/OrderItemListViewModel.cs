@@ -33,11 +33,11 @@ namespace VanArsdel.Inventory.ViewModels
         {
             if (IsMainView)
             {
-                await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState());
+                await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState(ViewState.OrderID));
             }
             else
             {
-                NavigationService.Main.Navigate(typeof(OrderView), new OrderItemViewState());
+                NavigationService.Main.Navigate(typeof(OrderView), new OrderItemViewState(ViewState.OrderID));
             }
         }
 

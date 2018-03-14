@@ -13,9 +13,11 @@ namespace VanArsdel.Inventory.ViewModels
         {
         }
 
-        override public string Title => ((Item?.IsNew) ?? false) ? "New OrderItem" : $"Order Item #{Item?.OrderID} - {Item?.OrderLine}" ?? String.Empty;
+        override public string Title => ((Item?.IsNew) ?? false) ? $"New Order Item, Order #{OrderID}" : $"Order Item #{Item?.OrderID} - {Item?.OrderLine}" ?? String.Empty;
 
         public override bool IsNewItem => Item?.IsNew ?? false;
+
+        public long OrderID { get; set; }
 
         protected override void ItemUpdated()
         {
@@ -24,18 +26,20 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(OrderItemViewState state)
         {
+            OrderID = state.OrderID;
             if (state.OrderLine > 0)
             {
                 using (var dp = ProviderFactory.CreateDataProvider())
                 {
-                    Item = await dp.GetOrderItemAsync(state.OrderID, state.OrderLine);
+                    Item = await dp.GetOrderItemAsync(OrderID, state.OrderLine);
                 }
             }
             else
             {
-                Item = new OrderItemModel();
+                Item = new OrderItemModel { OrderID = OrderID };
                 IsEditMode = true;
             }
+            //NotifyPropertyChanged(nameof(Title));
         }
 
         protected override async Task SaveItemAsync(OrderItemModel model)

@@ -47,7 +47,7 @@ namespace VanArsdel.Inventory.Views
         private async void OpenInNewView(object sender, RoutedEventArgs e)
         {
             ViewModel.IsEditMode = false;
-            await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState { OrderID = ViewModel.Item.OrderID, OrderLine = ViewModel.Item.OrderLine });
+            await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState(ViewModel.Item.OrderID) { OrderLine = ViewModel.Item.OrderLine });
             NavigationService.Main.GoBack();
         }
     }

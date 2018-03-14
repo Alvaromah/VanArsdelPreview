@@ -60,7 +60,7 @@ namespace VanArsdel.Inventory.Views
         private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)
         {
             ViewModel.OrderItemDetails.IsEditMode = false;
-            await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState { OrderID = ViewModel.OrderItemDetails.Item.OrderID, OrderLine = ViewModel.OrderItemDetails.Item.OrderLine });
+            await ViewManager.Current.CreateNewView(typeof(OrderItemView), new OrderItemViewState(ViewModel.OrderItemDetails.Item.OrderID) { OrderLine = ViewModel.OrderItemDetails.Item.OrderLine });
         }
 
         public int GetRowSpan(bool isMultipleSelection)

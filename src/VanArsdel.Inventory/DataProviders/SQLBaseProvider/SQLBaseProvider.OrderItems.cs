@@ -28,8 +28,7 @@ namespace VanArsdel.Inventory.Providers
 
         public async Task<int> UpdateOrderItemAsync(OrderItemModel model)
         {
-            long orderID = model.OrderID;
-            var orderItem = orderID > 0 ? await DataService.GetOrderItemAsync(model.OrderID, model.OrderLine) : new OrderItem();
+            var orderItem = model.OrderLine > 0 ? await DataService.GetOrderItemAsync(model.OrderID, model.OrderLine) : new OrderItem();
             if (orderItem != null)
             {
                 UpdateOrderItemFromModel(orderItem, model);

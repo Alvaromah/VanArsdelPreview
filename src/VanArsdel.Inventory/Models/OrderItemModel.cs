@@ -19,7 +19,7 @@ namespace VanArsdel.Inventory.Models
 
         public ProductModel Product { get; set; }
 
-        public bool IsNew => OrderID <= 0;
+        public bool IsNew => OrderLine <= 0;
 
         public override void Merge(ModelBase source)
         {
