@@ -24,17 +24,17 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(OrderViewState state)
         {
-            if (state.OrderID > 0)
+            using (var dp = ProviderFactory.CreateDataProvider())
             {
-                using (var dp = ProviderFactory.CreateDataProvider())
+                if (state.OrderID > 0)
                 {
                     Item = await dp.GetOrderAsync(state.OrderID);
                 }
-            }
-            else
-            {
-                Item = new OrderModel();
-                IsEditMode = true;
+                else
+                {
+                    Item = await dp.CreateNewOrderAsync(state.CustomerID);
+                    IsEditMode = true;
+                }
             }
         }
 
