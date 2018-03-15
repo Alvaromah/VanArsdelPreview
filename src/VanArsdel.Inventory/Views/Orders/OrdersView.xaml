@@ -36,7 +36,7 @@
             <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.OrderList.IsMultipleSelection, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                 <controls:Section IsEnabled="{x:Bind ViewModel.OrderDetails.IsEnabled, Mode=OneWay}" HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenDetailsInNewView" Visibility="{x:Bind ViewModel.OrderDetails.IsDataAvailable, Mode=OneWay}">
 
-                    <Pivot x:Name="pivot" SelectedIndex="1">
+                    <Pivot x:Name="pivot" SelectedIndex="0">
                         <PivotItem Header="Order">
                             <views:OrdersDetails Grid.Row="1" ViewModel="{x:Bind ViewModel.OrderDetails}" />
                         </PivotItem>

@@ -19,8 +19,8 @@
 
                 <StackPanel Margin="6" Spacing="4">
                     <PersonPicture Margin="3" ProfilePicture="{x:Bind Item.PictureBitmap, Mode=OneWay}" Initials="{x:Bind Item.Initials, Mode=OneWay}" Width="128" Height="128" />
-                    <TextBlock Text="{x:Bind Item.FullName, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="20" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsTextSelectionEnabled="True" />
-                    <TextBlock Text="{x:Bind Item.CustomerID, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" IsTextSelectionEnabled="True" />
+                    <TextBlock Text="{x:Bind Item.FullName, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="18" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsTextSelectionEnabled="True" />
+                    <TextBlock Text="{x:Bind Item.CustomerID, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="16" IsTextSelectionEnabled="True" />
                     <TextBlock Text="{x:Bind Item.CreatedOnString, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
                 </StackPanel>
 
