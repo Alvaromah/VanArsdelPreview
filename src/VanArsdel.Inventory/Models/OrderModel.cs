@@ -29,6 +29,8 @@ namespace VanArsdel.Inventory.Models
 
         public bool IsNew => OrderID <= 0;
 
+        public string StatusDesc => DataHelper.GetOrderStatus(Status);
+
         public override void Merge(ModelBase source)
         {
             if (source is OrderModel model)
@@ -56,6 +58,7 @@ namespace VanArsdel.Inventory.Models
                 ShipCountryCode = source.ShipCountryCode;
                 ShipPostalCode = source.ShipPostalCode;
                 ShipPhone = source.ShipPhone;
+                Customer = source.Customer;
             }
         }
 
