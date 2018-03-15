@@ -12,11 +12,18 @@
         <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:OrderDetailsViewModel">
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*" MinWidth="180"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
 
+                <StackPanel Margin="6" Spacing="4">
+                    <PersonPicture Margin="3" ProfilePicture="{x:Bind Item.Customer.PictureBitmap, Mode=OneWay}" Initials="{x:Bind Item.Customer.Initials, Mode=OneWay}" Width="128" Height="128" />
+                    <TextBlock Text="{x:Bind Item.Customer.FullName, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="18" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsTextSelectionEnabled="True" />
+                    <TextBlock Text="{x:Bind Item.CustomerID, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="16" IsTextSelectionEnabled="True" />
+                    <TextBlock Text="{x:Bind Item.Customer.CreatedOnString, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
+                </StackPanel>
+                
                 <StackPanel Grid.Column="1" Spacing="6">
                     <controls:LabelTextBlock Label="Order ID" Text="{x:Bind Item.OrderID, Mode=OneWay}" />
                     <controls:LabelTextBlock Label="Customer ID" Text="{x:Bind Item.CustomerID, Mode=OneWay}" />

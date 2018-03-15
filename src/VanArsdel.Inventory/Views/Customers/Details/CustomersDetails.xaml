@@ -10,19 +10,46 @@
 
     <UserControl.Resources>
         <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:CustomerDetailsViewModel">
-            <Grid ColumnSpacing="6">
+            <Grid Margin="0,6" ColumnSpacing="12">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" MinWidth="180"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="260"/>
+                    <ColumnDefinition Width="*" MaxWidth="400" />
+                    <ColumnDefinition Width="*" MaxWidth="400" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Margin="6" Spacing="4">
-                    <PersonPicture Margin="3" ProfilePicture="{x:Bind Item.PictureBitmap, Mode=OneWay}" Initials="{x:Bind Item.Initials, Mode=OneWay}" Width="128" Height="128" />
-                    <TextBlock Text="{x:Bind Item.FullName, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="18" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsTextSelectionEnabled="True" />
-                    <TextBlock Text="{x:Bind Item.CustomerID, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="16" IsTextSelectionEnabled="True" />
-                    <TextBlock Text="{x:Bind Item.CreatedOnString, Mode=OneWay}" TextAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
-                </StackPanel>
+                <Grid Background="WhiteSmoke">
+                    <StackPanel Margin="6,12" Spacing="2">
+                        <PersonPicture Margin="12" ProfilePicture="{x:Bind Item.PictureBitmap, Mode=OneWay}" Initials="{x:Bind Item.Initials, Mode=OneWay}" Width="96" Height="96" />
+                        <TextBlock Margin="0" Text="{x:Bind Item.FullName, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="18" FontWeight="SemiBold" IsTextSelectionEnabled="True" />
+                        <TextBlock Margin="0" Text="{x:Bind Item.EmailAddress, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
+                        <Rectangle Margin="6" />
+                        <Grid Margin="6,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Customer ID:" FontSize="14" FontWeight="SemiBold" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Item.CustomerID, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+                        </Grid>
+                        <Grid Margin="6,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Created On:" FontSize="14" FontWeight="SemiBold" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Item.CreatedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+                        </Grid>
+                        <Grid Margin="6,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Last Update:" FontSize="14" FontWeight="SemiBold" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Item.LastModifiedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
 
                 <StackPanel Grid.Column="1" Spacing="6">
                     <controls:LabelTextBox Label="First Name" Text="{x:Bind Item.FirstName, Mode=TwoWay}" />
