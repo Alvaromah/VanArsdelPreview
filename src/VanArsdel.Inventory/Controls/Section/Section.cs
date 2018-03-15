@@ -121,12 +121,21 @@ namespace VanArsdel.Inventory.Controls
                 _content.RowDefinitions[0].Height = Header == null ? GridLengths.Zero : GridLengths.Auto;
                 _content.RowDefinitions[2].Height = Footer == null ? GridLengths.Zero : GridLengths.Auto;
                 _button.Visibility = IsButtonVisible && !String.IsNullOrEmpty($"{HeaderButtonGlyph}{HeaderButtonLabel}") ? Visibility.Visible : Visibility.Collapsed;
+                UpdateContainer();
+            }
+        }
 
-                if (!IsEnabled)
-                {
-                    _container.Grayscale();
-                    _content.Opacity = 0.5;
-                }
+        public void UpdateContainer()
+        {
+            if (IsEnabled)
+            {
+                _container.ClearEffects();
+                _content.Opacity = 1.0;
+            }
+            else
+            {
+                _container.Grayscale();
+                _content.Opacity = 0.5;
             }
         }
 
@@ -152,16 +161,7 @@ namespace VanArsdel.Inventory.Controls
 
         private void OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (IsEnabled)
-            {
-                _container.ClearEffects();
-                _content.Fade(250, 0.5, 1.0);
-            }
-            else
-            {
-                _container.Grayscale();
-                _content.Fade(250, 1.0, 0.5);
-            }
+            UpdateContainer();
         }
     }
 }
