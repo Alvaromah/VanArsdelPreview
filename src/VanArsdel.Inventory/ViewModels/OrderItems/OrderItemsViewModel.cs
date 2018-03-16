@@ -30,7 +30,7 @@ namespace VanArsdel.Inventory.ViewModels
             await OrderItemList.LoadAsync(state);
         }
 
-        public void SaveState()
+        public void Unload()
         {
             OrderItemList.Unload();
         }

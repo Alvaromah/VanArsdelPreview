@@ -23,9 +23,9 @@ namespace VanArsdel.Inventory
                 case nameof(CustomersView):
                     NavigationService.Shell.Navigate(item.Page, CustomersViewState.CreateDefault());
                     break;
-                //case nameof(OrdersView):
-                //    NavigationService.Shell.Navigate(item.Page, new OrdersViewState());
-                //    break;
+                case nameof(OrdersView):
+                    NavigationService.Shell.Navigate(item.Page, OrdersViewState.CreateDefault());
+                    break;
                 default:
                     NavigationService.Shell.Navigate(item.Page, item.Label);
                     break;

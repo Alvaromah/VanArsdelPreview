@@ -30,7 +30,7 @@ namespace VanArsdel.Inventory.Views
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             ViewModel.CancelEdit();
-            ViewModel.SaveState();
+            ViewModel.Unload();
             ViewModel.CustomerList.PropertyChanged -= OnViewModelPropertyChanged;
         }
 
