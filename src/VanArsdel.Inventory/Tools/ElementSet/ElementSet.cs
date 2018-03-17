@@ -93,6 +93,8 @@ namespace VanArsdel.Inventory
 
         static private IEnumerable<S> GetChildren<S>(object source, Func<S, bool> predicate = null) where S : UIElement
         {
+            predicate = predicate ?? new Func<S, bool>((e) => true);
+
             if (source is UIElement element)
             {
                 foreach (var item in GetChildren<S>(element, predicate))
@@ -102,7 +104,6 @@ namespace VanArsdel.Inventory
                 yield break;
             }
 
-            predicate = predicate ?? new Func<S, bool>((e) => true);
             if (source is IEnumerable enumerable)
             {
                 foreach (var item in enumerable)
@@ -127,9 +128,10 @@ namespace VanArsdel.Inventory
 
         static private IEnumerable<S> GetChildren<S>(DependencyObject source, Func<S, bool> predicate = null) where S : UIElement
         {
-            predicate = predicate ?? new Func<S, bool>((e) => true);
             if (source != null)
             {
+                predicate = predicate ?? new Func<S, bool>((e) => true);
+
                 var count = VisualTreeHelper.GetChildrenCount(source);
                 for (int n = 0; n < count; n++)
                 {
@@ -141,10 +143,6 @@ namespace VanArsdel.Inventory
                             yield return match;
                         }
                     }
-                }
-                for (int n = 0; n < count; n++)
-                {
-                    var child = VisualTreeHelper.GetChild(source, n);
                     foreach (var item in GetChildren<S>(child, predicate))
                     {
                         yield return item;
