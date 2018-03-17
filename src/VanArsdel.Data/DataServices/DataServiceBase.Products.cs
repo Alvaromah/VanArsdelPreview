@@ -20,7 +20,7 @@ namespace VanArsdel.Data.Services
             // Query
             if (!String.IsNullOrEmpty(request.Query))
             {
-                items = items.Where(r => r.SearchTerms.Contains(request.Query));
+                items = items.Where(r => r.SearchTerms.Contains(request.Query.ToLower()));
             }
 
             // Count
