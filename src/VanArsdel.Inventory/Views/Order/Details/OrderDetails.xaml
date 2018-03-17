@@ -4,24 +4,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="using:VanArsdel.Inventory.Views"
     xmlns:controls="using:VanArsdel.Inventory.Controls"
     xmlns:viewmodels="using:VanArsdel.Inventory.ViewModels"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
 
     <UserControl.Resources>
         <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:OrderDetailsViewModel">
-            <Grid ColumnSpacing="6">
+            <Grid ColumnSpacing="6" Margin="0,6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="320"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Margin="6" Background="WhiteSmoke">
+                <Grid Margin="6,0" Background="WhiteSmoke">
                     <StackPanel Margin="6,12" Spacing="2">
-                        <views:CustomerSearch CustomerSelectedCommand="{x:Bind CustomerSelectedCommand}" />
-
                         <Grid Margin="6">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
@@ -80,8 +77,10 @@
                 </Grid>
 
                 <StackPanel Grid.Column="1" Spacing="6">
-                    <controls:LabelTextBlock Label="Order ID" Text="{x:Bind Item.OrderID, Mode=OneWay}" />
-                    <controls:LabelTextBlock Label="Customer ID" Text="{x:Bind Item.CustomerID, Mode=OneWay}" />
+                    <controls:CustomerSuggestBox
+                        DisplayText="{x:Bind Item.Customer.FullName, Mode=OneWay}"
+                        IsReadOnly="{x:Bind UIHelper.NOT(CanEditCustomer), Mode=OneWay}"
+                        CustomerSelectedCommand="{x:Bind CustomerSelectedCommand}" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Spacing="6">

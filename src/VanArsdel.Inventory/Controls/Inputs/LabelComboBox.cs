@@ -8,7 +8,7 @@ using VanArsdel.Inventory.Animations;
 
 namespace VanArsdel.Inventory.Controls
 {
-    public sealed class LabelComboBox : Control
+    public sealed class LabelComboBox : Control, IInputControl
     {
         private Grid _container = null;
         private ComboBox _combo = null;
@@ -85,6 +85,11 @@ namespace VanArsdel.Inventory.Controls
 
         public static readonly DependencyProperty ModeProperty = DependencyProperty.Register("Mode", typeof(TextEditMode), typeof(LabelComboBox), new PropertyMetadata(TextEditMode.Auto, ModeChanged));
         #endregion
+
+        public void SetFocus()
+        {
+            _combo?.Focus(FocusState.Programmatic);
+        }
 
         protected override void OnApplyTemplate()
         {

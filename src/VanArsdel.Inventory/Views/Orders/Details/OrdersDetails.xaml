@@ -72,8 +72,7 @@
                 </Grid>
 
                 <StackPanel Grid.Column="1" Spacing="6">
-                    <controls:LabelTextBlock Label="Order ID" Text="{x:Bind Item.OrderID, Mode=OneWay}" />
-                    <controls:LabelTextBlock Label="Customer ID" Text="{x:Bind Item.CustomerID, Mode=OneWay}" />
+                    <controls:LabelTextBlock Label="Customer" Text="{x:Bind Item.Customer.FullName, Mode=OneWay}" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Spacing="6">

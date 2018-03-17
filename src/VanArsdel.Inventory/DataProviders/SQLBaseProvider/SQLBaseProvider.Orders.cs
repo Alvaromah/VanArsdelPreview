@@ -28,21 +28,27 @@ namespace VanArsdel.Inventory.Providers
 
         public async Task<OrderModel> CreateNewOrderAsync(long customerID)
         {
-            var parent = await DataService.GetCustomerAsync(customerID);
-            if (parent != null)
+            var model = new OrderModel
             {
-                return new OrderModel
+                CustomerID = customerID,
+                OrderDate = DateTime.UtcNow,
+                Status = 1
+            };
+            if (customerID > 0)
+            {
+                var parent = await DataService.GetCustomerAsync(customerID);
+                if (parent != null)
                 {
-                    CustomerID = customerID,
-                    ShipAddress = parent.AddressLine1,
-                    ShipCity = parent.City,
-                    ShipRegion = parent.Region,
-                    ShipCountryCode = parent.CountryCode,
-                    ShipPostalCode = parent.PostalCode,
-                    Customer = await CreateCustomerModelAsync(parent, includeAllFields: true)
-                };
+                    model.CustomerID = customerID;
+                    model.ShipAddress = parent.AddressLine1;
+                    model.ShipCity = parent.City;
+                    model.ShipRegion = parent.Region;
+                    model.ShipCountryCode = parent.CountryCode;
+                    model.ShipPostalCode = parent.PostalCode;
+                    model.Customer = await CreateCustomerModelAsync(parent, includeAllFields: true);
+                }
             }
-            return new OrderModel();
+            return model;
         }
 
         public async Task<int> UpdateOrderAsync(OrderModel model)

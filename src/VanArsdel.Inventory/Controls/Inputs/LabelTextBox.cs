@@ -25,7 +25,7 @@ namespace VanArsdel.Inventory.Controls
         Double
     }
 
-    public sealed class LabelTextBox : Control
+    public sealed class LabelTextBox : Control, IInputControl
     {
         private Grid _container = null;
         private TextBox _inputText = null;

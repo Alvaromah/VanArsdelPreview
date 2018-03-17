@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.ComponentModel;
 using System.Windows.Input;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using System.Collections.Generic;
 
 namespace VanArsdel.Inventory.Controls
 {
@@ -146,7 +148,7 @@ namespace VanArsdel.Inventory.Controls
 
         public void SetFocus()
         {
-            ElementSet.Children<LabelTextBox>(this).FirstOrDefault()?.SetFocus();
+            GetEditableControls().FirstOrDefault()?.SetFocus();
         }
 
         private void OnToolbarClick(object sender, ToolbarButtonClickEventArgs e)
@@ -181,12 +183,28 @@ namespace VanArsdel.Inventory.Controls
 
         private void UpdateEditMode()
         {
-            ElementSet.Children<LabelTextBox>(container).ForEach(c => c.Mode = IsEditMode ? TextEditMode.ReadWrite : TextEditMode.Auto);
-            ElementSet.Children<LabelComboBox>(container).ForEach(c => c.Mode = IsEditMode ? TextEditMode.ReadWrite : TextEditMode.Auto);
+            foreach (var input in GetEditableControls())
+            {
+                input.Mode = IsEditMode ? TextEditMode.ReadWrite : TextEditMode.Auto;
+            }
             if (!IsEditMode)
             {
                 Focus(FocusState.Programmatic);
             }
+        }
+
+        private IEnumerable<IInputControl> GetEditableControls()
+        {
+            return ElementSet.Children<Control>(this)
+                .Where(r =>
+                {
+                    if (r is IInputControl input)
+                    {
+                        return input.Mode != TextEditMode.ReadOnly;
+                    }
+                    return false;
+                })
+                .Cast<IInputControl>();
         }
 
         #region NotifyPropertyChanged

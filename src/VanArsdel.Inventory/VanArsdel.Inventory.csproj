@@ -100,6 +100,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\GridLengths.cs" />
+    <Compile Include="Controls\Inputs\IInputControl.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\Result.cs" />
     <Compile Include="Common\ThreadSafeSingleton.cs" />
@@ -107,6 +108,9 @@
     <Compile Include="Controls\Buttons\IconButton.cs" />
     <Compile Include="Controls\Buttons\IconLabel.cs" />
     <Compile Include="Controls\Buttons\IconLabelButton.cs" />
+    <Compile Include="Views\Controls\CustomerSuggestBox.xaml.cs">
+      <DependentUpon>CustomerSuggestBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DataList\DataList.xaml.cs">
       <DependentUpon>DataList.xaml</DependentUpon>
     </Compile>
@@ -117,6 +121,7 @@
       <DependentUpon>DialogBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Inputs\LabelComboBox.cs" />
+    <Compile Include="Controls\Inputs\LabelSuggestBox.cs" />
     <Compile Include="Controls\Inputs\LabelTextBlock.cs" />
     <Compile Include="Controls\Inputs\LabelTextBox.cs" />
     <Compile Include="Controls\Pagination\PaginationFooter.xaml.cs">
@@ -209,12 +214,6 @@
     <Compile Include="ViewModels\Shell\ShellViewModel.cs" />
     <Compile Include="Views\Common\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Common\CustomersDialog.xaml.cs">
-      <DependentUpon>CustomersDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Common\CustomerSearch.xaml.cs">
-      <DependentUpon>CustomerSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customers\Details\CustomersDetails.xaml.cs">
       <DependentUpon>CustomersDetails.xaml</DependentUpon>
@@ -313,6 +312,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\Controls\CustomerSuggestBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\DataList\DataList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -376,14 +379,6 @@
     <Page Include="Views\Common\CommonView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Common\CustomersDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Common\CustomerSearch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customers\Details\CustomersDetails.xaml">
       <SubType>Designer</SubType>
