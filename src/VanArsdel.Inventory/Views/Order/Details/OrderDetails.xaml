@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:VanArsdel.Inventory.Views"
     xmlns:controls="using:VanArsdel.Inventory.Controls"
     xmlns:viewmodels="using:VanArsdel.Inventory.ViewModels"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
@@ -12,10 +13,71 @@
         <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:OrderDetailsViewModel">
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="320"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+
+                <Grid Margin="6" Background="WhiteSmoke">
+                    <StackPanel Margin="6,12" Spacing="2">
+                        <views:CustomerSearch CustomerSelectedCommand="{x:Bind CustomerSelectedCommand}" />
+
+                        <Grid Margin="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <PersonPicture ProfilePicture="{x:Bind Item.Customer.ThumbnailBitmap, Mode=OneWay}" Initials="{x:Bind Item.Customer.Initials, Mode=OneWay}" Width="64" Height="64" />
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Margin="0" Text="{x:Bind Item.Customer.FullName, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" FontSize="16" FontWeight="SemiBold" IsTextSelectionEnabled="True" />
+                                <TextBlock Margin="0" Text="{x:Bind Item.Customer.CustomerID, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" FontSize="14" IsTextSelectionEnabled="True" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Rectangle Margin="12" />
+                        <Grid Margin="6,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Customer ID:" FontSize="14" FontWeight="SemiBold" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Item.Customer.CustomerID, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+                        </Grid>
+                        <Grid Margin="6,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Order ID:" FontSize="14" FontWeight="SemiBold" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Item.OrderID, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+                        </Grid>
+                        <Grid Margin="6,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Status:" FontSize="14" FontWeight="SemiBold" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Item.StatusDesc, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+                        </Grid>
+                        <Grid Margin="6,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Created On:" FontSize="14" FontWeight="SemiBold" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Item.Customer.CreatedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+                        </Grid>
+                        <Grid Margin="6,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Last Update:" FontSize="14" FontWeight="SemiBold" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind Item.Customer.LastModifiedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+                        </Grid>
+                    </StackPanel>
+                </Grid>
 
                 <StackPanel Grid.Column="1" Spacing="6">
                     <controls:LabelTextBlock Label="Order ID" Text="{x:Bind Item.OrderID, Mode=OneWay}" />

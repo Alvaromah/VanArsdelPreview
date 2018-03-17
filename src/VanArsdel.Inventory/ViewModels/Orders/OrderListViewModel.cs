@@ -32,34 +32,15 @@ namespace VanArsdel.Inventory.ViewModels
 
         public override async void New()
         {
-            long customerID = await GetCustomerID();
-            if (customerID > 0)
+            long customerID = ViewState.CustomerID;
+            if (IsMainView)
             {
-                if (IsMainView)
-                {
-                    await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState(customerID));
-                }
-                else
-                {
-                    NavigationService.Main.Navigate(typeof(OrderView), new OrderViewState(customerID));
-                }
+                await ViewManager.Current.CreateNewView(typeof(OrderView), new OrderViewState(customerID));
             }
-        }
-
-        private async Task<long> GetCustomerID()
-        {
-            long id = ViewState.CustomerID;
-            if (id <= 0)
+            else
             {
-                var dialog = new CustomersDialog();
-                await dialog.LoadAsync();
-                var res = await dialog.ShowAsync();
-                if (ContentDialogResult.Primary == res)
-                {
-                    return dialog.CustomerID;
-                }
+                NavigationService.Main.Navigate(typeof(OrderView), new OrderViewState(customerID));
             }
-            return id;
         }
 
         override public async Task<PageResult<OrderModel>> GetItemsAsync(IDataProvider dataProvider)

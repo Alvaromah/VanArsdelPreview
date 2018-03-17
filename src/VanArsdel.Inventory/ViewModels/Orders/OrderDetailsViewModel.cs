@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 using VanArsdel.Inventory.Models;
 using VanArsdel.Inventory.Providers;
@@ -22,6 +23,20 @@ namespace VanArsdel.Inventory.ViewModels
         protected override void ItemUpdated()
         {
             NotifyPropertyChanged(nameof(Title));
+        }
+
+        public ICommand CustomerSelectedCommand => new RelayCommand<CustomerModel>(CustomerSelected);
+        private void CustomerSelected(CustomerModel customer)
+        {
+            Item.CustomerID = customer.CustomerID;
+            Item.ShipAddress = customer.AddressLine1;
+            Item.ShipCity = customer.City;
+            Item.ShipRegion = customer.Region;
+            Item.ShipCountryCode = customer.CountryCode;
+            Item.ShipPostalCode = customer.PostalCode;
+            Item.Customer = customer;
+
+            NotifyPropertyChanged(nameof(Item));
         }
 
         public async Task LoadAsync(OrderViewState state)

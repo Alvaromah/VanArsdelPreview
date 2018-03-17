@@ -27,7 +27,6 @@
                                 <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
 
-                            <!--<Grid Background="Red" />-->
                             <PersonPicture ProfilePicture="{x:Bind Item.Customer.PictureBitmap, Mode=OneWay}" Initials="{x:Bind Item.Customer.Initials, Mode=OneWay}" Width="64" Height="64" />
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Margin="0" Text="{x:Bind Item.Customer.FullName, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" FontSize="16" FontWeight="SemiBold" IsTextSelectionEnabled="True" />
