@@ -10,6 +10,8 @@ namespace VanArsdel.Inventory.Controls
 {
     public sealed class LabelComboBox : Control, IInputControl
     {
+        public event RoutedEventHandler EnterFocus;
+
         private Grid _container = null;
         private ComboBox _combo = null;
         private Border _border = null;
@@ -125,6 +127,7 @@ namespace VanArsdel.Inventory.Controls
         private void OnGotFocus(object sender, RoutedEventArgs e)
         {
             _border.Opacity = 1.0;
+            EnterFocus?.Invoke(this, e);
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs e)

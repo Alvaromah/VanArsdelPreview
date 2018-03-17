@@ -72,15 +72,15 @@
                 </Grid>
 
                 <StackPanel Grid.Column="1" Spacing="6">
-                    <controls:LabelTextBlock Label="Customer" Text="{x:Bind Item.Customer.FullName, Mode=OneWay}" />
-                </StackPanel>
-
-                <StackPanel Grid.Column="2" Spacing="6">
                     <controls:LabelTextBox Label="Ship Address" Text="{x:Bind Item.ShipAddress, Mode=TwoWay}" />
                     <controls:LabelTextBox Label="Ship Postal Code" Text="{x:Bind Item.ShipPostalCode, Mode=TwoWay}" />
                     <controls:LabelTextBox Label="Ship City" Text="{x:Bind Item.ShipCity, Mode=TwoWay}" />
                     <controls:LabelTextBox Label="Ship Region" Text="{x:Bind Item.ShipRegion, Mode=TwoWay}" />
-                    <!--<controls:LabelTextBox Label="Ship Country" Text="{x:Bind Item.DataHelper.GetCountry(Item.ShipCountryCode), Mode=TwoWay}" />-->
+                    <controls:LabelComboBox Label="Ship Country" ItemsSource="{x:Bind DataHelper.CountryCodes}"
+                                            SelectedValue="{x:Bind Item.ShipCountryCode, Mode=TwoWay}" SelectedValuePath="CountryCodeID" DisplayMemberPath="Name" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Spacing="6">
                 </StackPanel>
             </Grid>
         </DataTemplate>

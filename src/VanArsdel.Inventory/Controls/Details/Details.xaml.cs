@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using System.Collections.Generic;
 
 namespace VanArsdel.Inventory.Controls
 {
@@ -24,8 +24,10 @@ namespace VanArsdel.Inventory.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            ElementSet.Children<LabelTextBox>(container).GotFocus += OnInputGotFocus;
-            ElementSet.Children<LabelComboBox>(container).GotFocus += OnInputGotFocus;
+            foreach (var input in GetEditableControls())
+            {
+                input.EnterFocus += OnInputGotFocus;
+            }
             UpdateEditMode();
         }
 
@@ -195,7 +197,7 @@ namespace VanArsdel.Inventory.Controls
 
         private IEnumerable<IInputControl> GetEditableControls()
         {
-            return ElementSet.Children<Control>(this)
+            return ElementSet.Children<Control>(container)
                 .Where(r =>
                 {
                     if (r is IInputControl input)

@@ -12,6 +12,8 @@ namespace VanArsdel.Inventory.Controls
 {
     public class LabelSuggestBox : Control, IInputControl
     {
+        public event RoutedEventHandler EnterFocus;
+
         public event TypedEventHandler<AutoSuggestBox, AutoSuggestBoxTextChangedEventArgs> TextChanged;
         public event TypedEventHandler<AutoSuggestBox, AutoSuggestBoxSuggestionChosenEventArgs> SuggestionChosen;
         public event TypedEventHandler<AutoSuggestBox, AutoSuggestBoxQuerySubmittedEventArgs> QuerySubmitted;
@@ -187,6 +189,7 @@ namespace VanArsdel.Inventory.Controls
             _autoSuggestBox.Opacity = 1.0;
             _border.Opacity = 1.0;
             _displayText.Visibility = Visibility.Collapsed;
+            EnterFocus?.Invoke(this, e);
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs e)

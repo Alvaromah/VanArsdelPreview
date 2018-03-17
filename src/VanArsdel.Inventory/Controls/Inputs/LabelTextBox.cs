@@ -8,25 +8,10 @@ using VanArsdel.Inventory.Animations;
 
 namespace VanArsdel.Inventory.Controls
 {
-    public enum TextEditMode
-    {
-        Auto,
-        ReadOnly,
-        ReadWrite,
-    }
-
-    public enum TextValueType
-    {
-        String,
-        Int16,
-        Int32,
-        Int64,
-        Decimal,
-        Double
-    }
-
     public sealed class LabelTextBox : Control, IInputControl
     {
+        public event RoutedEventHandler EnterFocus;
+
         private Grid _container = null;
         private TextBox _inputText = null;
         private TextBlock _displayText = null;
@@ -161,6 +146,7 @@ namespace VanArsdel.Inventory.Controls
             _inputText.Opacity = 1.0;
             _border.Opacity = 1.0;
             _displayText.Visibility = Visibility.Collapsed;
+            EnterFocus?.Invoke(this, e);
         }
 
         private void OnLostFocus(object sender, RoutedEventArgs e)
