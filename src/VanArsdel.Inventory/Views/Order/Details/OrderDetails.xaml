@@ -79,7 +79,7 @@
                 <StackPanel Grid.Column="1" Spacing="6">
                     <controls:CustomerSuggestBox
                         DisplayText="{x:Bind Item.Customer.FullName, Mode=OneWay}"
-                        IsReadOnly="{x:Bind UIHelper.NOT(CanEditCustomer), Mode=OneWay}"
+                        IsReadOnly="{x:Bind UIHelper.NOT(Item.CanEditCustomer), Mode=OneWay}"
                         CustomerSelectedCommand="{x:Bind CustomerSelectedCommand}" />
                     <controls:LabelTextBox Label="Ship Address" Text="{x:Bind Item.ShipAddress, Mode=TwoWay}" />
                     <controls:LabelTextBox Label="Ship Postal Code" Text="{x:Bind Item.ShipPostalCode, Mode=TwoWay}" />
@@ -87,9 +87,18 @@
                     <controls:LabelTextBox Label="Ship Region" Text="{x:Bind Item.ShipRegion, Mode=TwoWay}" />
                     <controls:LabelComboBox Label="Ship Country" ItemsSource="{x:Bind DataHelper.CountryCodes}"
                                             SelectedValue="{x:Bind Item.ShipCountryCode, Mode=TwoWay}" SelectedValuePath="CountryCodeID" DisplayMemberPath="Name" />
+                    <controls:LabelTextBox Label="Ship Phone" Text="{x:Bind Item.ShipPhone, Mode=TwoWay}" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Spacing="6">
+                    <controls:LabelComboBox Label="Status" ItemsSource="{x:Bind DataHelper.OrderStatus}"
+                                            SelectedValue="{x:Bind Item.Status, Mode=TwoWay, Converter={StaticResource Int32Converter}}" SelectedValuePath="Status" DisplayMemberPath="Name" />
+                    <controls:LabelComboBox Label="Payment Type" ItemsSource="{x:Bind DataHelper.PaymentTypes}"
+                                            SelectedValue="{x:Bind Item.PaymentType, Mode=TwoWay, Converter={StaticResource Int32Converter}}" SelectedValuePath="PaymentTypeID" DisplayMemberPath="Name"
+                                            Visibility="{x:Bind Item.CanEditPaymentType, Mode=OneWay}"/>
+                    <controls:LabelComboBox Label="Ship Via" ItemsSource="{x:Bind DataHelper.Shippers}"
+                                            SelectedValue="{x:Bind Item.ShipVia, Mode=TwoWay, Converter={StaticResource Int32Converter}}" SelectedValuePath="ShipperID" DisplayMemberPath="Name"
+                                            Visibility="{x:Bind Item.CanEditShipping, Mode=OneWay}"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>

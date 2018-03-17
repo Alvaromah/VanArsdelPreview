@@ -13,7 +13,13 @@ namespace VanArsdel.Inventory.Models
         public DateTime? ShippedDate { get; set; }
         public DateTime? DeliveredDate { get; set; }
 
-        public int Status { get; set; }
+        private int _status;
+        public int Status
+        {
+            get => _status;
+            set { if (Set(ref _status, value)) UpdateStatusDependencies(); }
+        }
+
         public int PaymentType { get; set; }
         public string TrackingNumber { get; set; }
 
@@ -28,8 +34,17 @@ namespace VanArsdel.Inventory.Models
         public CustomerModel Customer { get; set; }
 
         public bool IsNew => OrderID <= 0;
+        public bool CanEditCustomer => IsNew && CustomerID <= 0;
+        public bool CanEditPaymentType => Status > 1;
+        public bool CanEditShipping => Status > 2;
 
         public string StatusDesc => DataHelper.GetOrderStatus(Status);
+
+        private void UpdateStatusDependencies()
+        {
+            NotifyPropertyChanged(nameof(CanEditPaymentType));
+            NotifyPropertyChanged(nameof(CanEditShipping));
+        }
 
         public override void Merge(ModelBase source)
         {

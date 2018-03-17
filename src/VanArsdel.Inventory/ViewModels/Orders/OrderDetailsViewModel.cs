@@ -20,8 +20,6 @@ namespace VanArsdel.Inventory.ViewModels
 
         public override bool IsNewItem => Item?.IsNew ?? false;
 
-        public bool CanEditCustomer => IsNewItem && Item.CustomerID <= 0;
-
         protected override void ItemUpdated()
         {
             NotifyPropertyChanged(nameof(Title));
@@ -65,7 +63,6 @@ namespace VanArsdel.Inventory.ViewModels
                 await dataProvider.UpdateOrderAsync(model);
                 NotifyPropertyChanged(nameof(Title));
                 NotifyPropertyChanged(nameof(IsNewItem));
-                NotifyPropertyChanged(nameof(CanEditCustomer));
             }
         }
 
