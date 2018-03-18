@@ -33,13 +33,13 @@ namespace VanArsdel.Inventory.Controls
         #endregion
 
         #region Date
-        public DateTime Date
+        public DateTimeOffset? Date
         {
-            get { return (DateTime)GetValue(DateProperty); }
+            get { return (DateTimeOffset?)GetValue(DateProperty); }
             set { SetValue(DateProperty, value); }
         }
 
-        public static readonly DependencyProperty DateProperty = DependencyProperty.Register(nameof(Date), typeof(DateTime), typeof(LabelCalendar), new PropertyMetadata(null));
+        public static readonly DependencyProperty DateProperty = DependencyProperty.Register(nameof(Date), typeof(DateTimeOffset?), typeof(LabelCalendar), new PropertyMetadata(null));
         #endregion
 
         #region Mode*

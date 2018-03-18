@@ -72,7 +72,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LabelCalendar">
                     <Grid x:Name="container" Background="Transparent">
-                        <CalendarDatePicker x:Name="calendar" Date="{Binding Date}" Style="{StaticResource CalendarPickerStyle}" BorderThickness="0" HorizontalAlignment="Stretch" />
+                        <CalendarDatePicker x:Name="calendar" Date="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Date, Mode=TwoWay}" Style="{StaticResource CalendarPickerStyle}" BorderThickness="0" HorizontalAlignment="Stretch" />
                         <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsHitTestVisible="False" />
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" IsHitTestVisible="False" Opacity="0.0" />
                     </Grid>

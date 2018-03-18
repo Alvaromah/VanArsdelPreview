@@ -90,7 +90,7 @@
                     <controls:LabelComboBox Label="Ship Via" ItemsSource="{x:Bind DataHelper.Shippers}"
                                             SelectedValue="{x:Bind Item.ShipVia, Mode=TwoWay, Converter={StaticResource Int32Converter}}" SelectedValuePath="ShipperID" DisplayMemberPath="Name"
                                             Visibility="{x:Bind Item.CanEditShipping, Mode=OneWay}"/>
-                    <controls:LabelCalendar Label="Shipped Date" />
+                    <controls:LabelCalendar Label="Shipped Date" Date="{x:Bind Item.ShippedDate, Mode=TwoWay}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>

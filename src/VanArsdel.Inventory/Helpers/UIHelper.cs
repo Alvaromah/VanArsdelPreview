@@ -26,6 +26,16 @@ namespace VanArsdel.Inventory
             return (date?.ToLocalTime().ToLongDateString()) ?? "";
         }
 
+        public string ToShortDateOffset(DateTimeOffset? date)
+        {
+            return ToShortDate(date.AsDateTime());
+        }
+
+        public string ToLongDateOffset(DateTimeOffset? date)
+        {
+            return ToLongDate(date.AsDateTime());
+        }
+
         public string TotalItems(int count)
         {
             return $"Total {count} items";

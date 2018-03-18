@@ -10,7 +10,7 @@ namespace VanArsdel.Inventory.Models
         public long CustomerID { get; set; }
 
         public DateTime OrderDate { get; set; }
-        public DateTime? ShippedDate { get; set; }
+        public DateTimeOffset? ShippedDate { get; set; }
         public DateTime? DeliveredDate { get; set; }
 
         private int _status;

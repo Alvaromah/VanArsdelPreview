@@ -40,7 +40,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="{x:Bind OrderID}" Style="{StaticResource ColumnValueStyle}" />
                 <TextBlock Grid.Column="1" Text="{x:Bind UIHelper.ToShortDate(OrderDate)}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="2" Text="{x:Bind UIHelper.ToShortDate(ShippedDate)}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="2" Text="{x:Bind UIHelper.ToShortDateOffset(ShippedDate)}" Style="{StaticResource ColumnValueStyle}" />
                 <TextBlock Grid.Column="3" Text="{x:Bind UIHelper.ToShortDate(DeliveredDate)}" Style="{StaticResource ColumnValueStyle}" />
                 <TextBlock Grid.Column="4" Text="{x:Bind ShipRegion}" Style="{StaticResource ColumnValueStyle}" />
                 <TextBlock Grid.Column="5" Text="{x:Bind DataHelper.GetCountry(ShipCountryCode)}" Style="{StaticResource ColumnValueStyle}" />

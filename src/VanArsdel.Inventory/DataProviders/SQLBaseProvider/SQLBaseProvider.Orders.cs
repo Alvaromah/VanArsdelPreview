@@ -100,7 +100,7 @@ namespace VanArsdel.Inventory.Providers
         {
             target.CustomerID = source.CustomerID;
             target.OrderDate = source.OrderDate;
-            target.ShippedDate = source.ShippedDate;
+            target.ShippedDate = source.ShippedDate.AsDateTime();
             target.DeliveredDate = source.DeliveredDate;
             target.Status = source.Status;
             target.PaymentType = source.PaymentType;
