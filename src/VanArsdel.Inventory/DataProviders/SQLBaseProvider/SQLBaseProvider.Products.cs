@@ -93,14 +93,14 @@ namespace VanArsdel.Inventory.Providers
             target.DealerPrice = source.DealerPrice;
             target.TaxType = source.TaxType;
             target.Discount = source.Discount;
-            target.DiscountStartDate = source.DiscountStartDate;
-            target.DiscountEndDate = source.DiscountEndDate;
+            target.DiscountStartDate = source.DiscountStartDate.AsNullableDateTime();
+            target.DiscountEndDate = source.DiscountEndDate.AsNullableDateTime();
             target.StockUnits = source.StockUnits;
             target.SafetyStockLevel = source.SafetyStockLevel;
-            target.StartDate = source.StartDate;
-            target.EndDate = source.EndDate;
-            target.CreatedOn = source.CreatedOn;
-            target.LastModifiedOn = source.LastModifiedOn;
+            target.StartDate = source.StartDate.AsNullableDateTime();
+            target.EndDate = source.EndDate.AsNullableDateTime();
+            target.CreatedOn = source.CreatedOn.AsDateTime();
+            target.LastModifiedOn = source.LastModifiedOn.AsDateTime();
             target.Picture = source.Picture;
             target.Thumbnail = source.Thumbnail;
         }

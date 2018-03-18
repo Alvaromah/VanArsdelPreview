@@ -4,7 +4,11 @@ namespace VanArsdel.Inventory
 {
     static public class DateTimeExtensions
     {
-        static public DateTimeOffset? AsDateTimeOffset(this DateTime? dateTime)
+        static public DateTimeOffset? AsDateTimeOffset(this DateTime dateTime)
+        {
+            return new DateTimeOffset(dateTime);
+        }
+        static public DateTimeOffset? AsNullableDateTimeOffset(this DateTime? dateTime)
         {
             if (dateTime != null)
             {
@@ -13,7 +17,11 @@ namespace VanArsdel.Inventory
             return null;
         }
 
-        static public DateTime? AsDateTime(this DateTimeOffset? dateTimeOffset)
+        static public DateTime AsDateTime(this DateTimeOffset dateTimeOffset)
+        {
+            return dateTimeOffset.DateTime;
+        }
+        static public DateTime? AsNullableDateTime(this DateTimeOffset? dateTimeOffset)
         {
             if (dateTimeOffset != null)
             {

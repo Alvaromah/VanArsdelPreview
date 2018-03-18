@@ -22,16 +22,16 @@ namespace VanArsdel.Inventory.Models
         public decimal DealerPrice { get; set; }
         public int TaxType { get; set; }
         public decimal Discount { get; set; }
-        public DateTime? DiscountStartDate { get; set; }
-        public DateTime? DiscountEndDate { get; set; }
+        public DateTimeOffset? DiscountStartDate { get; set; }
+        public DateTimeOffset? DiscountEndDate { get; set; }
 
         public int StockUnits { get; set; }
         public int SafetyStockLevel { get; set; }
 
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime LastModifiedOn { get; set; }
+        public DateTimeOffset? StartDate { get; set; }
+        public DateTimeOffset? EndDate { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
+        public DateTimeOffset LastModifiedOn { get; set; }
 
         public byte[] Picture { get; set; }
         public BitmapImage PictureBitmap { get; set; }

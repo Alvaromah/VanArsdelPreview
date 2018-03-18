@@ -16,24 +16,14 @@ namespace VanArsdel.Inventory
             return !value;
         }
 
-        public string ToShortDate(DateTime? date)
+        public string ToShortDate(DateTimeOffset? date)
         {
-            return (date?.ToLocalTime().ToShortDateString()) ?? "";
+            return (date?.Date.ToLocalTime().ToShortDateString()) ?? "";
         }
 
-        public string ToLongDate(DateTime? date)
+        public string ToLongDate(DateTimeOffset? date)
         {
-            return (date?.ToLocalTime().ToLongDateString()) ?? "";
-        }
-
-        public string ToShortDateOffset(DateTimeOffset? date)
-        {
-            return ToShortDate(date.AsDateTime());
-        }
-
-        public string ToLongDateOffset(DateTimeOffset? date)
-        {
-            return ToLongDate(date.AsDateTime());
+            return (date?.Date.ToLocalTime().ToLongDateString()) ?? "";
         }
 
         public string TotalItems(int count)

@@ -24,7 +24,7 @@ namespace VanArsdel.Inventory.Models
         public string PostalCode { get; set; }
         public string Phone { get; set; }
 
-        public DateTime? BirthDate { get; set; }
+        public DateTimeOffset? BirthDate { get; set; }
         public string Education { get; set; }
         public string Occupation { get; set; }
         public decimal? YearlyIncome { get; set; }
@@ -34,8 +34,8 @@ namespace VanArsdel.Inventory.Models
         public bool? IsHouseOwner { get; set; }
         public int? NumberCarsOwned { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-        public DateTime? LastModifiedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; set; }
 
         public byte[] Picture { get; set; }
         public BitmapImage PictureBitmap { get; set; }

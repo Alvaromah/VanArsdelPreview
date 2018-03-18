@@ -105,7 +105,7 @@ namespace VanArsdel.Inventory.Providers
             target.CountryCode = source.CountryCode;
             target.PostalCode = source.PostalCode;
             target.Phone = source.Phone;
-            target.BirthDate = source.BirthDate;
+            target.BirthDate = source.BirthDate.AsNullableDateTime();
             target.Education = source.Education;
             target.Occupation = source.Occupation;
             target.YearlyIncome = source.YearlyIncome;
@@ -114,8 +114,8 @@ namespace VanArsdel.Inventory.Providers
             target.ChildrenAtHome = source.ChildrenAtHome;
             target.IsHouseOwner = source.IsHouseOwner;
             target.NumberCarsOwned = source.NumberCarsOwned;
-            target.CreatedOn = source.CreatedOn;
-            target.LastModifiedOn = source.LastModifiedOn;
+            target.CreatedOn = source.CreatedOn.AsDateTime();
+            target.LastModifiedOn = source.LastModifiedOn.AsNullableDateTime();
             target.Picture = source.Picture;
             target.Thumbnail = source.Thumbnail;
         }

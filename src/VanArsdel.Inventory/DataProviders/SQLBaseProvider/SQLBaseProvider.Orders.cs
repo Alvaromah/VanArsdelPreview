@@ -99,9 +99,9 @@ namespace VanArsdel.Inventory.Providers
         private void UpdateOrderFromModel(Order target, OrderModel source)
         {
             target.CustomerID = source.CustomerID;
-            target.OrderDate = source.OrderDate;
-            target.ShippedDate = source.ShippedDate.AsDateTime();
-            target.DeliveredDate = source.DeliveredDate;
+            target.OrderDate = source.OrderDate.AsDateTime();
+            target.ShippedDate = source.ShippedDate.AsNullableDateTime();
+            target.DeliveredDate = source.DeliveredDate.AsNullableDateTime();
             target.Status = source.Status;
             target.PaymentType = source.PaymentType;
             target.TrackingNumber = source.TrackingNumber;
