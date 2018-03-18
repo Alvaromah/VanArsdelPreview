@@ -67,14 +67,14 @@ namespace VanArsdel.Inventory.Providers
                 CountryCode = source.CountryCode,
                 PostalCode = source.PostalCode,
                 Phone = source.Phone,
-                CreatedOn = source.CreatedOn,
-                LastModifiedOn = source.LastModifiedOn,
+                CreatedOn = source.CreatedOn.AsDateTimeOffset(),
+                LastModifiedOn = source.LastModifiedOn.AsNullableDateTimeOffset(),
                 Thumbnail = source.Thumbnail,
                 ThumbnailBitmap = await BitmapTools.LoadBitmapAsync(source.Thumbnail)
             };
             if (includeAllFields)
             {
-                model.BirthDate = source.BirthDate;
+                model.BirthDate = source.BirthDate.AsNullableDateTimeOffset();
                 model.Education = source.Education;
                 model.Occupation = source.Occupation;
                 model.YearlyIncome = source.YearlyIncome;

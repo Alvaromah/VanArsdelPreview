@@ -75,9 +75,9 @@ namespace VanArsdel.Inventory.Providers
             {
                 OrderID = source.OrderID,
                 CustomerID = source.CustomerID,
-                OrderDate = source.OrderDate,
-                ShippedDate = source.ShippedDate,
-                DeliveredDate = source.DeliveredDate,
+                OrderDate = source.OrderDate.AsDateTimeOffset(),
+                ShippedDate = source.ShippedDate.AsNullableDateTimeOffset(),
+                DeliveredDate = source.DeliveredDate.AsNullableDateTimeOffset(),
                 Status = source.Status,
                 PaymentType = source.PaymentType,
                 TrackingNumber = source.TrackingNumber,

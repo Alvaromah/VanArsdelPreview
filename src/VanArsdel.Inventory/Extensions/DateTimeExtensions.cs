@@ -4,15 +4,16 @@ namespace VanArsdel.Inventory
 {
     static public class DateTimeExtensions
     {
-        static public DateTimeOffset? AsDateTimeOffset(this DateTime dateTime)
+        static public DateTimeOffset AsDateTimeOffset(this DateTime dateTime)
         {
-            return new DateTimeOffset(dateTime);
+            long ticks = Math.Max(DateTimeOffset.MinValue.Ticks, dateTime.Ticks);
+            return new DateTimeOffset(ticks, TimeSpan.Zero);
         }
         static public DateTimeOffset? AsNullableDateTimeOffset(this DateTime? dateTime)
         {
             if (dateTime != null)
             {
-                return new DateTimeOffset(dateTime.Value);
+                return AsDateTimeOffset(dateTime.Value);
             }
             return null;
         }

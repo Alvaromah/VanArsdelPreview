@@ -42,6 +42,40 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty DateProperty = DependencyProperty.Register(nameof(Date), typeof(DateTimeOffset?), typeof(LabelCalendar), new PropertyMetadata(null));
         #endregion
 
+        #region MinDate*
+        public DateTimeOffset? MinDate
+        {
+            get { return (DateTimeOffset?)GetValue(MinDateProperty); }
+            set { SetValue(MinDateProperty, value); }
+        }
+
+        private static void MinDateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as LabelCalendar;
+            control.SetMinDate();
+        }
+
+        private void SetMinDate()
+        {
+            if (_calendar != null)
+            {
+                _calendar.MinDate = MinDate ?? DateTimeOffset.MinValue;
+            }
+        }
+
+        public static readonly DependencyProperty MinDateProperty = DependencyProperty.Register(nameof(MinDate), typeof(DateTimeOffset?), typeof(LabelCalendar), new PropertyMetadata(null, MinDateChanged));
+        #endregion
+
+        #region MaxDate
+        public DateTimeOffset MaxDate
+        {
+            get { return (DateTimeOffset)GetValue(MaxDateProperty); }
+            set { SetValue(MaxDateProperty, value); }
+        }
+
+        public static readonly DependencyProperty MaxDateProperty = DependencyProperty.Register(nameof(MaxDate), typeof(DateTimeOffset), typeof(LabelCalendar), new PropertyMetadata(DateTimeOffset.MaxValue));
+        #endregion
+
         #region Mode*
         public TextEditMode Mode
         {
@@ -79,6 +113,7 @@ namespace VanArsdel.Inventory.Controls
             _calendar.Opened += OnOpened;
 
             UpdateMode();
+            SetMinDate();
         }
 
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)

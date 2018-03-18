@@ -9,9 +9,26 @@ namespace VanArsdel.Inventory.Models
         public long OrderID { get; set; }
         public long CustomerID { get; set; }
 
-        public DateTimeOffset OrderDate { get; set; }
-        public DateTimeOffset? ShippedDate { get; set; }
-        public DateTimeOffset? DeliveredDate { get; set; }
+        private DateTimeOffset _orderDate;
+        public DateTimeOffset OrderDate
+        {
+            get => _orderDate;
+            set => Set(ref _orderDate, value);
+        }
+
+        private DateTimeOffset? _shippedDate;
+        public DateTimeOffset? ShippedDate
+        {
+            get => _shippedDate;
+            set => Set(ref _shippedDate, value);
+        }
+
+        private DateTimeOffset? _deliveredDate;
+        public DateTimeOffset? DeliveredDate
+        {
+            get => _deliveredDate;
+            set => Set(ref _deliveredDate, value);
+        }
 
         private int _status;
         public int Status
@@ -35,15 +52,35 @@ namespace VanArsdel.Inventory.Models
 
         public bool IsNew => OrderID <= 0;
         public bool CanEditCustomer => IsNew && CustomerID <= 0;
-        public bool CanEditPaymentType => Status > 1;
+        public bool CanEditPayment => Status > 1;
         public bool CanEditShipping => Status > 2;
+        public bool CanEditDelivery => Status > 3;
 
         public string StatusDesc => DataHelper.GetOrderStatus(Status);
 
         private void UpdateStatusDependencies()
         {
-            NotifyPropertyChanged(nameof(CanEditPaymentType));
+            switch (Status)
+            {
+                case 1:
+                case 2:
+                    ShippedDate = null;
+                    DeliveredDate = null;
+                    break;
+                case 3:
+                    ShippedDate = ShippedDate ?? OrderDate;
+                    DeliveredDate = null;
+                    break;
+                case 4:
+                    ShippedDate = ShippedDate ?? OrderDate;
+                    DeliveredDate = DeliveredDate ?? ShippedDate ?? OrderDate;
+                    break;
+            }
+
+            NotifyPropertyChanged(nameof(StatusDesc));
+            NotifyPropertyChanged(nameof(CanEditPayment));
             NotifyPropertyChanged(nameof(CanEditShipping));
+            NotifyPropertyChanged(nameof(CanEditDelivery));
         }
 
         public override void Merge(ModelBase source)

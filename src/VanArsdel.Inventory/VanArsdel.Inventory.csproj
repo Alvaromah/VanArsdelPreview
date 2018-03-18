@@ -109,6 +109,7 @@
     <Compile Include="Controls\Buttons\IconLabelButton.cs" />
     <Compile Include="Controls\Inputs\InputCommon.cs" />
     <Compile Include="Controls\Inputs\LabelCalendar.cs" />
+    <Compile Include="Converters\DateTimeOffsetConverter.cs" />
     <Compile Include="Converters\BoolNegationConverter.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Views\Controls\CustomerSuggestBox.xaml.cs">

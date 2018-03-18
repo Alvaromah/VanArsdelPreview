@@ -153,7 +153,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Spacing="6">
-                            <!--<controls:LabelTextBox Label="BirthDate" Text="{x:Bind Item.BirthDate, Mode=TwoWay}" />-->
+                            <controls:LabelCalendar Label="BirthDate" Date="{x:Bind Item.BirthDate, Mode=TwoWay}" />
                             <controls:LabelTextBox Label="Education" Text="{x:Bind Item.Education, Mode=TwoWay}" />
                             <controls:LabelTextBox Label="YearlyIncome" Text="{x:Bind Item.YearlyIncome, Mode=TwoWay, Converter={StaticResource DecimalConverter}}" ValueType="Decimal" />
                             <controls:LabelTextBox Label="TotalChildren" Text="{x:Bind Item.TotalChildren, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
