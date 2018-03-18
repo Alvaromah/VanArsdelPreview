@@ -17,11 +17,12 @@
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" FalseValue="Collapsed" TrueValue="Visible" />
             <converters:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" FalseValue="Visible" TrueValue="Collapsed" />
 
+            <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+            <converters:DecimalConverter x:Key="DecimalConverter" />
+            <converters:DoubleConverter x:Key="DoubleConverter" />
             <converters:Int16Converter x:Key="Int16Converter" />
             <converters:Int32Converter x:Key="Int32Converter" />
             <converters:Int64Converter x:Key="Int64Converter" />
-            <converters:DecimalConverter x:Key="DecimalConverter" />
-            <converters:DoubleConverter x:Key="DoubleConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

@@ -79,7 +79,7 @@
                 <StackPanel Grid.Column="1" Spacing="6">
                     <controls:CustomerSuggestBox
                         DisplayText="{x:Bind Item.Customer.FullName, Mode=OneWay}"
-                        IsReadOnly="{x:Bind UIHelper.NOT(Item.CanEditCustomer), Mode=OneWay}"
+                        IsReadOnly="{x:Bind Item.CanEditCustomer, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
                         CustomerSelectedCommand="{x:Bind CustomerSelectedCommand}" />
                     <controls:LabelTextBox Label="Ship Address" Text="{x:Bind Item.ShipAddress, Mode=TwoWay}" />
                     <controls:LabelTextBox Label="Ship Postal Code" Text="{x:Bind Item.ShipPostalCode, Mode=TwoWay}" />
