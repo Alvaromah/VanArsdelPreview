@@ -8,29 +8,19 @@ using VanArsdel.Inventory.Animations;
 
 namespace VanArsdel.Inventory.Controls
 {
-    public sealed class LabelComboBox : Control, IInputControl
+    public class LabelCalendar : Control, IInputControl
     {
         public event RoutedEventHandler EnterFocus;
 
         private Grid _container = null;
-        private ComboBox _combo = null;
+        private CalendarDatePicker _calendar = null;
         private Border _border = null;
 
-        public LabelComboBox()
+        public LabelCalendar()
         {
-            DefaultStyleKey = typeof(LabelComboBox);
+            DefaultStyleKey = typeof(LabelCalendar);
             IsTabStop = false;
         }
-
-        #region ItemsSource
-        public object ItemsSource
-        {
-            get { return (object)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
-        }
-
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(object), typeof(LabelComboBox), new PropertyMetadata(null));
-        #endregion
 
         #region Label
         public string Label
@@ -39,37 +29,17 @@ namespace VanArsdel.Inventory.Controls
             set { SetValue(LabelProperty, value); }
         }
 
-        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register("Label", typeof(string), typeof(LabelComboBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(LabelCalendar), new PropertyMetadata(null));
         #endregion
 
-        #region SelectedValue
-        public object SelectedValue
+        #region Date
+        public DateTime Date
         {
-            get { return (object)GetValue(SelectedValueProperty); }
-            set { SetValue(SelectedValueProperty, value); }
+            get { return (DateTime)GetValue(DateProperty); }
+            set { SetValue(DateProperty, value); }
         }
 
-        public static readonly DependencyProperty SelectedValueProperty = DependencyProperty.Register("SelectedValue", typeof(object), typeof(LabelComboBox), new PropertyMetadata(null));
-        #endregion
-
-        #region SelectedValuePath
-        public string SelectedValuePath
-        {
-            get { return (string)GetValue(SelectedValuePathProperty); }
-            set { SetValue(SelectedValuePathProperty, value); }
-        }
-
-        public static readonly DependencyProperty SelectedValuePathProperty = DependencyProperty.Register("SelectedValuePath", typeof(string), typeof(LabelComboBox), new PropertyMetadata(null));
-        #endregion
-
-        #region DisplayMemberPath
-        public string DisplayMemberPath
-        {
-            get { return (string)GetValue(DisplayMemberPathProperty); }
-            set { SetValue(DisplayMemberPathProperty, value); }
-        }
-
-        public static readonly DependencyProperty DisplayMemberPathProperty = DependencyProperty.Register("DisplayMemberPath", typeof(string), typeof(LabelComboBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty DateProperty = DependencyProperty.Register(nameof(Date), typeof(DateTime), typeof(LabelCalendar), new PropertyMetadata(null));
         #endregion
 
         #region Mode*
@@ -81,16 +51,16 @@ namespace VanArsdel.Inventory.Controls
 
         private static void ModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var control = d as LabelComboBox;
+            var control = d as LabelCalendar;
             control.UpdateMode();
         }
 
-        public static readonly DependencyProperty ModeProperty = DependencyProperty.Register("Mode", typeof(TextEditMode), typeof(LabelComboBox), new PropertyMetadata(TextEditMode.Auto, ModeChanged));
+        public static readonly DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(TextEditMode), typeof(LabelCalendar), new PropertyMetadata(TextEditMode.Auto, ModeChanged));
         #endregion
 
         public void SetFocus()
         {
-            _combo?.Focus(FocusState.Programmatic);
+            _calendar?.Focus(FocusState.Programmatic);
         }
 
         protected override void OnApplyTemplate()
@@ -98,14 +68,17 @@ namespace VanArsdel.Inventory.Controls
             base.OnApplyTemplate();
 
             _container = base.GetTemplateChild("container") as Grid;
-            _combo = base.GetTemplateChild("combo") as ComboBox;
+            _calendar = base.GetTemplateChild("calendar") as CalendarDatePicker;
             _border = base.GetTemplateChild("border") as Border;
 
             _container.PointerEntered += OnPointerEntered;
             _container.PointerExited += OnPointerExited;
 
-            _combo.GotFocus += OnGotFocus;
-            _combo.LostFocus += OnLostFocus;
+            _calendar.GotFocus += OnGotFocus;
+            _calendar.LostFocus += OnLostFocus;
+            _calendar.Opened += OnOpened;
+
+            UpdateMode();
         }
 
         private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
@@ -138,24 +111,30 @@ namespace VanArsdel.Inventory.Controls
             }
         }
 
+        private void OnOpened(object sender, object e)
+        {
+            _border.Opacity = 1.0;
+            EnterFocus?.Invoke(this, new RoutedEventArgs());
+        }
+
         private void UpdateMode()
         {
-            if (_combo != null)
+            if (_calendar != null)
             {
                 switch (Mode)
                 {
                     case TextEditMode.ReadOnly:
-                        _combo.IsTabStop = false;
+                        _calendar.IsTabStop = false;
                         _border.IsHitTestVisible = true;
                         _border.Opacity = 0.0;
                         break;
                     case TextEditMode.Auto:
-                        _combo.IsTabStop = true;
+                        _calendar.IsTabStop = true;
                         _border.IsHitTestVisible = false;
                         _border.Opacity = 0.0;
                         break;
                     case TextEditMode.ReadWrite:
-                        _combo.IsTabStop = true;
+                        _calendar.IsTabStop = true;
                         _border.IsHitTestVisible = false;
                         _border.Opacity = 1.0;
                         break;

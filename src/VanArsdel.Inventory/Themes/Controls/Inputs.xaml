@@ -26,11 +26,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="controls:LabelTextBox">
                     <Grid x:Name="container" Background="Transparent">
-                        <TextBox x:Name="inputText" Padding="6,16,6,4" MaxLength="{TemplateBinding MaxLength}" FontSize="14" BorderThickness="0" Opacity="0.0"
-                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock x:Name="displayText" Padding="6,16,6,4" Text="{TemplateBinding FormattedText}" FontSize="14" IsHitTestVisible="False" />
-                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsHitTestVisible="False" />
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" IsHitTestVisible="False" Opacity="0.0" />
+                        <TextBox x:Name="inputText" Padding="6,16,6,2" MaxLength="{TemplateBinding MaxLength}" FontSize="14" BorderThickness="1" Opacity="0.0"
+                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock x:Name="displayText" Padding="7,17,6,2" Text="{TemplateBinding FormattedText}" FontSize="14" IsHitTestVisible="False" />
+                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsHitTestVisible="False" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -57,6 +57,22 @@
                             </AutoSuggestBox.TextBoxStyle>
                         </AutoSuggestBox>
                         <TextBlock x:Name="displayText" Padding="6,16,6,4" Text="{TemplateBinding DisplayText}" FontSize="14" IsHitTestVisible="False" />
+                        <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsHitTestVisible="False" />
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" IsHitTestVisible="False" Opacity="0.0" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:LabelCalendar">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Gainsboro" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:LabelCalendar">
+                    <Grid x:Name="container" Background="Transparent">
+                        <CalendarDatePicker x:Name="calendar" Date="{Binding Date}" Style="{StaticResource CalendarPickerStyle}" BorderThickness="0" HorizontalAlignment="Stretch" />
                         <TextBlock Margin="6,2" Text="{TemplateBinding Label}" FontSize="12" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" IsHitTestVisible="False" />
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" IsHitTestVisible="False" Opacity="0.0" />
                     </Grid>

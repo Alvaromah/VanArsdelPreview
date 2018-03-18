@@ -68,7 +68,7 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty ValueTypeProperty = DependencyProperty.Register("ValueType", typeof(TextValueType), typeof(LabelTextBox), new PropertyMetadata(TextValueType.String));
         #endregion
 
-        #region Mode
+        #region Mode*
         public TextEditMode Mode
         {
             get { return (TextEditMode)GetValue(ModeProperty); }
