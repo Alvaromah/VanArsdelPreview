@@ -45,7 +45,7 @@ namespace VanArsdel.Inventory
             return PaymentTypes.Where(r => r.PaymentTypeID == id).Select(r => r.Name).FirstOrDefault();
         }
 
-        public string Getshipper(int id)
+        public string GetShipper(int id)
         {
             return Shippers.Where(r => r.ShipperID == id).Select(r => r.Name).FirstOrDefault();
         }

@@ -66,6 +66,11 @@ namespace VanArsdel.Inventory.Models
         public string StatusDesc => DataHelper.GetOrderStatus(Status);
 
         public string OrderDateString => UIHelper.ToShortDate(OrderDate);
+        public string ShippedDateString => UIHelper.ToShortDate(ShippedDate);
+        public string DeliveredDateString => UIHelper.ToShortDate(DeliveredDate);
+
+        public string PaymentTypeDesc => DataHelper.GetPaymentType(PaymentType);
+        public string ShipViaDesc => ShipVia == null ? "N/A" : DataHelper.GetShipper(ShipVia.Value);
 
         private void UpdateStatusDependencies()
         {
