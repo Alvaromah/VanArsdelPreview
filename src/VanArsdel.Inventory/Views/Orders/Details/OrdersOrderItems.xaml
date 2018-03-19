@@ -63,6 +63,7 @@
 
     <Grid>
         <controls:DataList ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                           NewLabel="New Order Item"
                            SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
                            HeaderTemplate="{StaticResource HeaderTemplate}"
                            ItemTemplate="{StaticResource ItemTemplate}"

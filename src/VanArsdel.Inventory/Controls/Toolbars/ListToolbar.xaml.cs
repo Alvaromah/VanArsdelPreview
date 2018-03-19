@@ -19,6 +19,16 @@ namespace VanArsdel.Inventory.Controls
             UpdateControl();
         }
 
+        #region NewLabel
+        public string NewLabel
+        {
+            get { return (string)GetValue(NewLabelProperty); }
+            set { SetValue(NewLabelProperty, value); }
+        }
+
+        public static readonly DependencyProperty NewLabelProperty = DependencyProperty.Register(nameof(NewLabel), typeof(string), typeof(ListToolbar), new PropertyMetadata("New"));
+        #endregion
+
         #region ToolbarMode
         public ListToolbarMode ToolbarMode
         {

@@ -37,7 +37,7 @@ namespace VanArsdel.Inventory.ViewModels
             }
             else
             {
-                NavigationService.Main.Navigate(typeof(OrderView), new OrderItemViewState(ViewState.OrderID));
+                NavigationService.Main.Navigate(typeof(OrderItemView), new OrderItemViewState(ViewState.OrderID));
             }
         }
 
