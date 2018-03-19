@@ -51,12 +51,12 @@
                 </Border>
                 <TextBlock Grid.Column="1" Text="{x:Bind ProductID}" Style="{StaticResource ColumnValueStyle}" />
                 <TextBlock Grid.Column="2" Text="{x:Bind Product.Name}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="3" Text="{x:Bind OrderLine}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="4" Text="{x:Bind UnitPrice}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="5" Text="{x:Bind Quantity}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="6" Text="{x:Bind Discount}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="7" Text="{x:Bind Subtotal}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="8" Text="{x:Bind Total}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="3" Text="{x:Bind OrderLine, Mode=OneWay}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="4" Text="{x:Bind UnitPrice, Mode=OneWay}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="5" Text="{x:Bind Quantity, Mode=OneWay}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="6" Text="{x:Bind Discount, Mode=OneWay}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="7" Text="{x:Bind Subtotal, Mode=OneWay}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="8" Text="{x:Bind Total, Mode=OneWay}" Style="{StaticResource ColumnValueRightStyle}" />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>

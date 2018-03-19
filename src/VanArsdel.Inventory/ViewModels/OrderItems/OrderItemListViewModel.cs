@@ -21,7 +21,7 @@ namespace VanArsdel.Inventory.ViewModels
         {
             ViewState = state ?? OrderItemsViewState.CreateDefault();
             ApplyViewState(ViewState);
-            await base.RefreshAsync();
+            await RefreshAsync();
         }
 
         public void Unload()

@@ -44,7 +44,7 @@ namespace VanArsdel.Inventory.Views
 
         private void UpdateTitle()
         {
-            this.SetTitle($"OrderItems {ViewModel.OrderItemList.Title}".Trim());
+            this.SetTitle($"Order Items {ViewModel.OrderItemList.Title}".Trim());
         }
 
         private async void OnItemDeleted(object sender, EventArgs e)

@@ -11,13 +11,12 @@
 
     <UserControl.Resources>
         <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:CustomerDetailsViewModel">
-            <StackPanel Spacing="6" Margin="6">
+            <StackPanel Spacing="6" Margin="0,6">
                 <TextBlock Text="Personal Information" FontSize="16" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" />
                 <Grid ColumnSpacing="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" MaxWidth="400" />
                         <ColumnDefinition Width="*" MaxWidth="400" />
-                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Spacing="6">
                         <controls:LabelTextBox Label="First Name" Text="{x:Bind Item.FirstName, Mode=TwoWay}" />
@@ -37,7 +36,6 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" MaxWidth="400" />
                         <ColumnDefinition Width="*" MaxWidth="400" />
-                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Spacing="6">
                         <controls:LabelTextBox Label="Address Line 1" Text="{x:Bind Item.AddressLine1, Mode=TwoWay}" />
@@ -58,7 +56,6 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" MaxWidth="400" />
                         <ColumnDefinition Width="*" MaxWidth="400" />
-                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Spacing="6">
                         <controls:LabelCalendar Label="BirthDate" Date="{x:Bind Item.BirthDate, Mode=TwoWay}" />
@@ -84,10 +81,10 @@
         </Grid.ColumnDefinitions>
 
         <Grid Margin="6" Background="WhiteSmoke">
-            <views:CustomerCard Margin="6,12" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
+            <views:CustomerCard Margin="6" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
         </Grid>
 
-        <controls:Details x:Name="details" Grid.Column="1"
+        <controls:Details x:Name="details" Grid.Column="1" Margin="6"
                           DetailsContent="{x:Bind ViewModel}"
                           DetailsTemplate="{StaticResource DetailsTemplate}"
                           CanGoBack="{x:Bind ViewModel.CanGoBack}"

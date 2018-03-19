@@ -63,7 +63,7 @@ namespace VanArsdel.Inventory.ViewModels
         {
             using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
-                await Task.Delay(250);
+                await Task.Delay(100);
                 await dataProvider.UpdateOrderAsync(model);
                 Item.CanEditCustomer = false;
                 NotifyPropertyChanged(nameof(Title));

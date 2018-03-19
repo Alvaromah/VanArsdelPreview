@@ -11,7 +11,7 @@
 
     <UserControl.Resources>
         <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:OrderItemDetailsViewModel">
-            <Grid Margin="0,6" ColumnSpacing="6">
+            <Grid Margin="0,12,0,0" ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" MaxWidth="400" />
                     <ColumnDefinition Width="*" MaxWidth="400" />
@@ -44,7 +44,7 @@
             <views:OrderItemsCard Margin="6,12" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
         </Grid>
 
-        <controls:Details x:Name="details" Grid.Column="1" Margin="12,0,0,0"
+        <controls:Details x:Name="details" Grid.Column="1" Margin="6,0,0,0"
                           DetailsContent="{x:Bind ViewModel}"
                           DetailsTemplate="{StaticResource DetailsTemplate}"
                           IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
