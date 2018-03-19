@@ -59,7 +59,7 @@ namespace VanArsdel.Data.Services
             }
             else
             {
-                order.OrderID = UIDGenerator.Next();
+                order.OrderID = UIDGenerator.Next(4);
                 order.OrderDate = DateTime.UtcNow;
                 _dataSource.Entry(order).State = EntityState.Added;
             }
