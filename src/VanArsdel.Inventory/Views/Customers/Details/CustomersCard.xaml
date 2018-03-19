@@ -13,24 +13,32 @@
         <Rectangle Margin="6" />
         <Grid Margin="6,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Customer ID:" FontSize="14" FontWeight="SemiBold" />
             <TextBlock Grid.Column="1" Text="{x:Bind Item.CustomerID, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
         <Grid Margin="6,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Phone:" FontSize="14" FontWeight="SemiBold" />
+            <TextBlock Grid.Column="1" Text="{x:Bind Item.Phone, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+        </Grid>
+        <Grid Margin="6,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Created On:" FontSize="14" FontWeight="SemiBold" />
             <TextBlock Grid.Column="1" Text="{x:Bind Item.CreatedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
         <Grid Margin="6,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Last Update:" FontSize="14" FontWeight="SemiBold" />
             <TextBlock Grid.Column="1" Text="{x:Bind Item.LastModifiedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />

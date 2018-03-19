@@ -11,19 +11,14 @@
 
     <UserControl.Resources>
         <DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:CustomerDetailsViewModel">
-            <Grid Margin="0,6" ColumnSpacing="12">
+            <Grid Margin="0,6" ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="260"/>
                     <ColumnDefinition Width="*" MaxWidth="400" />
                     <ColumnDefinition Width="*" MaxWidth="400" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Background="WhiteSmoke">
-                    <views:CustomersCard Margin="6,12" Item="{x:Bind Item, Mode=OneWay}" />
-                </Grid>
-
-                <StackPanel Grid.Column="1" Spacing="6">
+                <StackPanel Grid.Column="0" Spacing="6">
                     <controls:LabelTextBox Label="First Name" Text="{x:Bind Item.FirstName, Mode=TwoWay}" />
                     <controls:LabelTextBox Label="Middle Name" Text="{x:Bind Item.MiddleName, Mode=TwoWay}" />
                     <controls:LabelTextBox Label="Last Name" Text="{x:Bind Item.LastName, Mode=TwoWay}" />
@@ -31,7 +26,7 @@
                     <controls:LabelTextBox Label="Phone" Text="{x:Bind Item.Phone, Mode=TwoWay}" />
                 </StackPanel>
 
-                <StackPanel Grid.Column="2" Spacing="6">
+                <StackPanel Grid.Column="1" Spacing="6">
                     <controls:LabelTextBox Label="Address" Text="{x:Bind Item.AddressLine1, Mode=TwoWay}" />
                     <controls:LabelTextBox Label="Postal Code" Text="{x:Bind Item.PostalCode, Mode=TwoWay}" />
                     <controls:LabelTextBox Label="City" Text="{x:Bind Item.City, Mode=TwoWay}" />
@@ -44,12 +39,23 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <controls:Details
-            DetailsContent="{x:Bind ViewModel}"
-            DetailsTemplate="{StaticResource DetailsTemplate}"
-            IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
-            EditCommand="{x:Bind ViewModel.EditCommand}"
-            DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
-            SaveCommand="{x:Bind ViewModel.SaveCommand}"
-            CancelCommand="{x:Bind ViewModel.CancelCommand}" />
+    <Grid ColumnSpacing="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Margin="6" Background="WhiteSmoke">
+            <views:CustomersCard Margin="6,12" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
+        </Grid>
+
+        <controls:Details x:Name="details" Grid.Column="1"
+                          DetailsContent="{x:Bind ViewModel}"
+                          DetailsTemplate="{StaticResource DetailsTemplate}"
+                          IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
+                          EditCommand="{x:Bind ViewModel.EditCommand}"
+                          DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
+                          SaveCommand="{x:Bind ViewModel.SaveCommand}"
+                          CancelCommand="{x:Bind ViewModel.CancelCommand}" />
+    </Grid>
 </UserControl>

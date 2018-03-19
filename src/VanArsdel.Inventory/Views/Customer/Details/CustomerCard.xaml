@@ -10,18 +10,24 @@
         <PersonPicture Margin="12" ProfilePicture="{x:Bind Item.PictureBitmap, Mode=OneWay}" Initials="{x:Bind Item.Initials, Mode=OneWay}" Width="132" Height="132" />
         <TextBlock Text="{x:Bind Item.FullName, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="18" FontWeight="SemiBold" IsTextSelectionEnabled="True" Foreground="Black" />
         <TextBlock Text="{x:Bind Item.EmailAddress, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
-        <TextBlock Text="{x:Bind Item.Phone, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
 
         <TextBlock Margin="6,0" Text="General" />
-        <Rectangle Margin="6,0" Fill="LightGray" Height="1" />
-
-        <Grid Margin="6,0">
+        <Rectangle Margin="6,2" Fill="LightGray" Height="1" />
+        <Grid Margin="6,2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Customer ID:" FontSize="14" FontWeight="SemiBold" />
             <TextBlock Grid.Column="1" Text="{x:Bind Item.CustomerID, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+        </Grid>
+        <Grid Margin="6,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Phone:" FontSize="14" FontWeight="SemiBold" />
+            <TextBlock Grid.Column="1" Text="{x:Bind Item.Phone, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
         <Grid Margin="6,0">
             <Grid.ColumnDefinitions>
@@ -40,12 +46,11 @@
             <TextBlock Grid.Column="1" Text="{x:Bind Item.LastModifiedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
 
-        <Rectangle Margin="6" />
+        <Rectangle Margin="12" />
 
         <TextBlock Margin="6,0" Text="Address" />
-        <Rectangle Margin="6,0" Fill="LightGray" Height="1" />
-        
-        <Grid Margin="6,0">
+        <Rectangle Margin="6,2" Fill="LightGray" Height="1" />
+        <Grid Margin="6,2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>

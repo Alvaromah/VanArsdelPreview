@@ -8,9 +8,8 @@
 
     <StackPanel Spacing="2">
         <TextBlock Margin="6,0" Text="Order" />
-        <Rectangle Margin="6,0" Fill="LightGray" Height="1" />
-
-        <Grid Margin="6,0">
+        <Rectangle Margin="6,2" Fill="LightGray" Height="1" />
+        <Grid Margin="6,2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
@@ -36,12 +35,12 @@
             <TextBlock Grid.Column="1" Text="{x:Bind Item.OrderDateString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
 
-        <Rectangle Margin="6" />
+        <Rectangle Margin="12" />
 
         <TextBlock Margin="6,0" Text="Customer" />
-        <Rectangle Margin="6,0" Fill="LightGray" Height="1" />
+        <Rectangle Margin="6,2" Fill="LightGray" Height="1" />
 
-        <Grid Margin="6">
+        <Grid Margin="6,2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>
@@ -72,12 +71,11 @@
             <TextBlock Grid.Column="1" Text="{x:Bind Item.Customer.Phone, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
 
-        <Rectangle Margin="6" />
+        <Rectangle Margin="12" />
 
-        <TextBlock Margin="6,0" Text="Payment and Shipment" />
-        <Rectangle Margin="6,0" Fill="LightGray" Height="1" />
-
-        <Grid Margin="6,0">
+        <TextBlock Margin="6,0" Text="Shipment" />
+        <Rectangle Margin="6,2" Fill="LightGray" Height="1" />
+        <Grid Margin="6,2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
