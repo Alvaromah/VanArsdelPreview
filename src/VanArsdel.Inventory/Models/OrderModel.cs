@@ -51,7 +51,14 @@ namespace VanArsdel.Inventory.Models
         public CustomerModel Customer { get; set; }
 
         public bool IsNew => OrderID <= 0;
-        public bool CanEditCustomer => IsNew;
+
+        private bool _canEditCustomer = false;
+        public bool CanEditCustomer
+        {
+            get => _canEditCustomer;
+            set => Set(ref _canEditCustomer, value);
+        }
+
         public bool CanEditPayment => Status > 1;
         public bool CanEditShipping => Status > 2;
         public bool CanEditDelivery => Status > 3;

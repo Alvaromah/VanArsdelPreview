@@ -52,6 +52,10 @@ namespace VanArsdel.Inventory.ViewModels
                     Item = await dp.CreateNewOrderAsync(state.CustomerID);
                     IsEditMode = true;
                 }
+                if (Item != null)
+                {
+                    Item.CanEditCustomer = state.CustomerID <= 0;
+                }
             }
         }
 
@@ -61,6 +65,7 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await Task.Delay(250);
                 await dataProvider.UpdateOrderAsync(model);
+                Item.CanEditCustomer = false;
                 NotifyPropertyChanged(nameof(Title));
                 NotifyPropertyChanged(nameof(IsNewItem));
             }
