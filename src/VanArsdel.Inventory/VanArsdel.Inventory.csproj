@@ -219,6 +219,12 @@
     <Compile Include="Views\Common\CommonView.xaml.cs">
       <DependentUpon>CommonView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Customer\Details\CustomerCard.xaml.cs">
+      <DependentUpon>CustomerCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customers\Details\CustomersCard.xaml.cs">
+      <DependentUpon>CustomersCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customers\Details\CustomersDetails.xaml.cs">
       <DependentUpon>CustomersDetails.xaml</DependentUpon>
     </Compile>
@@ -391,6 +397,14 @@
     <Page Include="Views\Common\CommonView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Customer\Details\CustomerCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Customers\Details\CustomersCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customers\Details\CustomersDetails.xaml">
       <SubType>Designer</SubType>

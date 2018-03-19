@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:VanArsdel.Inventory.Controls"
+    xmlns:views="using:VanArsdel.Inventory.Views"
     xmlns:viewmodels="using:VanArsdel.Inventory.ViewModels"
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
 
@@ -17,86 +18,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Margin="6" Background="WhiteSmoke">
-                    <StackPanel Margin="6,12" Spacing="2">
-                        <PersonPicture Margin="12" ProfilePicture="{x:Bind Item.PictureBitmap, Mode=OneWay}" Initials="{x:Bind Item.Initials, Mode=OneWay}" Width="132" Height="132" />
-                        <TextBlock Text="{x:Bind Item.FullName, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="18" FontWeight="SemiBold" IsTextSelectionEnabled="True" Foreground="Black" />
-                        <TextBlock Text="{x:Bind Item.EmailAddress, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
-                        <TextBlock Text="{x:Bind Item.Phone, Mode=OneWay}" TextAlignment="Center" TextWrapping="WrapWholeWords" HorizontalAlignment="Stretch" FontSize="14" IsTextSelectionEnabled="True" />
-                        <Rectangle Margin="12" />
-                        <Grid Margin="6,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Customer ID:" FontSize="14" FontWeight="SemiBold" />
-                            <TextBlock Grid.Column="1" Text="{x:Bind Item.CustomerID, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
-                        </Grid>
-                        <Grid Margin="6,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Created On:" FontSize="14" FontWeight="SemiBold" />
-                            <TextBlock Grid.Column="1" Text="{x:Bind Item.CreatedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
-                        </Grid>
-                        <Grid Margin="6,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Last Update:" FontSize="14" FontWeight="SemiBold" />
-                            <TextBlock Grid.Column="1" Text="{x:Bind Item.LastModifiedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
-                        </Grid>
-                        <Rectangle Margin="6" />
-                        <Grid Margin="6,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Address Line 1:" FontSize="14" FontWeight="SemiBold" />
-                            <TextBlock Grid.Column="1" Text="{x:Bind Item.AddressLine1, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" TextWrapping="WrapWholeWords" />
-                        </Grid>
-                        <Grid Margin="6,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Address Line 2:" FontSize="14" FontWeight="SemiBold" />
-                            <TextBlock Grid.Column="1" Text="{x:Bind Item.AddressLine2, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" TextWrapping="WrapWholeWords" />
-                        </Grid>
-                        <Grid Margin="6,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="City:" FontSize="14" FontWeight="SemiBold" />
-                            <TextBlock Grid.Column="1" Text="{x:Bind Item.City, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
-                        </Grid>
-                        <Grid Margin="6,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Postal Code:" FontSize="14" FontWeight="SemiBold" />
-                            <TextBlock Grid.Column="1" Text="{x:Bind Item.PostalCode, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
-                        </Grid>
-                        <Grid Margin="6,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Region:" FontSize="14" FontWeight="SemiBold" />
-                            <TextBlock Grid.Column="1" Text="{x:Bind Item.Region, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
-                        </Grid>
-                        <Grid Margin="6,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Country:" FontSize="14" FontWeight="SemiBold" />
-                            <TextBlock Grid.Column="1" Text="{x:Bind Item.CountryName, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
-                        </Grid>
-                    </StackPanel>
+                    <views:CustomerCard Margin="6,12" Item="{x:Bind Item, Mode=OneWay}" />
                 </Grid>
 
                 <StackPanel Grid.Column="1" Spacing="6">
@@ -154,16 +76,15 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Spacing="6">
                             <controls:LabelCalendar Label="BirthDate" Date="{x:Bind Item.BirthDate, Mode=TwoWay}" />
+                            <controls:LabelTextBox Label="Occupation" Text="{x:Bind Item.Occupation, Mode=TwoWay}" />
                             <controls:LabelTextBox Label="Education" Text="{x:Bind Item.Education, Mode=TwoWay}" />
                             <controls:LabelTextBox Label="YearlyIncome" Text="{x:Bind Item.YearlyIncome, Mode=TwoWay, Converter={StaticResource DecimalConverter}}" ValueType="Decimal" />
-                            <controls:LabelTextBox Label="TotalChildren" Text="{x:Bind Item.TotalChildren, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
-                            <controls:LabelTextBox Label="NumberCarsOwned" Text="{x:Bind Item.NumberCarsOwned, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Spacing="6">
-                            <controls:LabelTextBox Label="Occupation" Text="{x:Bind Item.Occupation, Mode=TwoWay}" />
+                            <controls:LabelTextBox Label="NumberCarsOwned" Text="{x:Bind Item.NumberCarsOwned, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
                             <controls:LabelTextBox Label="MaritalStatus" Text="{x:Bind Item.MaritalStatus, Mode=TwoWay}" />
+                            <controls:LabelTextBox Label="TotalChildren" Text="{x:Bind Item.TotalChildren, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
                             <controls:LabelTextBox Label="ChildrenAtHome" Text="{x:Bind Item.ChildrenAtHome, Mode=TwoWay, Converter={StaticResource Int32Converter}}" ValueType="Int32" />
-                            <!--<controls:LabelTextBox Label="IsHouseOwner" Text="{x:Bind Item.IsHouseOwner, Mode=TwoWay}" />-->
                         </StackPanel>
                     </Grid>
                 </StackPanel>
