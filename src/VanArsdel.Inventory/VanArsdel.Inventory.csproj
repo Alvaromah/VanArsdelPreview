@@ -270,6 +270,9 @@
     <Compile Include="Views\OrderItem\OrderItemView.xaml.cs">
       <DependentUpon>OrderItemView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Orders\Details\OrdersCard.xaml.cs">
+      <DependentUpon>OrdersCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Orders\Details\OrdersOrderItems.xaml.cs">
       <DependentUpon>OrdersOrderItems.xaml</DependentUpon>
     </Compile>
@@ -456,6 +459,10 @@
     <Page Include="Views\OrderItem\OrderItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Orders\Details\OrdersCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Orders\Details\OrdersOrderItems.xaml">
       <SubType>Designer</SubType>

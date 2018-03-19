@@ -65,6 +65,8 @@ namespace VanArsdel.Inventory.Models
 
         public string StatusDesc => DataHelper.GetOrderStatus(Status);
 
+        public string OrderDateString => UIHelper.ToShortDate(OrderDate);
+
         private void UpdateStatusDependencies()
         {
             switch (Status)
