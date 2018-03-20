@@ -44,10 +44,10 @@ namespace VanArsdel.Inventory.ViewModels
             switch (item)
             {
                 case "Customers":
-                    NavigateTo(KnownNavigationItems.Customers);
+                    NavigateTo(KnownNavigationItems.Customers, new CustomersViewState { OrderByDesc = r => r.CreatedOn });
                     break;
                 case "Orders":
-                    NavigateTo(KnownNavigationItems.Orders);
+                    NavigateTo(KnownNavigationItems.Orders, new OrdersViewState { OrderByDesc = r => r.OrderDate });
                     break;
                 default:
                     break;
@@ -76,8 +76,7 @@ namespace VanArsdel.Inventory.ViewModels
             var request = new PageRequest<Customer>
             {
                 PageSize = 5,
-                OrderBy = (r) => r.CreatedOn,
-                Descending = true
+                OrderByDesc = r => r.CreatedOn
             };
             var page = await dataProvider.GetCustomersAsync(request);
             Customers = page.Items;
@@ -88,8 +87,7 @@ namespace VanArsdel.Inventory.ViewModels
             var request = new PageRequest<Product>
             {
                 PageSize = 5,
-                OrderBy = (r) => r.CreatedOn,
-                Descending = true
+                OrderByDesc = r => r.CreatedOn
             };
             var page = await dataProvider.GetProductsAsync(request);
             Products = page.Items;
@@ -100,8 +98,7 @@ namespace VanArsdel.Inventory.ViewModels
             var request = new PageRequest<Order>
             {
                 PageSize = 5,
-                OrderBy = (r) => r.OrderDate,
-                Descending = true
+                OrderByDesc = r => r.OrderDate
             };
             var page = await dataProvider.GetOrdersAsync(request);
             Orders = page.Items;

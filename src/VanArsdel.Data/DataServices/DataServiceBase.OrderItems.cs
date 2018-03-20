@@ -34,7 +34,11 @@ namespace VanArsdel.Data.Services
                 // Order By
                 if (request.OrderBy != null)
                 {
-                    items = request.Descending ? items.OrderByDescending(request.OrderBy) : items.OrderBy(request.OrderBy);
+                    items = items.OrderBy(request.OrderBy);
+                }
+                if (request.OrderByDesc != null)
+                {
+                    items = items.OrderByDescending(request.OrderByDesc);
                 }
 
                 // Execute

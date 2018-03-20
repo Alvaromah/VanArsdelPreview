@@ -46,7 +46,8 @@ namespace VanArsdel.Inventory.ViewModels
             var request = new PageRequest<Customer>(PageIndex, PageSize)
             {
                 Query = Query,
-                OrderBy = r => r.FirstName
+                OrderBy = ViewState.OrderBy,
+                OrderByDesc = ViewState.OrderByDesc
             };
             return await dataProvider.GetCustomersAsync(request);
         }

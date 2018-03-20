@@ -48,8 +48,8 @@ namespace VanArsdel.Inventory.ViewModels
             var request = new PageRequest<Order>(PageIndex, PageSize)
             {
                 Query = Query,
-                OrderBy = r => r.OrderDate,
-                Descending = true
+                OrderBy = ViewState.OrderBy,
+                OrderByDesc = ViewState.OrderByDesc
             };
             if (ViewState.CustomerID > 0)
             {

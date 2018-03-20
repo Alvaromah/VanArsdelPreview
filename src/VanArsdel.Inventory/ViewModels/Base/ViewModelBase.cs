@@ -16,15 +16,15 @@ namespace VanArsdel.Inventory
         virtual public string Title => String.Empty;
 
         // TODO: Move to Navigation
-        public void NavigateTo(NavigationItem item)
+        public void NavigateTo(NavigationItem item, object parameter = null)
         {
             switch (item.Page.Name)
             {
                 case nameof(CustomersView):
-                    NavigationService.Shell.Navigate(item.Page, CustomersViewState.CreateDefault());
+                    NavigationService.Shell.Navigate(item.Page, parameter ?? CustomersViewState.CreateDefault());
                     break;
                 case nameof(OrdersView):
-                    NavigationService.Shell.Navigate(item.Page, OrdersViewState.CreateDefault());
+                    NavigationService.Shell.Navigate(item.Page, parameter ?? OrdersViewState.CreateDefault());
                     break;
                 default:
                     NavigationService.Shell.Navigate(item.Page, item.Label);

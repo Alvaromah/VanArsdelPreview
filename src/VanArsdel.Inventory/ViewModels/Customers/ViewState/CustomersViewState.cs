@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq.Expressions;
+
+using VanArsdel.Data;
 
 namespace VanArsdel.Inventory.ViewModels
 {
@@ -6,8 +9,12 @@ namespace VanArsdel.Inventory.ViewModels
     {
         static public CustomersViewState CreateDefault() => new CustomersViewState();
 
-        private CustomersViewState()
+        public CustomersViewState()
         {
+            OrderBy = r => r.FirstName;
         }
+
+        public Expression<Func<Customer, object>> OrderBy { get; set; }
+        public Expression<Func<Customer, object>> OrderByDesc { get; set; }
     }
 }
