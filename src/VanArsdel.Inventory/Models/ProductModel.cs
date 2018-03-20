@@ -38,5 +38,10 @@ namespace VanArsdel.Inventory.Models
 
         public byte[] Thumbnail { get; set; }
         public BitmapImage ThumbnailBitmap { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

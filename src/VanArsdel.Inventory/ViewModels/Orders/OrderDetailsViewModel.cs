@@ -36,7 +36,7 @@ namespace VanArsdel.Inventory.ViewModels
             Item.ShipPostalCode = customer.PostalCode;
             Item.Customer = customer;
 
-            NotifyPropertyChanged(nameof(Item));
+            Item.NotifyChanges();
         }
 
         public async Task LoadAsync(OrderViewState state)

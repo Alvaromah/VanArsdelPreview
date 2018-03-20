@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 using VanArsdel.Inventory.Models;
 using VanArsdel.Inventory.Providers;
@@ -20,6 +21,16 @@ namespace VanArsdel.Inventory.ViewModels
         public override bool IsNewItem => Item?.IsNew ?? false;
 
         public long OrderID { get; set; }
+
+        public ICommand ProductSelectedCommand => new RelayCommand<ProductModel>(ProductSelected);
+        private void ProductSelected(ProductModel product)
+        {
+            Item.ProductID = product.ProductID;
+            Item.UnitPrice = product.ListPrice;
+            Item.Product = product;
+
+            Item.NotifyChanges();
+        }
 
         protected override void ItemUpdated()
         {

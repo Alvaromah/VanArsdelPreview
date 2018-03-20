@@ -109,9 +109,13 @@
     <Compile Include="Controls\Buttons\IconLabelButton.cs" />
     <Compile Include="Controls\Inputs\InputCommon.cs" />
     <Compile Include="Controls\Inputs\LabelCalendar.cs" />
+    <Compile Include="Converters\DateTimeFormatConverter.cs" />
     <Compile Include="Converters\DateTimeOffsetConverter.cs" />
     <Compile Include="Converters\BoolNegationConverter.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Views\Controls\ProductSuggestBox.xaml.cs">
+      <DependentUpon>ProductSuggestBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\CustomerSuggestBox.xaml.cs">
       <DependentUpon>CustomerSuggestBox.xaml</DependentUpon>
     </Compile>
@@ -338,6 +342,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\Controls\ProductSuggestBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Controls\CustomerSuggestBox.xaml">
       <SubType>Designer</SubType>
