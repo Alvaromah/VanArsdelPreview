@@ -43,7 +43,7 @@
                         <controls:LabelCalendar Label="Shipped Date" Date="{x:Bind Item.ShippedDate, Mode=TwoWay}"
                                             MinDate="{x:Bind Item.OrderDate, Mode=OneWay, Converter={StaticResource DateTimeOffsetConverter}}"
                                             Visibility="{x:Bind Item.CanEditShipping, Mode=OneWay}"/>
-                        <controls:LabelComboBox Label="Ship Via" ItemsSource="{x:Bind DataHelper.Shippers}"
+                        <controls:LabelComboBox Label="Shipper" ItemsSource="{x:Bind DataHelper.Shippers}"
                                             SelectedValue="{x:Bind Item.ShipVia, Mode=TwoWay, Converter={StaticResource Int32Converter}}" SelectedValuePath="ShipperID" DisplayMemberPath="Name"
                                             Visibility="{x:Bind Item.CanEditShipping, Mode=OneWay}"/>
                         <controls:LabelCalendar Label="Delivered Date" Date="{x:Bind Item.DeliveredDate, Mode=TwoWay}"

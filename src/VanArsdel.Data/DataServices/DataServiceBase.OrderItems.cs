@@ -63,6 +63,7 @@ namespace VanArsdel.Data.Services
             }
             else
             {
+                // TODOX: Sequence contains no items exception
                 orderItem.OrderLine = _dataSource.OrderItems.Where(r => r.OrderID == orderItem.OrderID).Max(r => r.OrderLine) + 1;
                 // TODO: 
                 //orderItem.CreateOn = DateTime.UtcNow;

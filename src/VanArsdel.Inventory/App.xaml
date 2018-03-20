@@ -18,6 +18,7 @@
             <converters:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" FalseValue="Visible" TrueValue="Collapsed" />
 
             <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+            <converters:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
             <converters:DateTimeOffsetConverter x:Key="DateTimeOffsetConverter" />
             <converters:DecimalConverter x:Key="DecimalConverter" />
             <converters:DoubleConverter x:Key="DoubleConverter" />

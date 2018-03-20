@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Order Date:" FontSize="14" FontWeight="SemiBold" />
-            <TextBlock Grid.Column="1" Text="{x:Bind Item.OrderDateString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+            <TextBlock Grid.Column="1" Text="{x:Bind Item.OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
 
         <Rectangle Margin="12" />
@@ -89,7 +89,7 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="ShipVia:" FontSize="14" FontWeight="SemiBold" />
+            <TextBlock Grid.Column="0" Text="Shipper:" FontSize="14" FontWeight="SemiBold" />
             <TextBlock Grid.Column="1" Text="{x:Bind Item.ShipViaDesc, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
 
@@ -99,7 +99,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Shipped Date:" FontSize="14" FontWeight="SemiBold" />
-            <TextBlock Grid.Column="1" Text="{x:Bind Item.ShippedDateString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+            <TextBlock Grid.Column="1" Text="{x:Bind Item.ShippedDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
 
         <Grid Margin="6,0">
@@ -107,8 +107,8 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="DeliveredDate:" FontSize="14" FontWeight="SemiBold" />
-            <TextBlock Grid.Column="1" Text="{x:Bind Item.DeliveredDateString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+            <TextBlock Grid.Column="0" Text="Delivered Date:" FontSize="14" FontWeight="SemiBold" />
+            <TextBlock Grid.Column="1" Text="{x:Bind Item.DeliveredDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
 
     </StackPanel>

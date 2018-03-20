@@ -30,7 +30,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="{x:Bind OrderID}" Style="{StaticResource ColumnValueStyle}" />
                 <TextBlock Grid.Column="1" Text="{x:Bind CustomerID}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="2" Text="{x:Bind UIHelper.ToShortDate(OrderDate)}" Style="{StaticResource ColumnValueStyle}" />
+                <TextBlock Grid.Column="2" Text="{x:Bind OrderDate, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource ColumnValueStyle}" />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>

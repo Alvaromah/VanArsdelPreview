@@ -46,8 +46,6 @@ namespace VanArsdel.Inventory.Models
         public string FullName => $"{FirstName} {LastName}";
         public string Initials => String.Format("{0}{1}", $"{FirstName} "[0], $"{LastName} "[0]).Trim().ToUpper();
         public string CountryName => DataHelper.GetCountry(CountryCode);
-        public string CreatedOnString => UIHelper.ToShortDate(CreatedOn);
-        public string LastModifiedOnString => UIHelper.ToShortDate(LastModifiedOn);
 
         public override void Merge(ModelBase source)
         {

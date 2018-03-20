@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Order Date:" FontSize="14" FontWeight="SemiBold" />
-            <TextBlock Grid.Column="1" Text="{x:Bind Item.OrderDateString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+            <TextBlock Grid.Column="1" Text="{x:Bind Item.OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
 
         <Rectangle Margin="6" />

@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Created On:" FontSize="14" FontWeight="SemiBold" />
-            <TextBlock Grid.Column="1" Text="{x:Bind Item.CreatedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+            <TextBlock Grid.Column="1" Text="{x:Bind Item.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
         <Grid Margin="6,0">
             <Grid.ColumnDefinitions>
@@ -41,7 +41,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Last Update:" FontSize="14" FontWeight="SemiBold" />
-            <TextBlock Grid.Column="1" Text="{x:Bind Item.LastModifiedOnString, Mode=OneWay}" IsTextSelectionEnabled="True" FontSize="14" />
+            <TextBlock Grid.Column="1" Text="{x:Bind Item.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" IsTextSelectionEnabled="True" FontSize="14" />
         </Grid>
     </StackPanel>
 </UserControl>
