@@ -88,8 +88,15 @@ namespace VanArsdel.Inventory.ViewModels
         {
             get
             {
-                // TODO: 
-                yield break;
+                yield return new RequiredGreaterThanZeroConstraint<OrderModel>("Customer", m => m.CustomerID);
+                if (Item.Status > 1)
+                {
+                    yield return new RequiredGreaterThanZeroConstraint<OrderModel>("Payment Type", m => m.PaymentType);
+                    if (Item.Status > 2)
+                    {
+                        yield return new RequiredGreaterThanZeroConstraint<OrderModel>("Shipper", m => m.ShipVia);
+                    }
+                }
             }
         }
     }

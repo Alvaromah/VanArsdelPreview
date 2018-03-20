@@ -71,6 +71,7 @@ namespace VanArsdel.Inventory.ViewModels
                 yield return new RequiredConstraint<CustomerModel>("Address Line 1", m => m.AddressLine1);
                 yield return new RequiredConstraint<CustomerModel>("City", m => m.City);
                 yield return new RequiredConstraint<CustomerModel>("Region", m => m.Region);
+                yield return new RequiredConstraint<CustomerModel>("Postal Code", m => m.PostalCode);
                 yield return new RequiredConstraint<CustomerModel>("Country", m => m.CountryCode);
             }
         }

@@ -81,8 +81,12 @@ namespace VanArsdel.Inventory.ViewModels
         {
             get
             {
-                // TODO: 
-                yield break;
+                yield return new RequiredConstraint<OrderItemModel>("Product", m => m.ProductID);
+                yield return new NonZeroConstraint<OrderItemModel>("Quantity", m => m.Quantity);
+                yield return new PositiveConstraint<OrderItemModel>("Quantity", m => m.Quantity);
+                yield return new LessThanConstraint<OrderItemModel>("Quantity", m => m.Quantity, 100);
+                yield return new PositiveConstraint<OrderItemModel>("Discount", m => m.Discount);
+                yield return new NonGreaterThanConstraint<OrderItemModel>("Discount", m => m.Discount, (double)Item.Subtotal, "'Subtotal'");
             }
         }
     }

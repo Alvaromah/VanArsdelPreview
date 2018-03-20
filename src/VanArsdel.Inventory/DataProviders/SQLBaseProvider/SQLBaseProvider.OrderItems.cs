@@ -76,6 +76,7 @@ namespace VanArsdel.Inventory.Providers
 
         private void UpdateOrderItemFromModel(OrderItem target, OrderItemModel source)
         {
+            target.OrderID = source.OrderID;
             target.OrderLine = source.OrderLine;
             target.ProductID = source.ProductID;
             target.Quantity = source.Quantity;
