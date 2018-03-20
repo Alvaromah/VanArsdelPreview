@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 using Windows.UI.Xaml;
@@ -15,7 +16,6 @@ namespace VanArsdel.Inventory.Views
         public CustomerView()
         {
             ViewModel = new CustomerDetailsViewModel(new DataProviderFactory());
-            ViewModel.ItemDeleted += OnItemDeleted;
             InitializeComponent();
         }
 
@@ -25,10 +25,13 @@ namespace VanArsdel.Inventory.Views
         {
             NavigationService.Main.HideBackButton();
 
+            ViewModel.PropertyChanged += OnPropertyChanged;
+            ViewModel.ItemDeleted += OnItemDeleted;
+
             var state = e.Parameter as CustomerViewState;
             state = state ?? CustomerViewState.CreateDefault();
             await ViewModel.LoadAsync(state);
-            this.SetTitle(ViewModel.Title);
+            UpdateTitle();
 
             if (state.IsNew)
             {
@@ -37,6 +40,16 @@ namespace VanArsdel.Inventory.Views
             }
 
             Bindings.Update();
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            UpdateTitle();
+        }
+
+        private void UpdateTitle()
+        {
+            this.SetTitle(ViewModel.Title);
         }
 
         private async void OnItemDeleted(object sender, EventArgs e)
