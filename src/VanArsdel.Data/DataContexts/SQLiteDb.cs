@@ -10,8 +10,6 @@ namespace VanArsdel.Data.Services
 
         public SQLiteDb(string connectionString)
         {
-            // TODO: Remove default connection string
-            connectionString = connectionString ?? "Data Source=VanArsdel.db";
             _connectionString = connectionString;
         }
 

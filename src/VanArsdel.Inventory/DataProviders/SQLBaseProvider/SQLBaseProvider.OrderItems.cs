@@ -53,25 +53,10 @@ namespace VanArsdel.Inventory.Providers
                 Quantity = source.Quantity,
                 UnitPrice = source.UnitPrice,
                 Discount = source.Discount,
-                TaxType = FixTaxType(source.TaxType),
+                TaxType = source.TaxType,
                 Product = await CreateProductModelAsync(source.Product, includeAllFields)
             };
             return model;
-        }
-
-        // NOTE: Database contains wrong OrderItem.TaxTypes (0,1,2) while correct values are (0, 10, 21)
-        // TODO: Remove when Database get fixed with correct data
-        private int FixTaxType(int taxType)
-        {
-            switch (taxType)
-            {
-                case 1:
-                    return 10;
-                case 2:
-                    return 21;
-                default:
-                    return taxType;
-            }
         }
 
         private void UpdateOrderItemFromModel(OrderItem target, OrderItemModel source)

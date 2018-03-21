@@ -7,8 +7,8 @@ namespace VanArsdel.Inventory.Providers
         public IDataProvider CreateDataProvider()
         {
             // TODO: Return selected DataProvider in configuration
-            // TODO: Get connection string from AppSettings
-            return new SQLiteDataProvider(null);
+            return new SQLiteDataProvider(AppSettings.SQLiteConnectionString);
+            //return new SQLServerDataProvider(AppSettings.SQLServerConnectionString);
         }
     }
 }

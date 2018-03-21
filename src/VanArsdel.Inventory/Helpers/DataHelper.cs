@@ -40,14 +40,14 @@ namespace VanArsdel.Inventory
             return OrderStatus.Where(r => r.Status == id).Select(r => r.Name).FirstOrDefault();
         }
 
-        public string GetPaymentType(int id)
+        public string GetPaymentType(int? id)
         {
-            return PaymentTypes.Where(r => r.PaymentTypeID == id).Select(r => r.Name).FirstOrDefault();
+            return id == null ? "" : PaymentTypes.Where(r => r.PaymentTypeID == id).Select(r => r.Name).FirstOrDefault();
         }
 
-        public string GetShipper(int id)
+        public string GetShipper(int? id)
         {
-            return Shippers.Where(r => r.ShipperID == id).Select(r => r.Name).FirstOrDefault();
+            return id == null ? "" : Shippers.Where(r => r.ShipperID == id).Select(r => r.Name).FirstOrDefault();
         }
 
         public string GetTaxDesc(int id)

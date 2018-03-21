@@ -17,7 +17,6 @@ namespace VanArsdel.Inventory
         public App()
         {
             InitializeComponent();
-            InitializeDatabase();
 
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 840);
@@ -25,7 +24,7 @@ namespace VanArsdel.Inventory
 
         public Type EntryPage => typeof(ShellView);
 
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             var frame = Window.Current.Content as Frame;
 
@@ -37,6 +36,7 @@ namespace VanArsdel.Inventory
 
             if (e.PrelaunchActivated == false)
             {
+                await Startup.ConfigureAsync();
                 if (frame.Content == null)
                 {
                     var state = new MainViewState

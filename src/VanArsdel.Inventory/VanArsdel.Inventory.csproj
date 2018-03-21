@@ -99,6 +99,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppSettings\AppSettings.cs" />
     <Compile Include="Common\GridLengths.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\Result.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Converters\DateTimeOffsetConverter.cs" />
     <Compile Include="Converters\BoolNegationConverter.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="Views\Controls\ProductSuggestBox.xaml.cs">
       <DependentUpon>ProductSuggestBox.xaml</DependentUpon>
     </Compile>
@@ -161,7 +163,7 @@
     <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.Products.cs" />
     <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.Orders.cs" />
     <Compile Include="DataProviders\SQLiteProvider\SQLiteDataProvider.cs" />
-    <Compile Include="DataProviders\SQLServerProvider\SQLServerProvider.cs" />
+    <Compile Include="DataProviders\SQLServerProvider\SQLServerDataProvider.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
     <Compile Include="Extensions\ICommandExtensions.cs" />
     <Compile Include="Extensions\PageExtensions.cs" />
@@ -559,9 +561,6 @@
     <PackageReference Include="Win2D.uwp">
       <Version>1.21.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Database\VanArsdel.db" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VanArsdel.Data\VanArsdel.Data.csproj">

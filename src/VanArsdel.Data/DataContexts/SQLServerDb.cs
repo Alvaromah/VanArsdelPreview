@@ -10,8 +10,6 @@ namespace VanArsdel.Data.Services
 
         public SQLServerDb(string connectionString)
         {
-            // TODO: Remove default connection string
-            connectionString = connectionString ?? @"Data Source=.\SQLExpress;Initial Catalog=VanArsdelDb;Integrated Security=SSPI";
             _connectionString = connectionString;
         }
 

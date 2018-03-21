@@ -37,7 +37,7 @@ namespace VanArsdel.Inventory.Models
             set { if (Set(ref _status, value)) UpdateStatusDependencies(); }
         }
 
-        public int PaymentType { get; set; }
+        public int? PaymentType { get; set; }
         public string TrackingNumber { get; set; }
 
         public int? ShipVia { get; set; }
@@ -59,9 +59,9 @@ namespace VanArsdel.Inventory.Models
             set => Set(ref _canEditCustomer, value);
         }
 
-        public bool CanEditPayment => Status > 1;
-        public bool CanEditShipping => Status > 2;
-        public bool CanEditDelivery => Status > 3;
+        public bool CanEditPayment => Status > 0;
+        public bool CanEditShipping => Status > 1;
+        public bool CanEditDelivery => Status > 2;
 
         public string StatusDesc => DataHelper.GetOrderStatus(Status);
         public string PaymentTypeDesc => DataHelper.GetPaymentType(PaymentType);
@@ -71,16 +71,16 @@ namespace VanArsdel.Inventory.Models
         {
             switch (Status)
             {
+                case 0:
                 case 1:
-                case 2:
                     ShippedDate = null;
                     DeliveredDate = null;
                     break;
-                case 3:
+                case 2:
                     ShippedDate = ShippedDate ?? OrderDate;
                     DeliveredDate = null;
                     break;
-                case 4:
+                case 3:
                     ShippedDate = ShippedDate ?? OrderDate;
                     DeliveredDate = DeliveredDate ?? ShippedDate ?? OrderDate;
                     break;

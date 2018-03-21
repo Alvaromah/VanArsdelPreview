@@ -32,7 +32,7 @@ namespace VanArsdel.Inventory.Providers
             {
                 CustomerID = customerID,
                 OrderDate = DateTime.UtcNow,
-                Status = 1
+                Status = 0
             };
             if (customerID > 0)
             {

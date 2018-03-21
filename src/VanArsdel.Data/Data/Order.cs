@@ -23,8 +23,7 @@ namespace VanArsdel.Data
         [Required]
         public int Status { get; set; }
 
-        [Required]
-        public int PaymentType { get; set; }
+        public int? PaymentType { get; set; }
 
         [MaxLength(50)]
         public string TrackingNumber { get; set; }
