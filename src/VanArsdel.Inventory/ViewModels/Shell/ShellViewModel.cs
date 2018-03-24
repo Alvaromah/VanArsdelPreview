@@ -2,16 +2,19 @@
 using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Services;
+using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.ViewModels
 {
     public class ShellViewModel : ViewModelBase
     {
-        public ShellViewModel(INavigationService navigationService)
+        public ShellViewModel(IDataProviderFactory providerFactory, INavigationService navigationService)
         {
+            ProviderFactory = providerFactory;
             NavigationService = navigationService;
         }
 
+        public IDataProviderFactory ProviderFactory { get; }
         public INavigationService NavigationService { get; }
 
         private bool _isBusy = false;
@@ -30,11 +33,13 @@ namespace VanArsdel.Inventory.ViewModels
 
         public ShellViewState ViewState { get; protected set; }
 
-        virtual public Task LoadAsync(ShellViewState viewState)
+        virtual public async Task LoadAsync(ShellViewState viewState)
         {
+            // TODOX: Implement as a Scoped service?
+            await DataHelper.Current.InitializeAsync(ProviderFactory);
+
             ViewState = viewState ?? new ShellViewState();
             NavigationService.Navigate(ViewState.ViewModel, ViewState.Parameter);
-            return Task.CompletedTask;
         }
 
         virtual public void Unload()

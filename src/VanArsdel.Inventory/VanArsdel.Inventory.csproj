@@ -232,6 +232,18 @@
     <Compile Include="Views\Customers\CustomersView.xaml.cs">
       <DependentUpon>CustomersView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Customers\Details\CustomersCard.xaml.cs">
+      <DependentUpon>CustomersCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customers\Details\CustomersDetails.xaml.cs">
+      <DependentUpon>CustomersDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customers\Details\CustomersOrders.xaml.cs">
+      <DependentUpon>CustomersOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Customers\List\CustomersList.xaml.cs">
+      <DependentUpon>CustomersList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
@@ -366,6 +378,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Customers\CustomersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Customers\Details\CustomersCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Customers\Details\CustomersDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Customers\Details\CustomersOrders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Customers\List\CustomersList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Services;
+using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.ViewModels
 {
@@ -15,7 +16,7 @@ namespace VanArsdel.Inventory.ViewModels
         private readonly NavigationItem ProductsItem = new NavigationItem(0xECAA, "Products", typeof(ProductsViewModel));
         private readonly NavigationItem SettingsItem = new NavigationItem(0x0000, "Settings", typeof(SettingsViewModel));
 
-        public MainShellViewModel(INavigationService navigationService) : base(navigationService)
+        public MainShellViewModel(IDataProviderFactory providerFactory, INavigationService navigationService) : base(providerFactory, navigationService)
         {
         }
 
