@@ -4,37 +4,19 @@ using System.Collections.Generic;
 
 using Windows.ApplicationModel.Core;
 
-using VanArsdel.Inventory.Views;
-using VanArsdel.Inventory.ViewModels;
-
-namespace VanArsdel.Inventory
+namespace VanArsdel.Inventory.ViewModels
 {
     public class ViewModelBase : ModelBase
     {
         public bool IsMainView => CoreApplication.GetCurrentView().IsMain;
 
         virtual public string Title => String.Empty;
-
-        // TODO: Move to Navigation
-        public void NavigateTo(NavigationItem item, object parameter = null)
-        {
-            switch (item.Page.Name)
-            {
-                case nameof(CustomersView):
-                    NavigationService.Shell.Navigate(item.Page, parameter ?? CustomersViewState.CreateDefault());
-                    break;
-                case nameof(OrdersView):
-                    NavigationService.Shell.Navigate(item.Page, parameter ?? OrdersViewState.CreateDefault());
-                    break;
-                default:
-                    NavigationService.Shell.Navigate(item.Page, item.Label);
-                    break;
-            }
-        }
     }
 
     public class ViewModelBase<T> : ViewModelBase where T : ModelBase
     {
+        // TODOX: 
+        /*
         virtual protected IEnumerable<IValidationConstraint<T>> ValidationConstraints => Enumerable.Empty<IValidationConstraint<T>>();
 
         public Result Validate(T model)
@@ -48,5 +30,6 @@ namespace VanArsdel.Inventory
             }
             return Result.Ok();
         }
+        */
     }
 }

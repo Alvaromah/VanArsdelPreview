@@ -12,7 +12,6 @@ namespace VanArsdel.Inventory
         public event PropertyChangedEventHandler PropertyChanged;
 
         public DataHelper DataHelper => DataHelper.Current;
-        public UIHelper UIHelper => UIHelper.Current;
 
         public ModelBase Clone()
         {

@@ -7,8 +7,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Storage;
 
-using VanArsdel.Inventory.Views;
-using VanArsdel.Inventory.ViewModels;
+//using VanArsdel.Inventory.Views;
+//using VanArsdel.Inventory.ViewModels;
 
 namespace VanArsdel.Inventory
 {
@@ -22,9 +22,9 @@ namespace VanArsdel.Inventory
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 840);
         }
 
-        public Type EntryPage => typeof(ShellView);
+        public Type EntryPage => typeof(Sample);
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             var frame = Window.Current.Content as Frame;
 
@@ -36,31 +36,21 @@ namespace VanArsdel.Inventory
 
             if (e.PrelaunchActivated == false)
             {
-                await Startup.ConfigureAsync();
+                //await Startup.ConfigureAsync();
                 if (frame.Content == null)
                 {
-                    var state = new MainViewState
-                    {
-                        PageType = EntryPage,
-                        Parameter = new ShellViewState { Current = KnownNavigationItems.Dashboard }
-                    };
-                    frame.Navigate(typeof(MainView), state);
+                    //var state = new MainViewState
+                    //{
+                    //    PageType = EntryPage,
+                    //    Parameter = new ShellViewState { Current = KnownNavigationItems.Dashboard }
+                    //};
+                    //frame.Navigate(typeof(MainView), state);
+                    frame.Navigate(EntryPage);
                 }
                 Window.Current.Activate();
             }
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 500));
-        }
-
-        private async void InitializeDatabase()
-        {
-            var folder = ApplicationData.Current.LocalFolder;
-            if (await folder.TryGetItemAsync("VanArsdel.db") == null)
-            {
-                var sourceDatabaseFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Database/VanArsdel.db"));
-                var targetDatabaseFile = await folder.CreateFileAsync("VanArsdel.db", CreationCollisionOption.ReplaceExisting);
-                await sourceDatabaseFile.CopyAndReplaceAsync(targetDatabaseFile);
-            }
         }
     }
 }

@@ -99,56 +99,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppSettings\AppSettings.cs" />
     <Compile Include="Common\GridLengths.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\Result.cs" />
     <Compile Include="Common\ThreadSafeSingleton.cs" />
     <Compile Include="Common\ValidationConstraint.cs" />
-    <Compile Include="Controls\Buttons\IconButton.cs" />
-    <Compile Include="Controls\Buttons\IconLabel.cs" />
-    <Compile Include="Controls\Buttons\IconLabelButton.cs" />
-    <Compile Include="Controls\Inputs\InputCommon.cs" />
-    <Compile Include="Controls\Inputs\LabelCalendar.cs" />
+    <Compile Include="Configuration\AppSettings.cs" />
+    <Compile Include="Converters\BoolNegationConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DateTimeFormatConverter.cs" />
     <Compile Include="Converters\DateTimeOffsetConverter.cs" />
-    <Compile Include="Converters\BoolNegationConverter.cs" />
-    <Compile Include="Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Startup.cs" />
-    <Compile Include="Views\Controls\ProductSuggestBox.xaml.cs">
-      <DependentUpon>ProductSuggestBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\CustomerSuggestBox.xaml.cs">
-      <DependentUpon>CustomerSuggestBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DataList\DataList.xaml.cs">
-      <DependentUpon>DataList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Details\Details.xaml.cs">
-      <DependentUpon>Details.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DialogBox\DialogBox.xaml.cs">
-      <DependentUpon>DialogBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Inputs\LabelComboBox.cs" />
-    <Compile Include="Controls\Inputs\LabelSuggestBox.cs" />
-    <Compile Include="Controls\Inputs\LabelTextBlock.cs" />
-    <Compile Include="Controls\Inputs\LabelTextBox.cs" />
-    <Compile Include="Controls\Pagination\PaginationFooter.xaml.cs">
-      <DependentUpon>PaginationFooter.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Search\Search.xaml.cs">
-      <DependentUpon>Search.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Section\Section.cs" />
-    <Compile Include="Controls\Toolbars\DetailToolbar.xaml.cs">
-      <DependentUpon>DetailToolbar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Toolbars\ListToolbar.xaml.cs">
-      <DependentUpon>ListToolbar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Toolbars\ToolbarCommon.cs" />
-    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DecimalConverter.cs" />
     <Compile Include="Converters\DoubleConverter.cs" />
     <Compile Include="Converters\Int16Converter.cs" />
@@ -160,15 +120,15 @@
     <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.cs" />
     <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.Customers.cs" />
     <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.OrderItems.cs" />
-    <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.Products.cs" />
     <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.Orders.cs" />
+    <Compile Include="DataProviders\SQLBaseProvider\SQLBaseProvider.Products.cs" />
     <Compile Include="DataProviders\SQLiteProvider\SQLiteDataProvider.cs" />
     <Compile Include="DataProviders\SQLServerProvider\SQLServerDataProvider.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ICommandExtensions.cs" />
     <Compile Include="Extensions\PageExtensions.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
-    <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CountryCodeModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
@@ -180,13 +140,13 @@
     <Compile Include="Models\ShipperModel.cs" />
     <Compile Include="Models\SubCategoryModel.cs" />
     <Compile Include="Models\TaxTypeModel.cs" />
-    <Compile Include="Navigation\NavigationItem.cs" />
-    <Compile Include="Navigation\KnownNavigationItems.cs" />
-    <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sample.xaml.cs">
+      <DependentUpon>Sample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tools\BitmapTools.cs" />
-    <Compile Include="Tools\DependencyExpressions\DependencyExpressions.cs" />
     <Compile Include="Tools\DependencyExpressions\DependencyExpression.cs" />
+    <Compile Include="Tools\DependencyExpressions\DependencyExpressions.cs" />
     <Compile Include="Tools\DependencyExpressions\INotifyExpressionChanged.cs" />
     <Compile Include="Tools\ElementSet\ElementExtensions.cs" />
     <Compile Include="Tools\ElementSet\ElementSet.cs" />
@@ -196,129 +156,6 @@
     <Compile Include="ViewModels\Base\ModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewStateBase.cs" />
-    <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewModel.ICommands.cs" />
-    <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewModel.Properties.cs" />
-    <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewModel.cs" />
-    <Compile Include="ViewModels\Common\DetailsViewModel\DetailsViewState.cs" />
-    <Compile Include="ViewModels\Common\ListViewModel\ListViewModel.ICommands.cs" />
-    <Compile Include="ViewModels\Common\ListViewModel\ListViewModel.Properties.cs" />
-    <Compile Include="ViewModels\Common\ListViewModel\ListViewModel.cs" />
-    <Compile Include="ViewModels\Common\ListViewModel\ListViewState.cs" />
-    <Compile Include="ViewModels\Customers\CustomerDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Customers\CustomerListViewModel.cs" />
-    <Compile Include="ViewModels\Customers\CustomersViewModel.cs" />
-    <Compile Include="ViewModels\Customers\ViewState\CustomerViewState.cs" />
-    <Compile Include="ViewModels\Customers\ViewState\CustomersViewState.cs" />
-    <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
-    <Compile Include="ViewModels\OrderItems\OrderItemDetailsViewModel.cs" />
-    <Compile Include="ViewModels\OrderItems\OrderItemListViewModel.cs" />
-    <Compile Include="ViewModels\OrderItems\OrderItemsViewModel.cs" />
-    <Compile Include="ViewModels\OrderItems\ViewState\OrderItemsViewState.cs" />
-    <Compile Include="ViewModels\OrderItems\ViewState\OrderItemViewState.cs" />
-    <Compile Include="ViewModels\Orders\OrderDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Orders\OrderListViewModel.cs" />
-    <Compile Include="ViewModels\Orders\OrdersViewModel.cs" />
-    <Compile Include="ViewModels\Orders\ViewState\OrdersViewState.cs" />
-    <Compile Include="ViewModels\Orders\ViewState\OrderViewState.cs" />
-    <Compile Include="ViewModels\Shell\ViewState\ShellViewState.cs" />
-    <Compile Include="ViewModels\Shell\ShellViewModel.cs" />
-    <Compile Include="Views\Common\CommonView.xaml.cs">
-      <DependentUpon>CommonView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customer\Details\CustomerCard.xaml.cs">
-      <DependentUpon>CustomerCard.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customers\Details\CustomersCard.xaml.cs">
-      <DependentUpon>CustomersCard.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customers\Details\CustomersDetails.xaml.cs">
-      <DependentUpon>CustomersDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customers\Details\CustomersOrders.xaml.cs">
-      <DependentUpon>CustomersOrders.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customers\CustomersView.xaml.cs">
-      <DependentUpon>CustomersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customers\List\CustomersList.xaml.cs">
-      <DependentUpon>CustomersList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customer\CustomerView.xaml.cs">
-      <DependentUpon>CustomerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Customer\Details\CustomerDetails.xaml.cs">
-      <DependentUpon>CustomerDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\DashboardView.xaml.cs">
-      <DependentUpon>DashboardView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\Parts\ChartPane.xaml.cs">
-      <DependentUpon>ChartPane.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\Parts\CustomersPane.xaml.cs">
-      <DependentUpon>CustomersPane.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\Parts\OrdersPane.xaml.cs">
-      <DependentUpon>OrdersPane.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dashboard\Parts\ProductsPane.xaml.cs">
-      <DependentUpon>ProductsPane.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderItem\Details\OrderItemCard.xaml.cs">
-      <DependentUpon>OrderItemCard.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderItems\Details\OrderItemsCard.xaml.cs">
-      <DependentUpon>OrderItemsCard.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Order\Details\OrderCard.xaml.cs">
-      <DependentUpon>OrderCard.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderItems\Details\OrderItemsDetails.xaml.cs">
-      <DependentUpon>OrderItemsDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderItems\List\OrderItemsList.xaml.cs">
-      <DependentUpon>OrderItemsList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderItems\OrderItemsView.xaml.cs">
-      <DependentUpon>OrderItemsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderItem\Details\OrderItemDetails.xaml.cs">
-      <DependentUpon>OrderItemDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\OrderItem\OrderItemView.xaml.cs">
-      <DependentUpon>OrderItemView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\Details\OrdersCard.xaml.cs">
-      <DependentUpon>OrdersCard.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\Details\OrdersOrderItems.xaml.cs">
-      <DependentUpon>OrdersOrderItems.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Order\OrderView.xaml.cs">
-      <DependentUpon>OrderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Order\Details\OrderDetails.xaml.cs">
-      <DependentUpon>OrderDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\Details\OrdersDetails.xaml.cs">
-      <DependentUpon>OrdersDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\List\OrdersList.xaml.cs">
-      <DependentUpon>OrdersList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Orders\OrdersView.xaml.cs">
-      <DependentUpon>OrdersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Settings\SettingsView.xaml.cs">
-      <DependentUpon>SettingsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shell\ShellView.xaml.cs">
-      <DependentUpon>ShellView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ViewManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -340,207 +177,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Styles\CalendarPicker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Views\Controls\ProductSuggestBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Controls\CustomerSuggestBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\DataList\DataList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Details\Details.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\DialogBox\DialogBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Pagination\PaginationFooter.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Search\Search.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Toolbars\DetailToolbar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Toolbars\ListToolbar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Buttons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\DataGrid.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\ToolBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Controls\Buttons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Controls\Inputs.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Controls\Section.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\ThemeDictionaries.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Common\CommonView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Customer\Details\CustomerCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Customers\Details\CustomersCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Customers\Details\CustomersDetails.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Customers\Details\CustomersOrders.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Customers\CustomersView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Customers\List\CustomersList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Customer\CustomerView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Customer\Details\CustomerDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\DashboardView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\Parts\ChartPane.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\Parts\CustomersPane.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\Parts\OrdersPane.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Dashboard\Parts\ProductsPane.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\MainView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OrderItem\Details\OrderItemCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OrderItems\Details\OrderItemsCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Order\Details\OrderCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OrderItems\Details\OrderItemsDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\OrderItems\List\OrderItemsList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\OrderItems\OrderItemsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\OrderItem\Details\OrderItemDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\OrderItem\OrderItemView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Orders\Details\OrdersCard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Orders\Details\OrdersOrderItems.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Order\OrderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Order\Details\OrderDetails.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Orders\Details\OrdersDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Orders\List\OrdersList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Orders\OrdersView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Settings\SettingsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Shell\ShellView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore">
@@ -571,7 +207,32 @@
   <ItemGroup>
     <None Include="VanArsdel.Inventory_TemporaryKey.pfx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Sample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\CalendarPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataProviders\RESTProvider\" />
+    <Folder Include="DataProviders\SqlProvider\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
