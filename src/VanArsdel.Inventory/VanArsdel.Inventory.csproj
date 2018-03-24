@@ -173,6 +173,13 @@
     <Compile Include="Sample.xaml.cs">
       <DependentUpon>Sample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\DialogService\DialogService.cs" />
+    <Compile Include="Services\DialogService\IDialogService.cs" />
+    <Compile Include="Services\MessageService\IMessageService.cs" />
+    <Compile Include="Services\MessageService\MessageService.cs" />
+    <Compile Include="Services\Navigation\INavigationService.cs" />
+    <Compile Include="Services\Navigation\NavigationService.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Tools\BitmapTools.cs" />
     <Compile Include="Tools\DependencyExpressions\DependencyExpression.cs" />
     <Compile Include="Tools\DependencyExpressions\DependencyExpressions.cs" />
@@ -185,6 +192,46 @@
     <Compile Include="ViewModels\Base\ModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Base\ViewStateBase.cs" />
+    <Compile Include="ViewModels\Customers\CustomersViewModel.cs" />
+    <Compile Include="ViewModels\Customers\CustomersViewState.cs" />
+    <Compile Include="ViewModels\Dashboard\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\Dashboard\DashboardViewState.cs" />
+    <Compile Include="ViewModels\Login\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Login\LoginViewState.cs" />
+    <Compile Include="ViewModels\Orders\OrdersViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrdersViewState.cs" />
+    <Compile Include="ViewModels\Products\ProductsViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductsViewState.cs" />
+    <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsViewState.cs" />
+    <Compile Include="ViewModels\Shell\MainShellViewModel.cs" />
+    <Compile Include="ViewModels\Shell\NavigationItem.cs" />
+    <Compile Include="ViewModels\Shell\ShellViewModel.cs" />
+    <Compile Include="ViewModels\Shell\ShellViewState.cs" />
+    <Compile Include="Views\Customers\CustomersView.xaml.cs">
+      <DependentUpon>CustomersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\DashboardView.xaml.cs">
+      <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Orders\OrdersView.xaml.cs">
+      <DependentUpon>OrdersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Products\ProductsView.xaml.cs">
+      <DependentUpon>ProductsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shell\MainShellView.xaml.cs">
+      <DependentUpon>MainShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shell\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -298,6 +345,38 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ThemeDictionaries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Customers\CustomersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\DashboardView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Login\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Orders\OrdersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Products\ProductsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Shell\MainShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Shell\ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
