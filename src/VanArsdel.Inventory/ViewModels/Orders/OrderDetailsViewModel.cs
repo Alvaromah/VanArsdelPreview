@@ -47,7 +47,8 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 if (state.OrderID > 0)
                 {
-                    Item = await dp.GetOrderAsync(state.OrderID);
+                    var item = await dp.GetOrderAsync(state.OrderID);
+                    Item = item ?? new OrderModel { CustomerID = state.CustomerID, OrderID = state.OrderID, IsDeleted = true };
                 }
                 else
                 {

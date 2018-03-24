@@ -23,7 +23,11 @@ namespace VanArsdel.Inventory.Providers
         public async Task<OrderModel> GetOrderAsync(long id)
         {
             var item = await DataService.GetOrderAsync(id);
-            return await CreateOrderModelAsync(item, includeAllFields: true);
+            if (item != null)
+            {
+                return await CreateOrderModelAsync(item, includeAllFields: true);
+            }
+            return null;
         }
 
         public async Task<OrderModel> CreateNewOrderAsync(long customerID)

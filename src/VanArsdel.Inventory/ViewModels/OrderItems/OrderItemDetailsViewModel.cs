@@ -46,7 +46,8 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 using (var dp = ProviderFactory.CreateDataProvider())
                 {
-                    Item = await dp.GetOrderItemAsync(OrderID, state.OrderLine);
+                    var item = await dp.GetOrderItemAsync(OrderID, state.OrderLine);
+                    Item = item ?? new OrderItemModel { OrderID = state.OrderID, OrderLine = state.OrderLine, IsDeleted = true };
                 }
             }
             else

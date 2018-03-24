@@ -30,7 +30,8 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 using (var dp = ProviderFactory.CreateDataProvider())
                 {
-                    Item = await dp.GetCustomerAsync(state.CustomerID);
+                    var item = await dp.GetCustomerAsync(state.CustomerID);
+                    Item = item ?? new CustomerModel { CustomerID = state.CustomerID, IsDeleted = true };
                 }
             }
             else

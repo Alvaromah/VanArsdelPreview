@@ -13,6 +13,8 @@ namespace VanArsdel.Inventory
 
         public DataHelper DataHelper => DataHelper.Current;
 
+        public bool IsDeleted { get; set; }
+
         public ModelBase Clone()
         {
             return MemberwiseClone() as ModelBase;

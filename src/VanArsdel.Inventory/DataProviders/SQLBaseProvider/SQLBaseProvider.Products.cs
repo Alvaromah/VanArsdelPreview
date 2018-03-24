@@ -23,7 +23,11 @@ namespace VanArsdel.Inventory.Providers
         public async Task<ProductModel> GetProductAsync(string id)
         {
             var item = await DataService.GetProductAsync(id);
-            return await CreateProductModelAsync(item, includeAllFields: true);
+            if (item != null)
+            {
+                return await CreateProductModelAsync(item, includeAllFields: true);
+            }
+            return null;
         }
 
         public async Task<int> UpdateProductAsync(ProductModel model)

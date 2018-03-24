@@ -15,7 +15,7 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 if (Set(ref _item, value))
                 {
-                    IsEnabled = true;
+                    IsEnabled = (!_item?.IsDeleted) ?? false;
                     NotifyPropertyChanged(nameof(IsDataAvailable));
                     NotifyPropertyChanged(nameof(IsDataUnavailable));
                     ItemUpdated();
