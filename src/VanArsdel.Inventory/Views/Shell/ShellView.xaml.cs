@@ -3,10 +3,10 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.ViewManagement;
 
 using VanArsdel.Inventory.ViewModels;
 using VanArsdel.Inventory.Services;
-using Windows.UI.ViewManagement;
 
 namespace VanArsdel.Inventory.Views
 {
@@ -32,12 +32,6 @@ namespace VanArsdel.Inventory.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.LoadAsync(e.Parameter as ShellViewState);
-            //frame.Navigate(typeof(CustomersView));
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            ViewModel.Unload();
         }
 
         private void OnViewConsolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
@@ -45,8 +39,8 @@ namespace VanArsdel.Inventory.Views
             ViewModel = null;
             Bindings.StopTracking();
             frame.Navigate(typeof(Page));
-            //var appView = ApplicationView.GetForCurrentView();
-            //appView.Consolidated -= OnViewConsolidated;
+            var appView = ApplicationView.GetForCurrentView();
+            appView.Consolidated -= OnViewConsolidated;
             ServiceLocator.DisposeCurrent();
         }
     }

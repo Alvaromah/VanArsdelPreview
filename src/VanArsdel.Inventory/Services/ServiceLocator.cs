@@ -25,14 +25,13 @@ namespace VanArsdel.Inventory
             serviceCollection.AddScoped<INavigationService, NavigationService>();
             serviceCollection.AddScoped<IDialogService, DialogService>();
 
-            // TODOX: 
-            //serviceCollection.AddTransient<ShellViewModel>();
-            //serviceCollection.AddTransient<MainShellViewModel>();
-            //serviceCollection.AddTransient<DashboardViewModel>();
-            //serviceCollection.AddTransient<CustomersViewModel>();
-            //serviceCollection.AddTransient<OrdersViewModel>();
-            //serviceCollection.AddTransient<ProductsViewModel>();
-            //serviceCollection.AddTransient<SettingsViewModel>();
+            serviceCollection.AddTransient<ShellViewModel>();
+            serviceCollection.AddTransient<MainShellViewModel>();
+            serviceCollection.AddTransient<DashboardViewModel>();
+            serviceCollection.AddTransient<CustomersViewModel>();
+            serviceCollection.AddTransient<OrdersViewModel>();
+            serviceCollection.AddTransient<ProductsViewModel>();
+            serviceCollection.AddTransient<SettingsViewModel>();
 
             _rootServiceProvider = serviceCollection.BuildServiceProvider();
         }

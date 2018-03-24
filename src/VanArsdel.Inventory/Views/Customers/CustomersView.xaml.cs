@@ -5,7 +5,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using VanArsdel.Inventory.ViewModels;
-using System.Threading.Tasks;
 
 namespace VanArsdel.Inventory.Views
 {
@@ -22,8 +21,6 @@ namespace VanArsdel.Inventory.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.LoadAsync(e.Parameter as CustomersViewState);
-            await Task.Delay(1000);
-            await ViewModel.NavigationService.CloseViewAsync();
         }
     }
 }

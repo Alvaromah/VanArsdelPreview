@@ -5,10 +5,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.ViewManagement;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
-using Windows.Storage;
 
-//using VanArsdel.Inventory.Views;
-//using VanArsdel.Inventory.ViewModels;
+using VanArsdel.Inventory.Views;
+using VanArsdel.Inventory.ViewModels;
 
 namespace VanArsdel.Inventory
 {
@@ -22,9 +21,10 @@ namespace VanArsdel.Inventory
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 840);
         }
 
-        public Type EntryPage => typeof(Sample);
+        private Type EntryViewModel => typeof(DashboardViewModel);
+        private object EntryViewState => new DashboardViewState();
 
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             var frame = Window.Current.Content as Frame;
 
@@ -36,16 +36,16 @@ namespace VanArsdel.Inventory
 
             if (e.PrelaunchActivated == false)
             {
-                //await Startup.ConfigureAsync();
+                await Startup.ConfigureAsync();
+
                 if (frame.Content == null)
                 {
-                    //var state = new MainViewState
-                    //{
-                    //    PageType = EntryPage,
-                    //    Parameter = new ShellViewState { Current = KnownNavigationItems.Dashboard }
-                    //};
-                    //frame.Navigate(typeof(MainView), state);
-                    frame.Navigate(EntryPage);
+                    var viewState = new ShellViewState
+                    {
+                        ViewModel = EntryViewModel,
+                        Parameter = EntryViewState
+                    };
+                    frame.Navigate(typeof(MainShellView), viewState);
                 }
                 Window.Current.Activate();
             }

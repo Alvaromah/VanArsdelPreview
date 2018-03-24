@@ -9,7 +9,6 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Dashboard" FontSize="24" />
-            <Button Content="Open New" Command="{x:Bind ViewModel.OpenNewCommand}" />
         </StackPanel>
     </Grid>
 </Page>
