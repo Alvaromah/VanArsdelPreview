@@ -10,22 +10,22 @@ using VanArsdel.Inventory.Services;
 
 namespace VanArsdel.Inventory.Views
 {
-    public sealed partial class OrdersView : Page
+    public sealed partial class OrderItemsView : Page
     {
-        public OrdersView()
+        public OrderItemsView()
         {
-            ViewModel = ServiceLocator.Current.GetService<OrdersViewModel>();
+            ViewModel = ServiceLocator.Current.GetService<OrderItemsViewModel>();
             NavigationService = ServiceLocator.Current.GetService<INavigationService>();
             InitializeComponent();
         }
 
-        public OrdersViewModel ViewModel { get; }
+        public OrderItemsViewModel ViewModel { get; }
         public INavigationService NavigationService { get; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.OrderList.PropertyChanged += OnViewModelPropertyChanged;
-            await ViewModel.LoadAsync(e.Parameter as OrdersViewState);
+            ViewModel.OrderItemList.PropertyChanged += OnViewModelPropertyChanged;
+            await ViewModel.LoadAsync(e.Parameter as OrderItemsViewState);
             UpdateTitle();
         }
 
@@ -33,12 +33,12 @@ namespace VanArsdel.Inventory.Views
         {
             ViewModel.CancelEdit();
             ViewModel.Unload();
-            ViewModel.OrderList.PropertyChanged -= OnViewModelPropertyChanged;
+            ViewModel.OrderItemList.PropertyChanged -= OnViewModelPropertyChanged;
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ViewModel.OrderList.Title))
+            if (e.PropertyName == nameof(ViewModel.OrderItemList.Title))
             {
                 UpdateTitle();
             }
@@ -46,7 +46,7 @@ namespace VanArsdel.Inventory.Views
 
         private void UpdateTitle()
         {
-            this.SetTitle($"Orders {ViewModel.OrderList.Title}".Trim());
+            this.SetTitle($"Order Items {ViewModel.OrderItemList.Title}".Trim());
         }
 
         private async void OnItemDeleted(object sender, EventArgs e)
@@ -56,20 +56,13 @@ namespace VanArsdel.Inventory.Views
 
         private async void OpenInNewView(object sender, RoutedEventArgs e)
         {
-            await NavigationService.CreateNewViewAsync<OrdersViewModel>(ViewModel.OrderList.GetCurrentState());
+            await NavigationService.CreateNewViewAsync<OrderItemsViewModel>(ViewModel.OrderItemList.GetCurrentState());
         }
 
         private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)
         {
-            ViewModel.OrderDetails.IsEditMode = false;
-            if (pivot.SelectedIndex == 0)
-            {
-                await NavigationService.CreateNewViewAsync<OrderDetailsViewModel>(new OrderViewState(ViewModel.OrderDetails.Item.CustomerID) { OrderID = ViewModel.OrderDetails.Item.OrderID });
-            }
-            else
-            {
-                await NavigationService.CreateNewViewAsync<OrderItemsViewModel>(ViewModel.OrderItemList.ViewState.Clone());
-            }
+            ViewModel.OrderItemDetails.IsEditMode = false;
+            await NavigationService.CreateNewViewAsync<OrderItemDetailsViewModel>(new OrderItemViewState(ViewModel.OrderItemDetails.Item.OrderID) { OrderLine = ViewModel.OrderItemDetails.Item.OrderLine });
         }
 
         public int GetRowSpan(bool isMultipleSelection)

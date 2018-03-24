@@ -11,16 +11,16 @@ using VanArsdel.Inventory.Services;
 
 namespace VanArsdel.Inventory.Views
 {
-    public sealed partial class CustomerView : Page
+    public sealed partial class OrderItemView : Page
     {
-        public CustomerView()
+        public OrderItemView()
         {
-            ViewModel = ServiceLocator.Current.GetService<CustomerDetailsViewModel>();
+            ViewModel = ServiceLocator.Current.GetService<OrderItemDetailsViewModel>();
             NavigationService = ServiceLocator.Current.GetService<INavigationService>();
             InitializeComponent();
         }
 
-        public CustomerDetailsViewModel ViewModel { get; }
+        public OrderItemDetailsViewModel ViewModel { get; }
         public INavigationService NavigationService { get; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -28,8 +28,8 @@ namespace VanArsdel.Inventory.Views
             ViewModel.PropertyChanged += OnPropertyChanged;
             ViewModel.ItemDeleted += OnItemDeleted;
 
-            var state = e.Parameter as CustomerViewState;
-            state = state ?? CustomerViewState.CreateDefault();
+            var state = e.Parameter as OrderItemViewState;
+            state = state ?? OrderItemViewState.CreateDefault();
             await ViewModel.LoadAsync(state);
             UpdateTitle();
 
@@ -60,7 +60,7 @@ namespace VanArsdel.Inventory.Views
         private async void OpenInNewView(object sender, RoutedEventArgs e)
         {
             ViewModel.IsEditMode = false;
-            await NavigationService.CreateNewViewAsync<CustomerView>(new CustomerViewState { CustomerID = ViewModel.Item.CustomerID });
+            await NavigationService.CreateNewViewAsync<OrderItemView>(new OrderItemViewState(ViewModel.Item.OrderID) { OrderLine = ViewModel.Item.OrderLine });
             NavigationService.GoBack();
         }
     }

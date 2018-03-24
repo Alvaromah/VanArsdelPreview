@@ -39,6 +39,9 @@ namespace VanArsdel.Inventory
             NavigationService.Register<OrdersViewModel, OrdersView>();
             NavigationService.Register<OrderDetailsViewModel, OrderView>();
 
+            NavigationService.Register<OrderItemsViewModel, OrderItemsView>();
+            NavigationService.Register<OrderItemDetailsViewModel, OrderItemView>();
+
             NavigationService.Register<ProductsViewModel, ProductsView>();
             NavigationService.Register<SettingsViewModel, SettingsView>();
         }
