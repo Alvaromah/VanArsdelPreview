@@ -36,6 +36,8 @@ namespace VanArsdel.Inventory
             serviceCollection.AddTransient<CustomerDetailsViewModel>();
 
             serviceCollection.AddTransient<OrdersViewModel>();
+            serviceCollection.AddTransient<OrderDetailsViewModel>();
+
             serviceCollection.AddTransient<ProductsViewModel>();
             serviceCollection.AddTransient<SettingsViewModel>();
 

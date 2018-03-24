@@ -21,6 +21,13 @@ namespace VanArsdel.Inventory
         {
             ServiceLocator.Configure(_serviceCollection);
 
+            ConfigureNavigation();
+
+            await EnsureDatabaseAsync();
+        }
+
+        private static void ConfigureNavigation()
+        {
             NavigationService.Register<ShellViewModel, ShellView>();
             NavigationService.Register<MainShellViewModel, MainShellView>();
 
@@ -30,10 +37,10 @@ namespace VanArsdel.Inventory
             NavigationService.Register<CustomerDetailsViewModel, CustomerView>();
 
             NavigationService.Register<OrdersViewModel, OrdersView>();
+            NavigationService.Register<OrderDetailsViewModel, OrderView>();
+
             NavigationService.Register<ProductsViewModel, ProductsView>();
             NavigationService.Register<SettingsViewModel, SettingsView>();
-
-            await EnsureDatabaseAsync();
         }
 
         static private async Task EnsureDatabaseAsync()
