@@ -21,9 +21,11 @@ namespace VanArsdel.Inventory
         {
             serviceCollection.AddSingleton<IDataProviderFactory, DataProviderFactory>();
             serviceCollection.AddSingleton<IMessageService, MessageService>();
+            serviceCollection.AddSingleton<ILogService, LogService>();
 
             serviceCollection.AddScoped<INavigationService, NavigationService>();
             serviceCollection.AddScoped<IDialogService, DialogService>();
+            serviceCollection.AddScoped<IServiceManager, ServiceManager>();
 
             serviceCollection.AddTransient<ShellViewModel>();
             serviceCollection.AddTransient<MainShellViewModel>();
