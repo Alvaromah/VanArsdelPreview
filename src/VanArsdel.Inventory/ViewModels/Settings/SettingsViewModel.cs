@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using VanArsdel.Inventory.Services;
-
 namespace VanArsdel.Inventory.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
-        public SettingsViewModel(INavigationService navigationService)
+        public SettingsViewModel()
         {
-            NavigationService = navigationService;
         }
 
-        public INavigationService NavigationService { get; }
+        public string Version => $"v{AppSettings.Current.Version}";
 
         public SettingsViewState ViewState { get; private set; }
 

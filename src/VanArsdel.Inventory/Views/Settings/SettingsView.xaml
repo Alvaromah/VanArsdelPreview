@@ -7,6 +7,9 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Settings" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="VanArsdel Inventory Preview" FontSize="24" HorizontalAlignment="Center" />
+            <TextBlock Text="{x:Bind ViewModel.Version}" FontSize="18" HorizontalAlignment="Center" />
+        </StackPanel>
     </Grid>
 </Page>

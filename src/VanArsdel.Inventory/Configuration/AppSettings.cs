@@ -27,7 +27,7 @@ namespace VanArsdel.Inventory
         static public readonly string DatabaseFileName = Path.Combine(DatabasePath, DatabaseName);
         static public readonly string DatabaseUrl = $"{DB_BASEURL}/{DatabaseName}";
 
-        static public readonly string SQLiteConnectionString = $"Data Source={DatabaseFileName}";
+        public readonly string SQLiteConnectionString = $"Data Source={DatabaseFileName}";
 
         public ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
 

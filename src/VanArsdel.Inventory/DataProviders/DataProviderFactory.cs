@@ -16,7 +16,7 @@ namespace VanArsdel.Inventory.Providers
             switch (AppSettings.Current.DataProvider)
             {
                 case DataProviderType.SQLite:
-                    return new SQLiteDataProvider(AppSettings.SQLiteConnectionString);
+                    return new SQLiteDataProvider(AppSettings.Current.SQLiteConnectionString);
 
                 case DataProviderType.SQLServer:
                     return new SQLServerDataProvider(AppSettings.Current.SQLServerConnectionString);
