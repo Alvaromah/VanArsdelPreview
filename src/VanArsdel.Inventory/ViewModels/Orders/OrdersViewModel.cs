@@ -1,25 +1,96 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
+using VanArsdel.Inventory.Models;
 using VanArsdel.Inventory.Services;
+using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.ViewModels
 {
     public class OrdersViewModel : ViewModelBase
     {
-        public OrdersViewModel(INavigationService navigationService)
+        public OrdersViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager)
         {
-            NavigationService = navigationService;
+            ProviderFactory = providerFactory;
+
+            OrderList = new OrderListViewModel(ProviderFactory, serviceManager);
+            OrderList.PropertyChanged += OnListPropertyChanged;
+
+            OrderDetails = new OrderDetailsViewModel(ProviderFactory, serviceManager);
+            OrderDetails.ItemDeleted += OnItemDeleted;
+
+            OrderItemList = new OrderItemListViewModel(ProviderFactory, serviceManager);
         }
 
-        public INavigationService NavigationService { get; }
+        public IDataProviderFactory ProviderFactory { get; }
 
-        public OrdersViewState ViewState { get; private set; }
+        public OrderListViewModel OrderList { get; set; }
+        public OrderDetailsViewModel OrderDetails { get; set; }
+        public OrderItemListViewModel OrderItemList { get; set; }
 
-        public Task LoadAsync(OrdersViewState viewState)
+        public async Task LoadAsync(OrdersViewState state)
         {
-            ViewState = viewState;
-            return Task.CompletedTask;
+            await OrderList.LoadAsync(state);
+        }
+
+        public void Unload()
+        {
+            OrderList.Unload();
+        }
+
+        public async Task RefreshAsync(bool resetPageIndex = false)
+        {
+            await OrderList.RefreshAsync(resetPageIndex);
+        }
+
+        private async void OnListPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(OrderListViewModel.SelectedItem):
+                    OrderDetails.CancelEdit();
+                    OrderItemList.IsMultipleSelection = false;
+                    if (!OrderList.IsMultipleSelection)
+                    {
+                        await PopulateDetails(OrderList.SelectedItem);
+                        await PopulateOrderItems(OrderList.SelectedItem);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private async void OnItemDeleted(object sender, EventArgs e)
+        {
+            await OrderList.RefreshAsync();
+        }
+
+        private async Task PopulateDetails(OrderModel selected)
+        {
+            if (selected != null)
+            {
+                using (var dataProvider = ProviderFactory.CreateDataProvider())
+                {
+                    var model = await dataProvider.GetOrderAsync(selected.OrderID);
+                    selected.Merge(model);
+                }
+            }
+            OrderDetails.Item = selected;
+        }
+
+        private async Task PopulateOrderItems(OrderModel selected)
+        {
+            if (selected != null)
+            {
+                await OrderItemList.LoadAsync(new OrderItemsViewState { OrderID = selected.OrderID });
+            }
+        }
+
+        public void CancelEdit()
+        {
+            OrderDetails.CancelEdit();
         }
     }
 }

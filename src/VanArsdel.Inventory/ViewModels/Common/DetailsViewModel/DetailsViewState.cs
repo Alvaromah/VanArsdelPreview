@@ -2,8 +2,7 @@
 
 namespace VanArsdel.Inventory.ViewModels
 {
-    public class CustomersViewState
+    public class DetailsViewState : ViewStateBase
     {
-        public int Id { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows.Input;
+
 using VanArsdel.Inventory.Services;
 
 namespace VanArsdel.Inventory.ViewModels
@@ -20,13 +20,6 @@ namespace VanArsdel.Inventory.ViewModels
         {
             ViewState = viewState;
             return Task.CompletedTask;
-        }
-
-
-        public ICommand OpenNewCommand => new RelayCommand(OpenNew);
-        private async void OpenNew()
-        {
-            await NavigationService.CreateNewViewAsync<CustomersViewModel>();
         }
     }
 }

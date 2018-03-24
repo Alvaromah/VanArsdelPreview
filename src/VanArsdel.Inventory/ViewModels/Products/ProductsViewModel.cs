@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using VanArsdel.Inventory.Models;
 using VanArsdel.Inventory.Services;
+using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.ViewModels
 {

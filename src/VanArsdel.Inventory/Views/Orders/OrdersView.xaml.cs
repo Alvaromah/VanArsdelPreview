@@ -18,9 +18,9 @@ namespace VanArsdel.Inventory.Views
 
         public OrdersViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.LoadAsync(e.Parameter as OrdersViewState);
+            await ViewModel.LoadAsync(e.Parameter as OrdersViewState);
         }
     }
 }

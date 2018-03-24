@@ -15,8 +15,6 @@ namespace VanArsdel.Inventory.ViewModels
 
     public class ViewModelBase<T> : ViewModelBase where T : ModelBase
     {
-        // TODOX: 
-        /*
         virtual protected IEnumerable<IValidationConstraint<T>> ValidationConstraints => Enumerable.Empty<IValidationConstraint<T>>();
 
         public Result Validate(T model)
@@ -30,6 +28,5 @@ namespace VanArsdel.Inventory.ViewModels
             }
             return Result.Ok();
         }
-        */
     }
 }
