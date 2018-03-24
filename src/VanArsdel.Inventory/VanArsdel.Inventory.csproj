@@ -177,7 +177,7 @@
     <Compile Include="Services\MessageService\MessageService.cs" />
     <Compile Include="Services\Navigation\INavigationService.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
-    <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="Configuration\ServiceLocator.cs" />
     <Compile Include="Tools\BitmapTools.cs" />
     <Compile Include="Tools\DependencyExpressions\DependencyExpression.cs" />
     <Compile Include="Tools\DependencyExpressions\DependencyExpressions.cs" />
