@@ -105,6 +105,35 @@
     <Compile Include="Common\ThreadSafeSingleton.cs" />
     <Compile Include="Common\ValidationConstraint.cs" />
     <Compile Include="Configuration\AppSettings.cs" />
+    <Compile Include="Controls\Buttons\IconButton.cs" />
+    <Compile Include="Controls\Buttons\IconLabel.cs" />
+    <Compile Include="Controls\Buttons\IconLabelButton.cs" />
+    <Compile Include="Controls\DataList\DataList.xaml.cs">
+      <DependentUpon>DataList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Details\Details.xaml.cs">
+      <DependentUpon>Details.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Inputs\InputCommon.cs" />
+    <Compile Include="Controls\Inputs\LabelCalendar.cs" />
+    <Compile Include="Controls\Inputs\LabelComboBox.cs" />
+    <Compile Include="Controls\Inputs\LabelSuggestBox.cs" />
+    <Compile Include="Controls\Inputs\LabelTextBlock.cs" />
+    <Compile Include="Controls\Inputs\LabelTextBox.cs" />
+    <Compile Include="Controls\Pagination\PaginationFooter.xaml.cs">
+      <DependentUpon>PaginationFooter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\Search.xaml.cs">
+      <DependentUpon>Search.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Section\Section.cs" />
+    <Compile Include="Controls\Toolbars\DetailToolbar.xaml.cs">
+      <DependentUpon>DetailToolbar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Toolbars\ListToolbar.xaml.cs">
+      <DependentUpon>ListToolbar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Toolbars\ToolbarCommon.cs" />
     <Compile Include="Converters\BoolNegationConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DateTimeFormatConverter.cs" />
@@ -208,6 +237,30 @@
     <None Include="VanArsdel.Inventory_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\DataList\DataList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Details\Details.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Pagination\PaginationFooter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Search\Search.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Toolbars\DetailToolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Toolbars\ListToolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Sample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +278,26 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\ToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\Inputs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\Section.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeDictionaries.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
