@@ -18,7 +18,7 @@ namespace VanArsdel.Inventory.Views
             InitializeComponent();
         }
 
-        public DashboardViewModel ViewModel { get; private set; }
+        public DashboardViewModel ViewModel { get; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {

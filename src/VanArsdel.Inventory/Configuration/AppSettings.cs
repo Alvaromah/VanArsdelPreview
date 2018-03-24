@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
 
+using Windows.Storage;
 using Windows.ApplicationModel;
+
+using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory
 {
@@ -18,6 +21,16 @@ namespace VanArsdel.Inventory
 
         static public AppSettings Current { get; }
 
+        static public readonly string DatabasePath = "Database";
+        static public readonly string DatabaseName = $"{DB_NAME}.{DB_VERSION}.db";
+        static public readonly string DatabasePattern = $"{DB_NAME}.{DB_VERSION}.pattern.db";
+        static public readonly string DatabaseFileName = Path.Combine(DatabasePath, DatabaseName);
+        static public readonly string DatabaseUrl = $"{DB_BASEURL}/{DatabaseName}";
+
+        static public readonly string SQLiteConnectionString = $"Data Source={DatabaseFileName}";
+
+        public ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
+
         public string Version
         {
             get
@@ -27,13 +40,37 @@ namespace VanArsdel.Inventory
             }
         }
 
-        static public readonly string DatabasePath = "Database";
-        static public readonly string DatabaseName = $"{DB_NAME}.{DB_VERSION}.db";
-        static public readonly string DatabasePattern = $"{DB_NAME}.{DB_VERSION}.pattern.db";
-        static public readonly string DatabaseFileName = Path.Combine(DatabasePath, DatabaseName);
-        static public readonly string DatabaseUrl = $"{DB_BASEURL}/{DatabaseName}";
+        public DataProviderType DataProvider
+        {
+            get => (DataProviderType)GetSettingsValue("DataProvider", (int)DataProviderType.SQLite);
+            set => LocalSettings.Values["DataProvider"] = (int)value;
+        }
 
-        static public readonly string SQLiteConnectionString = $"Data Source={DatabaseFileName}";
-        static public readonly string SQLServerConnectionString = @"Data Source=.\SQLExpress;Initial Catalog=VanArsdelDb;Integrated Security=SSPI";
+        public string SQLServerConnectionString
+        {
+            get => GetSettingsValue("SQLServerConnectionString", @"Data Source=.\SQLExpress;Initial Catalog=VanArsdelDb;Integrated Security=SSPI");
+            set => SetSettingsValue("SQLServerConnectionString", value);
+        }
+
+        private TResult GetSettingsValue<TResult>(string name, TResult defaultValue)
+        {
+            try
+            {
+                if (!LocalSettings.Values.ContainsKey(name))
+                {
+                    LocalSettings.Values[name] = defaultValue;
+                }
+                return (TResult)LocalSettings.Values[name];
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return defaultValue;
+            }
+        }
+        private void SetSettingsValue(string name, object value)
+        {
+            LocalSettings.Values[name] = value;
+        }
     }
 }

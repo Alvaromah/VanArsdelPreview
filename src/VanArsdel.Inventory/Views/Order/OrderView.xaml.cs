@@ -20,14 +20,11 @@ namespace VanArsdel.Inventory.Views
             InitializeComponent();
         }
 
-        public OrderDetailsViewModel ViewModel { get; private set; }
+        public OrderDetailsViewModel ViewModel { get; }
         public INavigationService NavigationService { get; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            // TODOX: 
-            //NavigationService.Main.HideBackButton();
-
             ViewModel.PropertyChanged += OnPropertyChanged;
             ViewModel.ItemDeleted += OnItemDeleted;
 

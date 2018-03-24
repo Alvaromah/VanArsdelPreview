@@ -2,13 +2,28 @@
 
 namespace VanArsdel.Inventory.Providers
 {
+    public enum DataProviderType
+    {
+        SQLite,
+        SQLServer,
+        WebAPI
+    }
+
     public class DataProviderFactory : IDataProviderFactory
     {
         public IDataProvider CreateDataProvider()
         {
-            // TODO: Return selected DataProvider in configuration
-            return new SQLiteDataProvider(AppSettings.SQLiteConnectionString);
-            //return new SQLServerDataProvider(AppSettings.SQLServerConnectionString);
+            switch (AppSettings.Current.DataProvider)
+            {
+                case DataProviderType.SQLite:
+                    return new SQLiteDataProvider(AppSettings.SQLiteConnectionString);
+
+                case DataProviderType.SQLServer:
+                    return new SQLServerDataProvider(AppSettings.Current.SQLServerConnectionString);
+
+                default:
+                    throw new NotImplementedException();
+            }
         }
     }
 }
