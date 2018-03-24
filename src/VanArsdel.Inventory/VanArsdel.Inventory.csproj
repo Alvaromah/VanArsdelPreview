@@ -262,6 +262,18 @@
     <Compile Include="Views\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dashboard\Parts\ChartPane.xaml.cs">
+      <DependentUpon>ChartPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Parts\CustomersPane.xaml.cs">
+      <DependentUpon>CustomersPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Parts\OrdersPane.xaml.cs">
+      <DependentUpon>OrdersPane.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dashboard\Parts\ProductsPane.xaml.cs">
+      <DependentUpon>ProductsPane.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -475,6 +487,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Dashboard\DashboardView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\Parts\ChartPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\Parts\CustomersPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\Parts\OrdersPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dashboard\Parts\ProductsPane.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

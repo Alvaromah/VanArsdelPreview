@@ -2,8 +2,7 @@
 
 namespace VanArsdel.Inventory.ViewModels
 {
-    public class DashboardViewState
+    public class DashboardViewState : ViewStateBase
     {
-        public int Id { get; set; }
     }
 }
