@@ -49,7 +49,9 @@
 
         <TextBlock Margin="6,0" Text="Latest Customers" FontSize="18" />
         <ContentControl Grid.Row="1" ContentTemplate="{StaticResource HeaderTemplate}" HorizontalContentAlignment="Stretch" />
-        <ListView Grid.Row="2" ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" ItemTemplate="{StaticResource ItemTemplate}"
+        <ListView Grid.Row="2" SelectionMode="None"
+                  ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" 
+                  ItemTemplate="{StaticResource ItemTemplate}"
                   ItemContainerStyle="{StaticResource RowItemStyle}" IsHitTestVisible="False" />
     </Grid>
 </UserControl>

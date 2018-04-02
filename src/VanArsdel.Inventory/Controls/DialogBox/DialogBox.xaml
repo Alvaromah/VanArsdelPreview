@@ -6,9 +6,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource SystemControlBackgroundChromeWhiteBrush}"
     BorderBrush="{ThemeResource SystemControlForegroundAccentBrush}"
+    Title="{Binding}"
     mc:Ignorable="d">
 
-    <ContentDialog.PrimaryButtonStyle>
+    <!--<ContentDialog.PrimaryButtonStyle>
         <Style TargetType="Button">
             <Setter Property="Padding" Value="0,12" />
             <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeWhiteBrush}" />
@@ -30,15 +31,8 @@
             <Setter Property="FocusVisualPrimaryThickness" Value="1" />
             <Setter Property="FocusVisualMargin" Value="-1" />
         </Style>
-    </ContentDialog.SecondaryButtonStyle>
-
-    <ContentDialog.TitleTemplate>
-        <DataTemplate>
-            <Grid>
-                <TextBlock Text="{Binding}" Typography.Capitals="SmallCaps" FontSize="20" FontWeight="SemiBold" TextWrapping="WrapWholeWords" />
-            </Grid>
-        </DataTemplate>
-    </ContentDialog.TitleTemplate>
+    </ContentDialog.SecondaryButtonStyle>-->
+    
 
     <Grid Margin="0,16">
         <TextBlock Text="{Binding Message}" FontSize="16" TextWrapping="WrapWholeWords" />

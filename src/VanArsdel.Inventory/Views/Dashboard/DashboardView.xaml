@@ -34,7 +34,8 @@
 
         <TextBlock Grid.Row="1" Margin="12,12,12,0" Text="Dashboard" FontSize="22" Foreground="#666" />
 
-        <GridView Grid.Row="2" Margin="6" ItemContainerStyle="{StaticResource GridItemStyle}" SelectionMode="None" IsItemClickEnabled="True" ItemClick="OnItemClick">
+        <GridView Grid.Row="2" Margin="6" ItemContainerStyle="{StaticResource GridItemStyle}" SelectionMode="None" 
+                  IsItemClickEnabled="true" ItemClick="OnItemClick">
             <GridViewItem>
                 <views:CustomersPane Margin="12" ItemsSource="{x:Bind ViewModel.Customers, Mode=OneWay}" Tag="Customers" />
             </GridViewItem>
@@ -44,8 +45,8 @@
             <GridViewItem>
                 <views:OrdersPane Margin="12" ItemsSource="{x:Bind ViewModel.Orders, Mode=OneWay}" Tag="Orders" />
             </GridViewItem>
-            <GridViewItem>
-                <views:ChartPane Margin="12" Tag="Charts" />
+            <GridViewItem IsHitTestVisible="False">
+                <views:ChartPane Margin="12,12,12,0" Tag="Charts" />
             </GridViewItem>
         </GridView>
     </Grid>

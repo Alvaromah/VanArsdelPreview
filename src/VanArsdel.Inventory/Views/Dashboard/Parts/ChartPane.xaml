@@ -7,24 +7,12 @@
     xmlns:telerik="using:Telerik.UI.Xaml.Controls.Chart"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid x:Name="RootGridLayout">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Margin="6,0" Text="Top Category Sales" FontSize="18" />
-        <Grid Grid.RowSpan="2" IsHitTestVisible="False">
-            <telerik:RadPieChart PaletteName="DefaultDark">
-                <telerik:PieSeries ItemsSource="{x:Bind Series}" RadiusFactor="0.75">
-                    <telerik:PieSeries.ValueBinding>
-                        <telerik:PropertyNameDataPointBinding PropertyName="Value" />
-                    </telerik:PieSeries.ValueBinding>
-                    <telerik:PieSeries.IsSelectedBinding>
-                        <telerik:PropertyNameDataPointBinding PropertyName="IsSelected" />
-                    </telerik:PieSeries.IsSelectedBinding>
-                </telerik:PieSeries>
-            </telerik:RadPieChart>
-        </Grid>
     </Grid>
 </UserControl>
