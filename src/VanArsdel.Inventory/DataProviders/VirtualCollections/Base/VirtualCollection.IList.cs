@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VanArsdel.Inventory.Providers
 {
-    partial class VirtualCollection<T> : IList, IList<T>
+    partial class VirtualCollection<T> : IList, IList<T> where T : class
     {
         public bool IsFixedSize => false;
         public bool IsReadOnly => false;
@@ -53,7 +53,23 @@ namespace VanArsdel.Inventory.Providers
 
         public int IndexOf(object value)
         {
-            return 0;
+            return IndexOf(value as T);
+        }
+
+        public int IndexOf(T item)
+        {
+            if (item != null)
+            {
+                foreach (var range in Ranges)
+                {
+                    int index = range.Value.IndexOf(item);
+                    if (index > -1)
+                    {
+                        return range.Key * RangeSize + index;
+                    }
+                }
+            }
+            return -1;
         }
 
         #region IList Not Implemented
@@ -104,11 +120,6 @@ namespace VanArsdel.Inventory.Providers
         #endregion
 
         #region IList<T> Not Implemented
-        public int IndexOf(T item)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Insert(int index, T item)
         {
             throw new NotImplementedException();

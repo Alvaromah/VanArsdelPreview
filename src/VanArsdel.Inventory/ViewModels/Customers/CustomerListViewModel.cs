@@ -87,6 +87,7 @@ namespace VanArsdel.Inventory.ViewModels
         {
             foreach (var model in models)
             {
+                System.Diagnostics.Debug.WriteLine("Delete {0}", model.FullName);
                 await dataProvider.DeleteCustomerAsync(model);
             }
         }

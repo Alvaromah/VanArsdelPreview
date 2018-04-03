@@ -35,15 +35,19 @@ namespace VanArsdel.Inventory.Providers
 
         public void RangesChanged(ItemIndexRange visibleRange, IReadOnlyList<ItemIndexRange> trackedItems)
         {
-            _timer.Stop();
             _visibleRange = visibleRange;
             _trackedItems = trackedItems;
-            _timer.Start();
+            FetchRanges();
         }
 
         private object _sync = new Object();
 
-        private async void OnTimerTick(object sender, object e)
+        private void OnTimerTick(object sender, object e)
+        {
+            FetchRanges();
+        }
+
+        private async void FetchRanges()
         {
             _timer.Stop();
             lock (_sync)

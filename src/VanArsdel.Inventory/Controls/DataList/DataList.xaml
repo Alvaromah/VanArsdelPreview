@@ -39,11 +39,11 @@
             <TextBlock Margin="6" Text="{x:Bind DataUnavailableMessage, Mode=OneWay}" Visibility="{x:Bind IsDataUnavailable, Mode=OneWay}"/>
         </Grid>
 
-        <!--Pagination Footer-->
+        <!--Footer-->
         <Grid Grid.Row="3" Margin="2" Visibility="{x:Bind IsDataAvailable, Mode=OneWay}">
             <TextBlock FontSize="14" VerticalAlignment="Bottom" Opacity="0.75" Visibility="{x:Bind IsMultipleSelection, Mode=OneWay}">
                 <Run Text="{x:Bind SelectedItemsCount, Mode=OneWay}" />
-                <Run Text="selected items." />
+                <Run Text="items selected." />
             </TextBlock>
             <TextBlock FontSize="14" VerticalAlignment="Bottom" Opacity="0.75" Visibility="{x:Bind IsSingleSelection, Mode=OneWay}">
                 <Run Text="Total" />
