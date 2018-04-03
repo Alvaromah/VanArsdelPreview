@@ -252,9 +252,6 @@ namespace VanArsdel.Inventory.Controls
         public string DataUnavailableMessage => ItemsSource == null ? "Loading..." : "No items found.";
         static DependencyExpression DataUnavailableMessageExpression = DependencyExpressions.Register(nameof(DataUnavailableMessage), nameof(ItemsSource));
 
-        public string ItemsSelectedText => $"{SelectedItemsCount} items selected.";
-        static DependencyExpression ItemsSelectedTextExpression = DependencyExpressions.Register(nameof(ItemsSelectedText), nameof(SelectedItemsCount));
-
         public string GetSelectionText(int count)
         {
             return $"{count} items selected.";
