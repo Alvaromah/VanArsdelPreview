@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
@@ -8,19 +9,20 @@ namespace VanArsdel.Data.Services
 {
     partial class DataServiceBase
     {
-        public async Task<int> GetCustomersCountAsync(PageRequest<Customer> request)
+        public async Task<int> GetCustomersCountAsync(string query = null, Expression<Func<Customer, bool>> where = null)
         {
-            // Where
             IQueryable<Customer> items = _dataSource.Customers;
-            if (request.Where != null)
-            {
-                items = items.Where(request.Where);
-            }
 
             // Query
-            if (!String.IsNullOrEmpty(request.Query))
+            if (!String.IsNullOrEmpty(query))
             {
-                items = items.Where(r => r.SearchTerms.Contains(request.Query.ToLower()));
+                items = items.Where(r => r.SearchTerms.Contains(query.ToLower()));
+            }
+
+            // Where
+            if (where != null)
+            {
+                items = items.Where(where);
             }
 
             return await items.CountAsync();

@@ -16,7 +16,9 @@ namespace VanArsdel.Data
 
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
+
         public string Query { get; set; }
+
         public Expression<Func<T, bool>> Where { get; set; }
         public Expression<Func<T, object>> OrderBy { get; set; }
         public Expression<Func<T, object>> OrderByDesc { get; set; }

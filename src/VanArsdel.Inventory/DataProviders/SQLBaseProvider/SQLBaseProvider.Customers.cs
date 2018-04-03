@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,9 +10,9 @@ namespace VanArsdel.Inventory.Providers
 {
     partial class SQLBaseProvider
     {
-        public async Task<int> GetCustomersCountAsync(PageRequest<Customer> request)
+        public async Task<int> GetCustomersCountAsync(string query = null, Expression<Func<Customer, bool>> where = null)
         {
-            return await DataService.GetCustomersCountAsync(request);
+            return await DataService.GetCustomersCountAsync(query, where);
         }
 
         public async Task<PageResult<CustomerModel>> GetCustomersAsync(PageRequest<Customer> request)

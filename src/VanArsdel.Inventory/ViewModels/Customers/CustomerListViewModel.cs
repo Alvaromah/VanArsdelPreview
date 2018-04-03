@@ -48,16 +48,16 @@ namespace VanArsdel.Inventory.ViewModels
             Items = null;
             SelectedItem = null;
 
-            var request = new PageRequest<Customer>(PageIndex, PageSize)
+            var request = new DataRequest<Customer>()
             {
                 Query = Query,
                 OrderBy = ViewState.OrderBy,
                 OrderByDesc = ViewState.OrderByDesc
             };
-            var virtualized = new CustomerVirtualList(ProviderFactory);
-            await virtualized.InitializeAsync(request);
+            var collection = new CustomerCollection(ProviderFactory);
+            await collection.RefreshAsync(request);
 
-            Items = virtualized;
+            Items = collection;
             SelectedItem = Items.FirstOrDefault();
             ItemsCount = Items.Count;
 
