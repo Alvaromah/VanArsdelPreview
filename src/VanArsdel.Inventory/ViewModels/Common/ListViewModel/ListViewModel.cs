@@ -43,7 +43,7 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
-        private async Task RefreshAsync(IDataProvider dataProvider)
+        virtual protected async Task RefreshAsync(IDataProvider dataProvider)
         {
             Items = null;
             SelectedItem = null;

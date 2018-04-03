@@ -8,6 +8,24 @@ namespace VanArsdel.Data.Services
 {
     partial class DataServiceBase
     {
+        public async Task<int> GetCustomersCountAsync(PageRequest<Customer> request)
+        {
+            // Where
+            IQueryable<Customer> items = _dataSource.Customers;
+            if (request.Where != null)
+            {
+                items = items.Where(request.Where);
+            }
+
+            // Query
+            if (!String.IsNullOrEmpty(request.Query))
+            {
+                items = items.Where(r => r.SearchTerms.Contains(request.Query.ToLower()));
+            }
+
+            return await items.CountAsync();
+        }
+
         public async Task<PageResult<Customer>> GetCustomersAsync(PageRequest<Customer> request)
         {
             // Where
@@ -24,7 +42,7 @@ namespace VanArsdel.Data.Services
             }
 
             // Count
-            int count = items.Count();
+            int count = await items.CountAsync();
             if (count > 0)
             {
                 int pageSize = Math.Min(count, request.PageSize);

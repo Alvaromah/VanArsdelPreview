@@ -5,7 +5,7 @@ namespace VanArsdel.Data
 {
     public class PageResult<T>
     {
-        public PageResult(int pageIndex, int pageSize, int count, IList<T> items)
+        public PageResult(int pageIndex, int pageSize, int count, IList<T> items = null)
         {
             PageIndex = pageIndex;
             PageSize = pageSize;
@@ -19,7 +19,7 @@ namespace VanArsdel.Data
 
         public int Count { get; }
 
-        public IList<T> Items { get; }
+        public IList<T> Items { get; set; }
 
         static public PageResult<T> Empty()
         {

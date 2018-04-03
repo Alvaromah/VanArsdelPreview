@@ -24,7 +24,7 @@ namespace VanArsdel.Data.Services
             }
 
             // Count
-            int count = items.Count();
+            int count = await items.CountAsync();
             if (count > 0)
             {
                 int pageSize = Math.Min(count, request.PageSize);

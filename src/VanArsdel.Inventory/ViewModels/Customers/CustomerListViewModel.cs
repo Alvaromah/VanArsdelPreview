@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -42,15 +43,44 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
-        override public async Task<PageResult<CustomerModel>> GetItemsAsync(IDataProvider dataProvider)
+        protected override async Task RefreshAsync(IDataProvider dataProvider)
         {
+            Items = null;
+            SelectedItem = null;
+
             var request = new PageRequest<Customer>(PageIndex, PageSize)
             {
                 Query = Query,
                 OrderBy = ViewState.OrderBy,
                 OrderByDesc = ViewState.OrderByDesc
             };
-            return await dataProvider.GetCustomersAsync(request);
+            var virtualized = new CustomerVirtualList(ProviderFactory);
+            await virtualized.InitializeAsync(request);
+
+            Items = virtualized;
+            SelectedItem = Items.FirstOrDefault();
+            ItemsCount = Items.Count;
+
+            // Update dependent properties
+            NotifyPropertyChanged(nameof(Title));
+            NotifyPropertyChanged(nameof(IsDataAvailable));
+
+            // Update PageIndex preventing firing Refresh() again
+            //Set(ref _pageIndex, page.PageIndex, nameof(PageIndex));
+        }
+
+        override public Task<PageResult<CustomerModel>> GetItemsAsync(IDataProvider dataProvider)
+        {
+            throw new NotImplementedException();
+            //var request = new PageRequest<Customer>(PageIndex, PageSize)
+            //{
+            //    Query = Query,
+            //    OrderBy = ViewState.OrderBy,
+            //    OrderByDesc = ViewState.OrderByDesc
+            //};
+            //var virtualized = new CustomerVirtualList(ProviderFactory);
+            //await virtualized.InitializeAsync(request);
+            //return new PageResult<CustomerModel>(request.PageIndex, request.PageSize, virtualized.Count) { Items = virtualized };
         }
 
         protected override async Task DeleteItemsAsync(IDataProvider dataProvider, IEnumerable<CustomerModel> models)

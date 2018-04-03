@@ -6,6 +6,10 @@ namespace VanArsdel.Inventory.Models
 {
     public class CustomerModel : ModelBase
     {
+        static public CustomerModel CreateEmpty() => new CustomerModel { CustomerID = -1, IsEmpty = true };
+
+        public bool IsEmpty { get; set; }
+
         public long CustomerID { get; set; }
 
         public string Title { get; set; }

@@ -9,6 +9,11 @@ namespace VanArsdel.Inventory.Providers
 {
     partial class SQLBaseProvider
     {
+        public async Task<int> GetCustomersCountAsync(PageRequest<Customer> request)
+        {
+            return await DataService.GetCustomersCountAsync(request);
+        }
+
         public async Task<PageResult<CustomerModel>> GetCustomersAsync(PageRequest<Customer> request)
         {
             var models = new List<CustomerModel>();

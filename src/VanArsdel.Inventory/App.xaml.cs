@@ -21,8 +21,10 @@ namespace VanArsdel.Inventory
             ApplicationView.PreferredLaunchViewSize = new Size(1280, 840);
         }
 
-        private Type EntryViewModel => typeof(DashboardViewModel);
+        //private Type EntryViewModel => typeof(DashboardViewModel);
         private object EntryViewState => new DashboardViewState();
+
+        private Type EntryViewModel => typeof(CustomersViewModel);
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
