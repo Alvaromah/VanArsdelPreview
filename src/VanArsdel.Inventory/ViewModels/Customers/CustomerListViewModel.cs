@@ -12,9 +12,12 @@ namespace VanArsdel.Inventory.ViewModels
 {
     public class CustomerListViewModel : ListViewModel<CustomerModel>
     {
+        private CustomerCollection _virtualCollection = null;
+
         public CustomerListViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager)
             : base(providerFactory, serviceManager)
         {
+            _virtualCollection = new CustomerCollection(ProviderFactory);
         }
 
         public CustomersViewState ViewState { get; private set; }
@@ -54,10 +57,9 @@ namespace VanArsdel.Inventory.ViewModels
                 OrderBy = ViewState.OrderBy,
                 OrderByDesc = ViewState.OrderByDesc
             };
-            var collection = new CustomerCollection(ProviderFactory);
-            await collection.RefreshAsync(request);
+            await _virtualCollection.RefreshAsync(request);
 
-            Items = collection;
+            Items = _virtualCollection;
             SelectedItem = Items.FirstOrDefault();
             ItemsCount = Items.Count;
 
@@ -85,11 +87,31 @@ namespace VanArsdel.Inventory.ViewModels
 
         protected override async Task DeleteItemsAsync(IDataProvider dataProvider, IEnumerable<CustomerModel> models)
         {
-            foreach (var model in models)
+            var ids = new List<long>();
+
+            using (var provider = ProviderFactory.CreateDataProvider())
             {
-                System.Diagnostics.Debug.WriteLine("Delete {0}", model.FullName);
-                await dataProvider.DeleteCustomerAsync(model);
+                foreach (var range in _virtualCollection.GetSelectedRanges())
+                {
+                    var request = new DataRequest<Customer>()
+                    {
+                        Query = Query,
+                        OrderBy = ViewState.OrderBy,
+                        OrderByDesc = ViewState.OrderByDesc
+                    };
+                    var items = (await provider.GetCustomersAsync(range.FirstIndex, (int)range.Length, request)).Items;
+                    foreach (var item in items)
+                    {
+                        await dataProvider.DeleteCustomerAsync(item);
+                    }
+                }
             }
+
+            //foreach (var model in models)
+            //{
+            //    System.Diagnostics.Debug.WriteLine("Delete {0}", model.FullName);
+            //    await dataProvider.DeleteCustomerAsync(model);
+            //}
         }
 
         protected override async Task<bool> ConfirmDeleteSelectionAsync()

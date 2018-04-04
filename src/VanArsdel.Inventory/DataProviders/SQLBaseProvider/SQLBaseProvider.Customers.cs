@@ -15,6 +15,17 @@ namespace VanArsdel.Inventory.Providers
             return await DataService.GetCustomersCountAsync(query, where);
         }
 
+        public async Task<PageResult<CustomerModel>> GetCustomersAsync(int skip, int take, DataRequest<Customer> request)
+        {
+            var models = new List<CustomerModel>();
+            var page = await DataService.GetCustomersAsync(skip, take, request);
+            foreach (var item in page.Items)
+            {
+                models.Add(await CreateCustomerModelAsync(item, includeAllFields: false));
+            }
+            return new PageResult<CustomerModel>(page.PageIndex, page.PageSize, page.Count, models);
+        }
+
         public async Task<PageResult<CustomerModel>> GetCustomersAsync(PageRequest<Customer> request)
         {
             var models = new List<CustomerModel>();

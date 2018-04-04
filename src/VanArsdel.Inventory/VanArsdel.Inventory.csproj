@@ -105,7 +105,7 @@
     <Compile Include="Common\Result.cs" />
     <Compile Include="Common\ThreadSafeSingleton.cs" />
     <Compile Include="Common\ValidationConstraint.cs" />
-    <Compile Include="DataProviders\VirtualCollections\Base\DataRequest.cs" />
+    <Compile Include="DataProviders\VirtualCollections\Base\VirtualCollection.Selection.cs" />
     <Compile Include="DataProviders\VirtualCollections\Base\VirtualCollection.IList.cs" />
     <Compile Include="DataProviders\VirtualCollections\Base\VirtualCollection.cs" />
     <Compile Include="Configuration\AppSettings.cs" />
@@ -159,6 +159,8 @@
     <Compile Include="DataProviders\SQLiteProvider\SQLiteDataProvider.cs" />
     <Compile Include="DataProviders\SQLServerProvider\SQLServerDataProvider.cs" />
     <Compile Include="DataProviders\VirtualCollections\CustomerCollection.cs" />
+    <Compile Include="DataProviders\VirtualCollections\Helpers\ItemIndexRangeExtensions.cs" />
+    <Compile Include="DataProviders\VirtualCollections\Helpers\ItemIndexRangeList.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ICommandExtensions.cs" />

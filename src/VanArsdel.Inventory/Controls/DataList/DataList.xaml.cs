@@ -259,13 +259,28 @@ namespace VanArsdel.Inventory.Controls
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var items = listview.SelectedRanges;
+
             if (IsMultipleSelection)
             {
-                SelectedItemsCount = listview.SelectedItems.Count;
+                if (listview.SelectedItems != null)
+                {
+                    SelectedItemsCount = listview.SelectedItems.Count;
+                }
+                else if (listview.SelectedRanges != null)
+                {
+                    SelectedItemsCount = (int)listview.SelectedRanges.Sum(r => r.Length);
+                }
             }
 
-            SelectItemsCommand?.TryExecute(e.AddedItems);
-            DeselectItemsCommand?.TryExecute(e.RemovedItems);
+            if (e.AddedItems != null)
+            {
+                SelectItemsCommand?.TryExecute(e.AddedItems);
+            }
+            if (e.RemovedItems != null)
+            {
+                DeselectItemsCommand?.TryExecute(e.RemovedItems);
+            }
         }
 
         private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)

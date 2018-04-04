@@ -30,8 +30,14 @@ namespace VanArsdel.Data.Services
 
         public async Task<PageResult<Customer>> GetCustomersAsync(PageRequest<Customer> request)
         {
-            // Where
+            return await GetCustomersAsync(request.PageIndex * request.PageSize, request.PageSize, new DataRequest<Customer>());
+        }
+
+        public async Task<PageResult<Customer>> GetCustomersAsync(int skip, int take, DataRequest<Customer> request)
+        {
             IQueryable<Customer> items = _dataSource.Customers;
+
+            // Where
             if (request.Where != null)
             {
                 items = items.Where(request.Where);
@@ -47,9 +53,6 @@ namespace VanArsdel.Data.Services
             int count = await items.CountAsync();
             if (count > 0)
             {
-                int pageSize = Math.Min(count, request.PageSize);
-                int index = Math.Min(Math.Max(0, count - 1) / pageSize, request.PageIndex);
-
                 // Order By
                 if (request.OrderBy != null)
                 {
@@ -61,7 +64,7 @@ namespace VanArsdel.Data.Services
                 }
 
                 // Execute
-                var records = await items.Skip(index * pageSize).Take(pageSize)
+                var records = await items.Skip(skip).Take(take)
                     .Select(r => new Customer
                     {
                         CustomerID = r.CustomerID,
@@ -86,7 +89,7 @@ namespace VanArsdel.Data.Services
                     .AsNoTracking()
                     .ToListAsync();
 
-                return new PageResult<Customer>(index, pageSize, count, records);
+                return new PageResult<Customer>(0, take, count, records);
             }
             return PageResult<Customer>.Empty();
         }
