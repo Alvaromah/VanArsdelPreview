@@ -16,8 +16,8 @@
     - [What is .Net Standard](chapters/netstandard.md#what-is-.net-standard)
     - [Why .Net Standard?](chapters/netstandard.md#why-.net-standard)
         - [Comparation with PCLs](chapters/netstandard.md#comparation-with-pcls)
-- What's a Universal Windows Platform? *Pending*
-    - Device families
+- What's the Universal Windows Platform? *Pending*
+    - Device Families
     - Enterprise app ditribution: https://docs.microsoft.com/en-us/windows/uwp/publish/distribute-lob-apps-to-enterprises
 - [Windows 10 Binding](chapters/windows-10-binding.md)
     - [Binding Elements](chapters/windows-10-binding.md#binding-elements)
@@ -28,15 +28,15 @@
     - [Value Converters](chapters/windows-10-binding.md#value-converters)
 - Windows 10 Accessibility
     - Access Keys 
-- [Van Arsdel Inventory Arquitecture](chapters/arquitecture.md)
+- [Van Arsdel Inventory Architecture](chapters/architecture/architecture.md)
     - Description 
     - Solution Structure
     - Authentication and Authorization
     - Navigation
     - Difference between Data Source Models and App Models
-    - [Data Access](chapters/arquitecture/dataaccess.md#data-access)
-        - [Data Providers](chapters/arquitecture/dataaccess.md#data-providers)
-        - [Data Services](chapters/arquitecture/dataaccess.md#data-services)
+    - [Data Access](chapters/architecture/dataaccess.md#data-access)
+        - [Data Providers](chapters/architecture/dataaccess.md#data-providers)
+        - [Data Services](chapters/architecture/dataaccess.md#data-services)
     - Localization
     - ...
 - [Data Access](chapters/dataaccess.md)

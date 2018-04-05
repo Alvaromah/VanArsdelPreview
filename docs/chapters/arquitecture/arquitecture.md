@@ -1,5 +1,0 @@
-# Van Arsdel Inventory Arquitecture
-
-
-
- 
