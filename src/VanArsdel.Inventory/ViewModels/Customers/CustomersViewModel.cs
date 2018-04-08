@@ -19,6 +19,7 @@ namespace VanArsdel.Inventory.ViewModels
 
             CustomerDetails = new CustomerDetailsViewModel(ProviderFactory, serviceManager);
             CustomerDetails.ItemDeleted += OnItemDeleted;
+
             CustomerOrders = new OrderListViewModel(ProviderFactory, serviceManager);
         }
 
@@ -38,9 +39,9 @@ namespace VanArsdel.Inventory.ViewModels
             CustomerList.Unload();
         }
 
-        public async Task RefreshAsync(bool resetPageIndex = false)
+        public async Task RefreshAsync()
         {
-            await CustomerList.RefreshAsync(resetPageIndex);
+            await CustomerList.RefreshAsync();
         }
 
         private async void OnListPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -50,11 +51,16 @@ namespace VanArsdel.Inventory.ViewModels
                 case nameof(CustomerListViewModel.SelectedItem):
                     CustomerDetails.CancelEdit();
                     CustomerOrders.IsMultipleSelection = false;
+                    var selected = CustomerList.SelectedItem;
                     if (!CustomerList.IsMultipleSelection)
                     {
-                        await PopulateDetails(CustomerList.SelectedItem);
-                        await PopulateOrders(CustomerList.SelectedItem);
+                        if (selected != null && !selected.IsEmpty)
+                        {
+                            await PopulateDetails(selected);
+                            await PopulateOrders(selected);
+                        }
                     }
+                    CustomerDetails.Item = selected;
                     break;
                 default:
                     break;
@@ -68,15 +74,11 @@ namespace VanArsdel.Inventory.ViewModels
 
         private async Task PopulateDetails(CustomerModel selected)
         {
-            if (selected != null)
+            using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
-                using (var dataProvider = ProviderFactory.CreateDataProvider())
-                {
-                    var model = await dataProvider.GetCustomerAsync(selected.CustomerID);
-                    selected.Merge(model);
-                }
+                var model = await dataProvider.GetCustomerAsync(selected.CustomerID);
+                selected.Merge(model);
             }
-            CustomerDetails.Item = selected;
         }
 
         private async Task PopulateOrders(CustomerModel selectedItem)

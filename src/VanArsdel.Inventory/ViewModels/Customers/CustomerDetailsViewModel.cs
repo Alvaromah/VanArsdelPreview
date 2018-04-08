@@ -15,7 +15,9 @@ namespace VanArsdel.Inventory.ViewModels
         {
         }
 
-        override public string Title => ((Item?.IsNew) ?? false) ? "New Customer" : Item?.FullName ?? String.Empty;
+        override public string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
+        public string TitleNew => "New Customer";
+        public string TitleEdit => Item == null ? "Customer" : $"{Item.FullName}";
 
         public override bool IsNewItem => Item?.IsNew ?? false;
 

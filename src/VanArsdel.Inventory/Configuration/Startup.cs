@@ -42,7 +42,7 @@ namespace VanArsdel.Inventory
             NavigationService.Register<OrderItemsViewModel, OrderItemsView>();
             NavigationService.Register<OrderItemDetailsViewModel, OrderItemView>();
 
-            NavigationService.Register<ProductsViewModel, ProductsView>();
+            //NavigationService.Register<ProductsViewModel, ProductsView>();
             NavigationService.Register<SettingsViewModel, SettingsView>();
         }
 
@@ -51,6 +51,7 @@ namespace VanArsdel.Inventory
             var localFolder = ApplicationData.Current.LocalFolder;
             var databaseFolder = await localFolder.CreateFolderAsync(AppSettings.DatabasePath, CreationCollisionOption.OpenIfExists);
 
+            // TODOX: 
             if (await databaseFolder.TryGetItemAsync(AppSettings.DatabaseName) == null)
             {
                 if (await databaseFolder.TryGetItemAsync(AppSettings.DatabasePattern) == null)

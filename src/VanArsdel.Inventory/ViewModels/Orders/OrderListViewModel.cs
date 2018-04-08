@@ -22,7 +22,7 @@ namespace VanArsdel.Inventory.ViewModels
         {
             ViewState = state ?? OrdersViewState.CreateDefault();
             ApplyViewState(ViewState);
-            await base.RefreshAsync();
+            await RefreshAsync();
         }
 
         public void Unload()
@@ -42,9 +42,9 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
-        override public async Task<PageResult<OrderModel>> GetItemsAsync(IDataProvider dataProvider)
+        override public async Task<IList<OrderModel>> GetItemsAsync(IDataProvider dataProvider)
         {
-            var request = new PageRequest<Order>(PageIndex, PageSize)
+            var request = new DataRequest<Order>()
             {
                 Query = Query,
                 OrderBy = ViewState.OrderBy,
@@ -54,7 +54,9 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 request.Where = (r) => r.CustomerID == ViewState.CustomerID;
             }
-            return await dataProvider.GetOrdersAsync(request);
+            var virtualCollection = new OrderCollection(ProviderFactory.CreateDataProvider());
+            await virtualCollection.RefreshAsync(request);
+            return virtualCollection;
         }
 
         protected override async Task DeleteItemsAsync(IDataProvider dataProvider, IEnumerable<OrderModel> models)
@@ -62,6 +64,20 @@ namespace VanArsdel.Inventory.ViewModels
             foreach (var model in models)
             {
                 await dataProvider.DeleteOrderAsync(model);
+            }
+        }
+
+        protected override async Task DeleteRangesAsync(IDataProvider dataProvider, IEnumerable<IndexRange> ranges)
+        {
+            var request = new DataRequest<Order>()
+            {
+                Query = Query,
+                OrderBy = ViewState.OrderBy,
+                OrderByDesc = ViewState.OrderByDesc
+            };
+            foreach (var range in ranges)
+            {
+                await dataProvider.DeleteOrderRangeAsync(range.Index, range.Length, request);
             }
         }
 

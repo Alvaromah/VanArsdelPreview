@@ -42,15 +42,17 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
-        override public async Task<PageResult<CustomerModel>> GetItemsAsync(IDataProvider dataProvider)
+        override public async Task<IList<CustomerModel>> GetItemsAsync(IDataProvider dataProvider)
         {
-            var request = new PageRequest<Customer>(PageIndex, PageSize)
+            var request = new DataRequest<Customer>()
             {
                 Query = Query,
                 OrderBy = ViewState.OrderBy,
                 OrderByDesc = ViewState.OrderByDesc
             };
-            return await dataProvider.GetCustomersAsync(request);
+            var virtualCollection = new CustomerCollection(ProviderFactory.CreateDataProvider());
+            await virtualCollection.RefreshAsync(request);
+            return virtualCollection;
         }
 
         protected override async Task DeleteItemsAsync(IDataProvider dataProvider, IEnumerable<CustomerModel> models)
@@ -58,6 +60,20 @@ namespace VanArsdel.Inventory.ViewModels
             foreach (var model in models)
             {
                 await dataProvider.DeleteCustomerAsync(model);
+            }
+        }
+
+        protected override async Task DeleteRangesAsync(IDataProvider dataProvider, IEnumerable<IndexRange> ranges)
+        {
+            var request = new DataRequest<Customer>()
+            {
+                Query = Query,
+                OrderBy = ViewState.OrderBy,
+                OrderByDesc = ViewState.OrderByDesc
+            };
+            foreach (var range in ranges)
+            {
+                await dataProvider.DeleteCustomerRangeAsync(range.Index, range.Length, request);
             }
         }
 

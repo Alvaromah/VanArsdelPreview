@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,15 +10,20 @@ namespace VanArsdel.Inventory.Providers
 {
     partial class SQLBaseProvider
     {
-        public async Task<PageResult<ProductModel>> GetProductsAsync(PageRequest<Product> request)
+        public async Task<int> GetProductsCountAsync(DataRequest<Product> request)
+        {
+            return await DataService.GetProductsCountAsync(request);
+        }
+
+        public async Task<IList<ProductModel>> GetProductsAsync(int skip, int take, DataRequest<Product> request)
         {
             var models = new List<ProductModel>();
-            var page = await DataService.GetProductsAsync(request);
-            foreach (var item in page.Items)
+            var items = await DataService.GetProductsAsync(skip, take, request);
+            foreach (var item in items)
             {
                 models.Add(await CreateProductModelAsync(item, includeAllFields: false));
             }
-            return new PageResult<ProductModel>(page.PageIndex, page.PageSize, page.Count, models);
+            return models;
         }
 
         public async Task<ProductModel> GetProductAsync(string id)
@@ -45,7 +51,14 @@ namespace VanArsdel.Inventory.Providers
 
         public async Task<int> DeleteProductAsync(ProductModel model)
         {
-            return await DataService.DeleteProductAsync(model.ProductID);
+            var product = new Product { ProductID = model.ProductID };
+            return await DataService.DeleteProductsAsync(product);
+        }
+
+        public async Task<int> DeleteProductRangeAsync(int index, int length, DataRequest<Product> request)
+        {
+            var items = await DataService.GetProductKeysAsync(index, length, request);
+            return await DataService.DeleteProductsAsync(items.ToArray());
         }
 
         private async Task<ProductModel> CreateProductModelAsync(Product source, bool includeAllFields)

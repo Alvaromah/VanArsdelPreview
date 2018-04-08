@@ -12,9 +12,9 @@ namespace VanArsdel.Inventory.ViewModels
         abstract public void New();
 
         public ICommand RefreshCommand => new RelayCommand(Refresh);
-        virtual protected void Refresh()
+        virtual protected async void Refresh()
         {
-            Refresh(false);
+            await RefreshAsync();
         }
 
         public List<TModel> _selectedItems = null;
@@ -23,6 +23,7 @@ namespace VanArsdel.Inventory.ViewModels
         virtual protected void StartSelection()
         {
             _selectedItems = new List<TModel>();
+            _selectedIndexRanges = null;
             IsMultipleSelection = true;
         }
 
@@ -31,6 +32,7 @@ namespace VanArsdel.Inventory.ViewModels
         {
             _selectedItems?.Clear();
             _selectedItems = null;
+            _selectedIndexRanges = null;
             IsMultipleSelection = false;
             SelectedItem = Items?.FirstOrDefault();
         }
@@ -59,16 +61,36 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
+        private IndexRange[] _selectedIndexRanges = null;
+
+        public ICommand SelectRangesCommand => new RelayCommand<IndexRange[]>(SelectRanges);
+        private void SelectRanges(IndexRange[] indexRanges)
+        {
+            _selectedIndexRanges = indexRanges;
+        }
+
         public ICommand DeleteSelectionCommand => new RelayCommand(DeleteSelection);
         virtual protected async void DeleteSelection()
         {
             if (await ConfirmDeleteSelectionAsync())
             {
-                await DeleteSelectionAsync();
-                _selectedItems?.Clear();
-                _selectedItems = null;
-                IsMultipleSelection = false;
-                SelectedItem = Items?.FirstOrDefault();
+                using (var dataProvider = ProviderFactory.CreateDataProvider())
+                {
+                    if (_selectedIndexRanges != null)
+                    {
+                        await DeleteRangesAsync(dataProvider, _selectedIndexRanges);
+                        await RefreshAsync(dataProvider);
+                        _selectedIndexRanges = null;
+                    }
+                    else if (_selectedItems != null)
+                    {
+                        await DeleteItemsAsync(dataProvider, _selectedItems);
+                        await RefreshAsync(dataProvider);
+                        _selectedItems.Clear();
+                        _selectedItems = null;
+                    }
+                }
+                //IsMultipleSelection = false;
             }
         }
 

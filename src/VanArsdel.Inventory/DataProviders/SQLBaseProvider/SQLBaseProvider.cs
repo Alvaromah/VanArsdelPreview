@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using VanArsdel.Data.Services;
 using VanArsdel.Inventory.Models;
+using VanArsdel.Data;
 
 namespace VanArsdel.Inventory.Providers
 {

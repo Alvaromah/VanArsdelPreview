@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
@@ -8,55 +9,91 @@ namespace VanArsdel.Data.Services
 {
     partial class DataServiceBase
     {
-        public async Task<PageResult<OrderItem>> GetOrderItemsAsync(PageRequest<OrderItem> request)
-        {
-            // Where
-            IQueryable<OrderItem> items = _dataSource.OrderItems;
-            if (request.Where != null)
-            {
-                items = items.Where(request.Where);
-            }
-
-            // Query
-            // Not supported
-            //if (!String.IsNullOrEmpty(request.Query))
-            //{
-            //    items = items.Where(r => r.SearchTerms.Contains(request.Query));
-            //}
-
-            // Count
-            int count = items.Count();
-            if (count > 0)
-            {
-                int pageSize = Math.Min(count, request.PageSize);
-                int index = Math.Min(Math.Max(0, count - 1) / pageSize, request.PageIndex);
-
-                // Order By
-                if (request.OrderBy != null)
-                {
-                    items = items.OrderBy(request.OrderBy);
-                }
-                if (request.OrderByDesc != null)
-                {
-                    items = items.OrderByDescending(request.OrderByDesc);
-                }
-
-                // Execute
-                var records = await items.Skip(index * pageSize).Take(pageSize)
-                    .Include(r => r.Product)
-                    .AsNoTracking().ToListAsync();
-
-                return new PageResult<OrderItem>(index, pageSize, count, records);
-            }
-            return PageResult<OrderItem>.Empty();
-        }
-
         public async Task<OrderItem> GetOrderItemAsync(long orderID, int orderLine)
         {
             return await _dataSource.OrderItems
                 .Where(r => r.OrderID == orderID && r.OrderLine == orderLine)
                 .Include(r => r.Product)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<IList<OrderItem>> GetOrderItemsAsync(int skip, int take, DataRequest<OrderItem> request)
+        {
+            IQueryable<OrderItem> items = GetOrderItems(request);
+
+            // Execute
+            var records = await items.Skip(skip).Take(take)
+                .Include(r => r.Product)
+                .AsNoTracking().ToListAsync();
+
+            return records;
+        }
+
+        public async Task<IList<OrderItem>> GetOrderItemKeysAsync(int skip, int take, DataRequest<OrderItem> request)
+        {
+            IQueryable<OrderItem> items = GetOrderItems(request);
+
+            // Execute
+            var records = await items.Skip(skip).Take(take)
+                .Select(r => new OrderItem
+                {
+                    OrderID = r.OrderID,
+                    OrderLine = r.OrderLine
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            return records;
+        }
+
+        private IQueryable<OrderItem> GetOrderItems(DataRequest<OrderItem> request)
+        {
+            IQueryable<OrderItem> items = _dataSource.OrderItems;
+
+            // Query
+            // TODO: Not supported
+            //if (!String.IsNullOrEmpty(request.Query))
+            //{
+            //    items = items.Where(r => r.SearchTerms.Contains(request.Query.ToLower()));
+            //}
+
+            // Where
+            if (request.Where != null)
+            {
+                items = items.Where(request.Where);
+            }
+
+            // Order By
+            if (request.OrderBy != null)
+            {
+                items = items.OrderBy(request.OrderBy);
+            }
+            if (request.OrderByDesc != null)
+            {
+                items = items.OrderByDescending(request.OrderByDesc);
+            }
+
+            return items;
+        }
+
+        public async Task<int> GetOrderItemsCountAsync(DataRequest<OrderItem> request)
+        {
+            IQueryable<OrderItem> items = _dataSource.OrderItems;
+
+            // Query
+            // TODO: Not supported
+            //if (!String.IsNullOrEmpty(request.Query))
+            //{
+            //    items = items.Where(r => r.SearchTerms.Contains(request.Query.ToLower()));
+            //}
+
+            // Where
+            if (request.Where != null)
+            {
+                items = items.Where(request.Where);
+            }
+
+            return await items.CountAsync();
         }
 
         public async Task<int> UpdateOrderItemAsync(OrderItem orderItem)
@@ -78,15 +115,10 @@ namespace VanArsdel.Data.Services
             return await _dataSource.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteOrderItemAsync(long orderID, int orderLine)
+        public async Task<int> DeleteOrderItemsAsync(params OrderItem[] orderItems)
         {
-            var item = _dataSource.OrderItems.Where(r => r.OrderID == orderID && r.OrderLine == orderLine).Select(r => new OrderItem { OrderID = r.OrderID, OrderLine = r.OrderLine }).FirstOrDefault();
-            if (item != null)
-            {
-                _dataSource.OrderItems.Remove(item);
-                return await _dataSource.SaveChangesAsync();
-            }
-            return 0;
+            _dataSource.OrderItems.RemoveRange(orderItems);
+            return await _dataSource.SaveChangesAsync();
         }
     }
 }

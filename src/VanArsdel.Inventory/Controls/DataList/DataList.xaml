@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="38"/>
+            <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
 
         <!--Toolbar-->
@@ -39,19 +39,17 @@
             <TextBlock Margin="6" Text="{x:Bind DataUnavailableMessage, Mode=OneWay}" Visibility="{x:Bind IsDataUnavailable, Mode=OneWay}"/>
         </Grid>
 
-        <!--Pagination Footer-->
-        <Grid Grid.Row="3">
-            <TextBlock FontSize="14" VerticalAlignment="Center" Opacity="0.75"
-                       Text="{x:Bind ItemsSelectedText, Mode=OneWay}"
-                       Visibility="{x:Bind IsMultipleSelection, Mode=OneWay}" />
-
-            <Grid Visibility="{x:Bind IsSingleSelection, Mode=OneWay}">
-                <controls:PaginationFooter
-                    ItemsCount="{x:Bind ItemsCount, Mode=OneWay}"
-                    PageIndex="{x:Bind PageIndex, Mode=TwoWay}"
-                    PageSizeIndex="1"
-                    Visibility="{x:Bind IsDataAvailable, Mode=OneWay}" />
-            </Grid>
+        <!--Footer-->
+        <Grid Grid.Row="3" Margin="2" Visibility="{x:Bind IsDataAvailable, Mode=OneWay}">
+            <TextBlock FontSize="14" VerticalAlignment="Bottom" Opacity="0.75" Visibility="{x:Bind IsMultipleSelection, Mode=OneWay}">
+                <Run Text="{x:Bind SelectedItemsCount, Mode=OneWay}" />
+                <Run Text="items selected." />
+            </TextBlock>
+            <TextBlock FontSize="14" VerticalAlignment="Bottom" Opacity="0.75" Visibility="{x:Bind IsSingleSelection, Mode=OneWay}">
+                <Run Text="Total" />
+                <Run Text="{x:Bind ItemsCount, Mode=OneWay}" />
+                <Run Text="items." />
+            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>

@@ -9,7 +9,7 @@
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400">
 
     <UserControl.Resources>
-        <DataTemplate x:Key="HeaderTemplate" x:DataType="models:CustomerModel">
+        <DataTemplate x:Key="HeaderTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40"/>
@@ -30,25 +30,27 @@
         </DataTemplate>
 
         <DataTemplate x:Key="ItemTemplate" x:DataType="models:CustomerModel">
-            <Grid BorderThickness="0,0,0,1" BorderBrush="LightGray">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="12*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="8*"/>
-                </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" Margin="1" Padding="1">
-                    <PersonPicture ProfilePicture="{x:Bind ThumbnailBitmap, Mode=OneWay}" Width="28" Height="28" />
-                </Border>
-                <TextBlock Grid.Column="1" Text="{x:Bind CustomerID}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="2" Text="{x:Bind FullName, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="3" Text="{x:Bind EmailAddress, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="4" Text="{x:Bind Phone, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="5" Text="{x:Bind AddressLine1, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="6" Text="{x:Bind CountryName, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+            <Grid BorderThickness="0,0,0,1" BorderBrush="LightGray" Height="32">
+                <Grid Visibility="{x:Bind IsEmpty, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Margin="1" Padding="1">
+                        <PersonPicture ProfilePicture="{x:Bind ThumbnailBitmap, Mode=OneWay}" Width="28" Height="28" x:Phase="1" />
+                    </Border>
+                    <TextBlock Grid.Column="1" Text="{x:Bind CustomerID}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="2" Text="{x:Bind FullName, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="3" Text="{x:Bind EmailAddress, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="4" Text="{x:Bind Phone, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="5" Text="{x:Bind AddressLine1, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="6" Text="{x:Bind CountryName, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                </Grid>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -60,8 +62,6 @@
                        ItemTemplate="{StaticResource ItemTemplate}"
                        IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
                        ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
-                       PageIndex="{x:Bind ViewModel.PageIndex, Mode=TwoWay}"
-                       PageSize="{x:Bind ViewModel.PageSize, Mode=OneWay}"
                        NewCommand="{x:Bind ViewModel.NewCommand}"
                        RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
                        Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
@@ -70,5 +70,6 @@
                        CancelSelectionCommand="{x:Bind ViewModel.CancelSelectionCommand}"
                        SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
                        DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
+                       SelectRangesCommand="{x:Bind ViewModel.SelectRangesCommand}"
                        DeleteCommand="{x:Bind ViewModel.DeleteSelectionCommand}" />
 </UserControl>

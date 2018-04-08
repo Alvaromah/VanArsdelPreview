@@ -39,9 +39,9 @@ namespace VanArsdel.Inventory.ViewModels
             OrderList.Unload();
         }
 
-        public async Task RefreshAsync(bool resetPageIndex = false)
+        public async Task RefreshAsync()
         {
-            await OrderList.RefreshAsync(resetPageIndex);
+            await OrderList.RefreshAsync();
         }
 
         private async void OnListPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -51,11 +51,16 @@ namespace VanArsdel.Inventory.ViewModels
                 case nameof(OrderListViewModel.SelectedItem):
                     OrderDetails.CancelEdit();
                     OrderItemList.IsMultipleSelection = false;
+                    var selected = OrderList.SelectedItem;
                     if (!OrderList.IsMultipleSelection)
                     {
-                        await PopulateDetails(OrderList.SelectedItem);
-                        await PopulateOrderItems(OrderList.SelectedItem);
+                        if (selected != null && !selected.IsEmpty)
+                        {
+                            await PopulateDetails(selected);
+                            await PopulateOrderItems(selected);
+                        }
                     }
+                    OrderDetails.Item = selected;
                     break;
                 default:
                     break;
@@ -77,7 +82,6 @@ namespace VanArsdel.Inventory.ViewModels
                     selected.Merge(model);
                 }
             }
-            OrderDetails.Item = selected;
         }
 
         private async Task PopulateOrderItems(OrderModel selected)

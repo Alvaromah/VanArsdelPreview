@@ -38,7 +38,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid ColumnSpacing="6">
+    <Grid ColumnSpacing="6" Visibility="{x:Bind ViewModel.Item.IsEmpty, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"/>
             <ColumnDefinition Width="*"/>

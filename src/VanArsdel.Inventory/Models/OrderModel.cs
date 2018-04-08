@@ -6,6 +6,8 @@ namespace VanArsdel.Inventory.Models
 {
     public class OrderModel : ModelBase
     {
+        static public OrderModel CreateEmpty() => new OrderModel { OrderID = -1, CustomerID = -1, IsEmpty = true };
+
         public long OrderID { get; set; }
         public long CustomerID { get; set; }
 

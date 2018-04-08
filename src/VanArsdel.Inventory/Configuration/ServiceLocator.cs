@@ -41,7 +41,7 @@ namespace VanArsdel.Inventory
             serviceCollection.AddTransient<OrderItemsViewModel>();
             serviceCollection.AddTransient<OrderItemDetailsViewModel>();
 
-            serviceCollection.AddTransient<ProductsViewModel>();
+            //serviceCollection.AddTransient<ProductsViewModel>();
             serviceCollection.AddTransient<SettingsViewModel>();
 
             _rootServiceProvider = serviceCollection.BuildServiceProvider();

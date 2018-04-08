@@ -9,7 +9,7 @@
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400">
 
     <UserControl.Resources>
-        <DataTemplate x:Key="HeaderTemplate" x:DataType="models:OrderModel">
+        <DataTemplate x:Key="HeaderTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10*"/>
@@ -33,25 +33,27 @@
         </DataTemplate>
 
         <DataTemplate x:Key="ItemTemplate" x:DataType="models:OrderModel">
-            <Grid BorderThickness="0,0,0,1" BorderBrush="LightGray">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{x:Bind CustomerID}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="1" Text="{x:Bind OrderID}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="2" Text="{x:Bind StatusDesc, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="3" Text="{x:Bind OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="4" Text="{x:Bind ShippedDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="5" Text="{x:Bind DeliveredDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="6" Text="{x:Bind ShipRegion, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="7" Text="{x:Bind DataHelper.GetCountry(ShipCountryCode), Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+            <Grid BorderThickness="0,0,0,1" BorderBrush="LightGray" Height="32">
+                <Grid Visibility="{x:Bind IsEmpty, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{x:Bind CustomerID}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="1" Text="{x:Bind OrderID}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="2" Text="{x:Bind StatusDesc, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="3" Text="{x:Bind OrderDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="4" Text="{x:Bind ShippedDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="5" Text="{x:Bind DeliveredDate, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="6" Text="{x:Bind ShipRegion, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                    <TextBlock Grid.Column="7" Text="{x:Bind DataHelper.GetCountry(ShipCountryCode), Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+                </Grid>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -63,8 +65,6 @@
                        ItemTemplate="{StaticResource ItemTemplate}"
                        IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
                        ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
-                       PageIndex="{x:Bind ViewModel.PageIndex, Mode=TwoWay}"
-                       PageSize="{x:Bind ViewModel.PageSize, Mode=OneWay}"
                        NewCommand="{x:Bind ViewModel.NewCommand}"
                        RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
                        Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
@@ -73,5 +73,6 @@
                        CancelSelectionCommand="{x:Bind ViewModel.CancelSelectionCommand}"
                        SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
                        DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
+                       SelectRangesCommand="{x:Bind ViewModel.SelectRangesCommand}"
                        DeleteCommand="{x:Bind ViewModel.DeleteSelectionCommand}" />
 </UserControl>

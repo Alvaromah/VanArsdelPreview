@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,15 +10,20 @@ namespace VanArsdel.Inventory.Providers
 {
     partial class SQLBaseProvider
     {
-        public async Task<PageResult<OrderModel>> GetOrdersAsync(PageRequest<Order> request)
+        public async Task<int> GetOrdersCountAsync(DataRequest<Order> request)
+        {
+            return await DataService.GetOrdersCountAsync(request);
+        }
+
+        public async Task<IList<OrderModel>> GetOrdersAsync(int skip, int take, DataRequest<Order> request)
         {
             var models = new List<OrderModel>();
-            var page = await DataService.GetOrdersAsync(request);
-            foreach (var item in page.Items)
+            var items = await DataService.GetOrdersAsync(skip, take, request);
+            foreach (var item in items)
             {
                 models.Add(await CreateOrderModelAsync(item, includeAllFields: false));
             }
-            return new PageResult<OrderModel>(page.PageIndex, page.PageSize, page.Count, models);
+            return models;
         }
 
         public async Task<OrderModel> GetOrderAsync(long id)
@@ -70,7 +76,14 @@ namespace VanArsdel.Inventory.Providers
 
         public async Task<int> DeleteOrderAsync(OrderModel model)
         {
-            return await DataService.DeleteOrderAsync(model.OrderID);
+            var order = new Order { OrderID = model.OrderID };
+            return await DataService.DeleteOrdersAsync(order);
+        }
+
+        public async Task<int> DeleteOrderRangeAsync(int index, int length, DataRequest<Order> request)
+        {
+            var items = await DataService.GetOrderKeysAsync(index, length, request);
+            return await DataService.DeleteOrdersAsync(items.ToArray());
         }
 
         private async Task<OrderModel> CreateOrderModelAsync(Order source, bool includeAllFields)

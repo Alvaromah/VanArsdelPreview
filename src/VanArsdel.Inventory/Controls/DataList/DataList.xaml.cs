@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Collections;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 
 namespace VanArsdel.Inventory.Controls
 {
@@ -41,7 +43,20 @@ namespace VanArsdel.Inventory.Controls
         private static void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as DataList;
+            control.UpdateItemsSource(e.NewValue, e.OldValue);
             DependencyExpressions.UpdateDependencies(control, nameof(ItemsSource));
+        }
+
+        private void UpdateItemsSource(object newValue, object oldValue)
+        {
+            if (oldValue is INotifyCollectionChanged oldSource)
+            {
+                oldSource.CollectionChanged -= OnCollectionChanged;
+            }
+            if (newValue is INotifyCollectionChanged newSource)
+            {
+                newSource.CollectionChanged += OnCollectionChanged;
+            }
         }
 
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(DataList), new PropertyMetadata(null, ItemsSourceChanged));
@@ -131,26 +146,6 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty ItemsCountProperty = DependencyProperty.Register(nameof(ItemsCount), typeof(int), typeof(DataList), new PropertyMetadata(0));
         #endregion
 
-        #region PageIndex
-        public int PageIndex
-        {
-            get { return (int)GetValue(PageIndexProperty); }
-            set { SetValue(PageIndexProperty, value); }
-        }
-
-        public static readonly DependencyProperty PageIndexProperty = DependencyProperty.Register(nameof(PageIndex), typeof(int), typeof(DataList), new PropertyMetadata(0));
-        #endregion
-
-        #region PageSize
-        public int PageSize
-        {
-            get { return (int)GetValue(PageSizeProperty); }
-            set { SetValue(PageSizeProperty, value); }
-        }
-
-        public static readonly DependencyProperty PageSizeProperty = DependencyProperty.Register(nameof(PageSize), typeof(int), typeof(DataList), new PropertyMetadata(0));
-        #endregion
-
 
         #region RefreshCommand
         public ICommand RefreshCommand
@@ -233,6 +228,16 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty DeselectItemsCommandProperty = DependencyProperty.Register(nameof(DeselectItemsCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
         #endregion
 
+        #region SelectRangesCommand
+        public ICommand SelectRangesCommand
+        {
+            get { return (ICommand)GetValue(SelectRangesCommandProperty); }
+            set { SetValue(SelectRangesCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectRangesCommandProperty = DependencyProperty.Register(nameof(SelectRangesCommand), typeof(ICommand), typeof(DataList), new PropertyMetadata(null));
+        #endregion
+
 
         public ListToolbarMode ToolbarMode => IsMultipleSelection ? (SelectedItemsCount > 0 ? ListToolbarMode.CancelDelete : ListToolbarMode.Cancel) : ListToolbarMode.Default;
         static DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(nameof(ToolbarMode), nameof(IsMultipleSelection), nameof(SelectedItemsCount));
@@ -252,23 +257,58 @@ namespace VanArsdel.Inventory.Controls
         public string DataUnavailableMessage => ItemsSource == null ? "Loading..." : "No items found.";
         static DependencyExpression DataUnavailableMessageExpression = DependencyExpressions.Register(nameof(DataUnavailableMessage), nameof(ItemsSource));
 
-        public string ItemsSelectedText => $"{SelectedItemsCount} items selected.";
-        static DependencyExpression ItemsSelectedTextExpression = DependencyExpressions.Register(nameof(ItemsSelectedText), nameof(SelectedItemsCount));
-
-        public string GetSelectionText(int count)
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            return $"{count} items selected.";
+            if (!IsMultipleSelection)
+            {
+                if (ItemsSource is IList list)
+                {
+                    if (e.Action == NotifyCollectionChangedAction.Replace)
+                    {
+                        if (ItemsSource is ISelectionInfo selectionInfo)
+                        {
+                            if (selectionInfo.IsSelected(e.NewStartingIndex))
+                            {
+                                SelectedItem = list[e.NewStartingIndex];
+                                System.Diagnostics.Debug.WriteLine("SelectedItem {0}", SelectedItem);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsMultipleSelection)
             {
-                SelectedItemsCount = listview.SelectedItems.Count;
-            }
+                if (listview.SelectedItems != null)
+                {
+                    SelectedItemsCount = listview.SelectedItems.Count;
+                }
+                else if (listview.SelectedRanges != null)
+                {
+                    var ranges = listview.SelectedRanges;
+                    SelectedItemsCount = ranges.IndexCount();
+                    SelectRangesCommand?.TryExecute(ranges.GetIndexRanges().ToArray());
+                }
 
-            SelectItemsCommand?.TryExecute(e.AddedItems);
-            DeselectItemsCommand?.TryExecute(e.RemovedItems);
+                if (e.AddedItems != null)
+                {
+                    SelectItemsCommand?.TryExecute(e.AddedItems);
+                }
+                if (e.RemovedItems != null)
+                {
+                    DeselectItemsCommand?.TryExecute(e.RemovedItems);
+                }
+            }
+            else
+            {
+                // TODO: Review this hack. Force SelectedItem refresh
+                //var selected = SelectedItem;
+                //SelectedItem = null;
+                //SelectedItem = selected;
+            }
         }
 
         private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)

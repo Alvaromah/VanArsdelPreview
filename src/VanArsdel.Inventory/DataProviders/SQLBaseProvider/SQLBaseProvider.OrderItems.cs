@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,15 +10,20 @@ namespace VanArsdel.Inventory.Providers
 {
     partial class SQLBaseProvider
     {
-        public async Task<PageResult<OrderItemModel>> GetOrderItemsAsync(PageRequest<OrderItem> request)
+        public async Task<int> GetOrderItemsCountAsync(DataRequest<OrderItem> request)
+        {
+            return await DataService.GetOrderItemsCountAsync(request);
+        }
+
+        public async Task<IList<OrderItemModel>> GetOrderItemsAsync(int skip, int take, DataRequest<OrderItem> request)
         {
             var models = new List<OrderItemModel>();
-            var page = await DataService.GetOrderItemsAsync(request);
-            foreach (var item in page.Items)
+            var items = await DataService.GetOrderItemsAsync(skip, take, request);
+            foreach (var item in items)
             {
                 models.Add(await CreateOrderItemModelAsync(item, includeAllFields: false));
             }
-            return new PageResult<OrderItemModel>(page.PageIndex, page.PageSize, page.Count, models);
+            return models;
         }
 
         public async Task<OrderItemModel> GetOrderItemAsync(long orderID, int lineID)
@@ -44,7 +50,14 @@ namespace VanArsdel.Inventory.Providers
 
         public async Task<int> DeleteOrderItemAsync(OrderItemModel model)
         {
-            return await DataService.DeleteOrderItemAsync(model.OrderID, model.OrderLine);
+            var orderItem = new OrderItem { OrderID = model.OrderID, OrderLine = model.OrderLine };
+            return await DataService.DeleteOrderItemsAsync(orderItem);
+        }
+
+        public async Task<int> DeleteOrderItemRangeAsync(int index, int length, DataRequest<OrderItem> request)
+        {
+            var items = await DataService.GetOrderItemKeysAsync(index, length, request);
+            return await DataService.DeleteOrderItemsAsync(items.ToArray());
         }
 
         private async Task<OrderItemModel> CreateOrderItemModelAsync(OrderItem source, bool includeAllFields)

@@ -75,35 +75,29 @@ namespace VanArsdel.Inventory.ViewModels
 
         private async Task LoadCustomersAsync(IDataProvider dataProvider)
         {
-            var request = new PageRequest<Customer>
+            var request = new DataRequest<Customer>
             {
-                PageSize = 5,
                 OrderByDesc = r => r.CreatedOn
             };
-            var page = await dataProvider.GetCustomersAsync(request);
-            Customers = page.Items;
+            Customers = await dataProvider.GetCustomersAsync(0, 5, request);
         }
 
         private async Task LoadProductsAsync(IDataProvider dataProvider)
         {
-            var request = new PageRequest<Product>
+            var request = new DataRequest<Product>
             {
-                PageSize = 5,
                 OrderByDesc = r => r.CreatedOn
             };
-            var page = await dataProvider.GetProductsAsync(request);
-            Products = page.Items;
+            Products = await dataProvider.GetProductsAsync(0, 5, request);
         }
 
         private async Task LoadOrdersAsync(IDataProvider dataProvider)
         {
-            var request = new PageRequest<Order>
+            var request = new DataRequest<Order>
             {
-                PageSize = 5,
                 OrderByDesc = r => r.OrderDate
             };
-            var page = await dataProvider.GetOrdersAsync(request);
-            Orders = page.Items;
+            Orders = await dataProvider.GetOrdersAsync(0, 5, request);
         }
     }
 }

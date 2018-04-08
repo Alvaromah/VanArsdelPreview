@@ -47,19 +47,5 @@ namespace VanArsdel.Inventory.ViewModels
             get => _itemsCount;
             set => Set(ref _itemsCount, value);
         }
-
-        private int _pageIndex = 0;
-        public int PageIndex
-        {
-            get => _pageIndex;
-            set { if (Set(ref _pageIndex, value)) Refresh(); }
-        }
-
-        private int _pageSize = 20;
-        public int PageSize
-        {
-            get => _pageSize;
-            set => Set(ref _pageSize, value);
-        }
     }
 }

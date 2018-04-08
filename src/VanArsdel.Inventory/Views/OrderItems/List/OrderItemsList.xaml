@@ -68,8 +68,6 @@
                        ItemTemplate="{StaticResource ItemTemplate}"
                        IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
                        ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
-                       PageIndex="{x:Bind ViewModel.PageIndex, Mode=TwoWay}"
-                       PageSize="{x:Bind ViewModel.PageSize, Mode=OneWay}"
                        NewCommand="{x:Bind ViewModel.NewCommand}"
                        RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
                        Query="{x:Bind ViewModel.Query, Mode=TwoWay}"

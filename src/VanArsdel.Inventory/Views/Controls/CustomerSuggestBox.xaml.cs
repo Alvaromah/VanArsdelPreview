@@ -83,13 +83,12 @@ namespace VanArsdel.Inventory.Controls
         {
             using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
-                var request = new PageRequest<Customer>(0, 20)
+                var request = new DataRequest<Customer>()
                 {
                     Query = query,
                     OrderBy = r => r.FirstName
                 };
-                var page = await dataProvider.GetCustomersAsync(request);
-                return page.Items;
+                return await dataProvider.GetCustomersAsync(0, 20, request);
             }
         }
 

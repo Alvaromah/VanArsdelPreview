@@ -42,9 +42,9 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
-        override public async Task<PageResult<OrderItemModel>> GetItemsAsync(IDataProvider dataProvider)
+        override public async Task<IList<OrderItemModel>> GetItemsAsync(IDataProvider dataProvider)
         {
-            var request = new PageRequest<OrderItem>(PageIndex, PageSize)
+            var request = new DataRequest<OrderItem>()
             {
                 Query = Query,
                 OrderBy = ViewState.OrderBy,
@@ -54,7 +54,7 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 request.Where = (r) => r.OrderID == ViewState.OrderID;
             }
-            return await dataProvider.GetOrderItemsAsync(request);
+            return await dataProvider.GetOrderItemsAsync(0, -1, request);
         }
 
         protected override async Task DeleteItemsAsync(IDataProvider dataProvider, IEnumerable<OrderItemModel> models)
@@ -63,6 +63,11 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await dataProvider.DeleteOrderItemAsync(model);
             }
+        }
+
+        protected override Task DeleteRangesAsync(IDataProvider dataProvider, IEnumerable<IndexRange> ranges)
+        {
+            throw new NotImplementedException();
         }
 
         protected override async Task<bool> ConfirmDeleteSelectionAsync()

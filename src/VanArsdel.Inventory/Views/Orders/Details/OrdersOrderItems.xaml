@@ -47,16 +47,16 @@
                     <ColumnDefinition Width="8*"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Padding="1">
-                    <Image Source="{x:Bind Product.ThumbnailBitmap}" Width="34" Height="30" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Image Source="{x:Bind Product.ThumbnailBitmap}" Width="34" Height="30" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" x:Phase="2" />
                 </Border>
-                <TextBlock Grid.Column="1" Text="{x:Bind ProductID}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="2" Text="{x:Bind Product.Name}" Style="{StaticResource ColumnValueStyle}" />
-                <TextBlock Grid.Column="3" Text="{x:Bind OrderLine}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="4" Text="{x:Bind UnitPrice}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="5" Text="{x:Bind Quantity}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="6" Text="{x:Bind Discount}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="7" Text="{x:Bind Subtotal}" Style="{StaticResource ColumnValueRightStyle}" />
-                <TextBlock Grid.Column="8" Text="{x:Bind Total}" Style="{StaticResource ColumnValueRightStyle}" />
+                <TextBlock Grid.Column="1" Text="{x:Bind ProductID}" Style="{StaticResource ColumnValueStyle}" x:Phase="1" />
+                <TextBlock Grid.Column="2" Text="{x:Bind Product.Name}" Style="{StaticResource ColumnValueStyle}" x:Phase="1" />
+                <TextBlock Grid.Column="3" Text="{x:Bind OrderLine}" Style="{StaticResource ColumnValueRightStyle}" x:Phase="1" />
+                <TextBlock Grid.Column="4" Text="{x:Bind UnitPrice}" Style="{StaticResource ColumnValueRightStyle}" x:Phase="1" />
+                <TextBlock Grid.Column="5" Text="{x:Bind Quantity}" Style="{StaticResource ColumnValueRightStyle}" x:Phase="1" />
+                <TextBlock Grid.Column="6" Text="{x:Bind Discount}" Style="{StaticResource ColumnValueRightStyle}" x:Phase="1" />
+                <TextBlock Grid.Column="7" Text="{x:Bind Subtotal}" Style="{StaticResource ColumnValueRightStyle}" x:Phase="1" />
+                <TextBlock Grid.Column="8" Text="{x:Bind Total}" Style="{StaticResource ColumnValueRightStyle}" x:Phase="1" />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -69,8 +69,6 @@
                            ItemTemplate="{StaticResource ItemTemplate}"
                            IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
                            ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
-                           PageIndex="{x:Bind ViewModel.PageIndex, Mode=TwoWay}"
-                           PageSize="{x:Bind ViewModel.PageSize, Mode=OneWay}"
                            NewCommand="{x:Bind ViewModel.NewCommand}"
                            RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
                            Query="{x:Bind ViewModel.Query, Mode=TwoWay}"

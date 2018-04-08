@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,15 +10,20 @@ namespace VanArsdel.Inventory.Providers
 {
     partial class SQLBaseProvider
     {
-        public async Task<PageResult<CustomerModel>> GetCustomersAsync(PageRequest<Customer> request)
+        public async Task<int> GetCustomersCountAsync(DataRequest<Customer> request)
+        {
+            return await DataService.GetCustomersCountAsync(request);
+        }
+
+        public async Task<IList<CustomerModel>> GetCustomersAsync(int skip, int take, DataRequest<Customer> request)
         {
             var models = new List<CustomerModel>();
-            var page = await DataService.GetCustomersAsync(request);
-            foreach (var item in page.Items)
+            var items = await DataService.GetCustomersAsync(skip, take, request);
+            foreach (var item in items)
             {
                 models.Add(await CreateCustomerModelAsync(item, includeAllFields: false));
             }
-            return new PageResult<CustomerModel>(page.PageIndex, page.PageSize, page.Count, models);
+            return models;
         }
 
         public async Task<CustomerModel> GetCustomerAsync(long id)
@@ -45,7 +51,14 @@ namespace VanArsdel.Inventory.Providers
 
         public async Task<int> DeleteCustomerAsync(CustomerModel model)
         {
-            return await DataService.DeleteCustomerAsync(model.CustomerID);
+            var customer = new Customer { CustomerID = model.CustomerID };
+            return await DataService.DeleteCustomersAsync(customer);
+        }
+
+        public async Task<int> DeleteCustomerRangeAsync(int index, int length, DataRequest<Customer> request)
+        {
+            var items = await DataService.GetCustomerKeysAsync(index, length, request);
+            return await DataService.DeleteCustomersAsync(items.ToArray());
         }
 
         private async Task<CustomerModel> CreateCustomerModelAsync(Customer source, bool includeAllFields)

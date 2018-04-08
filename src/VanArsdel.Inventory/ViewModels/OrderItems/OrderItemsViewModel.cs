@@ -36,9 +36,9 @@ namespace VanArsdel.Inventory.ViewModels
             OrderItemList.Unload();
         }
 
-        public async Task RefreshAsync(bool resetPageIndex = false)
+        public async Task RefreshAsync()
         {
-            await OrderItemList.RefreshAsync(resetPageIndex);
+            await OrderItemList.RefreshAsync();
         }
 
         private async void OnListPropertyChanged(object sender, PropertyChangedEventArgs e)

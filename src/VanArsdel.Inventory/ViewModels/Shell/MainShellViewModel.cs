@@ -11,9 +11,9 @@ namespace VanArsdel.Inventory.ViewModels
     public class MainShellViewModel : ShellViewModel
     {
         private readonly NavigationItem DashboardItem = new NavigationItem(0xE80F, "Dashboard", typeof(DashboardViewModel));
-        private readonly NavigationItem CustomresItem = new NavigationItem(0xE716, "Customers", typeof(CustomersViewModel));
+        private readonly NavigationItem CustomersItem = new NavigationItem(0xE716, "Customers", typeof(CustomersViewModel));
         private readonly NavigationItem OrdersItem = new NavigationItem(0xE14C, "Orders", typeof(OrdersViewModel));
-        private readonly NavigationItem ProductsItem = new NavigationItem(0xECAA, "Products", typeof(ProductsViewModel));
+        //private readonly NavigationItem ProductsItem = new NavigationItem(0xECAA, "Products", typeof(ProductsViewModel));
         private readonly NavigationItem SettingsItem = new NavigationItem(0x0000, "Settings", typeof(SettingsViewModel));
 
         public MainShellViewModel(IDataProviderFactory providerFactory, INavigationService navigationService) : base(providerFactory, navigationService)
@@ -65,9 +65,9 @@ namespace VanArsdel.Inventory.ViewModels
                 case "OrdersViewModel":
                     NavigationService.Navigate(viewModel, new OrdersViewState());
                     break;
-                case "ProductsViewModel":
-                    NavigationService.Navigate(viewModel, new ProductsViewState());
-                    break;
+                //case "ProductsViewModel":
+                //    NavigationService.Navigate(viewModel, new ProductsViewState());
+                //    break;
                 case "SettingsViewModel":
                     NavigationService.Navigate(viewModel, new SettingsViewState());
                     break;
@@ -79,9 +79,9 @@ namespace VanArsdel.Inventory.ViewModels
         private IEnumerable<NavigationItem> GetItems()
         {
             yield return DashboardItem;
-            yield return CustomresItem;
+            yield return CustomersItem;
             yield return OrdersItem;
-            yield return ProductsItem;
+            //yield return ProductsItem;
         }
     }
 }

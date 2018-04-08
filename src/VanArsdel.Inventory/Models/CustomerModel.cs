@@ -6,6 +6,8 @@ namespace VanArsdel.Inventory.Models
 {
     public class CustomerModel : ModelBase
     {
+        static public CustomerModel CreateEmpty() => new CustomerModel { CustomerID = -1, IsEmpty = true };
+
         public long CustomerID { get; set; }
 
         public string Title { get; set; }
@@ -94,7 +96,7 @@ namespace VanArsdel.Inventory.Models
 
         public override string ToString()
         {
-            return FullName;
+            return IsEmpty ? "Empty" : FullName;
         }
     }
 }

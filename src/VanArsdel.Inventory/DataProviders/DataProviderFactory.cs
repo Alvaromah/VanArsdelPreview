@@ -13,6 +13,9 @@ namespace VanArsdel.Inventory.Providers
     {
         public IDataProvider CreateDataProvider()
         {
+            // TODOX: 
+            //return new SQLServerDataProvider(AppSettings.Current.SQLServerConnectionString);
+
             switch (AppSettings.Current.DataProvider)
             {
                 case DataProviderType.SQLite:
