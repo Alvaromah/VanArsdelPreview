@@ -107,6 +107,9 @@
     <Compile Include="Common\ValidationConstraint.cs" />
     <Compile Include="Configuration\AppSettings.cs" />
     <Compile Include="Configuration\Startup.cs" />
+    <Compile Include="Controls\AdaptiveGridView\AdaptiveGridView.cs" />
+    <Compile Include="Controls\AdaptiveGridView\AdaptiveGridView.Properties.cs" />
+    <Compile Include="Controls\AdaptiveGridView\AdaptiveHeightValueConverter.cs" />
     <Compile Include="Controls\Buttons\IconButton.cs" />
     <Compile Include="Controls\Buttons\IconLabel.cs" />
     <Compile Include="Controls\Buttons\IconLabelButton.cs" />

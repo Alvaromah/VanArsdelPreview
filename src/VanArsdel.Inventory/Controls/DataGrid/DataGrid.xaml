@@ -25,16 +25,19 @@
 
         <!--Grid Content-->
         <Grid Grid.Row="2">
-            <GridView x:Name="gridview"
-                      ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
-                      ItemTemplate="{x:Bind ItemTemplate}"
-                      ItemContainerStyle="{StaticResource GridItemStyle}"
-                      SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-                      SelectionMode="{x:Bind SelectionMode, Mode=OneWay}"
-                      SelectionChanged="OnSelectionChanged"
-                      IsItemClickEnabled="True"
-                      ItemClick="OnItemClick"
-                      Visibility="{x:Bind IsDataAvailable, Mode=OneWay}" />
+            <controls:AdaptiveGridView x:Name="gridview"
+                                       DesiredWidth="240"
+                                       ItemHeight="220"
+                                       ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
+                                       ItemTemplate="{x:Bind ItemTemplate}"
+                                       ItemContainerStyle="{StaticResource GridItemStyle}"
+                                       SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+                                       SelectionMode="{x:Bind SelectionMode, Mode=OneWay}"
+                                       SelectionChanged="OnSelectionChanged"
+                                       IsItemClickEnabled="True"
+                                       ItemClick="OnItemClick"
+                                       Visibility="{x:Bind IsDataAvailable, Mode=OneWay}" />
+
             <TextBlock Margin="6" Text="{x:Bind DataUnavailableMessage, Mode=OneWay}" Visibility="{x:Bind IsDataUnavailable, Mode=OneWay}"/>
         </Grid>
 

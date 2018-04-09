@@ -10,7 +10,7 @@
 
     <UserControl.Resources>
         <DataTemplate x:Key="ItemTemplate" x:DataType="models:ProductModel">
-            <Grid BorderThickness="1" BorderBrush="Gainsboro" Width="220" Height="220">
+            <Grid BorderThickness="1" BorderBrush="Gainsboro" Background="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
                     <RowDefinition Height="3*"/>
