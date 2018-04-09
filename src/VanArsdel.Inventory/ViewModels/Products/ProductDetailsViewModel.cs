@@ -63,7 +63,7 @@ namespace VanArsdel.Inventory.ViewModels
 
         protected override async Task<bool> ConfirmDeleteAsync()
         {
-            return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete current customer?", "Ok", "Cancel");
+            return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete current product?", "Ok", "Cancel");
         }
 
         override protected IEnumerable<IValidationConstraint<ProductModel>> ValidationConstraints

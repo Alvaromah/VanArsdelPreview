@@ -238,6 +238,16 @@ namespace VanArsdel.Inventory.Controls
         public static readonly DependencyProperty SelectRangesCommandProperty = DependencyProperty.Register(nameof(SelectRangesCommand), typeof(ICommand), typeof(DataGrid), new PropertyMetadata(null));
         #endregion
 
+        #region ItemInvokedCommand
+        public ICommand ItemInvokedCommand
+        {
+            get { return (ICommand)GetValue(ItemInvokedCommandProperty); }
+            set { SetValue(ItemInvokedCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty ItemInvokedCommandProperty = DependencyProperty.Register(nameof(ItemInvokedCommand), typeof(ICommand), typeof(DataGrid), new PropertyMetadata(null));
+        #endregion
+
 
         public ListToolbarMode ToolbarMode => IsMultipleSelection ? (SelectedItemsCount > 0 ? ListToolbarMode.CancelDelete : ListToolbarMode.Cancel) : ListToolbarMode.Default;
         static DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(nameof(ToolbarMode), nameof(IsMultipleSelection), nameof(SelectedItemsCount));
@@ -301,6 +311,14 @@ namespace VanArsdel.Inventory.Controls
                 {
                     DeselectItemsCommand?.TryExecute(e.RemovedItems);
                 }
+            }
+        }
+
+        private void OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (!IsMultipleSelection)
+            {
+                ItemInvokedCommand?.TryExecute(e.ClickedItem);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 using VanArsdel.Data;
 using VanArsdel.Inventory.Models;
@@ -17,6 +18,12 @@ namespace VanArsdel.Inventory.ViewModels
         }
 
         public ProductsViewState ViewState { get; private set; }
+
+        public ICommand ItemInvokedCommand => new RelayCommand<ProductModel>(ItemInvoked);
+        private async void ItemInvoked(ProductModel model)
+        {
+            await NavigationService.CreateNewViewAsync<ProductDetailsViewModel>(new ProductViewState { ProductID = model.ProductID });
+        }
 
         public async Task LoadAsync(ProductsViewState state)
         {
@@ -79,7 +86,7 @@ namespace VanArsdel.Inventory.ViewModels
 
         protected override async Task<bool> ConfirmDeleteSelectionAsync()
         {
-            return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected customers?", "Ok", "Cancel");
+            return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected products?", "Ok", "Cancel");
         }
 
         public ProductsViewState GetCurrentState()

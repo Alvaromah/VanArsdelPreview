@@ -9,28 +9,8 @@
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400">
 
     <UserControl.Resources>
-        <DataTemplate x:Key="HeaderTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="12*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="8*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="Product ID" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="2" Text="Name" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="3" Text="eMail" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="4" Text="Phone" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="5" Text="Address" Style="{StaticResource ColumnHeaderStyle}" />
-                <TextBlock Grid.Column="6" Text="Country" Style="{StaticResource ColumnHeaderStyle}" />
-            </Grid>
-        </DataTemplate>
-
         <DataTemplate x:Key="ItemTemplate" x:DataType="models:ProductModel">
-            <Grid BorderThickness="1" BorderBrush="LightGray" Width="220" Height="220">
+            <Grid BorderThickness="1" BorderBrush="Gainsboro" Width="220" Height="220">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
                     <RowDefinition Height="3*"/>
@@ -51,7 +31,6 @@
     <controls:DataGrid ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                        NewLabel="New Product"
                        SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
-                       HeaderTemplate="{StaticResource HeaderTemplate}"
                        ItemTemplate="{StaticResource ItemTemplate}"
                        IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
                        ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
@@ -64,5 +43,6 @@
                        SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
                        DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
                        SelectRangesCommand="{x:Bind ViewModel.SelectRangesCommand}"
+                       ItemInvokedCommand="{x:Bind ViewModel.ItemInvokedCommand}"
                        DeleteCommand="{x:Bind ViewModel.DeleteSelectionCommand}" />
 </UserControl>

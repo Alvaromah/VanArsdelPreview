@@ -7,9 +7,9 @@ using VanArsdel.Inventory.Models;
 
 namespace VanArsdel.Inventory.Views
 {
-    public sealed partial class ProductsCard : UserControl
+    public sealed partial class ProductCard : UserControl
     {
-        public ProductsCard()
+        public ProductCard()
         {
             InitializeComponent();
         }
@@ -21,7 +21,7 @@ namespace VanArsdel.Inventory.Views
             set { SetValue(ItemProperty, value); }
         }
 
-        public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(ProductModel), typeof(ProductsCard), new PropertyMetadata(null));
+        public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(ProductModel), typeof(ProductCard), new PropertyMetadata(null));
         #endregion
     }
 }
