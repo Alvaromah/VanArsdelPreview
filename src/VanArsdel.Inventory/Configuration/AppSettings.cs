@@ -11,7 +11,7 @@ namespace VanArsdel.Inventory
     public class AppSettings
     {
         const string DB_NAME = "VanArsdel";
-        const string DB_VERSION = "0.10";
+        const string DB_VERSION = "0.20";
         const string DB_BASEURL = "https://vanarsdelinventory.blob.core.windows.net/database";
 
         static AppSettings()
@@ -48,7 +48,7 @@ namespace VanArsdel.Inventory
 
         public string SQLServerConnectionString
         {
-            get => GetSettingsValue("SQLServerConnectionString", @"Data Source=.\SQLExpress;Initial Catalog=VanArsdelDb;Integrated Security=SSPI");
+            get => GetSettingsValue("SQLServerConnectionString", @"Data Source=.\SQLExpress;Initial Catalog=VanArsdelDb2;Integrated Security=SSPI");
             set => SetSettingsValue("SQLServerConnectionString", value);
         }
 

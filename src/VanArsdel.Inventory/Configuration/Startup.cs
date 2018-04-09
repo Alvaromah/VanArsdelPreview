@@ -53,7 +53,6 @@ namespace VanArsdel.Inventory
             var localFolder = ApplicationData.Current.LocalFolder;
             var databaseFolder = await localFolder.CreateFolderAsync(AppSettings.DatabasePath, CreationCollisionOption.OpenIfExists);
 
-            // TODOX: 
             if (await databaseFolder.TryGetItemAsync(AppSettings.DatabaseName) == null)
             {
                 if (await databaseFolder.TryGetItemAsync(AppSettings.DatabasePattern) == null)
