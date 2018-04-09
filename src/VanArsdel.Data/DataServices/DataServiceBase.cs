@@ -15,6 +15,11 @@ namespace VanArsdel.Data.Services
             _dataSource = dataSource;
         }
 
+        public async Task<IList<Category>> GetCategoriesAsync()
+        {
+            return await _dataSource.Categories.ToListAsync();
+        }
+
         public async Task<IList<CountryCode>> GetCountryCodesAsync()
         {
             return await _dataSource.CountryCodes.ToListAsync();

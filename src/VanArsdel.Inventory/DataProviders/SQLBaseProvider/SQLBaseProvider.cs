@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 using VanArsdel.Data.Services;
 using VanArsdel.Inventory.Models;
-using VanArsdel.Data;
 
 namespace VanArsdel.Inventory.Providers
 {
@@ -17,6 +16,17 @@ namespace VanArsdel.Inventory.Providers
         }
 
         public DataServiceBase DataService { get; }
+
+        public async Task<IList<CategoryModel>> GetCategoriesAsync()
+        {
+            var items = await DataService.GetCategoriesAsync();
+            return items.Select(r => new CategoryModel
+            {
+                CategoryID = r.CategoryID,
+                Name = r.Name
+            })
+            .ToList();
+        }
 
         public async Task<IList<CountryCodeModel>> GetCountryCodesAsync()
         {

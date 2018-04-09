@@ -9,11 +9,12 @@ namespace VanArsdel.Data.Services
 {
     public interface IDataSource : IDisposable
     {
+        DbSet<Category> Categories { get; }
         DbSet<CountryCode> CountryCodes { get; }
-        DbSet<PaymentType> PaymentTypes { get; }
-        DbSet<TaxType> TaxTypes { get; }
         DbSet<OrderStatus> OrderStatus { get; }
+        DbSet<PaymentType> PaymentTypes { get; }
         DbSet<Shipper> Shippers { get; }
+        DbSet<TaxType> TaxTypes { get; }
 
         DbSet<Customer> Customers { get; }
         DbSet<Order> Orders { get; }

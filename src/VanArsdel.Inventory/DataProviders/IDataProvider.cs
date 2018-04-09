@@ -9,6 +9,7 @@ namespace VanArsdel.Inventory.Providers
 {
     public interface IDataProvider : IDisposable
     {
+        Task<IList<CategoryModel>> GetCategoriesAsync();
         Task<IList<CountryCodeModel>> GetCountryCodesAsync();
         Task<IList<OrderStatusModel>> GetOrderStatusAsync();
         Task<IList<PaymentTypeModel>> GetPaymentTypesAsync();

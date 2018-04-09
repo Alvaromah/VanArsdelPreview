@@ -30,32 +30,25 @@
         </DataTemplate>
 
         <DataTemplate x:Key="ItemTemplate" x:DataType="models:ProductModel">
-            <Grid BorderThickness="0,0,0,1" BorderBrush="LightGray" Height="32">
-                <Grid Visibility="{x:Bind IsEmpty, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="8*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="12*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="10*"/>
-                        <ColumnDefinition Width="8*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" Margin="1" Padding="1">
-                        <PersonPicture ProfilePicture="{x:Bind ThumbnailBitmap, Mode=OneWay}" Width="28" Height="28" x:Phase="1" />
-                    </Border>
-                    <TextBlock Grid.Column="1" Text="{x:Bind ProductID}" Style="{StaticResource ColumnValueStyle}" />
-                    <!--<TextBlock Grid.Column="2" Text="{x:Bind FullName, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                    <TextBlock Grid.Column="3" Text="{x:Bind EmailAddress, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                    <TextBlock Grid.Column="4" Text="{x:Bind Phone, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                    <TextBlock Grid.Column="5" Text="{x:Bind AddressLine1, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-                    <TextBlock Grid.Column="6" Text="{x:Bind CountryName, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />-->
+            <Grid BorderThickness="1" BorderBrush="LightGray" Width="220" Height="220">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Image Source="{x:Bind ThumbnailBitmap}" />
+                </Grid>
+                <Grid Grid.Row="1" Background="WhiteSmoke">
+                    <StackPanel Margin="6" VerticalAlignment="Center">
+                        <TextBlock Text="{x:Bind Name}" FontSize="12" FontWeight="SemiBold" />
+                        <TextBlock Text="{x:Bind CategoryName}" FontSize="12" Foreground="Gray" />
+                    </StackPanel>
                 </Grid>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
 
-    <controls:DataList ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+    <controls:DataGrid ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                        NewLabel="New Product"
                        SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
                        HeaderTemplate="{StaticResource HeaderTemplate}"

@@ -12,6 +12,7 @@ namespace VanArsdel.Inventory
     {
         static public DataHelper Current => ThreadSafeSingleton<DataHelper>.Instance;
 
+        public IList<CategoryModel> Categories { get; private set; }
         public IList<CountryCodeModel> CountryCodes { get; private set; }
         public IList<OrderStatusModel> OrderStatus { get; private set; }
         public IList<PaymentTypeModel> PaymentTypes { get; private set; }
@@ -22,12 +23,18 @@ namespace VanArsdel.Inventory
         {
             using (var dataProvider = providerFactory.CreateDataProvider())
             {
+                Categories = await dataProvider.GetCategoriesAsync();
                 CountryCodes = await dataProvider.GetCountryCodesAsync();
                 OrderStatus = await dataProvider.GetOrderStatusAsync();
                 PaymentTypes = await dataProvider.GetPaymentTypesAsync();
                 Shippers = await dataProvider.GetShippersAsync();
                 TaxTypes = await dataProvider.GetTaxTypesAsync();
             }
+        }
+
+        public string GetCategory(int id)
+        {
+            return Categories.Where(r => r.CategoryID == id).Select(r => r.Name).FirstOrDefault();
         }
 
         public string GetCountry(string id)

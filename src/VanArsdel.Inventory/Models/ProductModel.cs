@@ -42,6 +42,7 @@ namespace VanArsdel.Inventory.Models
         public BitmapImage ThumbnailBitmap { get; set; }
 
         public bool IsNew => String.IsNullOrEmpty(ProductID);
+        public string CategoryName => DataHelper.GetCategory(CategoryID);
 
         public override string ToString()
         {

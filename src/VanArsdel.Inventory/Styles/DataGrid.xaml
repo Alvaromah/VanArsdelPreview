@@ -30,4 +30,11 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
     </Style>
 
+    <Style x:Key="GridItemStyle" TargetType="GridViewItem">
+        <Setter Property="Margin" Value="6" />
+        <Setter Property="MinHeight" Value="8" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    </Style>
+
 </ResourceDictionary>

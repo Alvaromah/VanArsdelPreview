@@ -61,16 +61,7 @@ namespace VanArsdel.Inventory.Views
 
         private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)
         {
-            ViewModel.ProductDetails.IsEditMode = false;
-            if (pivot.SelectedIndex == 0)
-            {
-                await NavigationService.CreateNewViewAsync<ProductDetailsViewModel>(new ProductViewState { ProductID = ViewModel.ProductDetails.Item.ProductID });
-            }
-            else
-            {
-                // TODOX: 
-                //await NavigationService.CreateNewViewAsync<OrdersViewModel>(ViewModel.ProductOrders.ViewState.Clone());
-            }
+            await NavigationService.CreateNewViewAsync<ProductDetailsViewModel>(new ProductViewState { ProductID = ViewModel.ProductDetails.Item.ProductID });
         }
 
         public int GetRowSpan(bool isMultipleSelection)
