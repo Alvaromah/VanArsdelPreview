@@ -6,6 +6,8 @@ namespace VanArsdel.Inventory.Models
 {
     public class ProductModel : ModelBase
     {
+        static public ProductModel CreateEmpty() => new ProductModel { ProductID = "", IsEmpty = true };
+
         public string ProductID { get; set; }
 
         public int CategoryID { get; set; }
@@ -38,6 +40,8 @@ namespace VanArsdel.Inventory.Models
 
         public byte[] Thumbnail { get; set; }
         public BitmapImage ThumbnailBitmap { get; set; }
+
+        public bool IsNew => String.IsNullOrEmpty(ProductID);
 
         public override string ToString()
         {

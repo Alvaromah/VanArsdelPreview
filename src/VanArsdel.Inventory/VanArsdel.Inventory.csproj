@@ -156,6 +156,7 @@
     <Compile Include="DataProviders\VirtualCollections\Base\VirtualCollection.cs" />
     <Compile Include="DataProviders\VirtualCollections\Base\VirtualCollection.IList.cs" />
     <Compile Include="DataProviders\VirtualCollections\Base\VirtualCollection.Selection.cs" />
+    <Compile Include="DataProviders\VirtualCollections\ProductCollection.cs" />
     <Compile Include="DataProviders\VirtualCollections\CustomerCollection.cs" />
     <Compile Include="DataProviders\VirtualCollections\OrderCollection.cs" />
     <Compile Include="Extensions\AnimationExtensions.cs" />
@@ -225,8 +226,11 @@
     <Compile Include="ViewModels\Orders\OrdersViewModel.cs" />
     <Compile Include="ViewModels\Orders\ViewState\OrdersViewState.cs" />
     <Compile Include="ViewModels\Orders\ViewState\OrderViewState.cs" />
+    <Compile Include="ViewModels\Products\ProductDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductListViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductsViewModel.cs" />
-    <Compile Include="ViewModels\Products\ProductsViewState.cs" />
+    <Compile Include="ViewModels\Products\ViewState\ProductsViewState.cs" />
+    <Compile Include="ViewModels\Products\ViewState\ProductViewState.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewState.cs" />
     <Compile Include="ViewModels\Shell\MainShellViewModel.cs" />
@@ -325,6 +329,9 @@
     </Compile>
     <Compile Include="Views\Order\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Products\List\ProductsList.xaml.cs">
+      <DependentUpon>ProductsList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Products\ProductsView.xaml.cs">
       <DependentUpon>ProductsView.xaml</DependentUpon>
@@ -567,6 +574,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Order\OrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Products\List\ProductsList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

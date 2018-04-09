@@ -4,9 +4,51 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:VanArsdel.Inventory.Controls"
+    xmlns:views="using:VanArsdel.Inventory.Views"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Products" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <UserControl.Resources>
+        <DataTemplate x:Key="ListHeaderTemplate">
+            <StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Products" FontSize="18" />
+                <Rectangle Margin="3,0 "/>
+                <TextBlock Text="{Binding}" FontSize="18" Foreground="Gray" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Background="WhiteSmoke">
+        <Grid Margin="6" RowSpacing="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Products-->
+            <Grid Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.ProductList.IsMultipleSelection), Mode=OneWay}">
+                <controls:Section Header="{x:Bind ViewModel.ProductList.Title, Mode=OneWay}" HeaderTemplate="{StaticResource ListHeaderTemplate}" HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenInNewView" IsButtonVisible="{x:Bind ViewModel.IsMainView}">
+                    <views:ProductsList ViewModel="{x:Bind ViewModel.ProductList}" />
+                </controls:Section>
+            </Grid>
+
+            <!--Details-->
+            <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.ProductList.IsMultipleSelection, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                <controls:Section IsEnabled="{x:Bind ViewModel.ProductDetails.IsEnabled, Mode=OneWay}" HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenDetailsInNewView" Visibility="{x:Bind ViewModel.ProductDetails.IsDataAvailable, Mode=OneWay}">
+
+                    <Pivot x:Name="pivot">
+                        <PivotItem Header="Product">
+                            <!--<views:ProductsDetails Grid.Row="1" ViewModel="{x:Bind ViewModel.ProductDetails}" />-->
+                        </PivotItem>
+                        <PivotItem Header="Orders">
+                            <!--<views:ProductsOrders Grid.Row="1" ViewModel="{x:Bind ViewModel.ProductOrders}" />-->
+                        </PivotItem>
+                    </Pivot>
+                </controls:Section>
+
+                <!--Empty Details-->
+                <controls:Section Header="No item selected" Visibility="{x:Bind ViewModel.ProductDetails.IsDataUnavailable, Mode=OneWay}" />
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

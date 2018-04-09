@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 using VanArsdel.Inventory.ViewModels;
+using VanArsdel.Inventory.Services;
 
 namespace VanArsdel.Inventory.Views
 {
@@ -13,14 +15,67 @@ namespace VanArsdel.Inventory.Views
         public ProductsView()
         {
             ViewModel = ServiceLocator.Current.GetService<ProductsViewModel>();
+            NavigationService = ServiceLocator.Current.GetService<INavigationService>();
             InitializeComponent();
         }
 
         public ProductsViewModel ViewModel { get; }
+        public INavigationService NavigationService { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.LoadAsync(e.Parameter as ProductsViewState);
+            ViewModel.ProductList.PropertyChanged += OnViewModelPropertyChanged;
+            await ViewModel.LoadAsync(e.Parameter as ProductsViewState);
+            UpdateTitle();
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            ViewModel.CancelEdit();
+            ViewModel.Unload();
+            ViewModel.ProductList.PropertyChanged -= OnViewModelPropertyChanged;
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.ProductList.Title))
+            {
+                UpdateTitle();
+            }
+        }
+
+        private void UpdateTitle()
+        {
+            this.SetTitle($"Products {ViewModel.ProductList.Title}".Trim());
+        }
+
+        private async void OnItemDeleted(object sender, EventArgs e)
+        {
+            await ViewModel.RefreshAsync();
+        }
+
+        private async void OpenInNewView(object sender, RoutedEventArgs e)
+        {
+            await NavigationService.CreateNewViewAsync<ProductsViewModel>(ViewModel.ProductList.GetCurrentState());
+        }
+
+        private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ProductDetails.IsEditMode = false;
+            if (pivot.SelectedIndex == 0)
+            {
+                await NavigationService.CreateNewViewAsync<ProductDetailsViewModel>(new ProductViewState { ProductID = ViewModel.ProductDetails.Item.ProductID });
+            }
+            else
+            {
+                // TODOX: 
+                //await NavigationService.CreateNewViewAsync<OrdersViewModel>(ViewModel.ProductOrders.ViewState.Clone());
+            }
+        }
+
+        public int GetRowSpan(bool isMultipleSelection)
+        {
+            return isMultipleSelection ? 2 : 1;
         }
     }
 }

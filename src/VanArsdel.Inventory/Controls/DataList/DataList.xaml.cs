@@ -302,13 +302,6 @@ namespace VanArsdel.Inventory.Controls
                     DeselectItemsCommand?.TryExecute(e.RemovedItems);
                 }
             }
-            else
-            {
-                // TODO: Review this hack. Force SelectedItem refresh
-                //var selected = SelectedItem;
-                //SelectedItem = null;
-                //SelectedItem = selected;
-            }
         }
 
         private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
