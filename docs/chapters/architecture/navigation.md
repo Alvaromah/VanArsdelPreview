@@ -39,7 +39,7 @@ They are basically the same. The only different is that one takes a `Type` and t
 
 The way it works is very simple: The caller invokes the `Navigate` method specifying the `Type` of the ViewModel to be navigated to and optionally, an object that the ViewModel will receive that will act as a parameter. This is useful when the target ViewModel needs to receive **some context** its operations. For example, `CustomerViewModel` would receive a a `Customer` for a detail view.
 
-The Navigation Service sits between the View and the ViewModel. As the Navigate method takes the type of the ViewModel, our service will have to find the View that is associated with it. Then it will have to connect both to enable MVVM.
+The Navigation Service sits between the View and the ViewModel. As the Navigate method takes the type of the ViewModel, our service will have to find the View that is associated with it. 
 
 ### View Lookup
 The Navigation Service will need a mechanism to associate Views to ViewModels. In our implementation, this is done using a dictionary called _viewModelMap.
@@ -108,3 +108,41 @@ private static void ConfigureNavigation()
     NavigationService.Register<DashboardViewModel, DashboardView>();
 	...
 }
+```
+
+### Additional functionalities
+
+In our implementation, there are a few additional properties and methods to enable more advanced navigation scenarios, like the ability to go back to an previous ViewModel, or to pop a new Window or close it programmatically. 
+
+#### Going back
+
+In most implementations, including ours, the `GoBack()` method is just a wrapper of `Frame.GoBack()` method.
+
+```csharp
+public bool CanGoBack => Frame.CanGoBack;
+```
+
+It's useful to wrap the `CanGoBack` property, too. This enables us to reflect this state to inform the user whether he or she can go back or not (usually, there's a back button that is enabled/disabled according to this).
+
+```csharp
+public bool CanGoBack => Frame.CanGoBack;
+```
+
+#### Opening new Windows
+
+In our application, there are scenarios where we will feature multitasking by opening new Windows. You could create a new service for this, but we have decided to put this functionality inside our Navigation Service. It's provided by the `CreateNewViewAsync` methods.
+
+To know more go to the [dedicated section](../fluent-design/multiple-windows).
+
+Also, we made the functionality symmetrical by exposing the `CloseViewAsync` method, that is very easy to implement thanks to the `ApplicationViewSwitcher` static class.
+
+```csharp
+public async Task CloseViewAsync()
+{
+    int currentId = ApplicationView.GetForCurrentView().Id;
+    await ApplicationViewSwitcher.SwitchAsync(MainViewId, currentId, ApplicationViewSwitchingOptions.ConsolidateViews);
+}
+```
+
+### Advanced scenarios
+We don't want to forget mentioning that some more advanced implementations of a Navigation Service will use Dependency Injection to dynamically retrieve instances of ViewModel in order to automate the process of linking Views and ViewModels. In this case, the service will act as a [Composition Root](http://blog.ploeh.dk/2011/07/28/CompositionRoot/) so there is no need to use a Service Locator to associate each View with its ViewModel.
