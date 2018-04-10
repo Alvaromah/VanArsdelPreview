@@ -51,6 +51,9 @@ namespace VanArsdel.Inventory.ViewModels
                 case "Orders":
                     NavigationService.Navigate<OrdersViewModel>(new OrdersViewState { OrderByDesc = r => r.OrderDate });
                     break;
+                case "Products":
+                    NavigationService.Navigate<ProductsViewModel>(new ProductsViewState { OrderByDesc = r => r.ListPrice });
+                    break;
                 default:
                     break;
             }
