@@ -10,14 +10,21 @@ namespace VanArsdel.Inventory.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is DateTimeOffset dateTime)
+            try
             {
-                string format = parameter as String ?? "shortdate";
-                var userLanguages = GlobalizationPreferences.Languages;
-                var dateFormatter = new DateTimeFormatter(format, userLanguages);
-                return dateFormatter.Format(dateTime);
+                if (value is DateTimeOffset dateTime)
+                {
+                    string format = parameter as String ?? "shortdate";
+                    var userLanguages = GlobalizationPreferences.Languages;
+                    var dateFormatter = new DateTimeFormatter(format, userLanguages);
+                    return dateFormatter.Format(dateTime);
+                }
+                return "N/A";
             }
-            return "N/A";
+            catch
+            {
+                return "";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
