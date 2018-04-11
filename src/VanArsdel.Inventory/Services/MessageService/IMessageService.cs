@@ -4,7 +4,7 @@ namespace VanArsdel.Inventory.Services
 {
     public interface IMessageService
     {
-        void Subscribe<TSender>(object target, Action<string, object> action) where TSender : class;
+        void Subscribe<TSender>(object target, Action<object, string, object> action) where TSender : class;
         void Unsubscribe(object target);
         void Unsubscribe<TSender>(object target) where TSender : class;
 

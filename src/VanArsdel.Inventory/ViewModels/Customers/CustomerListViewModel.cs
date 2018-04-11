@@ -95,12 +95,20 @@ namespace VanArsdel.Inventory.ViewModels
             return state;
         }
 
-        private async void OnMessage(string message, object args)
+        private async void OnMessage(object sender, string message, object args)
         {
-            await Dispatcher.RunIdleAsync((e) =>
+            switch (message)
             {
-                Refresh();
-            });
+                case "ItemChanged":
+                case "ItemDeleted":
+                case "ItemsDeleted":
+                case "ItemRangesDeleted":
+                    await Dispatcher.RunIdleAsync((e) =>
+                    {
+                        Refresh();
+                    });
+                    break;
+            }
         }
     }
 }

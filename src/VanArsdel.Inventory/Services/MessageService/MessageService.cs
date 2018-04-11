@@ -10,7 +10,7 @@ namespace VanArsdel.Inventory.Services
 
         private List<Subscriber> _subscribers = new List<Subscriber>();
 
-        public void Subscribe<TSender>(object target, Action<string, object> action) where TSender : class
+        public void Subscribe<TSender>(object target, Action<object, string, object> action) where TSender : class
         {
             lock (_sync)
             {
@@ -55,7 +55,7 @@ namespace VanArsdel.Inventory.Services
         {
             foreach (var subscriber in GetSubscribersSnapshot())
             {
-                subscriber.TryInvoke(typeof(TSender), message, args);
+                subscriber.TryInvoke(sender, message, args);
             }
         }
 
@@ -71,19 +71,19 @@ namespace VanArsdel.Inventory.Services
         {
             private WeakReference _reference = null;
 
-            private Dictionary<Type, Action<string, object>> _subscriptions;
+            private Dictionary<Type, Action<object, string, object>> _subscriptions;
 
             public Subscriber(object target)
             {
                 _reference = new WeakReference(target);
-                _subscriptions = new Dictionary<Type, Action<string, object>>();
+                _subscriptions = new Dictionary<Type, Action<object, string, object>>();
             }
 
             public object Target => _reference.Target;
 
             public bool IsEmpty => _subscriptions.Count == 0;
 
-            public void AddSubscription(Type type, Action<string, object> action)
+            public void AddSubscription(Type type, Action<object, string, object> action)
             {
                 _subscriptions.Add(type, action);
             }
@@ -93,14 +93,14 @@ namespace VanArsdel.Inventory.Services
                 _subscriptions.Remove(type);
             }
 
-            public void TryInvoke(Type sender, string message, object args)
+            public void TryInvoke(object sender, string message, object args)
             {
-                if (_subscriptions.TryGetValue(sender, out Action<string, object> action))
+                if (_subscriptions.TryGetValue(sender.GetType(), out Action<object, string, object> action))
                 {
                     var target = _reference.Target;
                     if (_reference.IsAlive)
                     {
-                        action?.Invoke(message, args);
+                        action?.Invoke(sender, message, args);
                     }
                 }
             }
