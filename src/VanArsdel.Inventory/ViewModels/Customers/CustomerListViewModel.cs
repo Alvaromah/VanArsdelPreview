@@ -20,6 +20,9 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(CustomersViewState state)
         {
+            MessageService.Subscribe<CustomerDetailsViewModel>(this, OnMessage);
+            MessageService.Subscribe<CustomerListViewModel>(this, OnMessage);
+
             ViewState = state ?? CustomersViewState.CreateDefault();
             ApplyViewState(ViewState);
             await RefreshAsync();
@@ -28,6 +31,7 @@ namespace VanArsdel.Inventory.ViewModels
         public void Unload()
         {
             UpdateViewState(ViewState);
+            MessageService.Unsubscribe(this);
         }
 
         public override async void New()
@@ -61,6 +65,7 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await dataProvider.DeleteCustomerAsync(model);
             }
+            MessageService.Send(this, "ItemsDeleted", models);
         }
 
         protected override async Task DeleteRangesAsync(IDataProvider dataProvider, IEnumerable<IndexRange> ranges)
@@ -75,6 +80,7 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await dataProvider.DeleteCustomerRangeAsync(range.Index, range.Length, request);
             }
+            MessageService.Send(this, "ItemRangesDeleted", ranges);
         }
 
         protected override async Task<bool> ConfirmDeleteSelectionAsync()
@@ -87,6 +93,14 @@ namespace VanArsdel.Inventory.ViewModels
             var state = CustomersViewState.CreateDefault();
             UpdateViewState(state);
             return state;
+        }
+
+        private async void OnMessage(string message, object args)
+        {
+            await Dispatcher.RunIdleAsync((e) =>
+            {
+                Refresh();
+            });
         }
     }
 }
