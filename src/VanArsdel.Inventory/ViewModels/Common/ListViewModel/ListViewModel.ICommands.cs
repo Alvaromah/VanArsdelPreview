@@ -22,6 +22,7 @@ namespace VanArsdel.Inventory.ViewModels
         public ICommand StartSelectionCommand => new RelayCommand(StartSelection);
         virtual protected void StartSelection()
         {
+            StatusMessage("Start selection");
             _selectedItems = new List<TModel>();
             _selectedIndexRanges = null;
             IsMultipleSelection = true;
@@ -30,6 +31,7 @@ namespace VanArsdel.Inventory.ViewModels
         public ICommand CancelSelectionCommand => new RelayCommand(CancelSelection);
         virtual protected void CancelSelection()
         {
+            StatusReady();
             _selectedItems?.Clear();
             _selectedItems = null;
             _selectedIndexRanges = null;
@@ -72,6 +74,7 @@ namespace VanArsdel.Inventory.ViewModels
         public ICommand DeleteSelectionCommand => new RelayCommand(DeleteSelection);
         virtual protected async void DeleteSelection()
         {
+            StatusReady();
             if (await ConfirmDeleteSelectionAsync())
             {
                 using (var dataProvider = ProviderFactory.CreateDataProvider())

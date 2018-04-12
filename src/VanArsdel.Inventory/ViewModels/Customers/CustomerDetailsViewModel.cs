@@ -54,20 +54,33 @@ namespace VanArsdel.Inventory.ViewModels
 
         protected override async Task SaveItemAsync(CustomerModel model)
         {
+            StatusMessage("Saving customer...");
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
             using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
                 await Task.Delay(100);
                 await dataProvider.UpdateCustomerAsync(model);
                 NotifyPropertyChanged(nameof(Title));
             }
+
+            stopwatch.Stop();
+            StatusMessage($"Customer saved ({stopwatch.Elapsed.TotalSeconds:#0.00} seconds)");
         }
 
         protected override async Task DeleteItemAsync(CustomerModel model)
         {
+            StatusMessage("Deleting customer...");
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
             using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
+                await Task.Delay(100);
                 await dataProvider.DeleteCustomerAsync(model);
             }
+
+            stopwatch.Stop();
+            StatusMessage($"Customer deleted ({stopwatch.Elapsed.TotalSeconds:#0.00} seconds)");
         }
 
         protected override async Task<bool> ConfirmDeleteAsync()

@@ -9,6 +9,7 @@ namespace VanArsdel.Inventory.ViewModels
         public ICommand BackCommand => new RelayCommand(Back);
         private void Back()
         {
+            StatusReady();
             if (NavigationService.CanGoBack)
             {
                 NavigationService.GoBack();
@@ -18,12 +19,14 @@ namespace VanArsdel.Inventory.ViewModels
         public ICommand EditCommand => new RelayCommand(Edit);
         virtual protected void Edit()
         {
+            StatusReady();
             BeginEdit();
         }
 
         public ICommand CancelCommand => new RelayCommand(Cancel);
         virtual protected async void Cancel()
         {
+            StatusReady();
             CancelEdit();
             if (IsNewItem)
             {
@@ -34,6 +37,7 @@ namespace VanArsdel.Inventory.ViewModels
         public ICommand SaveCommand => new RelayCommand(Save);
         virtual protected async void Save()
         {
+            StatusReady();
             var result = Validate();
             if (result.IsOk)
             {
@@ -41,13 +45,15 @@ namespace VanArsdel.Inventory.ViewModels
             }
             else
             {
-                await DialogService.ShowAsync(result);
+                await DialogService.ShowAsync(result.Message, $"{result.Description} Please, correct the error and try again.");
+                StatusError($"{result.Message}: {result.Description}");
             }
         }
 
         public ICommand DeleteCommand => new RelayCommand(Delete);
         virtual protected async void Delete()
         {
+            StatusReady();
             if (await ConfirmDeleteAsync())
             {
                 await DeletetAsync();

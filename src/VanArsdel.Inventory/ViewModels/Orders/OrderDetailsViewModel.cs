@@ -73,6 +73,9 @@ namespace VanArsdel.Inventory.ViewModels
 
         protected override async Task SaveItemAsync(OrderModel model)
         {
+            StatusMessage("Saving order...");
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
             using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
                 await Task.Delay(100);
@@ -81,14 +84,23 @@ namespace VanArsdel.Inventory.ViewModels
                 NotifyPropertyChanged(nameof(Title));
                 NotifyPropertyChanged(nameof(IsNewItem));
             }
+
+            stopwatch.Stop();
+            StatusMessage($"Order saved ({stopwatch.Elapsed.TotalSeconds:#0.00} seconds)");
         }
 
         protected override async Task DeleteItemAsync(OrderModel model)
         {
+            StatusMessage("Deleting order...");
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
             using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
                 await dataProvider.DeleteOrderAsync(model);
             }
+
+            stopwatch.Stop();
+            StatusMessage($"Order deleted ({stopwatch.Elapsed.TotalSeconds:#0.00} seconds)");
         }
 
         protected override async Task<bool> ConfirmDeleteAsync()

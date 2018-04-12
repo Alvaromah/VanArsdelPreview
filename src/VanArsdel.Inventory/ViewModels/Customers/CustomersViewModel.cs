@@ -102,7 +102,7 @@ namespace VanArsdel.Inventory.ViewModels
         {
             if (selectedItem != null)
             {
-                await CustomerOrders.LoadAsync(new OrdersViewState { CustomerID = selectedItem.CustomerID });
+                await CustomerOrders.LoadAsync(new OrdersViewState { CustomerID = selectedItem.CustomerID }, silent: true);
             }
         }
     }

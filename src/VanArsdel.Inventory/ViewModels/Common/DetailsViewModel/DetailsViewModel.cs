@@ -29,6 +29,21 @@ namespace VanArsdel.Inventory.ViewModels
 
         private TModel _modelBackup = null;
 
+        public void StatusReady()
+        {
+            MessageService.Send(this, "StatusMessage", "Ready");
+        }
+
+        public void StatusMessage(string message)
+        {
+            MessageService.Send(this, "StatusMessage", message);
+        }
+
+        public void StatusError(string message)
+        {
+            MessageService.Send(this, "StatusError", message);
+        }
+
         public void BeginEdit()
         {
             IsEditMode = true;
@@ -109,7 +124,7 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 if (!constraint.Validate(model))
                 {
-                    return Result.Error("Validation Error", $"{constraint.Message} Please, correct the error and try again.");
+                    return Result.Error("Validation Error", constraint.Message);
                 }
             }
             return Result.Ok();

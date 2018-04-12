@@ -47,9 +47,19 @@ namespace VanArsdel.Inventory.ViewModels
             NotifyPropertyChanged(nameof(IsDataAvailable));
         }
 
-        public void SendStatusMessage(string status, string message)
+        public void StatusReady()
         {
-            MessageService.Send(this, "StatusUpdate", message);
+            MessageService.Send(this, "StatusMessage", "Ready");
+        }
+
+        public void StatusMessage(string message)
+        {
+            MessageService.Send(this, "StatusMessage", message);
+        }
+
+        public void StatusError(string message)
+        {
+            MessageService.Send(this, "StatusError", message);
         }
 
         abstract public Task<IList<TModel>> GetItemsAsync(IDataProvider dataProvider);

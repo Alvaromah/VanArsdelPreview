@@ -23,11 +23,11 @@ namespace VanArsdel.Inventory.ViewModels
             ViewState = state ?? CustomersViewState.CreateEmpty();
             Query = state.Query;
 
-            SendStatusMessage("Loading", "Loading customers...");
+            StatusMessage("Loading customers...");
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             await RefreshAsync();
             stopwatch.Stop();
-            SendStatusMessage("Ready", $"Customers loaded in {stopwatch.Elapsed.TotalSeconds} secs.");
+            StatusMessage($"Customers loaded  ({stopwatch.Elapsed.TotalSeconds:#0.00} seconds)");
         }
 
         public void Unload()
@@ -44,6 +44,15 @@ namespace VanArsdel.Inventory.ViewModels
         public void Unsubscribe()
         {
             MessageService.Unsubscribe(this);
+        }
+
+        protected override async void Refresh()
+        {
+            StatusMessage("Searching customers...");
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            await RefreshAsync();
+            stopwatch.Stop();
+            StatusMessage($"Customers search results ({stopwatch.Elapsed.TotalSeconds:0.00} seconds)");
         }
 
         public override async void New()
@@ -122,9 +131,9 @@ namespace VanArsdel.Inventory.ViewModels
                 case "ItemDeleted":
                 case "ItemsDeleted":
                 case "ItemRangesDeleted":
-                    await Dispatcher.RunIdleAsync((e) =>
+                    await Dispatcher.RunIdleAsync(async (e) =>
                     {
-                        Refresh();
+                        await RefreshAsync();
                     });
                     break;
             }

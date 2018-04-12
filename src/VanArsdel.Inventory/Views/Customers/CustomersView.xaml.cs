@@ -58,7 +58,7 @@ namespace VanArsdel.Inventory.Views
 
         private async void OpenDetailsInNewView(object sender, RoutedEventArgs e)
         {
-            ViewModel.CustomerDetails.IsEditMode = false;
+            ViewModel.CancelEdit();
             if (pivot.SelectedIndex == 0)
             {
                 await NavigationService.CreateNewViewAsync<CustomerDetailsViewModel>(new CustomerViewState { CustomerID = ViewModel.CustomerDetails.Item.CustomerID });

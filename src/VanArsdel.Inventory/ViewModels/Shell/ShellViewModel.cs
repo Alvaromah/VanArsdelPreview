@@ -26,11 +26,18 @@ namespace VanArsdel.Inventory.ViewModels
             set => Set(ref _isBusy, value);
         }
 
-        private string _statusMessage = null;
+        private string _statusMessage = "Ready";
         public string StatusMessage
         {
             get => _statusMessage;
             set => Set(ref _statusMessage, value);
+        }
+
+        private bool _isError = false;
+        public bool IsError
+        {
+            get => _isError;
+            set => Set(ref _isError, value);
         }
 
         public ShellViewState ViewState { get; protected set; }
@@ -68,9 +75,11 @@ namespace VanArsdel.Inventory.ViewModels
 
             switch (message)
             {
-                case "StatusUpdate":
+                case "StatusMessage":
+                case "StatusError":
                     await Dispatcher.RunIdleAsync((e) =>
                     {
+                        IsError = message == "StatusError";
                         StatusMessage = args.ToString();
                     });
                     break;
