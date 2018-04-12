@@ -32,10 +32,12 @@ namespace VanArsdel.Inventory.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.LoadAsync(e.Parameter as ShellViewState);
+            ViewModel.Subscribe();
         }
 
         private void OnViewConsolidated(ApplicationView sender, ApplicationViewConsolidatedEventArgs args)
         {
+            ViewModel.Unsubscribe();
             ViewModel = null;
             Bindings.StopTracking();
             frame.Navigate(typeof(Page));

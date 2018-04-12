@@ -8,14 +8,16 @@ namespace VanArsdel.Inventory.ViewModels
 {
     public class ShellViewModel : ViewModelBase
     {
-        public ShellViewModel(IDataProviderFactory providerFactory, INavigationService navigationService)
+        public ShellViewModel(IDataProviderFactory providerFactory, INavigationService navigationService, IMessageService messageService)
         {
             ProviderFactory = providerFactory;
             NavigationService = navigationService;
+            MessageService = messageService;
         }
 
         public IDataProviderFactory ProviderFactory { get; }
         public INavigationService NavigationService { get; }
+        public IMessageService MessageService { get; }
 
         private bool _isBusy = false;
         public bool IsBusy
@@ -44,6 +46,30 @@ namespace VanArsdel.Inventory.ViewModels
 
         virtual public void Unload()
         {
+        }
+
+        public void Subscribe()
+        {
+            MessageService.Subscribe<CustomerListViewModel>(this, OnMessage);
+            MessageService.Subscribe<CustomerDetailsViewModel>(this, OnMessage);
+        }
+
+        public void Unsubscribe()
+        {
+            MessageService.Unsubscribe(this);
+        }
+
+        private async void OnMessage(object sender, string message, object args)
+        {
+            switch (message)
+            {
+                case "StatusUpdate":
+                    await Dispatcher.RunIdleAsync((e) =>
+                    {
+                        StatusMessage = args.ToString();
+                    });
+                    break;
+            }
         }
     }
 }

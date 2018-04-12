@@ -36,11 +36,13 @@ namespace VanArsdel.Inventory.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.LoadAsync(e.Parameter as ShellViewState);
+            ViewModel.Subscribe();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             ViewModel.Unload();
+            ViewModel.Unsubscribe();
         }
 
         private void OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

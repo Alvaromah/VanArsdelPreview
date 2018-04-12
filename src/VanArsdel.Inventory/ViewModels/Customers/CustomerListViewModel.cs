@@ -66,8 +66,16 @@ namespace VanArsdel.Inventory.ViewModels
                 OrderBy = ViewState.OrderBy,
                 OrderByDesc = ViewState.OrderByDesc
             };
+
+            SendStatusMessage("Loading", "Loading customers...");
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
             var virtualCollection = new CustomerCollection(ProviderFactory.CreateDataProvider());
             await virtualCollection.RefreshAsync(request);
+
+            stopwatch.Stop();
+            SendStatusMessage("Ready", $"Customers loaded in {stopwatch.Elapsed.TotalSeconds} secs.");
+
             return virtualCollection;
         }
 
