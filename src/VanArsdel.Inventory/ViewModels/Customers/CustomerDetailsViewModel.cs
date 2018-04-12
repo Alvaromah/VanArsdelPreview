@@ -51,7 +51,6 @@ namespace VanArsdel.Inventory.ViewModels
                 await dataProvider.UpdateCustomerAsync(model);
                 NotifyPropertyChanged(nameof(Title));
             }
-            MessageService.Send(this, "ItemChanged", model);
         }
 
         protected override async Task DeleteItemAsync(CustomerModel model)
@@ -60,7 +59,6 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await dataProvider.DeleteCustomerAsync(model);
             }
-            MessageService.Send(this, "ItemDeleted", model);
         }
 
         protected override async Task<bool> ConfirmDeleteAsync()

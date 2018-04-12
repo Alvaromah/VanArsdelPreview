@@ -65,7 +65,6 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await dataProvider.DeleteCustomerAsync(model);
             }
-            MessageService.Send(this, "ItemsDeleted", models);
         }
 
         protected override async Task DeleteRangesAsync(IDataProvider dataProvider, IEnumerable<IndexRange> ranges)
@@ -80,7 +79,6 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await dataProvider.DeleteCustomerRangeAsync(range.Index, range.Length, request);
             }
-            MessageService.Send(this, "ItemRangesDeleted", ranges);
         }
 
         protected override async Task<bool> ConfirmDeleteSelectionAsync()

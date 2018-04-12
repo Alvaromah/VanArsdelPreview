@@ -80,17 +80,17 @@ namespace VanArsdel.Inventory.ViewModels
                     {
                         await DeleteRangesAsync(dataProvider, _selectedIndexRanges);
                         await RefreshAsync(dataProvider);
+                        MessageService.Send(this, "ItemRangesDeleted", _selectedIndexRanges);
                         _selectedIndexRanges = null;
                     }
                     else if (_selectedItems != null)
                     {
                         await DeleteItemsAsync(dataProvider, _selectedItems);
                         await RefreshAsync(dataProvider);
-                        _selectedItems.Clear();
+                        MessageService.Send(this, "ItemsDeleted", _selectedItems);
                         _selectedItems = null;
                     }
                 }
-                //IsMultipleSelection = false;
             }
         }
 

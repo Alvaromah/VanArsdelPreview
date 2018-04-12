@@ -60,6 +60,7 @@ namespace VanArsdel.Inventory.ViewModels
                 await SaveItemAsync(model);
                 model.NotifyChanges();
                 IsEnabled = true;
+                MessageService.Send(this, "ItemChanged", model);
             }
             _modelBackup = null;
             ItemUpdated();
@@ -74,6 +75,7 @@ namespace VanArsdel.Inventory.ViewModels
                 await Task.Delay(100);
                 await DeleteItemAsync(model);
                 ItemDeleted?.Invoke(this, EventArgs.Empty);
+                MessageService.Send(this, "ItemDeleted", model);
             }
             ItemUpdated();
         }

@@ -13,17 +13,15 @@ namespace VanArsdel.Inventory.ViewModels
         public OrdersViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager)
         {
             ProviderFactory = providerFactory;
+            MessageService = serviceManager.MessageService;
 
             OrderList = new OrderListViewModel(ProviderFactory, serviceManager);
-            OrderList.PropertyChanged += OnListPropertyChanged;
-
             OrderDetails = new OrderDetailsViewModel(ProviderFactory, serviceManager);
-            OrderDetails.ItemDeleted += OnItemDeleted;
-
             OrderItemList = new OrderItemListViewModel(ProviderFactory, serviceManager);
         }
 
         public IDataProviderFactory ProviderFactory { get; }
+        public IMessageService MessageService { get; }
 
         public OrderListViewModel OrderList { get; set; }
         public OrderDetailsViewModel OrderDetails { get; set; }
@@ -31,12 +29,14 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(OrdersViewState state)
         {
+            MessageService.Subscribe<OrderListViewModel>(this, OnMessage);
             await OrderList.LoadAsync(state);
         }
 
         public void Unload()
         {
             OrderList.Unload();
+            MessageService.Unsubscribe(this);
         }
 
         public async Task RefreshAsync()
@@ -44,43 +44,44 @@ namespace VanArsdel.Inventory.ViewModels
             await OrderList.RefreshAsync();
         }
 
-        private async void OnListPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void CancelEdit()
         {
-            switch (e.PropertyName)
+            OrderDetails.CancelEdit();
+        }
+
+        private async void OnMessage(object sender, string message, object args)
+        {
+            if (sender == OrderList && message == "ItemSelected")
             {
-                case nameof(OrderListViewModel.SelectedItem):
-                    OrderDetails.CancelEdit();
-                    OrderItemList.IsMultipleSelection = false;
-                    var selected = OrderList.SelectedItem;
-                    if (!OrderList.IsMultipleSelection)
-                    {
-                        if (selected != null && !selected.IsEmpty)
-                        {
-                            await PopulateDetails(selected);
-                            await PopulateOrderItems(selected);
-                        }
-                    }
-                    OrderDetails.Item = selected;
-                    break;
-                default:
-                    break;
+                await Dispatcher.RunIdleAsync((e) =>
+                {
+                    OnItemSelected();
+                });
             }
         }
 
-        private async void OnItemDeleted(object sender, EventArgs e)
+        private async void OnItemSelected()
         {
-            await OrderList.RefreshAsync();
+            OrderDetails.CancelEdit();
+            OrderItemList.IsMultipleSelection = false;
+            var selected = OrderList.SelectedItem;
+            if (!OrderList.IsMultipleSelection)
+            {
+                if (selected != null && !selected.IsEmpty)
+                {
+                    await PopulateDetails(selected);
+                    await PopulateOrderItems(selected);
+                }
+            }
+            OrderDetails.Item = selected;
         }
 
         private async Task PopulateDetails(OrderModel selected)
         {
-            if (selected != null)
+            using (var dataProvider = ProviderFactory.CreateDataProvider())
             {
-                using (var dataProvider = ProviderFactory.CreateDataProvider())
-                {
-                    var model = await dataProvider.GetOrderAsync(selected.OrderID);
-                    selected.Merge(model);
-                }
+                var model = await dataProvider.GetOrderAsync(selected.OrderID);
+                selected.Merge(model);
             }
         }
 
@@ -90,11 +91,6 @@ namespace VanArsdel.Inventory.ViewModels
             {
                 await OrderItemList.LoadAsync(new OrderItemsViewState { OrderID = selected.OrderID });
             }
-        }
-
-        public void CancelEdit()
-        {
-            OrderDetails.CancelEdit();
         }
     }
 }

@@ -20,6 +20,9 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(OrdersViewState state)
         {
+            MessageService.Subscribe<OrderDetailsViewModel>(this, OnMessage);
+            MessageService.Subscribe<OrderListViewModel>(this, OnMessage);
+
             ViewState = state ?? OrdersViewState.CreateDefault();
             ApplyViewState(ViewState);
             await RefreshAsync();
@@ -28,6 +31,7 @@ namespace VanArsdel.Inventory.ViewModels
         public void Unload()
         {
             UpdateViewState(ViewState);
+            MessageService.Unsubscribe(this);
         }
 
         public override async void New()
@@ -91,6 +95,22 @@ namespace VanArsdel.Inventory.ViewModels
             var state = CustomersViewState.CreateDefault();
             UpdateViewState(state);
             return state;
+        }
+
+        private async void OnMessage(object sender, string message, object args)
+        {
+            switch (message)
+            {
+                case "ItemChanged":
+                case "ItemDeleted":
+                case "ItemsDeleted":
+                case "ItemRangesDeleted":
+                    await Dispatcher.RunIdleAsync((e) =>
+                    {
+                        Refresh();
+                    });
+                    break;
+            }
         }
     }
 }

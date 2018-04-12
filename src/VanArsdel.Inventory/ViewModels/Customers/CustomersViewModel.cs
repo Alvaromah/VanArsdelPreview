@@ -21,7 +21,6 @@ namespace VanArsdel.Inventory.ViewModels
         }
 
         public IDataProviderFactory ProviderFactory { get; }
-
         public IMessageService MessageService { get; }
 
         public CustomerListViewModel CustomerList { get; set; }
