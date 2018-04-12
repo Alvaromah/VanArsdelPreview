@@ -7,7 +7,7 @@ namespace VanArsdel.Inventory.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        public LoginViewModel(INavigationService navigationService)
+        public LoginViewModel(IContext context, INavigationService navigationService) : base(context)
         {
             NavigationService = navigationService;
         }

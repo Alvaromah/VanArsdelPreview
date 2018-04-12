@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Services;
@@ -6,11 +8,11 @@ using VanArsdel.Inventory.Providers;
 
 namespace VanArsdel.Inventory.ViewModels
 {
-    abstract public partial class DetailsViewModel<TModel> : ViewModelBase<TModel> where TModel : ModelBase
+    abstract public partial class DetailsViewModel<TModel> : ViewModelBase where TModel : ModelBase
     {
         public event EventHandler ItemDeleted;
 
-        public DetailsViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager)
+        public DetailsViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager) : base(serviceManager.Context)
         {
             ProviderFactory = providerFactory;
             NavigationService = serviceManager.NavigationService;
@@ -95,9 +97,22 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
+        virtual protected IEnumerable<IValidationConstraint<TModel>> ValidationConstraints => Enumerable.Empty<IValidationConstraint<TModel>>();
+
         public Result Validate()
         {
-            return base.Validate(Item);
+            return Validate(Item);
+        }
+        public Result Validate(TModel model)
+        {
+            foreach (var constraint in ValidationConstraints)
+            {
+                if (!constraint.Validate(model))
+                {
+                    return Result.Error("Validation Error", $"{constraint.Message} Please, correct the error and try again.");
+                }
+            }
+            return Result.Ok();
         }
 
         virtual protected void ItemUpdated() { }

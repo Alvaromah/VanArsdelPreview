@@ -3,6 +3,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
+using Windows.ApplicationModel.Core;
 
 using VanArsdel.Inventory.ViewModels;
 using VanArsdel.Inventory.Services;
@@ -24,7 +25,7 @@ namespace VanArsdel.Inventory.Views
         private void InitializeContext()
         {
             var context = ServiceLocator.Current.GetService<IContext>();
-            context.Initialize(ApplicationView.GetForCurrentView().Id, Dispatcher);
+            context.Initialize(Dispatcher, ApplicationView.GetForCurrentView().Id, CoreApplication.GetCurrentView().IsMain);
         }
 
         private void InitializeNavigation()

@@ -9,7 +9,7 @@ namespace VanArsdel.Inventory.ViewModels
 {
     public class ProductsViewModel : ViewModelBase
     {
-        public ProductsViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager)
+        public ProductsViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager) : base(serviceManager.Context)
         {
             ProviderFactory = providerFactory;
             MessageService = serviceManager.MessageService;

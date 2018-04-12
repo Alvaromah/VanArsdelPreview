@@ -10,10 +10,9 @@ namespace VanArsdel.Inventory.ViewModels
 {
     abstract public partial class ListViewModel<TModel> : ViewModelBase where TModel : ModelBase
     {
-        public ListViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager)
+        public ListViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager) : base(serviceManager.Context)
         {
             ProviderFactory = providerFactory;
-            Context = serviceManager.Context;
             NavigationService = serviceManager.NavigationService;
             MessageService = serviceManager.MessageService;
             DialogService = serviceManager.DialogService;
@@ -22,7 +21,6 @@ namespace VanArsdel.Inventory.ViewModels
 
         public IDataProviderFactory ProviderFactory { get; }
 
-        public IContext Context { get; }
         public INavigationService NavigationService { get; }
         public IMessageService MessageService { get; }
         public IDialogService DialogService { get; }

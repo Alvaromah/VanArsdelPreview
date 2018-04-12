@@ -10,11 +10,13 @@ namespace VanArsdel.Inventory.Services
         private CoreDispatcher _dispatcher = null;
 
         public int ViewID { get; private set; }
+        public bool IsMainView { get; private set; }
 
-        public void Initialize(int viewID, object dispatcher)
+        public void Initialize(object dispatcher, int viewID, bool isMainView)
         {
-            ViewID = viewID;
             _dispatcher = dispatcher as CoreDispatcher;
+            ViewID = viewID;
+            IsMainView = isMainView;
         }
 
         public async Task RunAsync(Action action)

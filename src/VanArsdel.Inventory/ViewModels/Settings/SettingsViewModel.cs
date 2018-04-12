@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using VanArsdel.Inventory.Services;
+
 namespace VanArsdel.Inventory.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
-        public SettingsViewModel()
+        public SettingsViewModel(IContext context) : base(context)
         {
         }
 

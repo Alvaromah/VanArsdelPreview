@@ -11,7 +11,7 @@ namespace VanArsdel.Inventory.ViewModels
 {
     public class DashboardViewModel : ViewModelBase
     {
-        public DashboardViewModel(IDataProviderFactory providerFactory, INavigationService navigationService)
+        public DashboardViewModel(IDataProviderFactory providerFactory, IContext context, INavigationService navigationService) : base(context)
         {
             ProviderFactory = providerFactory;
             NavigationService = navigationService;

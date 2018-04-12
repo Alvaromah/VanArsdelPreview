@@ -10,7 +10,7 @@ namespace VanArsdel.Inventory.ViewModels
 {
     public class OrderItemsViewModel : ViewModelBase
     {
-        public OrderItemsViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager)
+        public OrderItemsViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager) : base(serviceManager.Context)
         {
             ProviderFactory = providerFactory;
             MessageService = serviceManager.MessageService;

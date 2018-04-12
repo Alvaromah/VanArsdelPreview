@@ -7,7 +7,9 @@ namespace VanArsdel.Inventory.Services
     {
         int ViewID { get; }
 
-        void Initialize(int viewID, object dispatcher);
+        bool IsMainView { get; }
+
+        void Initialize(object dispatcher, int viewID, bool isMainView);
 
         Task RunAsync(Action action);
     }

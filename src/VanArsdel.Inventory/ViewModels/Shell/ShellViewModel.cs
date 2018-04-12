@@ -8,16 +8,14 @@ namespace VanArsdel.Inventory.ViewModels
 {
     public class ShellViewModel : ViewModelBase
     {
-        public ShellViewModel(IDataProviderFactory providerFactory, IContext context, INavigationService navigationService, IMessageService messageService)
+        public ShellViewModel(IDataProviderFactory providerFactory, IContext context, INavigationService navigationService, IMessageService messageService) : base(context)
         {
             ProviderFactory = providerFactory;
-            Context = context;
             NavigationService = navigationService;
             MessageService = messageService;
         }
 
         public IDataProviderFactory ProviderFactory { get; }
-        public IContext Context { get; }
         public INavigationService NavigationService { get; }
         public IMessageService MessageService { get; }
 
