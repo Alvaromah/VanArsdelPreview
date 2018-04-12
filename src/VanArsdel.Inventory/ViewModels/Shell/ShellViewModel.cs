@@ -50,8 +50,7 @@ namespace VanArsdel.Inventory.ViewModels
 
         public void Subscribe()
         {
-            MessageService.Subscribe<CustomerListViewModel>(this, OnMessage);
-            MessageService.Subscribe<CustomerDetailsViewModel>(this, OnMessage);
+            MessageService.Subscribe<ViewModelBase>(this, OnMessage);
         }
 
         public void Unsubscribe()
@@ -61,7 +60,7 @@ namespace VanArsdel.Inventory.ViewModels
 
         private async void OnMessage(object sender, string message, object args)
         {
-            var viewModel = sender as CustomerListViewModel;
+            var viewModel = sender as ViewModelBase;
             if (viewModel.Context.ViewID != Context.ViewID)
             {
                 return;

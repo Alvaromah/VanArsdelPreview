@@ -95,8 +95,11 @@ namespace VanArsdel.Inventory.Services
 
             public void TryInvoke(object sender, string message, object args)
             {
-                if (_subscriptions.TryGetValue(sender.GetType(), out Action<object, string, object> action))
+                var senderType = sender.GetType();
+                var type = _subscriptions.Keys.FirstOrDefault(r => r.IsAssignableFrom(senderType));
+                if (type != null)
                 {
+                    var action = _subscriptions[type];
                     var target = _reference.Target;
                     if (_reference.IsAlive)
                     {
