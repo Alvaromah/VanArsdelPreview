@@ -62,6 +62,15 @@ namespace VanArsdel.Inventory.ViewModels
             }
         }
 
+        public void Subscribe()
+        {
+        }
+
+        public void Unsubscribe()
+        {
+            MessageService.Unsubscribe(this);
+        }
+
         protected override async Task SaveItemAsync(OrderModel model)
         {
             using (var dataProvider = ProviderFactory.CreateDataProvider())

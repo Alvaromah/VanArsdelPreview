@@ -29,14 +29,28 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(OrdersViewState state)
         {
-            MessageService.Subscribe<OrderListViewModel>(this, OnMessage);
             await OrderList.LoadAsync(state);
         }
 
         public void Unload()
         {
             OrderList.Unload();
+        }
+
+        public void Subscribe()
+        {
+            MessageService.Subscribe<OrderListViewModel>(this, OnMessage);
+            OrderList.Subscribe();
+            OrderDetails.Subscribe();
+            OrderItemList.Subscribe();
+        }
+
+        public void Unsubscribe()
+        {
             MessageService.Unsubscribe(this);
+            OrderList.Unsubscribe();
+            OrderDetails.Unsubscribe();
+            OrderItemList.Unsubscribe();
         }
 
         public async Task RefreshAsync()

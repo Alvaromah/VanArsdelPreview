@@ -13,15 +13,14 @@ namespace VanArsdel.Inventory.ViewModels
         public OrderItemsViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager)
         {
             ProviderFactory = providerFactory;
+            MessageService = serviceManager.MessageService;
 
             OrderItemList = new OrderItemListViewModel(ProviderFactory, serviceManager);
-            OrderItemList.PropertyChanged += OnListPropertyChanged;
-
             OrderItemDetails = new OrderItemDetailsViewModel(ProviderFactory, serviceManager);
-            OrderItemDetails.ItemDeleted += OnItemDeleted;
         }
 
         public IDataProviderFactory ProviderFactory { get; }
+        public IMessageService MessageService { get; }
 
         public OrderItemListViewModel OrderItemList { get; set; }
         public OrderItemDetailsViewModel OrderItemDetails { get; set; }
@@ -36,30 +35,53 @@ namespace VanArsdel.Inventory.ViewModels
             OrderItemList.Unload();
         }
 
+        public void Subscribe()
+        {
+            MessageService.Subscribe<OrderItemListViewModel>(this, OnMessage);
+            OrderItemList.Subscribe();
+            OrderItemDetails.Subscribe();
+        }
+
+        public void Unsubscribe()
+        {
+            MessageService.Unsubscribe(this);
+            OrderItemList.Unsubscribe();
+            OrderItemDetails.Unsubscribe();
+        }
+
         public async Task RefreshAsync()
         {
             await OrderItemList.RefreshAsync();
         }
 
-        private async void OnListPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void CancelEdit()
         {
-            switch (e.PropertyName)
+            OrderItemDetails.CancelEdit();
+        }
+
+        private async void OnMessage(object sender, string message, object args)
+        {
+            if (sender == OrderItemList && message == "ItemSelected")
             {
-                case nameof(OrderItemListViewModel.SelectedItem):
-                    OrderItemDetails.CancelEdit();
-                    if (!OrderItemList.IsMultipleSelection)
-                    {
-                        await PopulateDetails(OrderItemList.SelectedItem);
-                    }
-                    break;
-                default:
-                    break;
+                await Dispatcher.RunIdleAsync((e) =>
+                {
+                    OnItemSelected();
+                });
             }
         }
 
-        private async void OnItemDeleted(object sender, EventArgs e)
+        private async void OnItemSelected()
         {
-            await OrderItemList.RefreshAsync();
+            OrderItemDetails.CancelEdit();
+            var selected = OrderItemList.SelectedItem;
+            if (!OrderItemList.IsMultipleSelection)
+            {
+                if (selected != null && !selected.IsEmpty)
+                {
+                    await PopulateDetails(selected);
+                }
+            }
+            OrderItemDetails.Item = selected;
         }
 
         private async Task PopulateDetails(OrderItemModel selected)
@@ -73,11 +95,6 @@ namespace VanArsdel.Inventory.ViewModels
                 }
             }
             OrderItemDetails.Item = selected;
-        }
-
-        public void CancelEdit()
-        {
-            OrderItemDetails.CancelEdit();
         }
     }
 }

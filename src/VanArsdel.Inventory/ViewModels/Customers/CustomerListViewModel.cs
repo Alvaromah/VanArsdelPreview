@@ -20,17 +20,24 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(CustomersViewState state)
         {
-            MessageService.Subscribe<CustomerDetailsViewModel>(this, OnMessage);
-            MessageService.Subscribe<CustomerListViewModel>(this, OnMessage);
-
-            ViewState = state ?? CustomersViewState.CreateDefault();
-            ApplyViewState(ViewState);
+            ViewState = state ?? CustomersViewState.CreateEmpty();
+            Query = state.Query;
             await RefreshAsync();
         }
 
         public void Unload()
         {
-            UpdateViewState(ViewState);
+            ViewState.Query = Query;
+        }
+
+        public void Subscribe()
+        {
+            MessageService.Subscribe<CustomerDetailsViewModel>(this, OnMessage);
+            MessageService.Subscribe<CustomerListViewModel>(this, OnMessage);
+        }
+
+        public void Unsubscribe()
+        {
             MessageService.Unsubscribe(this);
         }
 
@@ -48,6 +55,11 @@ namespace VanArsdel.Inventory.ViewModels
 
         override public async Task<IList<CustomerModel>> GetItemsAsync(IDataProvider dataProvider)
         {
+            if (ViewState.IsEmpty)
+            {
+                return new List<CustomerModel>();
+            }
+
             var request = new DataRequest<Customer>()
             {
                 Query = Query,
@@ -88,9 +100,12 @@ namespace VanArsdel.Inventory.ViewModels
 
         public CustomersViewState GetCurrentState()
         {
-            var state = CustomersViewState.CreateDefault();
-            UpdateViewState(state);
-            return state;
+            return new CustomersViewState
+            {
+                Query = Query,
+                OrderBy = ViewState.OrderBy,
+                OrderByDesc = ViewState.OrderByDesc
+            };
         }
 
         private async void OnMessage(object sender, string message, object args)

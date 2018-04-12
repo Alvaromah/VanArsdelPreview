@@ -47,16 +47,6 @@ namespace VanArsdel.Inventory.ViewModels
             NotifyPropertyChanged(nameof(IsDataAvailable));
         }
 
-        virtual public void ApplyViewState(ListViewState state)
-        {
-            Query = state.Query;
-        }
-
-        virtual public void UpdateViewState(ListViewState state)
-        {
-            state.Query = Query;
-        }
-
         abstract public Task<IList<TModel>> GetItemsAsync(IDataProvider dataProvider);
         abstract protected Task DeleteItemsAsync(IDataProvider dataProvider, IEnumerable<TModel> models);
         abstract protected Task DeleteRangesAsync(IDataProvider dataProvider, IEnumerable<IndexRange> ranges);

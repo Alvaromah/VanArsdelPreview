@@ -20,17 +20,24 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(OrdersViewState state)
         {
-            MessageService.Subscribe<OrderDetailsViewModel>(this, OnMessage);
-            MessageService.Subscribe<OrderListViewModel>(this, OnMessage);
-
-            ViewState = state ?? OrdersViewState.CreateDefault();
-            ApplyViewState(ViewState);
+            ViewState = state ?? OrdersViewState.CreateEmpty();
+            Query = state.Query;
             await RefreshAsync();
         }
 
         public void Unload()
         {
-            UpdateViewState(ViewState);
+            ViewState.Query = Query;
+        }
+
+        public void Subscribe()
+        {
+            MessageService.Subscribe<OrderDetailsViewModel>(this, OnMessage);
+            MessageService.Subscribe<OrderListViewModel>(this, OnMessage);
+        }
+
+        public void Unsubscribe()
+        {
             MessageService.Unsubscribe(this);
         }
 
@@ -48,6 +55,11 @@ namespace VanArsdel.Inventory.ViewModels
 
         override public async Task<IList<OrderModel>> GetItemsAsync(IDataProvider dataProvider)
         {
+            if (ViewState.IsEmpty)
+            {
+                return new List<OrderModel>();
+            }
+
             var request = new DataRequest<Order>()
             {
                 Query = Query,
@@ -90,11 +102,15 @@ namespace VanArsdel.Inventory.ViewModels
             return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected orders?", "Ok", "Cancel");
         }
 
-        public CustomersViewState GetCurrentState()
+        public OrdersViewState GetCurrentState()
         {
-            var state = CustomersViewState.CreateDefault();
-            UpdateViewState(state);
-            return state;
+            return new OrdersViewState
+            {
+                Query = Query,
+                OrderBy = ViewState.OrderBy,
+                OrderByDesc = ViewState.OrderByDesc,
+                CustomerID = ViewState.CustomerID
+            };
         }
 
         private async void OnMessage(object sender, string message, object args)

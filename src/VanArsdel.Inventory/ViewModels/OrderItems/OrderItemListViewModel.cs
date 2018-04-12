@@ -20,14 +20,25 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(OrderItemsViewState state)
         {
-            ViewState = state ?? OrderItemsViewState.CreateDefault();
-            ApplyViewState(ViewState);
+            ViewState = state ?? OrderItemsViewState.CreateEmpty();
+            Query = state.Query;
             await RefreshAsync();
         }
 
         public void Unload()
         {
-            UpdateViewState(ViewState);
+            ViewState.Query = Query;
+        }
+
+        public void Subscribe()
+        {
+            MessageService.Subscribe<OrderItemDetailsViewModel>(this, OnMessage);
+            MessageService.Subscribe<OrderItemListViewModel>(this, OnMessage);
+        }
+
+        public void Unsubscribe()
+        {
+            MessageService.Unsubscribe(this);
         }
 
         public override async void New()
@@ -75,11 +86,31 @@ namespace VanArsdel.Inventory.ViewModels
             return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected order items?", "Ok", "Cancel");
         }
 
-        public CustomersViewState GetCurrentState()
+        public OrderItemsViewState GetCurrentState()
         {
-            var state = CustomersViewState.CreateDefault();
-            UpdateViewState(state);
-            return state;
+            return new OrderItemsViewState
+            {
+                Query = Query,
+                OrderBy = ViewState.OrderBy,
+                OrderByDesc = ViewState.OrderByDesc,
+                OrderID = ViewState.OrderID
+            };
+        }
+
+        private async void OnMessage(object sender, string message, object args)
+        {
+            switch (message)
+            {
+                case "ItemChanged":
+                case "ItemDeleted":
+                case "ItemsDeleted":
+                case "ItemRangesDeleted":
+                    await Dispatcher.RunIdleAsync((e) =>
+                    {
+                        Refresh();
+                    });
+                    break;
+            }
         }
     }
 }

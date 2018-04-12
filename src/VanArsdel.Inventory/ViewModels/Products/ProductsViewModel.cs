@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Models;
@@ -13,15 +12,14 @@ namespace VanArsdel.Inventory.ViewModels
         public ProductsViewModel(IDataProviderFactory providerFactory, IServiceManager serviceManager)
         {
             ProviderFactory = providerFactory;
+            MessageService = serviceManager.MessageService;
 
             ProductList = new ProductListViewModel(ProviderFactory, serviceManager);
-            ProductList.PropertyChanged += OnListPropertyChanged;
-
             ProductDetails = new ProductDetailsViewModel(ProviderFactory, serviceManager);
-            ProductDetails.ItemDeleted += OnItemDeleted;
         }
 
         public IDataProviderFactory ProviderFactory { get; }
+        public IMessageService MessageService { get; }
 
         public ProductListViewModel ProductList { get; set; }
         public ProductDetailsViewModel ProductDetails { get; set; }
@@ -36,35 +34,53 @@ namespace VanArsdel.Inventory.ViewModels
             ProductList.Unload();
         }
 
+        public void Subscribe()
+        {
+            MessageService.Subscribe<ProductListViewModel>(this, OnMessage);
+            ProductList.Subscribe();
+            ProductDetails.Subscribe();
+        }
+
+        public void Unsubscribe()
+        {
+            MessageService.Unsubscribe(this);
+            ProductList.Unsubscribe();
+            ProductDetails.Unsubscribe();
+        }
+
         public async Task RefreshAsync()
         {
             await ProductList.RefreshAsync();
         }
 
-        private async void OnListPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void CancelEdit()
         {
-            switch (e.PropertyName)
+            ProductDetails.CancelEdit();
+        }
+
+        private async void OnMessage(object sender, string message, object args)
+        {
+            if (sender == ProductList && message == "ItemSelected")
             {
-                case nameof(ProductListViewModel.SelectedItem):
-                    ProductDetails.CancelEdit();
-                    var selected = ProductList.SelectedItem;
-                    if (!ProductList.IsMultipleSelection)
-                    {
-                        if (selected != null && !selected.IsEmpty)
-                        {
-                            await PopulateDetails(selected);
-                        }
-                    }
-                    ProductDetails.Item = selected;
-                    break;
-                default:
-                    break;
+                await Dispatcher.RunIdleAsync((e) =>
+                {
+                    OnItemSelected();
+                });
             }
         }
 
-        private async void OnItemDeleted(object sender, EventArgs e)
+        private async void OnItemSelected()
         {
-            await ProductList.RefreshAsync();
+            ProductDetails.CancelEdit();
+            var selected = ProductList.SelectedItem;
+            if (!ProductList.IsMultipleSelection)
+            {
+                if (selected != null && !selected.IsEmpty)
+                {
+                    await PopulateDetails(selected);
+                }
+            }
+            ProductDetails.Item = selected;
         }
 
         private async Task PopulateDetails(ProductModel selected)
@@ -74,11 +90,6 @@ namespace VanArsdel.Inventory.ViewModels
                 var model = await dataProvider.GetProductAsync(selected.ProductID);
                 selected.Merge(model);
             }
-        }
-
-        public void CancelEdit()
-        {
-            ProductDetails.CancelEdit();
         }
     }
 }

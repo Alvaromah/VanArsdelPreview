@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 
 using VanArsdel.Inventory.Models;
@@ -29,14 +28,28 @@ namespace VanArsdel.Inventory.ViewModels
 
         public async Task LoadAsync(CustomersViewState state)
         {
-            MessageService.Subscribe<CustomerListViewModel>(this, OnMessage);
             await CustomerList.LoadAsync(state);
         }
 
         public void Unload()
         {
             CustomerList.Unload();
+        }
+
+        public void Subscribe()
+        {
+            MessageService.Subscribe<CustomerListViewModel>(this, OnMessage);
+            CustomerList.Subscribe();
+            CustomerDetails.Subscribe();
+            CustomerOrders.Subscribe();
+        }
+
+        public void Unsubscribe()
+        {
             MessageService.Unsubscribe(this);
+            CustomerList.Unsubscribe();
+            CustomerDetails.Unsubscribe();
+            CustomerOrders.Unsubscribe();
         }
 
         public async Task RefreshAsync()

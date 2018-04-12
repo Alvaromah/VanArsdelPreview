@@ -7,7 +7,7 @@ namespace VanArsdel.Inventory.ViewModels
 {
     public class OrdersViewState : ListViewState
     {
-        static public OrdersViewState CreateDefault() => new OrdersViewState();
+        static public OrdersViewState CreateEmpty() => new OrdersViewState { IsEmpty = true };
 
         public OrdersViewState()
         {

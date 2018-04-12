@@ -25,6 +25,7 @@ namespace VanArsdel.Inventory.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.CustomerList.PropertyChanged += OnViewModelPropertyChanged;
+            ViewModel.Subscribe();
             await ViewModel.LoadAsync(e.Parameter as CustomersViewState);
             UpdateTitle();
         }
@@ -33,6 +34,7 @@ namespace VanArsdel.Inventory.Views
         {
             ViewModel.CancelEdit();
             ViewModel.Unload();
+            ViewModel.Unsubscribe();
             ViewModel.CustomerList.PropertyChanged -= OnViewModelPropertyChanged;
         }
 
@@ -47,11 +49,6 @@ namespace VanArsdel.Inventory.Views
         private void UpdateTitle()
         {
             this.SetTitle($"Customers {ViewModel.CustomerList.Title}".Trim());
-        }
-
-        private async void OnItemDeleted(object sender, EventArgs e)
-        {
-            await ViewModel.RefreshAsync();
         }
 
         private async void OpenInNewView(object sender, RoutedEventArgs e)

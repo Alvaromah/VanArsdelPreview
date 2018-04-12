@@ -25,6 +25,7 @@ namespace VanArsdel.Inventory.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.OrderItemList.PropertyChanged += OnViewModelPropertyChanged;
+            ViewModel.Subscribe();
             await ViewModel.LoadAsync(e.Parameter as OrderItemsViewState);
             UpdateTitle();
         }
@@ -33,6 +34,7 @@ namespace VanArsdel.Inventory.Views
         {
             ViewModel.CancelEdit();
             ViewModel.Unload();
+            ViewModel.Unsubscribe();
             ViewModel.OrderItemList.PropertyChanged -= OnViewModelPropertyChanged;
         }
 
