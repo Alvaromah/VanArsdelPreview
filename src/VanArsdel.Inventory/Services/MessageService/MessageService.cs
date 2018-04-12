@@ -10,7 +10,7 @@ namespace VanArsdel.Inventory.Services
 
         private List<Subscriber> _subscribers = new List<Subscriber>();
 
-        public void Subscribe<TSender>(object target, Action<object, string, object> action) where TSender : class
+        public void Subscribe<TSender>(object target, Action<TSender, string, object> action) where TSender : class
         {
             lock (_sync)
             {
@@ -20,7 +20,7 @@ namespace VanArsdel.Inventory.Services
                     subscriber = new Subscriber(target);
                     _subscribers.Add(subscriber);
                 }
-                subscriber.AddSubscription(typeof(TSender), action);
+                subscriber.AddSubscription<TSender>(action);
             }
         }
 
@@ -71,21 +71,21 @@ namespace VanArsdel.Inventory.Services
         {
             private WeakReference _reference = null;
 
-            private Dictionary<Type, Action<object, string, object>> _subscriptions;
+            private Dictionary<Type, Delegate> _subscriptions;
 
             public Subscriber(object target)
             {
                 _reference = new WeakReference(target);
-                _subscriptions = new Dictionary<Type, Action<object, string, object>>();
+                _subscriptions = new Dictionary<Type, Delegate>();
             }
 
             public object Target => _reference.Target;
 
             public bool IsEmpty => _subscriptions.Count == 0;
 
-            public void AddSubscription(Type type, Action<object, string, object> action)
+            public void AddSubscription<TSender>(Action<TSender, string, object> action)
             {
-                _subscriptions.Add(type, action);
+                _subscriptions.Add(typeof(TSender), action);
             }
 
             public void RemoveSubscription(Type type)
@@ -103,9 +103,22 @@ namespace VanArsdel.Inventory.Services
                     var target = _reference.Target;
                     if (_reference.IsAlive)
                     {
-                        action?.Invoke(sender, message, args);
+                        action?.DynamicInvoke(sender, message, args);
                     }
                 }
+            }
+        }
+
+        abstract public class SubscriptionHandler
+        {
+            abstract public void Invoke<TSender>(TSender sender, string message, object args);
+        }
+
+        public class SubscriptionHandler<T> : SubscriptionHandler
+        {
+            public override void Invoke<TSender>(TSender sender, string message, object args)
+            {
+                throw new NotImplementedException();
             }
         }
     }

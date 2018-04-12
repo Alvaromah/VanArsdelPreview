@@ -58,7 +58,7 @@ namespace VanArsdel.Inventory.ViewModels
             MessageService.Unsubscribe(this);
         }
 
-        private async void OnMessage(object sender, string message, object args)
+        private async void OnMessage(ViewModelBase sender, string message, object args)
         {
             var viewModel = sender as ViewModelBase;
             if (viewModel.Context.ViewID != Context.ViewID)

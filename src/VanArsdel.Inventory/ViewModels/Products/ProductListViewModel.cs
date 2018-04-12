@@ -109,7 +109,7 @@ namespace VanArsdel.Inventory.ViewModels
                 OrderByDesc = ViewState.OrderByDesc
             };
         }
-        private async void OnMessage(object sender, string message, object args)
+        private async void OnMessage(ViewModelBase sender, string message, object args)
         {
             switch (message)
             {

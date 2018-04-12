@@ -22,7 +22,12 @@ namespace VanArsdel.Inventory.ViewModels
         {
             ViewState = state ?? CustomersViewState.CreateEmpty();
             Query = state.Query;
+
+            SendStatusMessage("Loading", "Loading customers...");
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             await RefreshAsync();
+            stopwatch.Stop();
+            SendStatusMessage("Ready", $"Customers loaded in {stopwatch.Elapsed.TotalSeconds} secs.");
         }
 
         public void Unload()
@@ -67,15 +72,8 @@ namespace VanArsdel.Inventory.ViewModels
                 OrderByDesc = ViewState.OrderByDesc
             };
 
-            SendStatusMessage("Loading", "Loading customers...");
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-
             var virtualCollection = new CustomerCollection(ProviderFactory.CreateDataProvider());
             await virtualCollection.RefreshAsync(request);
-
-            stopwatch.Stop();
-            SendStatusMessage("Ready", $"Customers loaded in {stopwatch.Elapsed.TotalSeconds} secs.");
-
             return virtualCollection;
         }
 
@@ -116,7 +114,7 @@ namespace VanArsdel.Inventory.ViewModels
             };
         }
 
-        private async void OnMessage(object sender, string message, object args)
+        private async void OnMessage(ViewModelBase sender, string message, object args)
         {
             switch (message)
             {
