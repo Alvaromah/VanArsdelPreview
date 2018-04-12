@@ -23,6 +23,7 @@ namespace VanArsdel.Inventory
             serviceCollection.AddSingleton<IMessageService, MessageService>();
             serviceCollection.AddSingleton<ILogService, LogService>();
 
+            serviceCollection.AddScoped<IContext, Context>();
             serviceCollection.AddScoped<INavigationService, NavigationService>();
             serviceCollection.AddScoped<IDialogService, DialogService>();
             serviceCollection.AddScoped<IServiceManager, ServiceManager>();

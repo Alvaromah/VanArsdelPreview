@@ -1,6 +1,5 @@
 ﻿using System;
 
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
@@ -15,11 +14,18 @@ namespace VanArsdel.Inventory.Views
         public ShellView()
         {
             ViewModel = ServiceLocator.Current.GetService<ShellViewModel>();
+            InitializeContext();
             InitializeComponent();
             InitializeNavigation();
         }
 
         public ShellViewModel ViewModel { get; private set; }
+
+        private void InitializeContext()
+        {
+            var context = ServiceLocator.Current.GetService<IContext>();
+            context.Initialize(ApplicationView.GetForCurrentView().Id, Dispatcher);
+        }
 
         private void InitializeNavigation()
         {
