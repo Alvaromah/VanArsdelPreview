@@ -37,15 +37,15 @@ We're storing here the configuration of the application. It's the natural folder
 
 In this folder we can also find classes that determine the configuration (the behavior) of all the application, like the ServiceLocator and the Startup classes. They are part of the configuration because switching some implementations inside them, we can easily extend our app, since where are using Dependency Injection. Let's say that the configuration is the part of the application that we expect to change or would like to be able to change that is not part of the design.
 
-# Controls
+### Controls
 
 In this folder we will find custom controls, abstractions that are directly related with the User Interface. *IconButtons*, *IconLabels*, *Search* controls.
 
 It's the place to put anything that inherits from the *Control* class, like *UserControls*.
 
-# Converters
+### Converters
 
-It's the folder that contains all the converters in the solution. Converters are specific classes to convert between 2 types of data. 
+It's the folder that contains all the converters in the solution. Converters are specific classes to convert between 2 types of data. This folder is quite common to find in UWP applications.
 
 You may already know converters from other technologies like *WPF* or *Silverlight*. 
 
@@ -94,4 +94,75 @@ public sealed class DateTimeFormatConverter : IValueConverter
 }
 ```
 
-Please, notice that the ConvertBack isn't possible in this case, so the ConvertBack method will raise an exception when called. 
+Please, notice that conversion is only applicable in one direction. That's why the ConvertBack method is intentionally raising an exception when called. 
+
+### DataProviders
+
+This folder contains the different Data Providers from which the application can load/store its data. It also contains the interfaces and a static factory that selects the Data Provider to be used depending on the configuration.
+
+Currently, there are these providers available:
+- **SQLite Provider.** Manages data using SQLite.
+- **SQL Server Provider.** Manages Data using SQL Server.
+
+### Extensions
+
+Extensions is a well-known folder for C# projects. It contains holder clases with **extensions methods**.
+
+### Models
+
+It contains entities that are designated to be bound to components of the user interface. In order words, they are the View Model counterpart of the data classes in the VanArsdel.Data project.
+
+The main characteristic of these classes is that they implement the `INotifyPropertyChanged` interface to notify changes in their properties. This is essential for Bindings to work. Each time a change is produced in a model classes, we raise a nofication so the user interface is updated according to the changes. 
+
+As you will see, Model classes derive from ModelBase, the class that encapsulates the implementation of `INotifyPropertyChanged`.
+
+### Services
+
+The Services folder contains all the application services that aren't directly related to the data access. Inside you will find facilities like the Navigation Service, the Log Service, the Dialog Service and others. 
+
+Notice that most of the are related to the user interface. This happens very often: Specially when we use MVVM, we have to build services. Their goal is to decouple the UI from the underlying model, using View Models. Those View Models will be the ones that, in the end, will have to deal with view specific features, like Dialogs or Navigation.
+
+For isntance, a View Model will know nothing about how the navigation is handled in the Universal Windows Platform. It will only know that there is a service, Navigation Service, that exposes methods to navigate to other View Models. This is essential how we have to think when have to interact with the UI specific features. Just follow rule #1 in MVVM: Don't add references to anything coming from the UI into your View Models.
+
+For more information about the MVVM pattern, go to [the dedicated section](../mvvm).
+
+### Styles
+
+This is a well-known feature folder for Universal Applications. It contains Styles defined in XAML that are applied in the controls, at UI level. The Styles are grouped inside Resource Dictionaries. There you will find .xaml files named after the control they targeted. For example, Buttons.xaml contains the Resource Dictionary having all the Styles applied to `Buttons`
+
+### Themes 
+
+It's similar to the previous one. It also contains Styles. This folder is somewhat special because it contains the Generic.xaml, a Resource Dictionary that sometimes acts as a the master Resource Dictionary of the application.
+
+Generic.xaml is basically another Resource Dictionary. We can use composition with them, so we can make a Resource Dictionary composed by several others using a syntax like this in the XAML
+
+```
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Themes/Controls/Buttons.xaml" />
+        <ResourceDictionary Source="ms-appx:///Themes/Controls/Inputs.xaml" />
+        <ResourceDictionary Source="ms-appx:///Themes/Controls/Section.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+```
+
+Every dictionary that is inside MergedDictionaries will be part of the root dictionary.
+
+If you want to know more about Resource Dictionaries and Resources in general, please, check more about the topic [here](https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/resourcedictionary-and-xaml-resource-references)
+
+### Tools
+
+Here you will find utility classes that are providing core funtionality for the UI that don't adhere to any of the existing folders and aren't related to any specific feature.
+
+### ViewModels
+
+The ViewModels folder is the folder that will contain all the View Models of the application. It's a feature folder, that means that it will contain a folder per main feature, like *Dashboard*, *Login*, *Orders* and so on. Normally, each class will target a specific view, so if we have a View called CustomersView, we will have an associated View Model called CustomersViewModel. Classes in the Models folder are also View Models, like the ones in this folder, but in this folder you will find the ones that are View-oriented. Models are entity-oriented View Models.
+
+The classes here also implement `INotifyPropertyChanged` to communicate with the views and there is also a View Model base (`ModelBase`)
+
+### Views
+
+This folder is the one that stores all the definions of the Views. These definitions are commonly written in XAML. Views are usually `Pages`, but here you can find more granular components, like UserControls. 
+
+We are using composition to define our Views, and we decided to place the components of each view (UserControls) close to the view that contains them. For example: The CustomersView has 2 differentiated parts: The List and the Details. At the same time, the Details part is composed by the Card, the Details itself and the Orders part. This is represented as a folder/component hierarchy. You can appreciate it in the image below.
+
+![Customersview Folder](../img/customersview-folder.png)

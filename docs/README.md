@@ -30,9 +30,9 @@
     - Access Keys 
 - [Van Arsdel Inventory Architecture](chapters/architecture/architecture.md)
     - Description 
-    - Solution Structure
+    - [Solution Structure](chapters/architecture/structure)
     - Authentication and Authorization
-    - Navigation
+    - [Navigation](chapters/architecture/navigation)
     - Difference between Data Source Models and App Models
     - [Data Access](chapters/architecture/dataaccess.md#data-access)
         - [Data Providers](chapters/architecture/dataaccess.md#data-providers)
